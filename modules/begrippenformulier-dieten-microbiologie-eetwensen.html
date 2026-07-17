@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Begrippen oefenen – Diëten, Microbiologie & Eetwensen</title>
+  <style>
+    :root {
+      --bg: #f4f7f6;
+      --surface: #ffffff;
+      --surface-soft: #eef5f2;
+      --text: #1f2d2a;
+      --muted: #5f6f6a;
+      --border: #cfdad6;
+      --primary: #1f6f5f;
+      --primary-dark: #174f45;
+      --focus: #ffbf47;
+      --good: #2f7d32;
+      --good-bg: #e9f6ea;
+      --doubt: #9a6700;
+      --doubt-bg: #fff5d8;
+      --practice: #a33a2b;
+      --practice-bg: #fdebe8;
+      --info-bg: #edf5ff;
+      --info-border: #96b9df;
+      --shadow: 0 8px 24px rgba(22, 52, 45, 0.08);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.55;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      min-height: 44px;
+    }
+
+    button,
+    .button-link {
+      border: 0;
+      border-radius: 12px;
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      font-weight: 700;
+      transition: transform 0.12s ease, background 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible,
+    select:focus-visible,
+    summary:focus-visible {
+      outline: 4px solid var(--focus);
+      outline-offset: 3px;
+    }
+
+    button:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .secondary {
+      background: white;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .danger {
+      background: #8c2f23;
+      color: white;
+    }
+
+    .screen {
+      display: none;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    .page-shell {
+      width: min(1120px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 2rem 0 4rem;
+    }
+
+    .start-card,
+    .summary-card {
+      max-width: 760px;
+      margin: 4rem auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: clamp(1.5rem, 4vw, 3rem);
+    }
+
+    .eyebrow {
+      margin: 0 0 0.5rem;
+      color: var(--primary);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 0.85rem;
+    }
+
+    h1, h2, h3 {
+      line-height: 1.2;
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+    }
+
+    .lead {
+      font-size: 1.1rem;
+      color: var(--muted);
+    }
+
+    .facts {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      margin: 2rem 0;
+    }
+
+    .fact {
+      background: var(--surface-soft);
+      border-radius: 14px;
+      padding: 1rem;
+    }
+
+    .fact strong {
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(244, 247, 246, 0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .topbar-inner {
+      width: min(1120px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 0.8rem 0;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .topbar-title {
+      font-weight: 800;
+    }
+
+    .progress-wrap {
+      min-width: min(360px, 100%);
+      flex: 1;
+    }
+
+    .progress-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.35rem;
+      font-size: 0.92rem;
+    }
+
+    .progress-track {
+      height: 12px;
+      background: #dce7e3;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: var(--primary);
+      transition: width 0.2s ease;
+    }
+
+    .hero {
+      margin: 2rem 0 1rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      margin-bottom: 0.7rem;
+    }
+
+    .instruction {
+      background: var(--info-bg);
+      border: 2px solid var(--info-border);
+      border-radius: 16px;
+      padding: 1rem 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .student-fields {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(150px, 1fr));
+      gap: 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 1.5rem;
+    }
+
+    .field label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .field input {
+      width: 100%;
+      border: 1px solid #9fb1aa;
+      border-radius: 10px;
+      padding: 0.7rem 0.8rem;
+      background: white;
+      color: var(--text);
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) minmax(180px, 240px);
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .toolbar label {
+      font-weight: 700;
+      display: block;
+      margin-bottom: 0.35rem;
+    }
+
+    .toolbar input,
+    .toolbar select {
+      width: 100%;
+      border: 1px solid #9fb1aa;
+      border-radius: 10px;
+      padding: 0.7rem 0.8rem;
+      background: white;
+      color: var(--text);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(120px, 1fr));
+      gap: 0.75rem;
+      margin: 1rem 0 1.5rem;
+    }
+
+    .stat {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 0.9rem;
+      text-align: center;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.45rem;
+    }
+
+    .cards {
+      display: grid;
+      gap: 1.25rem;
+    }
+
+    .term-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.25rem;
+      scroll-margin-top: 120px;
+    }
+
+    .term-card.status-good {
+      border-left: 7px solid var(--good);
+    }
+
+    .term-card.status-doubt {
+      border-left: 7px solid var(--doubt);
+    }
+
+    .term-card.status-practice {
+      border-left: 7px solid var(--practice);
+    }
+
+    .term-heading {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .term-heading h2 {
+      margin: 0;
+      font-size: 1.35rem;
+    }
+
+    .term-number {
+      color: var(--muted);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .answer-label {
+      display: block;
+      font-weight: 800;
+      margin-bottom: 0.45rem;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 130px;
+      resize: vertical;
+      border: 1px solid #8fa39b;
+      border-radius: 12px;
+      padding: 0.9rem;
+      color: var(--text);
+      background: white;
+    }
+
+    .status-group {
+      margin: 1rem 0;
+      padding: 0;
+      border: 0;
+    }
+
+    .status-group legend {
+      font-weight: 800;
+      margin-bottom: 0.55rem;
+    }
+
+    .status-options {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(150px, 1fr));
+      gap: 0.65rem;
+    }
+
+    .status-option {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      min-height: 48px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.7rem;
+      cursor: pointer;
+      background: #fafcfc;
+    }
+
+    .status-option input {
+      min-height: auto;
+      width: 20px;
+      height: 20px;
+      accent-color: var(--primary);
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .toggle-explanation {
+      background: var(--primary);
+      color: white;
+    }
+
+    .explanation {
+      margin-top: 1rem;
+      padding: 1rem;
+      border: 2px solid var(--info-border);
+      border-radius: 14px;
+      background: var(--info-bg);
+    }
+
+    .explanation[hidden] {
+      display: none;
+    }
+
+    .explanation strong {
+      display: block;
+      margin-bottom: 0.35rem;
+    }
+
+    .action-panel {
+      margin-top: 2rem;
+      display: grid;
+      gap: 0.75rem;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem;
+      box-shadow: var(--shadow);
+    }
+
+    .autosave-note,
+    .live-message {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .empty-state {
+      display: none;
+      text-align: center;
+      background: var(--surface);
+      border: 1px dashed #83968f;
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin-top: 1rem;
+    }
+
+    .empty-state.active {
+      display: block;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(140px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .summary-item {
+      border-radius: 14px;
+      padding: 1rem;
+      text-align: center;
+      border: 1px solid var(--border);
+    }
+
+    .summary-item.good {
+      background: var(--good-bg);
+    }
+
+    .summary-item.doubt {
+      background: var(--doubt-bg);
+    }
+
+    .summary-item.practice {
+      background: var(--practice-bg);
+    }
+
+    .summary-item strong {
+      display: block;
+      font-size: 2rem;
+    }
+
+    .summary-actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .visually-hidden {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important;
+      white-space: nowrap !important;
+      border: 0 !important;
+    }
+
+    @media (max-width: 900px) {
+      .student-fields {
+        grid-template-columns: repeat(2, minmax(150px, 1fr));
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, minmax(120px, 1fr));
+      }
+    }
+
+    @media (max-width: 680px) {
+      .page-shell,
+      .topbar-inner {
+        width: min(100% - 1rem, 1120px);
+      }
+
+      .page-shell {
+        padding-top: 1rem;
+      }
+
+      .start-card,
+      .summary-card {
+        margin: 1rem auto;
+        border-radius: 14px;
+      }
+
+      .student-fields,
+      .toolbar,
+      .status-options,
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .term-card {
+        padding: 1rem;
+      }
+
+      .term-heading {
+        display: block;
+      }
+
+      .term-number {
+        display: block;
+        margin-top: 0.35rem;
+      }
+
+      .action-panel {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+        color: black;
+      }
+
+      .topbar,
+      .toolbar,
+      .action-panel,
+      .start-card,
+      .summary-card,
+      .toggle-explanation,
+      .autosave-note,
+      .live-message,
+      .empty-state {
+        display: none !important;
+      }
+
+      .screen {
+        display: block !important;
+      }
+
+      .page-shell {
+        width: 100%;
+        padding: 0;
+      }
+
+      .hero {
+        margin-top: 0;
+      }
+
+      .student-fields,
+      .term-card,
+      .instruction,
+      .stat {
+        box-shadow: none;
+      }
+
+      .term-card {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        margin-bottom: 1rem;
+      }
+
+      .explanation {
+        display: block !important;
+        color: black;
+        background: white;
+        border: 1px solid #777;
+      }
+
+      textarea {
+        min-height: 90px;
+        border: 1px solid #777;
+      }
+
+      .status-options {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section id="startScreen" class="screen active" aria-labelledby="startTitle">
+    <div class="page-shell">
+      <div class="start-card">
+        <p class="eyebrow">Academy Oefenplein</p>
+        <h1 id="startTitle">Begrippen oefenen</h1>
+        <p class="lead">Diëten, Microbiologie &amp; Eetwensen</p>
+
+        <div class="facts" aria-label="Informatie over de oefening">
+          <div class="fact">
+            <strong>Leerdoel</strong>
+            Leg 30 belangrijke begrippen uit in je eigen woorden.
+          </div>
+          <div class="fact">
+            <strong>Duur</strong>
+            Ongeveer 20–30 minuten.
+          </div>
+          <div class="fact">
+            <strong>Werkwijze</strong>
+            Eerst zelf uitleggen, daarna vergelijken.
+          </div>
+        </div>
+
+        <p>Je antwoorden worden automatisch op dit apparaat bewaard. Je kunt dus later verdergaan.</p>
+        <button id="startButton" class="primary" type="button">Start oefenen</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="exerciseScreen" class="screen" aria-labelledby="pageTitle">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="topbar-title">Begrippenformulier</div>
+        <div class="progress-wrap" aria-label="Voortgang">
+          <div class="progress-row">
+            <span id="progressText">0 van 30 ingevuld</span>
+            <span id="progressPercent">0%</span>
+          </div>
+          <div class="progress-track" aria-hidden="true">
+            <div id="progressBar" class="progress-bar"></div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-shell">
+      <div class="hero">
+        <p class="eyebrow">Lesmodule</p>
+        <h1 id="pageTitle">Diëten, Microbiologie &amp; Eetwensen</h1>
+      </div>
+
+      <div class="instruction">
+        <strong>Opdracht:</strong>
+        Schrijf bij ieder begrip in je eigen woorden wat het betekent. Klik daarna op
+        <strong>‘Toon uitleg’</strong> om jouw antwoord te vergelijken met de officiële uitleg.
+        Probeer eerst zelf na te denken voordat je de uitleg opent.
+      </div>
+
+      <section class="student-fields" aria-labelledby="studentDataTitle">
+        <h2 id="studentDataTitle" class="visually-hidden">Studentgegevens</h2>
+
+        <div class="field">
+          <label for="studentName">Naam student</label>
+          <input id="studentName" type="text" autocomplete="name">
+        </div>
+
+        <div class="field">
+          <label for="studentClass">Klas</label>
+          <input id="studentClass" type="text">
+        </div>
+
+        <div class="field">
+          <label for="studentDate">Datum</label>
+          <input id="studentDate" type="date">
+        </div>
+
+        <div class="field">
+          <label for="studentLesson">Les</label>
+          <input id="studentLesson" type="text" value="Diëten, Microbiologie & Eetwensen">
+        </div>
+
+        <div class="field">
+          <label for="studentTeacher">Docent</label>
+          <input id="studentTeacher" type="text">
+        </div>
+      </section>
+
+      <section class="toolbar" aria-label="Zoeken en filteren">
+        <div>
+          <label for="searchInput">Zoek een begrip</label>
+          <input id="searchInput" type="search" placeholder="Bijvoorbeeld: salmonella">
+        </div>
+
+        <div>
+          <label for="statusFilter">Filter op zelfbeoordeling</label>
+          <select id="statusFilter">
+            <option value="all">Alles tonen</option>
+            <option value="good">Ik ken dit goed</option>
+            <option value="doubt">Ik twijfel nog</option>
+            <option value="practice">Ik moet dit nog oefenen</option>
+            <option value="unrated">Nog niet beoordeeld</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="stats" aria-label="Overzicht voortgang">
+        <div class="stat"><strong id="statFilled">0</strong>ingevuld</div>
+        <div class="stat"><strong id="statGood">0</strong>ken ik goed</div>
+        <div class="stat"><strong id="statDoubt">0</strong>twijfel</div>
+        <div class="stat"><strong id="statPractice">0</strong>nog oefenen</div>
+      </section>
+
+      <p class="autosave-note">Automatisch opslaan is actief.</p>
+      <p id="liveMessage" class="live-message" role="status" aria-live="polite"></p>
+
+      <section id="cardsContainer" class="cards" aria-label="Begrippen"></section>
+
+      <div id="emptyState" class="empty-state">
+        <h2>Geen begrippen gevonden</h2>
+        <p>Pas je zoekwoord of filter aan.</p>
+        <button id="resetFiltersButton" class="secondary" type="button">Filters wissen</button>
+      </div>
+
+      <section class="action-panel" aria-label="Formulieracties">
+        <button id="showAllButton" class="secondary" type="button">Alle uitleg tonen</button>
+        <button id="hideAllButton" class="secondary" type="button">Alle uitleg verbergen</button>
+        <button id="saveButton" class="secondary" type="button">Antwoorden opslaan</button>
+        <button id="exportButton" class="secondary" type="button">Antwoorden exporteren</button>
+        <button id="printButton" class="secondary" type="button">Formulier afdrukken</button>
+        <button id="finishButton" class="primary" type="button">Bekijk mijn overzicht</button>
+        <button id="clearButton" class="danger" type="button">Antwoorden wissen</button>
+      </section>
+    </main>
+  </section>
+
+  <section id="summaryScreen" class="screen" aria-labelledby="summaryTitle">
+    <div class="page-shell">
+      <div class="summary-card">
+        <p class="eyebrow">Eindoverzicht</p>
+        <h1 id="summaryTitle">Jouw begrippenoverzicht</h1>
+        <p id="summaryFilledText" class="lead"></p>
+
+        <div class="summary-grid">
+          <div class="summary-item good">
+            <strong id="summaryGood">0</strong>
+            Ken ik goed
+          </div>
+          <div class="summary-item doubt">
+            <strong id="summaryDoubt">0</strong>
+            Twijfel nog
+          </div>
+          <div class="summary-item practice">
+            <strong id="summaryPractice">0</strong>
+            Nog oefenen
+          </div>
+        </div>
+
+        <div id="summaryAdvice" class="instruction"></div>
+
+        <div class="summary-actions">
+          <button id="backToFormButton" class="primary" type="button">Terug naar formulier</button>
+          <button id="summaryPrintButton" class="secondary" type="button">Formulier afdrukken</button>
+          <button id="restartButton" class="danger" type="button">Opnieuw beginnen</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    "use strict";
+
+    const STORAGE_KEY = "academy-oefenplein-begrippen-dieten-microbiologie-eetwensen-v1";
+
+    const terms = [
+      { term: "Dieet", explanation: "Een dieet is een aangepaste manier van eten die is afgestemd op een bepaald doel of een specifieke behoefte." },
+      { term: "Eetwens", explanation: "Een eetwens is een persoonlijke voorkeur of overtuiging die bepaalt welke voedingsmiddelen iemand wel of niet eet." },
+      { term: "Vegetarisch", explanation: "Vegetarisch betekent dat iemand geen vlees of vis eet." },
+      { term: "Veganistisch", explanation: "Veganistisch betekent dat iemand geen dierlijke producten eet." },
+      { term: "Halal", explanation: "Halal betekent dat voeding voldoet aan islamitische voedingsregels." },
+      { term: "Koosjer", explanation: "Koosjer betekent dat voeding voldoet aan de Joodse spijswetten." },
+      { term: "Koolhydraatarm dieet", explanation: "Een koolhydraatarm dieet is een dieet waarbij minder koolhydraten worden gegeten." },
+      { term: "Eiwitrijk dieet", explanation: "Een eiwitrijk dieet is een dieet met een verhoogde hoeveelheid eiwitten." },
+      { term: "Zoutarm dieet", explanation: "Een zoutarm dieet is een dieet waarbij de hoeveelheid zout wordt beperkt." },
+      { term: "Energiebeperkt dieet", explanation: "Een energiebeperkt dieet is een dieet waarbij minder energie of calorieën worden gegeten." },
+      { term: "Microbiologie", explanation: "Microbiologie is de wetenschap die micro-organismen bestudeert." },
+      { term: "Micro-organisme", explanation: "Een micro-organisme is een zeer klein organisme dat niet met het blote oog zichtbaar is." },
+      { term: "Bacterie", explanation: "Een bacterie is een eencellig micro-organisme dat nuttig of schadelijk kan zijn." },
+      { term: "Gist", explanation: "Gist is een micro-organisme dat suikers kan omzetten in koolzuur en alcohol." },
+      { term: "Schimmel", explanation: "Een schimmel is een micro-organisme dat nuttig kan zijn bij voedselproductie, maar voedsel ook kan bederven." },
+      { term: "Virus", explanation: "Een virus is een zeer klein ziekteverwekkend deeltje dat zich alleen in levende cellen kan vermenigvuldigen." },
+      { term: "Goede micro-organismen", explanation: "Goede micro-organismen zijn micro-organismen die nuttig worden gebruikt bij de productie van voedingsmiddelen." },
+      { term: "Schadelijke micro-organismen", explanation: "Schadelijke micro-organismen kunnen voedsel bederven of mensen ziek maken." },
+      { term: "Voedselveiligheid", explanation: "Voedselveiligheid is het geheel van maatregelen om voedsel veilig te bereiden, bewaren en serveren." },
+      { term: "Besmetting", explanation: "Besmetting is het terechtkomen van schadelijke micro-organismen of andere ongewenste stoffen in voedsel." },
+      { term: "Kruisbesmetting", explanation: "Kruisbesmetting ontstaat wanneer micro-organismen van een product, persoon of materiaal op een ander product worden overgebracht." },
+      { term: "Gevarenzone", explanation: "De gevarenzone is het temperatuurgebied waarin bacteriën zich snel kunnen vermenigvuldigen." },
+      { term: "Groei van bacteriën", explanation: "De groei van bacteriën is de vermenigvuldiging van bacteriën onder gunstige omstandigheden, zoals voldoende vocht, voedsel, tijd en een geschikte temperatuur." },
+      { term: "Voedselvergiftiging", explanation: "Voedselvergiftiging is ziekte die ontstaat door het eten van besmet voedsel of door gifstoffen die micro-organismen in voedsel hebben gevormd." },
+      { term: "Salmonella", explanation: "Salmonella is een schadelijke bacterie die voedselinfecties kan veroorzaken en onder andere kan voorkomen in rauwe eieren en onvoldoende verhit gevogelte." },
+      { term: "Listeria", explanation: "Listeria is een bacterie die ook bij koelkasttemperaturen kan groeien en vooral gevaarlijk kan zijn voor kwetsbare groepen." },
+      { term: "Campylobacter", explanation: "Campylobacter is een bacterie die vaak voorkomt op rauw gevogelte en een voedselinfectie kan veroorzaken." },
+      { term: "Klantgericht aanpassen van gerechten", explanation: "Klantgericht aanpassen van gerechten betekent dat ingrediënten of recepturen worden aangepast aan de dieetwensen en eetwensen van een klant." },
+      { term: "Productkeuze", explanation: "Productkeuze is het selecteren van ingrediënten die passen bij het gerecht en bij de wensen, behoeften en veiligheid van de klant." },
+      { term: "Klantadvies", explanation: "Klantadvies is het geven van duidelijke en passende informatie over gerechten, ingrediënten, diëten en eetwensen." }
+    ];
+
+    const defaultState = {
+      student: {
+        name: "",
+        className: "",
+        date: "",
+        lesson: "Diëten, Microbiologie & Eetwensen",
+        teacher: ""
+      },
+      answers: {},
+      statuses: {},
+      explanationsOpen: {}
+    };
+
+    let state = loadState();
+
+    const startScreen = document.getElementById("startScreen");
+    const exerciseScreen = document.getElementById("exerciseScreen");
+    const summaryScreen = document.getElementById("summaryScreen");
+    const cardsContainer = document.getElementById("cardsContainer");
+    const liveMessage = document.getElementById("liveMessage");
+    const emptyState = document.getElementById("emptyState");
+
+    function loadState() {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (!stored) return structuredClone(defaultState);
+        const parsed = JSON.parse(stored);
+        return {
+          student: { ...defaultState.student, ...(parsed.student || {}) },
+          answers: parsed.answers || {},
+          statuses: parsed.statuses || {},
+          explanationsOpen: parsed.explanationsOpen || {}
+        };
+      } catch (error) {
+        console.warn("Opgeslagen gegevens konden niet worden geladen.", error);
+        return structuredClone(defaultState);
+      }
+    }
+
+    function saveState(message = "") {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        if (message) announce(message);
+      } catch (error) {
+        console.error("Opslaan is mislukt.", error);
+        announce("Opslaan is mislukt. Controleer de browserinstellingen.");
+      }
+    }
+
+    function announce(message) {
+      liveMessage.textContent = message;
+      window.clearTimeout(announce.timeout);
+      announce.timeout = window.setTimeout(() => {
+        liveMessage.textContent = "";
+      }, 2500);
+    }
+
+    function showScreen(screen) {
+      [startScreen, exerciseScreen, summaryScreen].forEach(item => item.classList.remove("active"));
+      screen.classList.add("active");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function renderCards() {
+      cardsContainer.innerHTML = "";
+
+      terms.forEach((item, index) => {
+        const id = `term-${index + 1}`;
+        const card = document.createElement("article");
+        card.className = "term-card";
+        card.dataset.term = item.term.toLowerCase();
+        card.dataset.status = state.statuses[id] || "unrated";
+        card.id = id;
+
+        applyStatusClass(card, state.statuses[id]);
+
+        card.innerHTML = `
+          <div class="term-heading">
+            <h2>${escapeHtml(item.term)}</h2>
+            <span class="term-number">Begrip ${index + 1} van ${terms.length}</span>
+          </div>
+
+          <label class="answer-label" for="${id}-answer">Mijn uitleg in eigen woorden</label>
+          <textarea
+            id="${id}-answer"
+            data-answer-id="${id}"
+            placeholder="Schrijf hier wat dit begrip volgens jou betekent..."
+          ></textarea>
+
+          <fieldset class="status-group">
+            <legend>Hoe goed ken je dit begrip?</legend>
+            <div class="status-options">
+              <label class="status-option">
+                <input type="radio" name="${id}-status" value="good">
+                <span>Ik ken dit begrip goed</span>
+              </label>
+              <label class="status-option">
+                <input type="radio" name="${id}-status" value="doubt">
+                <span>Ik twijfel nog</span>
+              </label>
+              <label class="status-option">
+                <input type="radio" name="${id}-status" value="practice">
+                <span>Ik moet dit nog oefenen</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="card-actions">
+            <button
+              type="button"
+              class="toggle-explanation"
+              aria-expanded="false"
+              aria-controls="${id}-explanation"
+            >
+              Toon uitleg
+            </button>
+          </div>
+
+          <div id="${id}-explanation" class="explanation" hidden>
+            <strong>Officiële uitleg</strong>
+            <span>${escapeHtml(item.explanation)}</span>
+          </div>
+        `;
+
+        cardsContainer.appendChild(card);
+
+        const textarea = card.querySelector("textarea");
+        textarea.value = state.answers[id] || "";
+
+        textarea.addEventListener("input", event => {
+          state.answers[id] = event.target.value;
+          saveState();
+          updateProgress();
+        });
+
+        const savedStatus = state.statuses[id];
+        if (savedStatus) {
+          const radio = card.querySelector(`input[value="${savedStatus}"]`);
+          if (radio) radio.checked = true;
+        }
+
+        card.querySelectorAll('input[type="radio"]').forEach(radio => {
+          radio.addEventListener("change", event => {
+            state.statuses[id] = event.target.value;
+            card.dataset.status = event.target.value;
+            applyStatusClass(card, event.target.value);
+            saveState();
+            updateProgress();
+            filterCards();
+          });
+        });
+
+        const toggleButton = card.querySelector(".toggle-explanation");
+        const explanation = card.querySelector(".explanation");
+
+        if (state.explanationsOpen[id]) {
+          explanation.hidden = false;
+          toggleButton.textContent = "Verberg uitleg";
+          toggleButton.setAttribute("aria-expanded", "true");
+        }
+
+        toggleButton.addEventListener("click", () => {
+          const willOpen = explanation.hidden;
+          explanation.hidden = !willOpen;
+          toggleButton.textContent = willOpen ? "Verberg uitleg" : "Toon uitleg";
+          toggleButton.setAttribute("aria-expanded", String(willOpen));
+          state.explanationsOpen[id] = willOpen;
+          saveState();
+        });
+      });
+
+      updateProgress();
+      filterCards();
+    }
+
+    function escapeHtml(text) {
+      return text.replace(/[&<>"']/g, character => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+      })[character]);
+    }
+
+    function applyStatusClass(card, status) {
+      card.classList.remove("status-good", "status-doubt", "status-practice");
+      if (status) card.classList.add(`status-${status}`);
+    }
+
+    function updateProgress() {
+      const answers = terms.map((_, index) => (state.answers[`term-${index + 1}`] || "").trim());
+      const filled = answers.filter(Boolean).length;
+      const percent = Math.round((filled / terms.length) * 100);
+
+      const statusValues = Object.values(state.statuses);
+      const good = statusValues.filter(value => value === "good").length;
+      const doubt = statusValues.filter(value => value === "doubt").length;
+      const practice = statusValues.filter(value => value === "practice").length;
+
+      document.getElementById("progressText").textContent = `${filled} van ${terms.length} ingevuld`;
+      document.getElementById("progressPercent").textContent = `${percent}%`;
+      document.getElementById("progressBar").style.width = `${percent}%`;
+
+      document.getElementById("statFilled").textContent = filled;
+      document.getElementById("statGood").textContent = good;
+      document.getElementById("statDoubt").textContent = doubt;
+      document.getElementById("statPractice").textContent = practice;
+    }
+
+    function bindStudentFields() {
+      const fields = {
+        studentName: "name",
+        studentClass: "className",
+        studentDate: "date",
+        studentLesson: "lesson",
+        studentTeacher: "teacher"
+      };
+
+      Object.entries(fields).forEach(([elementId, stateKey]) => {
+        const element = document.getElementById(elementId);
+        element.value = state.student[stateKey] || "";
+
+        element.addEventListener("input", event => {
+          state.student[stateKey] = event.target.value;
+          saveState();
+        });
+      });
+
+      if (!state.student.date) {
+        const today = new Date();
+        const localDate = new Date(today.getTime() - today.getTimezoneOffset() * 60000)
+          .toISOString()
+          .slice(0, 10);
+        state.student.date = localDate;
+        document.getElementById("studentDate").value = localDate;
+        saveState();
+      }
+    }
+
+    function filterCards() {
+      const query = document.getElementById("searchInput").value.trim().toLowerCase();
+      const status = document.getElementById("statusFilter").value;
+      let visibleCount = 0;
+
+      document.querySelectorAll(".term-card").forEach(card => {
+        const matchesQuery = card.dataset.term.includes(query);
+        const matchesStatus = status === "all" || card.dataset.status === status;
+        const visible = matchesQuery && matchesStatus;
+        card.hidden = !visible;
+        if (visible) visibleCount += 1;
+      });
+
+      emptyState.classList.toggle("active", visibleCount === 0);
+    }
+
+    function setAllExplanations(open) {
+      document.querySelectorAll(".term-card").forEach((card, index) => {
+        const id = `term-${index + 1}`;
+        const explanation = card.querySelector(".explanation");
+        const button = card.querySelector(".toggle-explanation");
+        explanation.hidden = !open;
+        button.textContent = open ? "Verberg uitleg" : "Toon uitleg";
+        button.setAttribute("aria-expanded", String(open));
+        state.explanationsOpen[id] = open;
+      });
+
+      saveState(open ? "Alle uitleg is zichtbaar." : "Alle uitleg is verborgen.");
+    }
+
+    function clearAllData(confirmMessage) {
+      const confirmed = window.confirm(confirmMessage);
+      if (!confirmed) return false;
+
+      state = structuredClone(defaultState);
+      localStorage.removeItem(STORAGE_KEY);
+      bindStudentFields();
+      renderCards();
+      document.getElementById("searchInput").value = "";
+      document.getElementById("statusFilter").value = "all";
+      updateProgress();
+      announce("Alle antwoorden zijn gewist.");
+      return true;
+    }
+
+    function calculateSummary() {
+      const filled = terms.filter((_, index) => (state.answers[`term-${index + 1}`] || "").trim()).length;
+      const statusValues = Object.values(state.statuses);
+      return {
+        filled,
+        good: statusValues.filter(value => value === "good").length,
+        doubt: statusValues.filter(value => value === "doubt").length,
+        practice: statusValues.filter(value => value === "practice").length
+      };
+    }
+
+    function showSummary() {
+      saveState();
+      const summary = calculateSummary();
+      const empty = terms.length - summary.filled;
+
+      document.getElementById("summaryFilledText").textContent =
+        `${summary.filled} van de ${terms.length} begrippen zijn ingevuld.`;
+
+      document.getElementById("summaryGood").textContent = summary.good;
+      document.getElementById("summaryDoubt").textContent = summary.doubt;
+      document.getElementById("summaryPractice").textContent = summary.practice;
+
+      let advice = "";
+      if (summary.practice > 0) {
+        advice = `Oefen vooral de ${summary.practice} begrippen die je als ‘nog oefenen’ hebt gemarkeerd.`;
+      } else if (summary.doubt > 0) {
+        advice = `Bekijk de ${summary.doubt} begrippen waarover je nog twijfelt nog een keer.`;
+      } else if (summary.good === terms.length) {
+        advice = "Je hebt alle begrippen als ‘ken ik goed’ gemarkeerd. Controleer jezelf nog één keer zonder de officiële uitleg.";
+      } else {
+        advice = "Beoordeel bij ieder begrip ook hoe goed je het kent. Zo zie je welke begrippen extra aandacht nodig hebben.";
+      }
+
+      if (empty > 0) {
+        advice += ` Je hebt nog ${empty} ${empty === 1 ? "begrip" : "begrippen"} niet ingevuld.`;
+      }
+
+      document.getElementById("summaryAdvice").textContent = advice;
+      showScreen(summaryScreen);
+    }
+
+    function exportAnswers() {
+      const exportData = {
+        module: {
+          id: "begrippen-dieten-microbiologie-eetwensen",
+          title: "Diëten, Microbiologie & Eetwensen",
+          exportedAt: new Date().toISOString()
+        },
+        student: state.student,
+        terms: terms.map((item, index) => {
+          const id = `term-${index + 1}`;
+          return {
+            number: index + 1,
+            term: item.term,
+            answer: state.answers[id] || "",
+            selfAssessment: state.statuses[id] || "niet-beoordeeld",
+            officialExplanation: item.explanation
+          };
+        })
+      };
+
+      const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const safeName = (state.student.name || "student").trim().replace(/[^a-zA-Z0-9_-]+/g, "-").toLowerCase();
+      const anchor = document.createElement("a");
+      anchor.href = url;
+      anchor.download = `begrippenformulier-${safeName || "student"}.json`;
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+      URL.revokeObjectURL(url);
+      announce("De antwoorden zijn geëxporteerd.");
+    }
+
+    function printForm() {
+      const summary = calculateSummary();
+      const empty = terms.length - summary.filled;
+
+      if (empty > 0) {
+        const proceed = window.confirm(
+          `Je hebt nog ${empty} ${empty === 1 ? "begrip" : "begrippen"} niet ingevuld. Toch afdrukken?`
+        );
+        if (!proceed) return;
+      }
+
+      window.print();
+    }
+
+    document.getElementById("startButton").addEventListener("click", () => {
+      showScreen(exerciseScreen);
+      document.getElementById("studentName").focus();
+    });
+
+    document.getElementById("searchInput").addEventListener("input", filterCards);
+    document.getElementById("statusFilter").addEventListener("change", filterCards);
+
+    document.getElementById("resetFiltersButton").addEventListener("click", () => {
+      document.getElementById("searchInput").value = "";
+      document.getElementById("statusFilter").value = "all";
+      filterCards();
+      document.getElementById("searchInput").focus();
+    });
+
+    document.getElementById("showAllButton").addEventListener("click", () => setAllExplanations(true));
+    document.getElementById("hideAllButton").addEventListener("click", () => setAllExplanations(false));
+    document.getElementById("saveButton").addEventListener("click", () => saveState("Alle antwoorden zijn opgeslagen."));
+    document.getElementById("exportButton").addEventListener("click", exportAnswers);
+    document.getElementById("printButton").addEventListener("click", printForm);
+    document.getElementById("summaryPrintButton").addEventListener("click", printForm);
+    document.getElementById("finishButton").addEventListener("click", showSummary);
+
+    document.getElementById("clearButton").addEventListener("click", () => {
+      clearAllData("Weet je zeker dat je alle antwoorden, beoordelingen en studentgegevens wilt wissen?");
+    });
+
+    document.getElementById("backToFormButton").addEventListener("click", () => {
+      showScreen(exerciseScreen);
+    });
+
+    document.getElementById("restartButton").addEventListener("click", () => {
+      const cleared = clearAllData("Weet je zeker dat je helemaal opnieuw wilt beginnen?");
+      if (cleared) showScreen(exerciseScreen);
+    });
+
+    bindStudentFields();
+    renderCards();
+  </script>
+</body>
+</html>

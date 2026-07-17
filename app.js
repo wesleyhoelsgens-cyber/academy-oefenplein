@@ -36,6 +36,21 @@ const academyData = {
                                     beschikbaar: true
                                 }
                             ]
+                        },
+                        {
+                            id: "begrippenlijst",
+                            naam: "Begrippenlijst",
+                            modules: [
+                                {
+                                    id: "begrippenformulier-dieten-microbiologie-eetwensen",
+                                    titel: "Begrippen oefenen – Diëten, Microbiologie & Eetwensen",
+                                    type: "Begrippenformulier",
+                                    duur: "20–30 minuten",
+                                    beschrijving: "Leg 30 belangrijke begrippen over diëten, microbiologie en eetwensen uit in je eigen woorden.",
+                                    bestand: "modules/begrippenformulier-dieten-microbiologie-eetwensen.html",
+                                    beschikbaar: true
+                                }
+                            ]
                         }
                     ]
                 }
