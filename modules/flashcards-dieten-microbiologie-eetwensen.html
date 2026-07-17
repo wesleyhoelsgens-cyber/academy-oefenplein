@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Zelfstandige flashcardgame over diëten, eetwensen, microbiologie en voedselveiligheid voor mbo Traiteur leerjaar 2.">
+  <title>Flashcards Diëten, Microbiologie &amp; Eetwensen</title>
+  <style>
+    :root {
+      --bg: #f4f7f5;
+      --surface: #ffffff;
+      --surface-2: #eef4f0;
+      --text: #183028;
+      --muted: #586d65;
+      --primary: #176b4b;
+      --primary-dark: #0e4d36;
+      --accent: #e8b949;
+      --danger: #a33a3a;
+      --border: #cad8d1;
+      --shadow: 0 12px 35px rgba(20, 54, 41, 0.12);
+      --radius: 20px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(232,185,73,.16), transparent 30rem),
+        linear-gradient(180deg, #f7faf8 0%, var(--bg) 100%);
+    }
+
+    button {
+      font: inherit;
+    }
+
+    button:focus-visible,
+    [tabindex]:focus-visible {
+      outline: 4px solid rgba(232,185,73,.65);
+      outline-offset: 3px;
+    }
+
+    .app-shell {
+      width: min(980px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 24px 0 40px;
+    }
+
+    .topbar {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .module-back-button {
+      min-height: 44px;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--primary-dark);
+      background: rgba(255,255,255,.82);
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .module-back-button:hover {
+      background: var(--surface-2);
+    }
+
+    .academy-context {
+      min-width: 0;
+    }
+
+    .brand {
+      display: inline-flex;
+      gap: 12px;
+      align-items: center;
+      color: var(--text);
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .brand-badge {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: var(--primary);
+      color: white;
+      box-shadow: var(--shadow);
+    }
+
+    .module-breadcrumb {
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .module-breadcrumb ol {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .module-breadcrumb li:not(:last-child)::after {
+      margin-left: 6px;
+      content: ">";
+      color: #7b8d86;
+    }
+
+    .module-breadcrumb a {
+      color: var(--primary-dark);
+      text-underline-offset: 3px;
+    }
+
+    .brand:hover,
+    .module-breadcrumb a:hover {
+      color: var(--primary);
+    }
+
+    .brand:focus-visible,
+    .module-breadcrumb a:focus-visible {
+      outline: 4px solid rgba(232,185,73,.65);
+      outline-offset: 3px;
+      border-radius: 6px;
+    }
+
+    .meta-pill {
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.72);
+      border-radius: 999px;
+      font-size: .9rem;
+      color: var(--muted);
+    }
+
+    .screen {
+      display: none;
+      background: rgba(255,255,255,.94);
+      border: 1px solid rgba(202,216,209,.8);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: clamp(22px, 5vw, 48px);
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--primary);
+      font-weight: 800;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      font-size: .82rem;
+    }
+
+    h1, h2, h3 {
+      margin-top: 0;
+      line-height: 1.15;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 6vw, 3.6rem);
+      max-width: 16ch;
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+    }
+
+    p {
+      line-height: 1.65;
+    }
+
+    .lead {
+      max-width: 65ch;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin: 26px 0;
+    }
+
+    .info-card {
+      padding: 18px;
+      background: var(--surface-2);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+    }
+
+    .info-card strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-top: 24px;
+    }
+
+    .btn {
+      min-height: 48px;
+      border: 0;
+      border-radius: 14px;
+      padding: 12px 18px;
+      cursor: pointer;
+      font-weight: 800;
+      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 8px 20px rgba(23,107,75,.22);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-secondary {
+      background: var(--surface-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-know {
+      background: #dff3e8;
+      color: #0d5c3c;
+      border: 1px solid #9bd0b5;
+    }
+
+    .btn-review {
+      background: #fff0e1;
+      color: #7d3d00;
+      border: 1px solid #e8bd8f;
+    }
+
+    .btn-danger {
+      color: var(--danger);
+      background: #fff4f4;
+      border: 1px solid #e6bbbb;
+    }
+
+    .exercise-header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: center;
+      margin-bottom: 22px;
+    }
+
+    .progress-wrap {
+      min-width: 0;
+    }
+
+    .progress-line {
+      height: 12px;
+      background: #e2e9e5;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary), #2f9470);
+      transition: width .25s ease;
+    }
+
+    .counter {
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .category-badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: #edf4ef;
+      border: 1px solid var(--border);
+      color: var(--primary-dark);
+      font-weight: 700;
+      font-size: .9rem;
+    }
+
+    .flashcard-scene {
+      perspective: 1400px;
+      margin: 24px 0;
+    }
+
+    .flashcard {
+      width: 100%;
+      min-height: 430px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform .55s ease;
+      cursor: pointer;
+      border-radius: 24px;
+    }
+
+    .flashcard.is-flipped {
+      transform: rotateY(180deg);
+    }
+
+    .card-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      border-radius: 24px;
+      padding: clamp(22px, 5vw, 42px);
+      border: 1px solid var(--border);
+      box-shadow: 0 16px 36px rgba(20,54,41,.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow-y: auto;
+    }
+
+    .card-front {
+      background:
+        radial-gradient(circle at top right, rgba(232,185,73,.2), transparent 15rem),
+        var(--surface);
+      text-align: center;
+      align-items: center;
+    }
+
+    .card-front h2 {
+      font-size: clamp(2rem, 7vw, 4rem);
+      max-width: 15ch;
+      margin: 18px auto 12px;
+    }
+
+    .flip-hint {
+      color: var(--muted);
+      font-weight: 700;
+      margin-top: 20px;
+    }
+
+    .card-back {
+      transform: rotateY(180deg);
+      background: #fbfdfc;
+      justify-content: flex-start;
+    }
+
+    .definition {
+      font-size: 1.18rem;
+      font-weight: 800;
+      line-height: 1.55;
+      margin: 12px 0 18px;
+    }
+
+    .details {
+      display: grid;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .detail {
+      border-left: 4px solid var(--primary);
+      background: var(--surface-2);
+      border-radius: 0 12px 12px 0;
+      padding: 13px 15px;
+    }
+
+    .detail strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .exercise-actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .status-text {
+      min-height: 28px;
+      text-align: center;
+      color: var(--muted);
+      font-weight: 700;
+      margin-top: 12px;
+    }
+
+    .result-number {
+      font-size: clamp(3rem, 10vw, 6rem);
+      font-weight: 900;
+      color: var(--primary);
+      line-height: 1;
+      margin: 12px 0;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin: 24px 0;
+    }
+
+    .result-card {
+      border-radius: 18px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+    }
+
+    .review-list {
+      display: grid;
+      gap: 8px;
+      padding: 0;
+      list-style: none;
+      margin: 14px 0 0;
+    }
+
+    .review-list li {
+      padding: 11px 13px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: white;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 24px;
+      border: 2px dashed var(--border);
+      border-radius: 18px;
+      background: var(--surface-2);
+    }
+
+    .keyboard-help {
+      font-size: .9rem;
+      color: var(--muted);
+      margin-top: 18px;
+    }
+
+    @media (max-width: 720px) {
+      .topbar {
+        grid-template-columns: 1fr;
+        align-items: flex-start;
+      }
+
+      .module-back-button,
+      .meta-pill {
+        justify-self: start;
+      }
+
+      .info-grid,
+      .result-grid,
+      .exercise-actions {
+        grid-template-columns: 1fr;
+      }
+
+      .exercise-header {
+        grid-template-columns: 1fr;
+      }
+
+      .flashcard {
+        min-height: 500px;
+      }
+
+      .screen {
+        border-radius: 22px;
+        padding: 20px;
+      }
+
+      .app-shell {
+        width: min(100% - 18px, 980px);
+        padding-top: 12px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <button id="moduleBackButton" class="module-back-button" type="button">← Terug</button>
+      <div class="academy-context">
+        <a class="brand" href="../index.html" aria-label="Naar Academy Home">
+          <span class="brand-badge" aria-hidden="true">A</span>
+          <span>Academy Oefenplein</span>
+        </a>
+        <nav class="module-breadcrumb" aria-label="Modulelocatie">
+          <ol>
+            <li><a href="../index.html#/traiteur">Traiteur</a></li>
+            <li><a href="../index.html#/traiteur/leerjaar-2">Leerjaar 2</a></li>
+            <li><a href="../index.html#/traiteur/leerjaar-2/periode-5">Periode 5</a></li>
+          </ol>
+        </nav>
+      </div>
+      <div class="meta-pill">Flashcardgame · 10–15 minuten</div>
+    </header>
+
+    <main>
+      <section id="startScreen" class="screen active" aria-labelledby="startTitle">
+        <p class="eyebrow">Voedingskennis</p>
+        <h1 id="startTitle">Diëten, microbiologie &amp; eetwensen</h1>
+        <p class="lead">
+          Oefen 26 belangrijke begrippen uit les 2. Draai iedere kaart om, lees de uitleg
+          en kies daarna of je het begrip kent of nog wilt oefenen.
+        </p>
+
+        <div class="info-grid">
+          <article class="info-card">
+            <strong>Leerdoel</strong>
+            Begrippen herkennen, uitleggen en toepassen in de traiteurpraktijk.
+          </article>
+          <article class="info-card">
+            <strong>Werkwijze</strong>
+            Bekijk de voorkant, draai de kaart om en beoordeel jezelf eerlijk.
+          </article>
+          <article class="info-card">
+            <strong>Resultaat</strong>
+            Je ziet welke begrippen je kent en welke nog extra aandacht nodig hebben.
+          </article>
+        </div>
+
+        <div class="button-row">
+          <button id="startBtn" class="btn btn-primary" type="button">Start oefenen</button>
+          <button id="shuffleStartBtn" class="btn btn-secondary" type="button">Start in willekeurige volgorde</button>
+        </div>
+
+        <p class="keyboard-help">Toetsenbord: spatie = kaart omdraaien, 1 = nog oefenen, 2 = ken ik.</p>
+      </section>
+
+      <section id="exerciseScreen" class="screen" aria-labelledby="exerciseTitle">
+        <div class="exercise-header">
+          <div class="progress-wrap">
+            <p class="eyebrow" id="modeLabel">Volledige set</p>
+            <h2 id="exerciseTitle">Flashcards oefenen</h2>
+            <div class="progress-line" aria-hidden="true">
+              <div id="progressBar" class="progress-bar"></div>
+            </div>
+          </div>
+          <div id="counter" class="counter">Kaart 1 van 26</div>
+        </div>
+
+        <div class="flashcard-scene">
+          <article id="flashcard" class="flashcard" tabindex="0" role="button" aria-label="Flashcard. Druk op Enter of spatie om om te draaien.">
+            <div class="card-face card-front">
+              <span id="categoryBadge" class="category-badge">Categorie</span>
+              <h2 id="term">Term</h2>
+              <p class="flip-hint">Klik of druk op spatie om de uitleg te bekijken</p>
+            </div>
+
+            <div class="card-face card-back">
+              <span id="backCategoryBadge" class="category-badge">Categorie</span>
+              <h3 id="backTerm">Term</h3>
+              <p id="definition" class="definition"></p>
+              <div class="details">
+                <div class="detail">
+                  <strong>In gewone taal</strong>
+                  <span id="plain"></span>
+                </div>
+                <div class="detail">
+                  <strong>Praktijkvoorbeeld</strong>
+                  <span id="example"></span>
+                </div>
+                <div class="detail">
+                  <strong>Veelgemaakte fout</strong>
+                  <span id="mistake"></span>
+                </div>
+                <div class="detail">
+                  <strong>Examentip</strong>
+                  <span id="tip"></span>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div id="ratingActions" class="exercise-actions hidden">
+          <button id="reviewBtn" class="btn btn-review" type="button">1 · Nog oefenen</button>
+          <button id="knowBtn" class="btn btn-know" type="button">2 · Ken ik</button>
+        </div>
+
+        <div id="flipAction" class="button-row">
+          <button id="flipBtn" class="btn btn-primary" type="button">Draai kaart om</button>
+          <button id="quitBtn" class="btn btn-secondary" type="button">Stoppen</button>
+        </div>
+
+        <p id="liveStatus" class="status-text" aria-live="polite"></p>
+      </section>
+
+      <section id="resultScreen" class="screen" aria-labelledby="resultTitle">
+        <p class="eyebrow">Resultaat</p>
+        <h2 id="resultTitle">Je oefenronde is afgerond</h2>
+        <div id="scoreNumber" class="result-number">0/26</div>
+        <p id="resultText" class="lead"></p>
+
+        <div class="result-grid">
+          <article class="result-card">
+            <strong>Ken ik</strong>
+            <p id="knownCount">0 begrippen</p>
+          </article>
+          <article class="result-card">
+            <strong>Nog oefenen</strong>
+            <p id="reviewCount">0 begrippen</p>
+          </article>
+        </div>
+
+        <div id="reviewSection">
+          <h3>Aandachtspunten</h3>
+          <ul id="reviewList" class="review-list"></ul>
+        </div>
+
+        <div id="emptyReview" class="empty-state hidden">
+          <h3>Alles beheerst</h3>
+          <p>Je hebt alle kaarten als “Ken ik” gemarkeerd.</p>
+        </div>
+
+        <div class="button-row">
+          <button id="retryReviewBtn" class="btn btn-primary" type="button">Oefen alleen moeilijke kaarten</button>
+          <button id="restartBtn" class="btn btn-secondary" type="button">Oefen volledige set opnieuw</button>
+          <button id="shuffleRestartBtn" class="btn btn-secondary" type="button">Volledige set schudden</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    "use strict";
+
+    const ALL_CARDS = [{"term": "Dieet", "definition": "Een dieet is een aangepaste manier van eten die is afgestemd op een bepaald doel of een specifieke behoefte.", "plain": "Een dieet betekent niet alleen afvallen. Mensen kunnen ook een dieet volgen vanwege gezondheid, geloof, sportprestaties, allergieën of persoonlijke voorkeur.", "example": "Een klant vraagt om een zoutarme maaltijd. De traiteur past het recept aan zodat minder zout wordt gebruikt.", "mistake": "Denken dat een dieet alleen bedoeld is om af te vallen.", "tip": "Leg uit waarom iemand een dieet volgt en wat dit betekent voor de keuze van ingrediënten.", "category": "Diëten"}, {"term": "Eetwens", "definition": "Een eetwens is een persoonlijke voorkeur of overtuiging die bepaalt welke voedingsmiddelen iemand wel of niet eet.", "plain": "Niet iedereen eet hetzelfde. Sommige mensen kiezen bewust voor vegetarisch of veganistisch eten, terwijl anderen rekening houden met geloof, duurzaamheid of lokale producten.", "example": "Een klant vraagt om een volledig vegan lunchbuffet. De traiteur kiest uitsluitend plantaardige ingrediënten.", "mistake": "Een eetwens verwarren met een medisch dieetvoorschrift.", "tip": "Beschrijf altijd hoe je een gerecht aanpast aan de wens van de klant.", "category": "Eetwensen"}, {"term": "Microbiologie", "definition": "Microbiologie is de wetenschap die micro-organismen bestudeert.", "plain": "Micro-organismen zijn zo klein dat je ze niet met het blote oog kunt zien. Sommige zijn nuttig, andere kunnen voedsel bederven of ziekten veroorzaken.", "example": "Een traiteur bewaart salades gekoeld om de groei van schadelijke bacteriën te beperken.", "mistake": "Denken dat alle bacteriën schadelijk zijn.", "tip": "Noem zowel nuttige als schadelijke micro-organismen en leg hun invloed op voedsel uit.", "category": "Microbiologie"}, {"term": "Voedselveiligheid", "definition": "Voedselveiligheid is het geheel van maatregelen om voedsel veilig te produceren, bewaren en serveren.", "plain": "Door schoon te werken, producten goed te koelen en besmetting te voorkomen, zorg je dat klanten niet ziek worden van voedsel.", "example": "Een traiteur bewaart vlees, vis en zuivel onder de juiste temperatuur en voorkomt contact met rauwe producten.", "mistake": "Denken dat schoon ogend voedsel automatisch veilig is.", "tip": "Koppel voedselveiligheid aan temperatuur, hygiëne en het voorkomen van besmetting.", "category": "Voedselveiligheid"}, {"term": "Vegetarisch", "definition": "Een vegetarisch dieet bevat geen vlees of vis.", "plain": "Vegetariërs eten geen vlees en meestal ook geen vis. Veel vegetariërs gebruiken wel zuivel en eieren.", "example": "Een vegetarische quiche met kaas, spinazie en ei.", "mistake": "Denken dat vegetarisch automatisch veganistisch is.", "tip": "Controleer of een gerecht verborgen vleesproducten bevat, zoals gelatine of bouillon.", "category": "Diëten"}, {"term": "Veganistisch", "definition": "Een veganistisch dieet bevat geen dierlijke producten.", "plain": "Veganisten eten geen vlees, vis, zuivel, eieren, honing of andere dierlijke producten.", "example": "Een wrap met hummus, gegrilde groenten en falafel.", "mistake": "Vergeten dat kaas, boter en melk dierlijke producten zijn.", "tip": "Controleer etiketten zorgvuldig op dierlijke ingrediënten.", "category": "Diëten"}, {"term": "Halal", "definition": "Halal betekent dat voeding voldoet aan islamitische voedingsregels.", "plain": "Bepaalde producten zijn toegestaan en andere niet. Ook de bereidingswijze is belangrijk.", "example": "Een halal kipgerecht bereid zonder contact met varkensvlees.", "mistake": "Denken dat alleen het soort vlees belangrijk is.", "tip": "Voorkom kruisbesmetting met niet-halal producten.", "category": "Eetwensen"}, {"term": "Koosjer", "definition": "Koosjer voedsel voldoet aan de Joodse spijswetten.", "plain": "Niet alle producten mogen gecombineerd worden en de bereiding moet aan specifieke regels voldoen.", "example": "Een koosjere maaltijd waarbij vlees en zuivel strikt gescheiden blijven.", "mistake": "Denken dat koosjer hetzelfde is als halal.", "tip": "Let op zowel productkeuze als bereidingswijze.", "category": "Eetwensen"}, {"term": "Koolhydraatarm dieet", "definition": "Een dieet waarbij minder koolhydraten worden gegeten.", "plain": "Bij een koolhydraatarm dieet wordt de hoeveelheid koolhydraatrijke producten beperkt.", "example": "Een maaltijdsalade zonder pasta of brood.", "mistake": "Denken dat alle koolhydraten vermeden moeten worden.", "tip": "Geef passende alternatieven, zoals extra groenten of eiwitrijke ingrediënten.", "category": "Diëten"}, {"term": "Eiwitrijk dieet", "definition": "Een dieet met een verhoogde hoeveelheid eiwitten.", "plain": "Bij een eiwitrijk dieet wordt bewust gekozen voor producten die relatief veel eiwit leveren.", "example": "Een salade met kip, peulvruchten en hüttenkäse.", "mistake": "Alleen aan vlees denken als eiwitbron.", "tip": "Noem ook plantaardige eiwitbronnen.", "category": "Diëten"}, {"term": "Zoutarm dieet", "definition": "Een dieet waarbij de hoeveelheid zout wordt beperkt.", "plain": "Bij een zoutarm dieet wordt zo min mogelijk extra zout gebruikt en wordt gelet op zout in producten.", "example": "Verse kruiden gebruiken in plaats van extra zout.", "mistake": "Denken dat kruiden altijd veel zout bevatten.", "tip": "Controleer ook samengestelde producten op toegevoegd zout.", "category": "Diëten"}, {"term": "Energiebeperkt dieet", "definition": "Een dieet met een beperkte hoeveelheid calorieën.", "plain": "Bij een energiebeperkt dieet wordt de totale energie-inname verlaagd.", "example": "Een lunchsalade met veel groenten en magere eiwitbronnen.", "mistake": "Een energiebeperkt dieet verwarren met uithongeren.", "tip": "Kies producten die passen binnen de afgesproken energiebeperking.", "category": "Diëten"}, {"term": "Bacterie", "definition": "Een bacterie is een eencellig micro-organisme dat nuttig of schadelijk kan zijn.", "plain": "Sommige bacteriën worden gebruikt om yoghurt of kaas te maken, terwijl andere voedselvergiftiging kunnen veroorzaken.", "example": "Onvoldoende gekoelde kip kan schadelijke bacteriën bevatten.", "mistake": "Denken dat alle bacteriën gevaarlijk zijn.", "tip": "Noem zowel nuttige als schadelijke voorbeelden.", "category": "Microbiologie"}, {"term": "Gist", "definition": "Gist is een micro-organisme dat suikers omzet in koolzuur en alcohol.", "plain": "Gist kan zorgen voor rijzing en speelt een rol bij bepaalde voedselbereidingen.", "example": "Brood rijst door de werking van gist.", "mistake": "Gist verwarren met bacteriën.", "tip": "Koppel gist aan de omzetting van suikers.", "category": "Microbiologie"}, {"term": "Schimmel", "definition": "Een schimmel is een micro-organisme dat zowel nuttig als schadelijk kan zijn.", "plain": "Sommige schimmels worden bewust gebruikt, andere zorgen voor voedselbederf.", "example": "Schimmels worden gebruikt bij bepaalde kaassoorten, maar kunnen ook voedsel bederven.", "mistake": "Denken dat alle schimmels eetbaar zijn.", "tip": "Maak onderscheid tussen nuttige en schadelijke schimmels.", "category": "Microbiologie"}, {"term": "Gevarenzone", "definition": "De temperatuur tussen 5 °C en 60 °C waarin bacteriën zich snel kunnen vermenigvuldigen.", "plain": "Voedsel moet zo kort mogelijk binnen deze temperatuur blijven.", "example": "Een buffetgerecht dat uren ongekoeld staat vormt een verhoogd risico.", "mistake": "Denken dat bacteriën pas groeien wanneer voedsel bedorven ruikt.", "tip": "Koppel de gevarenzone altijd aan temperatuur én tijd.", "category": "Voedselveiligheid"}, {"term": "Besmetting", "definition": "Besmetting is het terechtkomen van schadelijke micro-organismen in voedsel.", "plain": "Voedsel raakt besmet wanneer schadelijke micro-organismen erin of erop terechtkomen.", "example": "Rauwe kip lekt op een schaal met salade.", "mistake": "Denken dat besmetting altijd zichtbaar is.", "tip": "Benoem de bron van de besmetting en hoe je die voorkomt.", "category": "Voedselveiligheid"}, {"term": "Kruisbesmetting", "definition": "Kruisbesmetting ontstaat wanneer micro-organismen van het ene product op het andere worden overgebracht.", "plain": "De overdracht kan plaatsvinden via producten, messen, handen, snijplanken of werkbladen.", "example": "Dezelfde snijplank gebruiken voor rauwe kip en rauwkost zonder tussendoor schoon te maken.", "mistake": "Alleen denken aan direct contact tussen producten.", "tip": "Denk ook aan handen, materialen en werkoppervlakken.", "category": "Voedselveiligheid"}, {"term": "Salmonella", "definition": "Salmonella is een schadelijke bacterie die voedselvergiftiging kan veroorzaken.", "plain": "Salmonella kan voorkomen in risicovolle producten en kan mensen ziek maken.", "example": "Onvoldoende verhitte kip of rauwe eieren.", "mistake": "Denken dat salmonella alleen op vlees voorkomt.", "tip": "Let op goede verhitting en hygiënisch werken.", "category": "Microbiologie"}, {"term": "Listeria", "definition": "Listeria is een bacterie die zelfs bij koelkasttemperaturen kan groeien en gevaarlijk kan zijn voor kwetsbare groepen.", "plain": "Koeling remt veel bacteriën, maar listeria kan ook in de koelkast doorgroeien.", "example": "Onjuist bewaarde kant-en-klare producten.", "mistake": "Denken dat koelkasttemperatuur alle bacteriegroei stopt.", "tip": "Let extra op houdbaarheid en kwetsbare groepen.", "category": "Microbiologie"}, {"term": "Campylobacter", "definition": "Campylobacter is een bacterie die vaak voorkomt op rauwe kip en voedselinfecties kan veroorzaken.", "plain": "De bacterie kan via onvoldoende verhitting of kruisbesmetting in eten terechtkomen.", "example": "Onvoldoende verhit gevogelte of kruisbesmetting tijdens de bereiding.", "mistake": "Rauwe kip afspoelen en daardoor bacteriën verspreiden.", "tip": "Voorkom kruisbesmetting en verhit gevogelte voldoende.", "category": "Microbiologie"}, {"term": "Goede micro-organismen", "definition": "Goede micro-organismen zijn micro-organismen die bewust worden gebruikt bij de productie van voedingsmiddelen.", "plain": "Sommige micro-organismen zorgen voor smaak, structuur of rijping van producten.", "example": "Melkzuurbacteriën maken yoghurt en gist laat brooddeeg rijzen.", "mistake": "Denken dat alle bacteriën en schimmels verwijderd moeten worden.", "tip": "Geef een nuttig micro-organisme en leg uit waarom het nuttig is.", "category": "Microbiologie"}, {"term": "Schadelijke micro-organismen", "definition": "Schadelijke micro-organismen kunnen voedsel bederven of voedselinfecties veroorzaken.", "plain": "Wanneer schadelijke micro-organismen zich vermenigvuldigen in voedsel kunnen mensen ziek worden.", "example": "Een gekoelde salade blijft te lang buiten de koeling.", "mistake": "Denken dat onveilig voedsel altijd vreemd ruikt of eruitziet.", "tip": "Leg uit welke omstandigheden hun groei bevorderen.", "category": "Voedselveiligheid"}, {"term": "Groei van bacteriën", "definition": "Bacteriën groeien vooral wanneer voldoende vocht, voedsel, tijd en een geschikte temperatuur aanwezig zijn.", "plain": "De vier belangrijke groeifactoren zijn vocht, voedsel, tijd en temperatuur.", "example": "Een bak huzarensalade blijft enkele uren op kamertemperatuur staan.", "mistake": "Alleen naar temperatuur kijken en tijd vergeten.", "tip": "Noem altijd alle vier groeifactoren.", "category": "Voedselveiligheid"}, {"term": "Voedselvergiftiging", "definition": "Voedselvergiftiging is ziekte door het eten van besmet voedsel of door gifstoffen die door micro-organismen zijn gevormd.", "plain": "Wanneer voedsel niet veilig wordt bereid of bewaard kunnen klanten ziek worden.", "example": "Een buffetgerecht wordt onvoldoende gekoeld waardoor gasten klachten krijgen.", "mistake": "Denken dat alleen rauw vlees voedselvergiftiging kan veroorzaken.", "tip": "Koppel de oorzaak aan passende preventieve maatregelen.", "category": "Voedselveiligheid"}, {"term": "Klantgericht aanpassen van gerechten", "definition": "Het aanpassen van ingrediënten of recepturen zodat een gerecht aansluit bij de dieet- of eetwensen van een klant.", "plain": "Een traiteur verandert een recept zodat de klant het veilig en met vertrouwen kan eten.", "example": "Een vegetarisch, lactosevrij en notenvrij lunchgerecht samenstellen voor één klant.", "mistake": "Slechts één dieetwens controleren terwijl meerdere wensen tegelijk gelden.", "tip": "Controleer alle dieet- en allergiewensen voordat je producten kiest.", "category": "Praktijk"}];
+
+    const state = {
+      deck: [],
+      currentIndex: 0,
+      known: [],
+      review: [],
+      isFlipped: false,
+      mode: "full"
+    };
+
+    const els = {
+      moduleBackButton: document.getElementById("moduleBackButton"),
+      startScreen: document.getElementById("startScreen"),
+      exerciseScreen: document.getElementById("exerciseScreen"),
+      resultScreen: document.getElementById("resultScreen"),
+      startBtn: document.getElementById("startBtn"),
+      shuffleStartBtn: document.getElementById("shuffleStartBtn"),
+      flashcard: document.getElementById("flashcard"),
+      flipBtn: document.getElementById("flipBtn"),
+      quitBtn: document.getElementById("quitBtn"),
+      reviewBtn: document.getElementById("reviewBtn"),
+      knowBtn: document.getElementById("knowBtn"),
+      ratingActions: document.getElementById("ratingActions"),
+      flipAction: document.getElementById("flipAction"),
+      progressBar: document.getElementById("progressBar"),
+      counter: document.getElementById("counter"),
+      modeLabel: document.getElementById("modeLabel"),
+      categoryBadge: document.getElementById("categoryBadge"),
+      backCategoryBadge: document.getElementById("backCategoryBadge"),
+      term: document.getElementById("term"),
+      backTerm: document.getElementById("backTerm"),
+      definition: document.getElementById("definition"),
+      plain: document.getElementById("plain"),
+      example: document.getElementById("example"),
+      mistake: document.getElementById("mistake"),
+      tip: document.getElementById("tip"),
+      liveStatus: document.getElementById("liveStatus"),
+      scoreNumber: document.getElementById("scoreNumber"),
+      resultText: document.getElementById("resultText"),
+      knownCount: document.getElementById("knownCount"),
+      reviewCount: document.getElementById("reviewCount"),
+      reviewList: document.getElementById("reviewList"),
+      reviewSection: document.getElementById("reviewSection"),
+      emptyReview: document.getElementById("emptyReview"),
+      retryReviewBtn: document.getElementById("retryReviewBtn"),
+      restartBtn: document.getElementById("restartBtn"),
+      shuffleRestartBtn: document.getElementById("shuffleRestartBtn")
+    };
+
+    const PERIOD_FALLBACK = "../index.html#/traiteur/leerjaar-2/periode-5";
+
+    function shuffle(items) {
+      const copy = [...items];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function showScreen(screen) {
+      [els.startScreen, els.exerciseScreen, els.resultScreen].forEach((item) => {
+        item.classList.toggle("active", item === screen);
+      });
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function startGame(deck, mode = "full") {
+      if (!Array.isArray(deck) || deck.length === 0) {
+        alert("Er zijn geen kaarten beschikbaar om te oefenen.");
+        return;
+      }
+
+      state.deck = [...deck];
+      state.currentIndex = 0;
+      state.known = [];
+      state.review = [];
+      state.isFlipped = false;
+      state.mode = mode;
+
+      els.modeLabel.textContent = mode === "review" ? "Moeilijke kaarten" : "Volledige set";
+      showScreen(els.exerciseScreen);
+      renderCard();
+      els.flashcard.focus();
+    }
+
+    function renderCard() {
+      const card = state.deck[state.currentIndex];
+      if (!card) {
+        finishGame();
+        return;
+      }
+
+      state.isFlipped = false;
+      els.flashcard.classList.remove("is-flipped");
+      els.ratingActions.classList.add("hidden");
+      els.flipAction.classList.remove("hidden");
+      els.liveStatus.textContent = "";
+
+      els.categoryBadge.textContent = card.category;
+      els.backCategoryBadge.textContent = card.category;
+      els.term.textContent = card.term;
+      els.backTerm.textContent = card.term;
+      els.definition.textContent = card.definition;
+      els.plain.textContent = card.plain;
+      els.example.textContent = card.example;
+      els.mistake.textContent = card.mistake;
+      els.tip.textContent = card.tip;
+
+      const current = state.currentIndex + 1;
+      const total = state.deck.length;
+      els.counter.textContent = `Kaart ${current} van ${total}`;
+      els.progressBar.style.width = `${(state.currentIndex / total) * 100}%`;
+      els.flashcard.setAttribute(
+        "aria-label",
+        `Flashcard ${current} van ${total}: ${card.term}. Druk op Enter of spatie om om te draaien.`
+      );
+    }
+
+    function flipCard() {
+      if (state.isFlipped) return;
+      state.isFlipped = true;
+      els.flashcard.classList.add("is-flipped");
+      els.ratingActions.classList.remove("hidden");
+      els.flipAction.classList.add("hidden");
+      els.liveStatus.textContent = "Lees de uitleg en kies daarna: nog oefenen of ken ik.";
+      els.flashcard.setAttribute("aria-label", "Achterkant van de kaart met uitleg.");
+    }
+
+    function rateCard(result) {
+      if (!state.isFlipped) return;
+      const card = state.deck[state.currentIndex];
+
+      if (result === "known") {
+        state.known.push(card);
+        els.liveStatus.textContent = `"${card.term}" is gemarkeerd als: ken ik.`;
+      } else {
+        state.review.push(card);
+        els.liveStatus.textContent = `"${card.term}" is gemarkeerd als: nog oefenen.`;
+      }
+
+      state.currentIndex += 1;
+      els.progressBar.style.width = `${(state.currentIndex / state.deck.length) * 100}%`;
+
+      window.setTimeout(() => {
+        if (state.currentIndex >= state.deck.length) {
+          finishGame();
+        } else {
+          renderCard();
+          els.flashcard.focus();
+        }
+      }, 280);
+    }
+
+    function finishGame() {
+      const total = state.deck.length;
+      const known = state.known.length;
+      const percent = Math.round((known / total) * 100);
+
+      els.scoreNumber.textContent = `${known}/${total}`;
+      els.knownCount.textContent = `${known} ${known === 1 ? "begrip" : "begrippen"}`;
+      els.reviewCount.textContent = `${state.review.length} ${state.review.length === 1 ? "begrip" : "begrippen"}`;
+
+      if (percent === 100) {
+        els.resultText.textContent = "Uitstekend. Je hebt alle begrippen als beheerst gemarkeerd.";
+      } else if (percent >= 75) {
+        els.resultText.textContent = "Sterk resultaat. Herhaal de moeilijke kaarten nog één keer om de begrippen beter vast te zetten.";
+      } else if (percent >= 50) {
+        els.resultText.textContent = "Je bent goed op weg. Oefen de begrippen die je nog lastig vindt opnieuw.";
+      } else {
+        els.resultText.textContent = "Deze lesstof heeft nog aandacht nodig. Begin met de moeilijke kaarten en doe daarna de volledige set opnieuw.";
+      }
+
+      els.reviewList.innerHTML = "";
+      state.review.forEach((card) => {
+        const li = document.createElement("li");
+        li.textContent = card.term;
+        els.reviewList.appendChild(li);
+      });
+
+      const hasReview = state.review.length > 0;
+      els.reviewSection.classList.toggle("hidden", !hasReview);
+      els.emptyReview.classList.toggle("hidden", hasReview);
+      els.retryReviewBtn.classList.toggle("hidden", !hasReview);
+
+      showScreen(els.resultScreen);
+      els.resultScreen.focus?.();
+    }
+
+    function quitGame() {
+      const confirmed = window.confirm("Wil je stoppen? Je huidige oefenronde wordt niet bewaard.");
+      if (confirmed) showScreen(els.startScreen);
+    }
+
+    els.moduleBackButton.addEventListener("click", () => {
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        window.location.href = PERIOD_FALLBACK;
+      }
+    });
+    els.startBtn.addEventListener("click", () => startGame(ALL_CARDS, "full"));
+    els.shuffleStartBtn.addEventListener("click", () => startGame(shuffle(ALL_CARDS), "full"));
+    els.flipBtn.addEventListener("click", flipCard);
+    els.flashcard.addEventListener("click", flipCard);
+    els.reviewBtn.addEventListener("click", () => rateCard("review"));
+    els.knowBtn.addEventListener("click", () => rateCard("known"));
+    els.quitBtn.addEventListener("click", quitGame);
+    els.retryReviewBtn.addEventListener("click", () => startGame(shuffle(state.review), "review"));
+    els.restartBtn.addEventListener("click", () => startGame(ALL_CARDS, "full"));
+    els.shuffleRestartBtn.addEventListener("click", () => startGame(shuffle(ALL_CARDS), "full"));
+
+    els.flashcard.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        flipCard();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (!els.exerciseScreen.classList.contains("active")) return;
+
+      if (event.key === " " && document.activeElement !== els.flashcard) {
+        event.preventDefault();
+        flipCard();
+      }
+
+      if (state.isFlipped && event.key === "1") {
+        event.preventDefault();
+        rateCard("review");
+      }
+
+      if (state.isFlipped && event.key === "2") {
+        event.preventDefault();
+        rateCard("known");
+      }
+    });
+
+    if (!Array.isArray(ALL_CARDS) || ALL_CARDS.length === 0) {
+      els.startBtn.disabled = true;
+      els.shuffleStartBtn.disabled = true;
+      const message = document.createElement("div");
+      message.className = "empty-state";
+      message.innerHTML = "<h2>Geen oefeninhoud beschikbaar</h2><p>Controleer of de flashcards correct in het bestand staan.</p>";
+      els.startScreen.appendChild(message);
+    }
+  </script>
+</body>
+</html>

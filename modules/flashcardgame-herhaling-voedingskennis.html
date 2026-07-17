@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Herhaling voedingskennis – Flashcardgame</title>
+<style>
+:root {
+  --bg: #f4f7f6;
+  --panel: #ffffff;
+  --text: #19302a;
+  --muted: #60736d;
+  --primary: #1f6b57;
+  --primary-dark: #174f41;
+  --soft: #e3f0ec;
+  --border: #cfddd8;
+  --shadow: 0 14px 35px rgba(25, 48, 42, 0.12);
+  --radius: 22px;
+}
+* { box-sizing: border-box; }
+html { min-height: 100%; background: var(--bg); }
+body {
+  min-height: 100vh;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(31,107,87,.10), transparent 35rem),
+    var(--bg);
+}
+button { font: inherit; }
+.shell {
+  width: min(760px, 100%);
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: max(20px, env(safe-area-inset-top)) 18px max(26px, env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+}
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+.brand {
+  font-weight: 800;
+  letter-spacing: .02em;
+  color: var(--primary-dark);
+}
+.reset-link {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 8px;
+}
+.screen {
+  display: none;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+}
+.screen.active { display: flex; }
+.panel {
+  width: 100%;
+  background: rgba(255,255,255,.96);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: clamp(24px, 5vw, 44px);
+}
+h1 {
+  margin: 0 0 12px;
+  font-size: clamp(2rem, 7vw, 3.35rem);
+  line-height: 1.08;
+}
+h2 {
+  margin: 0 0 10px;
+  font-size: clamp(1.55rem, 5vw, 2.2rem);
+}
+p {
+  font-size: 1.08rem;
+  line-height: 1.6;
+}
+.lead { color: var(--muted); margin: 0 0 26px; }
+.meta {
+  display: inline-block;
+  margin-bottom: 18px;
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: var(--soft);
+  color: var(--primary-dark);
+  font-weight: 700;
+}
+.actions {
+  display: grid;
+  gap: 12px;
+  margin-top: 24px;
+}
+.btn {
+  min-height: 56px;
+  border-radius: 15px;
+  border: 2px solid transparent;
+  padding: 14px 18px;
+  font-weight: 800;
+  font-size: 1.08rem;
+  cursor: pointer;
+  transition: transform .12s ease, background .12s ease;
+}
+.btn:active { transform: scale(.985); }
+.btn-primary {
+  color: white;
+  background: var(--primary);
+}
+.btn-primary:hover { background: var(--primary-dark); }
+.btn-secondary {
+  color: var(--primary-dark);
+  background: var(--soft);
+  border-color: var(--border);
+}
+.btn-light {
+  color: var(--text);
+  background: #fff;
+  border-color: var(--border);
+}
+.progress-wrap { margin-bottom: 18px; }
+.progress-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--muted);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.progress-track {
+  width: 100%;
+  height: 12px;
+  background: #dfe9e5;
+  border-radius: 999px;
+  overflow: hidden;
+}
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: var(--primary);
+  transition: width .25s ease;
+}
+.card {
+  min-height: 330px;
+  border-radius: var(--radius);
+  border: 2px solid var(--border);
+  background: linear-gradient(155deg, #ffffff, #f8fbfa);
+  padding: clamp(24px, 6vw, 42px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+.label {
+  margin-bottom: 12px;
+  color: var(--primary);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-size: .82rem;
+}
+.question {
+  font-size: clamp(1.65rem, 6vw, 2.55rem);
+  line-height: 1.25;
+  font-weight: 800;
+}
+.answer {
+  display: none;
+  font-size: clamp(1.2rem, 4vw, 1.55rem);
+  line-height: 1.55;
+}
+.answer.visible { display: block; }
+.example {
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 1rem;
+}
+.grade-actions {
+  display: none;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 16px;
+}
+.grade-actions.visible { display: grid; }
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 24px 0;
+}
+.stat {
+  background: var(--soft);
+  border-radius: 16px;
+  padding: 18px 12px;
+  text-align: center;
+}
+.stat strong {
+  display: block;
+  font-size: 1.9rem;
+  color: var(--primary-dark);
+}
+.stat span { color: var(--muted); font-size: .92rem; }
+.empty {
+  text-align: center;
+  color: var(--muted);
+}
+.resume-note {
+  margin: 18px 0 0;
+  padding: 13px 15px;
+  border-radius: 14px;
+  background: #f3f7f6;
+  color: var(--muted);
+}
+@media (max-width: 560px) {
+  .shell { padding-left: 12px; padding-right: 12px; }
+  .panel { padding: 22px 18px; border-radius: 18px; }
+  .card { min-height: 360px; padding: 24px 18px; }
+  .grade-actions, .stats { grid-template-columns: 1fr; }
+  .topbar { margin-bottom: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+<main class="shell">
+  <header class="topbar">
+    <div class="brand">Academy Flashcards</div>
+    <button id="resetProgressTop" class="reset-link" type="button">Voortgang resetten</button>
+  </header>
+
+  <section id="startScreen" class="screen active" aria-labelledby="startTitle">
+    <div class="panel">
+      <div class="meta">Traiteur · mbo-niveau-3 · leerjaar-2</div>
+      <h1 id="startTitle">Herhaling voedingskennis</h1>
+      <p class="lead">Oefen de begrippen één voor één. Draai de kaart om, kies wat al goed gaat en oefen de andere kaarten later opnieuw.</p>
+      <div id="resumeNote" class="resume-note" hidden></div>
+      <div class="actions">
+        <button id="startButton" class="btn btn-primary" type="button">Start oefenen</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="gameScreen" class="screen" aria-live="polite">
+    <div class="panel">
+      <div class="progress-wrap">
+        <div class="progress-row">
+          <span id="counter">Kaart 1 van 1</span>
+          <span id="percentage">0%</span>
+        </div>
+        <div class="progress-track" aria-hidden="true">
+          <div id="progressBar" class="progress-bar"></div>
+        </div>
+      </div>
+
+      <article class="card">
+        <div id="sideLabel" class="label">Vraag</div>
+        <div id="questionText" class="question"></div>
+        <div id="answerText" class="answer"></div>
+        <div id="exampleText" class="example"></div>
+      </article>
+
+      <div class="actions">
+        <button id="flipButton" class="btn btn-primary" type="button">Draai kaart om</button>
+      </div>
+      <div id="gradeActions" class="grade-actions">
+        <button id="againButton" class="btn btn-light" type="button">Nog oefenen</button>
+        <button id="knownButton" class="btn btn-secondary" type="button">Ik wist het</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="endScreen" class="screen" aria-labelledby="endTitle">
+    <div class="panel">
+      <h2 id="endTitle">Oefenronde afgerond</h2>
+      <p class="lead">Je kunt de kaarten die nog aandacht vragen opnieuw oefenen, of een nieuwe ronde met alle kaarten starten.</p>
+      <div class="stats">
+        <div class="stat"><strong id="masteredCount">0</strong><span>beheerst</span></div>
+        <div class="stat"><strong id="practiceCount">0</strong><span>nog oefenen</span></div>
+        <div class="stat"><strong id="finalPercentage">0%</strong><span>beheerst</span></div>
+      </div>
+      <div class="actions">
+        <button id="retryButton" class="btn btn-primary" type="button">Fouten opnieuw oefenen</button>
+        <button id="restartButton" class="btn btn-secondary" type="button">Alles opnieuw</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="emptyScreen" class="screen" aria-labelledby="emptyTitle">
+    <div class="panel empty">
+      <h2 id="emptyTitle">Nog geen oefenkaarten beschikbaar</h2>
+      <p>In dit lespakket staan geen bruikbare flashcards of Knowledge Items om kaarten van te maken.</p>
+    </div>
+  </section>
+</main>
+
+<script>
+"use strict";
+
+const CARDS = [{"question": "Wat betekent Voedingsleer?", "answer": "Het vakgebied dat zich bezighoudt met voeding, voedingsstoffen, voedingswaarde en de invloed daarvan op het menselijk lichaam en de beroepspraktijk. Voedingsleer helpt een traiteur begrijpen welke voedingsstoffen in producten zitten, waarom mensen eten en hoe voedingskundige keuzes kunnen worden gemaakt.", "extra": "Voorbeeld: Een traiteur gebruikt voedingsleer om een gezonde maaltijdsalade samen te stellen die past bij de wensen van een klant."}, {"question": "Wat betekent Voeding?", "answer": "Alles wat mensen eten en drinken om het lichaam te voorzien van stoffen die nodig zijn om goed te functioneren. Voeding zorgt ervoor dat het lichaam energie krijgt, groeit, zichzelf herstelt en gezond blijft.", "extra": "Voorbeeld: Een complete lunch bestaat uit verschillende voedingsmiddelen die samen voldoende voedingsstoffen leveren."}, {"question": "Wat betekent Voedingsstoffen?", "answer": "Stoffen in voedingsmiddelen die het lichaam nodig heeft om goed te functioneren. Voedingsstoffen zijn de bruikbare onderdelen van eten en drinken. Ze leveren energie, zorgen voor groei, herstel en ondersteunen een gezond lichaam.", "extra": "Voorbeeld: Een maaltijdsalade bevat koolhydraten uit pasta, eiwitten uit kip en vitamines uit groenten."}, {"question": "Wat betekent Functies van voeding?", "answer": "De redenen waarom het lichaam voeding nodig heeft om normaal te kunnen functioneren. Voeding is niet alleen nodig om energie te krijgen. Het helpt ook bij groeien, herstellen, gezond blijven en samen genieten van eten.", "extra": "Voorbeeld: Bij het ontwikkelen van een maaltijd kijkt een traiteur niet alleen naar smaak, maar ook naar de functie van de gebruikte voedingsstoffen."}, {"question": "Wat betekent Macronutriënten?", "answer": "Voedingsstoffen die het lichaam dagelijks in relatief grote hoeveelheden nodig heeft. Macronutriënten vormen het grootste deel van onze voeding. Ze leveren energie of dienen als bouwstof voor het lichaam.", "extra": "Voorbeeld: Een broodje gezond bevat koolhydraten uit brood, eiwitten uit kaas en vetten uit boter of dressing."}, {"question": "Wat betekent Micronutriënten?", "answer": "Voedingsstoffen die het lichaam slechts in kleine hoeveelheden nodig heeft. Hoewel het lichaam er weinig van nodig heeft, zijn micronutriënten onmisbaar voor een goede werking van alle lichaamsprocessen.", "extra": "Voorbeeld: Groenten in een maaltijdsalade leveren verschillende vitamines en mineralen."}, {"question": "Wat betekent Koolhydraten?", "answer": "Voedingsstoffen die vooral energie leveren aan het lichaam. Koolhydraten zijn de belangrijkste brandstof voor spieren en hersenen. Het lichaam zet ze om in glucose.", "extra": "Voorbeeld: Pasta in een maaltijdsalade levert veel koolhydraten en daardoor energie."}, {"question": "Wat betekent Eiwitten?", "answer": "Voedingsstoffen die nodig zijn voor groei, onderhoud en herstel van lichaamsweefsel. Eiwitten helpen het lichaam bij het opbouwen en herstellen van spieren, huid en organen.", "extra": "Voorbeeld: Een maaltijdsalade met kip of peulvruchten bevat veel eiwitten."}, {"question": "Wat betekent Vetten?", "answer": "Voedingsstoffen die veel energie leveren en belangrijke lichaamsfuncties ondersteunen. Vetten zorgen voor energie, beschermen organen, houden het lichaam warm en helpen bij de opname van vitamine A, D, E en K.", "extra": "Voorbeeld: Een dressing met olijfolie levert gezonde onverzadigde vetten."}, {"question": "Wat betekent Vitamines?", "answer": "Organische stoffen die noodzakelijk zijn voor een goede werking van het lichaam. Vitamines leveren vrijwel geen energie, maar zorgen ervoor dat veel lichaamsprocessen goed verlopen, zoals weerstand, groei en stofwisseling.", "extra": "Voorbeeld: Een maaltijdsalade met paprika, broccoli en citrusdressing bevat veel vitamine C."}, {"question": "Wat betekent Mineralen?", "answer": "Anorganische stoffen die bijdragen aan een goede werking van het lichaam. Mineralen zijn nodig voor sterke botten, spieren, zenuwen en het transport van zuurstof door het lichaam.", "extra": "Voorbeeld: Zuivel levert calcium en spinazie bevat ijzer."}, {"question": "Wat betekent Water?", "answer": "Essentiële voedingsstof die noodzakelijk is voor vrijwel alle lichaamsprocessen. Water vervoert voedingsstoffen, regelt de lichaamstemperatuur, voert afvalstoffen af en ondersteunt alle processen in het lichaam.", "extra": "Voorbeeld: Tijdens warme werkdagen in een productiekeuken drinkt een medewerker regelmatig water om uitdroging te voorkomen."}, {"question": "Wat betekent Vitamine A?", "answer": "Vitamine die belangrijk is voor een gezonde huid en een goed gezichtsvermogen. Vitamine A helpt je ogen goed te werken en ondersteunt de gezondheid van de huid.", "extra": "Voorbeeld: Groenten zoals wortels bevatten veel vitamine A."}, {"question": "Wat betekent Vitamine B?", "answer": "Vitamines uit de B-groep ondersteunen de energiestofwisseling. Vitamine B helpt het lichaam energie uit voeding vrij te maken.", "extra": "Voorbeeld: Volkorenproducten bevatten verschillende B-vitamines."}, {"question": "Wat betekent Vitamine C?", "answer": "Vitamine die bijdraagt aan een goede weerstand. Vitamine C ondersteunt het afweersysteem en helpt het lichaam gezond te blijven.", "extra": "Voorbeeld: Paprika, citrusfruit en broccoli bevatten veel vitamine C."}, {"question": "Wat betekent Vitamine D?", "answer": "Vitamine die belangrijk is voor sterke botten. Vitamine D helpt het lichaam calcium op te nemen en ondersteunt de botopbouw.", "extra": "Voorbeeld: Vette vis en verrijkte zuivelproducten bevatten vitamine D."}, {"question": "Wat betekent Calcium?", "answer": "Mineraal dat belangrijk is voor sterke botten en tanden.", "extra": "Voorbeeld: Zuivelproducten zijn een belangrijke bron van calcium."}, {"question": "Wat betekent IJzer?", "answer": "Mineraal dat nodig is voor het zuurstoftransport in het bloed.", "extra": "Voorbeeld: Spinazie en rood vlees bevatten ijzer."}, {"question": "Wat betekent Kalium?", "answer": "Mineraal dat belangrijk is voor spieren en zenuwen.", "extra": "Voorbeeld: Bananen en aardappelen bevatten veel kalium."}, {"question": "Wat betekent Magnesium?", "answer": "Mineraal dat een rol speelt bij spieren en de energiestofwisseling.", "extra": "Voorbeeld: Noten, zaden en volkorenproducten bevatten magnesium."}, {"question": "Wat betekent Energie leveren?", "answer": "De functie van voeding waarbij het lichaam brandstof ontvangt voor alle lichamelijke en geestelijke activiteiten. Zonder energie kan het lichaam niet bewegen, denken, ademen of de lichaamstemperatuur op peil houden.", "extra": "Voorbeeld: Een pastasalade levert energie doordat pasta veel koolhydraten bevat."}, {"question": "Wat betekent Groei?", "answer": "De functie van voeding waarbij het lichaam nieuwe lichaamscellen, spieren en organen opbouwt. Vooral kinderen en jongeren hebben voldoende voedingsstoffen nodig om gezond te groeien.", "extra": "Voorbeeld: Een lunch voor jongeren bevat voldoende eiwitrijke ingrediënten."}, {"question": "Wat betekent Herstel?", "answer": "De functie van voeding waarbij beschadigde lichaamscellen en weefsels worden hersteld. Na sporten, ziekte of zwaar werk helpt voeding het lichaam om beschadigingen te herstellen.", "extra": "Voorbeeld: Een maaltijd met kip of peulvruchten ondersteunt spierherstel."}, {"question": "Wat betekent Bescherming en gezondheid?", "answer": "De functie van voeding waarbij lichaamsprocessen en het afweersysteem worden ondersteund. Vitamines, mineralen en water helpen het lichaam gezond te blijven.", "extra": "Voorbeeld: Een salade met veel groenten levert verschillende beschermende voedingsstoffen."}, {"question": "Wat betekent Genieten en sociale functie?", "answer": "De functie van voeding waarbij eten bijdraagt aan plezier, gastvrijheid en sociale contacten. Mensen eten niet alleen om gezond te blijven, maar ook om samen te genieten.", "extra": "Voorbeeld: Een luxe borrelplank wordt vooral gekozen vanwege de gezamenlijke beleving."}, {"question": "Wat betekent Voedingswaarde?", "answer": "De hoeveelheid energie en voedingsstoffen die een voedingsmiddel bevat. Voedingswaarde laat zien hoeveel een product bijdraagt aan een gezond voedingspatroon.", "extra": "Voorbeeld: Een traiteur vergelijkt twee maaltijdsalades op voedingswaarde voordat een nieuw product wordt gekozen."}, {"question": "Wat betekent Gezonde productkeuze?", "answer": "Het bewust kiezen van ingrediënten die samen een evenwichtig product vormen. Een gezonde productkeuze houdt rekening met voedingswaarde, smaak en doelgroep.", "extra": "Voorbeeld: Een traiteur kiest volkorenpasta, veel groenten en een magere eiwitbron voor een nieuwe maaltijdsalade."}, {"question": "Wat betekent Doelgroep?", "answer": "De groep consumenten waarvoor een product wordt ontwikkeld. Niet iedere klant heeft dezelfde voedingsbehoefte. Daarom past een traiteur producten aan op de doelgroep.", "extra": "Voorbeeld: Een sportmaaltijd bevat meer eiwitten dan een standaard lunchsalade."}, {"question": "Wat betekent Productanalyse?", "answer": "Het systematisch beoordelen van een product op ingrediënten, voedingswaarde en kwaliteit. Bij een productanalyse kijkt een traiteur wat er in een product zit en waarom dat geschikt is voor de klant.", "extra": "Voorbeeld: Een pokébowl wordt geanalyseerd op koolhydraten, eiwitten, vetten en micronutriënten."}, {"question": "Wat betekent Productontwikkeling?", "answer": "Het ontwikkelen of verbeteren van producten die aansluiten bij de wensen van de klant én voldoen aan voedingskundige eisen. Een traiteur bedenkt nieuwe producten waarbij smaak, voedingswaarde, presentatie en doelgroep samenkomen.", "extra": "Voorbeeld: Bij het ontwikkelen van een nieuwe maaltijdsalade worden groenten, eiwitbron en dressing zorgvuldig gekozen."}, {"question": "Wat betekent Brandstof?", "answer": "De functie waarbij voedingsstoffen energie leveren aan het lichaam. Voedingsstoffen zoals koolhydraten worden door het lichaam gebruikt als brandstof om te bewegen, denken en alle lichaamsprocessen uit te voeren.", "extra": "Voorbeeld: Een maaltijd met pasta levert voldoende brandstof voor een actieve werkdag."}, {"question": "Wat betekent Bouwstoffen?", "answer": "Voedingsstoffen die nodig zijn voor groei, onderhoud en herstel van lichaamsweefsels. Het lichaam gebruikt bouwstoffen om spieren, organen en andere weefsels op te bouwen en te herstellen.", "extra": "Voorbeeld: Kip, vis en peulvruchten leveren belangrijke bouwstoffen."}, {"question": "Wat betekent Beschermstoffen?", "answer": "Voedingsstoffen die het lichaam beschermen en ondersteunen bij een goede gezondheid. Vitamines en mineralen helpen het lichaam gezond te blijven en ondersteunen de weerstand.", "extra": "Voorbeeld: Groenten en fruit leveren veel beschermstoffen."}, {"question": "Wat betekent Voedingskundige productanalyse?", "answer": "Het analyseren van een product op aanwezige voedingsstoffen en voedingswaarde. Een traiteur onderzoekt welke voedingsstoffen aanwezig zijn en beoordeelt of een product past bij een doelgroep.", "extra": "Voorbeeld: Een pokébowl wordt beoordeeld op koolhydraten, eiwitten, vetten, vitamines en mineralen."}];
+const STORAGE_KEY = "academy.flashcards.les-1-herhaling-voedingskennis.v1";
+
+const el = id => document.getElementById(id);
+const screens = ["startScreen", "gameScreen", "endScreen", "emptyScreen"];
+
+let state = {
+  queue: [],
+  index: 0,
+  mastered: [],
+  practice: [],
+  flipped: false,
+  mode: "all"
+};
+
+function safeCard(card) {
+  return {
+    question: typeof card?.question === "string" ? card.question : "",
+    answer: typeof card?.answer === "string" ? card.answer : "",
+    extra: typeof card?.extra === "string" ? card.extra : ""
+  };
+}
+
+function usableCards() {
+  return Array.isArray(CARDS)
+    ? CARDS.map(safeCard).filter(card => card.question && card.answer)
+    : [];
+}
+
+function shuffle(items) {
+  const copy = [...items];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
+function showScreen(id) {
+  screens.forEach(screenId => el(screenId).classList.toggle("active", screenId === id));
+}
+
+function saveState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch (_) {}
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (!parsed || !Array.isArray(parsed.queue)) return null;
+    return parsed;
+  } catch (_) {
+    return null;
+  }
+}
+
+function clearProgress() {
+  try { localStorage.removeItem(STORAGE_KEY); } catch (_) {}
+  state = { queue: [], index: 0, mastered: [], practice: [], flipped: false, mode: "all" };
+  updateResumeNote();
+  showScreen(usableCards().length ? "startScreen" : "emptyScreen");
+}
+
+function updateResumeNote() {
+  const saved = loadState();
+  const note = el("resumeNote");
+  if (saved && saved.queue.length && saved.index < saved.queue.length) {
+    const remaining = saved.queue.length - saved.index;
+    note.hidden = false;
+    note.textContent = `Er staat nog een oefenronde klaar met ${remaining} kaart${remaining === 1 ? "" : "en"}. Met “Start oefenen” ga je verder.`;
+  } else {
+    note.hidden = true;
+    note.textContent = "";
+  }
+}
+
+function startAll(forceNew = false) {
+  const cards = usableCards();
+  if (!cards.length) {
+    showScreen("emptyScreen");
+    return;
+  }
+  if (!forceNew) {
+    const saved = loadState();
+    if (saved && Array.isArray(saved.queue) && saved.index < saved.queue.length) {
+      state = saved;
+      renderCard();
+      showScreen("gameScreen");
+      return;
+    }
+  }
+  state = {
+    queue: shuffle(cards),
+    index: 0,
+    mastered: [],
+    practice: [],
+    flipped: false,
+    mode: "all"
+  };
+  saveState();
+  renderCard();
+  showScreen("gameScreen");
+}
+
+function startPracticeOnly() {
+  const practiceCards = Array.isArray(state.practice) ? state.practice.map(safeCard).filter(c => c.question && c.answer) : [];
+  if (!practiceCards.length) {
+    startAll(true);
+    return;
+  }
+  state = {
+    queue: shuffle(practiceCards),
+    index: 0,
+    mastered: [],
+    practice: [],
+    flipped: false,
+    mode: "practice"
+  };
+  saveState();
+  renderCard();
+  showScreen("gameScreen");
+}
+
+function currentCard() {
+  return state.queue[state.index] ? safeCard(state.queue[state.index]) : null;
+}
+
+function renderCard() {
+  const card = currentCard();
+  if (!card) {
+    finishRound();
+    return;
+  }
+  state.flipped = false;
+  el("sideLabel").textContent = "Vraag";
+  el("questionText").textContent = card.question;
+  el("questionText").style.display = "block";
+  el("answerText").textContent = card.answer;
+  el("answerText").classList.remove("visible");
+  el("exampleText").textContent = "";
+  el("flipButton").style.display = "block";
+  el("gradeActions").classList.remove("visible");
+
+  const total = Math.max(state.queue.length, 1);
+  const current = Math.min(state.index + 1, total);
+  const completed = Math.min(state.index, total);
+  const percent = Math.round((completed / total) * 100);
+
+  el("counter").textContent = `Kaart ${current} van ${total}`;
+  el("percentage").textContent = `${percent}%`;
+  el("progressBar").style.width = `${percent}%`;
+  saveState();
+}
+
+function flipCard() {
+  const card = currentCard();
+  if (!card || state.flipped) return;
+  state.flipped = true;
+  el("sideLabel").textContent = "Antwoord";
+  el("questionText").style.display = "none";
+  el("answerText").classList.add("visible");
+  el("exampleText").textContent = card.extra || "";
+  el("flipButton").style.display = "none";
+  el("gradeActions").classList.add("visible");
+  saveState();
+}
+
+function gradeCard(mastered) {
+  const card = currentCard();
+  if (!card) return;
+  if (mastered) {
+    state.mastered.push(card);
+  } else {
+    state.practice.push(card);
+  }
+  state.index += 1;
+  state.flipped = false;
+  if (state.index >= state.queue.length) {
+    finishRound();
+  } else {
+    renderCard();
+  }
+}
+
+function finishRound() {
+  const total = state.mastered.length + state.practice.length;
+  const mastered = state.mastered.length;
+  const practice = state.practice.length;
+  const percentage = total ? Math.round((mastered / total) * 100) : 0;
+
+  el("masteredCount").textContent = String(mastered);
+  el("practiceCount").textContent = String(practice);
+  el("finalPercentage").textContent = `${percentage}%`;
+  el("retryButton").disabled = practice === 0;
+  el("retryButton").textContent = practice === 0 ? "Alle kaarten beheerst" : "Fouten opnieuw oefenen";
+  el("progressBar").style.width = "100%";
+
+  saveState();
+  showScreen("endScreen");
+}
+
+el("startButton").addEventListener("click", () => startAll(false));
+el("flipButton").addEventListener("click", flipCard);
+el("knownButton").addEventListener("click", () => gradeCard(true));
+el("againButton").addEventListener("click", () => gradeCard(false));
+el("retryButton").addEventListener("click", startPracticeOnly);
+el("restartButton").addEventListener("click", () => startAll(true));
+el("resetProgressTop").addEventListener("click", () => {
+  const confirmed = window.confirm("Wil je de opgeslagen voortgang op dit apparaat resetten?");
+  if (confirmed) clearProgress();
+});
+
+document.addEventListener("keydown", event => {
+  if (!el("gameScreen").classList.contains("active")) return;
+  if ((event.key === "Enter" || event.key === " ") && !state.flipped) {
+    event.preventDefault();
+    flipCard();
+  }
+});
+
+(function init() {
+  updateResumeNote();
+  if (!usableCards().length) showScreen("emptyScreen");
+})();
+</script>
+</body>
+</html>
