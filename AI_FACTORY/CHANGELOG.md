@@ -2,6 +2,19 @@
 
 Alle belangrijke wijzigingen aan de Academy Oefenplein AI Factory worden in dit bestand vastgelegd. De Factory volgt Semantic Versioning en de indeling van Keep a Changelog.
 
+## [1.1.0] - 2026-07-18
+
+### Toegevoegd
+
+- Centrale Theme Engine-standaard met `system`, `light` en `dark`.
+- Semantische CSS-kleurvariabelen en `data-theme`-contract.
+- Prompt 18 voor darkmode-integratie.
+
+### Gewijzigd
+
+- Modulechecklist en modulestandaard bevatten thema-, contrast- en opslagcontroles.
+- Roadmap markeert launcherdarkmode als uitgevoerd en houdt migratie van zelfstandige modules als vervolgitem bij.
+
 ## [1.0.0] - 2026-07-17
 
 ### Toegevoegd
@@ -20,4 +33,3 @@ Alle belangrijke wijzigingen aan de Academy Oefenplein AI Factory worden in dit 
 - De Academy Launcher blijft een catalogus en bevat geen centrale oefenengine.
 - Nieuwe modules gebruiken geen frameworks, externe libraries of verplichte netwerkverbinding.
 - Alleen gecontroleerde modules krijgen status `available`.
-

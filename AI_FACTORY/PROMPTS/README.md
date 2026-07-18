@@ -30,6 +30,8 @@ Bij tegenstrijdigheid hebben de expliciete gebruikersopdracht en de normatieve s
 | [13_MAAK_MEMORY.md](13_MAAK_MEMORY.md) | Bouw een toegankelijk memoryspel |
 | [14_MAAK_EXAMENTRAINER.md](14_MAAK_EXAMENTRAINER.md) | Bouw een transparante examentrainer |
 | [15_IMPORT_MASTER_CONTENT.md](15_IMPORT_MASTER_CONTENT.md) | Zet goedgekeurde mastercontent gecontroleerd om naar moduledata |
+| [17_VOEG_SPECIAAL_ONDERDEEL_TOE.md](17_VOEG_SPECIAAL_ONDERDEEL_TOE.md) | Voeg een configureerbaar toets-, examen- of PVB-onderdeel aan een leerjaar toe |
+| [18_VOEG_DARKMODE_TOE.md](18_VOEG_DARKMODE_TOE.md) | Voeg een centrale, toegankelijke licht/donker/systeem-Theme Engine toe |
 
 ## Aanbevolen gebruik
 
@@ -38,4 +40,3 @@ Bij tegenstrijdigheid hebben de expliciete gebruikersopdracht en de normatieve s
 3. Voeg de actuele bronbestanden en inhoudelijke bron toe.
 4. Laat het AI-systeem eerst inventariseren en daarna uitvoeren.
 5. Controleer de oplevering met `../MODULE_CHECKLIST.md`.
-

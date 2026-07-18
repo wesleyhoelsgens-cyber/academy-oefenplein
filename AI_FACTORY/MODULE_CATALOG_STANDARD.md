@@ -21,6 +21,7 @@ Iedere nieuwe module levert het volgende volledige object op:
     education: "traiteur",
     year: 2,
     period: 1,
+    specialSection: null,
     theme: "Voedingskennis",
     difficulty: "basis",
     tags: ["voeding", "voedingsstoffen", "quiz"],
@@ -44,7 +45,8 @@ Iedere nieuwe module levert het volgende volledige object op:
 | `estimatedDuration` | string | ja | Realistische geschatte tijd voor één ronde |
 | `education` | string | ja | Opleidings-id uit de launcher |
 | `year` | integer | ja | Leerjaar, momenteel `1` of `2` |
-| `period` | integer | ja | Periode, momenteel `1` tot en met `4` |
+| `period` | integer/null | conditioneel | Geconfigureerde periode; `null` bij plaatsing in een speciaal onderdeel |
+| `specialSection` | string/null | conditioneel | Id van een speciaal toets- of PVB-onderdeel; `null` bij plaatsing in een periode |
 | `theme` | string | ja | Zichtbare sectiekop; geen navigatieniveau |
 | `difficulty` | string | ja | `basis`, `gemiddeld` of `verdieping` |
 | `tags` | array | ja | Zoek- en beheertermen, zonder duplicaten |
@@ -86,6 +88,14 @@ Iedere nieuwe module levert het volgende volledige object op:
 - `retired` wordt uit de actieve launcher verwijderd, maar blijft in releasehistorie herkenbaar.
 - Het pad begint met `modules/`, eindigt op `.html` en bevat geen `..`, backslashes of absolute schijflocatie.
 
+### Onderwijsplaatsing
+
+- Precies een van `period` en `specialSection` bevat een plaatsingswaarde.
+- `period` moet bestaan in de configureerbare perioden van het gekozen leerjaar.
+- `specialSection` moet bestaan in `specialeOnderdelen` van het gekozen leerjaar.
+- Speciale onderdelen staan naast, en nooit binnen, de reguliere periodenavigatie.
+- Een leerjaar mag nul, een of meerdere speciale onderdelen bevatten.
+
 ### Versies en datum
 
 - `version` en `factoryVersion` volgen `MAJOR.MINOR.PATCH`.
@@ -106,7 +116,7 @@ De huidige launcher gebruikt een compact Nederlandstalig catalogusblok. Vertaal 
 | `file` | `bestand` |
 | `status === "available"` | `beschikbaar: true` |
 
-`education`, `year`, `period` en `theme` bepalen waar het blok in de bestaande hiërarchie wordt geplaatst. De overige canonieke velden blijven onderdeel van de oplevering en kunnen later zonder betekenisverlies in een uitgebreidere catalogus worden opgenomen.
+`education`, `year` en precies een van `period` of `specialSection` bepalen waar het blok in de bestaande hiërarchie wordt geplaatst. `theme` blijft een visuele sectiekop op de gekozen overzichtspagina. De overige canonieke velden blijven onderdeel van de oplevering en kunnen later zonder betekenisverlies in een uitgebreidere catalogus worden opgenomen.
 
 ```js
 {
@@ -137,8 +147,7 @@ Voeg voor een toekomstige tegel geen niet-bestaand bestand toe:
 
 - [ ] Alle verplichte canonieke velden zijn aanwezig.
 - [ ] Waarden voldoen aan type en toegestane waarden.
-- [ ] Plaatsing in opleiding, leerjaar, periode en thema klopt.
+- [ ] Plaatsing in opleiding, leerjaar, periode of speciaal onderdeel en thema klopt.
 - [ ] `available` verwijst naar een bestaand en getest bestand.
 - [ ] Er bestaat geen tweede module met dezelfde `id` of hetzelfde bestandspad.
 - [ ] De compacte launcher-entry is inhoudelijk gelijk aan de canonieke metadata.
-

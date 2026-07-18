@@ -123,6 +123,15 @@ voor de Terug-knop. Voeg geen tweede router toe en bouw hashes niet dynamisch ui
 - Gebruik voldoende contrast volgens WCAG 2.1 AA als minimum.
 - Scope stijlen logisch en vermijd `!important`, behalve bij een gemotiveerde toegankelijkheidsuitzondering.
 
+### 6.1 Themaondersteuning
+
+- Gebruik semantische variabelen zoals `--color-background`, `--color-surface`, `--color-text`, `--color-text-muted`, `--color-heading`, `--color-primary`, `--color-primary-contrast`, `--color-border` en `--color-focus`.
+- Definieer lichte waarden in `:root` en donkere waarden onder `html[data-theme="dark"]`; vermijd hardcoded kleuren in componentregels.
+- Lees optioneel `academy-theme-preference` met geldige waarden `system`, `light` en `dark`; behandel geblokkeerde opslag en ongeldige waarden als `system`.
+- Los `system` op met `prefers-color-scheme` en reageer op wijzigingen zolang geen expliciet licht of donker is gekozen.
+- Plaats een klein initialisatiescript in de `<head>` wanneer een donkere flits voorkomen moet worden.
+- Voeg toekomstige thema's toe als een nieuwe semantische variabelenset; herschrijf daarvoor geen component-CSS.
+
 ## 7. JavaScript-richtlijnen
 
 - Gebruik vanilla JavaScript ES6 en `"use strict"`.

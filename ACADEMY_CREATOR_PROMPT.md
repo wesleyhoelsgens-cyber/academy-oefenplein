@@ -14,7 +14,7 @@ Maak een oefenmodule voor:
 
 - Opleiding: `[opleiding]`
 - Leerjaar: `[leerjaar]`
-- Periode: `[periode]`
+- Plaatsing: `[periode of speciaal onderdeel]`
 - Thema/sectiekop: `[thema]`
 - Onderwerp: `[onderwerp]`
 - Doelgroep/niveau: `[doelgroep en mbo-niveau]`
@@ -134,14 +134,14 @@ Leg voor iedere module deze metadata vast:
 | `beschikbaar` | `true` |
 | Opleiding | `[opleiding]` |
 | Leerjaar | `[leerjaar]` |
-| Periode | `[periode]` |
+| Periode of speciaal onderdeel | `[periode of speciaal onderdeel]` |
 | Thema/sectiekop | `[thema]` |
 
 De bestandsnaam en het `id` zijn uniek, beschrijvend en geschreven in kebab-case.
 
 ## 8. Catalogusblok
 
-Voeg de module na succesvolle controle toe aan het bestaande JavaScript-object in `app.js`, onder de juiste opleiding, het juiste leerjaar, de juiste periode en de juiste themasectie.
+Voeg de module na succesvolle controle toe aan het bestaande JavaScript-object in `app.js`, onder de juiste opleiding, het juiste leerjaar, de juiste periode of het juiste speciale onderdeel en de juiste themasectie.
 
 Gebruik dit formaat:
 
@@ -160,6 +160,7 @@ Gebruik dit formaat:
 Regels voor de catalogus:
 
 - Maak geen extra navigatieniveau voor thema's.
+- Plaats een speciale toets-, examen- of PVB-module in `specialeOnderdelen`, nooit in een fictieve periode.
 - Thema's zijn uitsluitend zichtbare sectiekoppen op de modulepagina.
 - Voeg geen losse JSON-bestanden of tweede databron toe.
 - Gebruik `beschikbaar: false` voor een aangekondigde module zonder werkend bestand.

@@ -4,14 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Kies je opleiding en open een zelfstandige oefenmodule van Academy Oefenplein.">
-    <title>Academy Oefenplein</title>
+    <title>SVO Academy Oefenplein</title>
+    <script>
+        (() => {
+            const validPreferences = ["system", "light", "dark"];
+            let preference = "system";
+            try {
+                const storedPreference = localStorage.getItem("academy-theme-preference");
+                if (validPreferences.includes(storedPreference)) preference = storedPreference;
+            } catch (_) {}
+            const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+            document.documentElement.dataset.theme = preference === "system" ? systemTheme : preference;
+        })();
+    </script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header class="site-header">
-        <div class="page-width">
-            <a class="site-title" href="#" aria-label="Academy Oefenplein - beginscherm">Academy Oefenplein</a>
-            <p>Kies je opleiding en ga stap voor stap naar een oefening.</p>
+        <div class="page-width header-layout">
+            <div class="site-brand">
+                <a class="site-title" href="#" aria-label="SVO Academy Oefenplein - beginscherm">
+                    <svg class="academy-mark" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+                        <path d="M24 4 43 39a3 3 0 0 1-2.6 4.5h-7.2l-3.5-7H18.3l-3.5 7H7.6A3 3 0 0 1 5 39L24 4Z"/>
+                        <path class="academy-mark-cutout" d="m24 17-4.5 10h9L24 17Z"/>
+                    </svg>
+                    <span>SVO Academy Oefenplein</span>
+                </a>
+                <p>Van theorie naar vakmanschap.</p>
+            </div>
+            <fieldset class="theme-control" aria-label="Kleurthema">
+                <legend class="visually-hidden">Kleurthema</legend>
+                <button type="button" data-theme-preference="system" aria-pressed="false">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><rect width="18" height="12" x="3" y="4" rx="2"/><path d="M8 20h8M12 16v4"/></svg>
+                    <span>Systeem</span>
+                </button>
+                <button type="button" data-theme-preference="light" aria-pressed="false">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+                    <span>Licht</span>
+                </button>
+                <button type="button" data-theme-preference="dark" aria-pressed="false">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+                    <span>Donker</span>
+                </button>
+            </fieldset>
         </div>
     </header>
 

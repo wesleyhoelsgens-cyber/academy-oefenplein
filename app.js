@@ -1,22 +1,75 @@
 "use strict";
 
+const THEME_STORAGE_KEY = "academy-theme-preference";
+const THEME_PREFERENCES = ["system", "light", "dark"];
+const systemThemeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+let themePreference = getStoredThemePreference();
+
+function getStoredThemePreference() {
+    try {
+        const storedPreference = localStorage.getItem(THEME_STORAGE_KEY);
+        return THEME_PREFERENCES.includes(storedPreference) ? storedPreference : "system";
+    } catch (_) {
+        return "system";
+    }
+}
+
+function getSystemTheme() {
+    return systemThemeQuery.matches ? "dark" : "light";
+}
+
+function resolveTheme(preference) {
+    return preference === "system" ? getSystemTheme() : preference;
+}
+
+function applyTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+}
+
+function updateThemeControls() {
+    document.querySelectorAll("[data-theme-preference]").forEach(button => {
+        button.setAttribute("aria-pressed", String(button.dataset.themePreference === themePreference));
+    });
+}
+
+function setThemePreference(preference) {
+    if (!THEME_PREFERENCES.includes(preference)) return;
+    themePreference = preference;
+    try {
+        localStorage.setItem(THEME_STORAGE_KEY, preference);
+    } catch (_) {}
+    applyTheme(resolveTheme(preference));
+    updateThemeControls();
+}
+
+function handleSystemThemeChange() {
+    if (themePreference === "system") applyTheme(getSystemTheme());
+}
+
+document.querySelectorAll("[data-theme-preference]").forEach(button => {
+    button.addEventListener("click", () => setThemePreference(button.dataset.themePreference));
+});
+systemThemeQuery.addEventListener("change", handleSystemThemeChange);
+applyTheme(resolveTheme(themePreference));
+updateThemeControls();
+
 const academyData = {
     opleidingen: [
         createOpleiding("traiteur", "Traiteur", [
-            createLeerjaar(1, [1, 2, 3, 4]),
+            createLeerjaar(1, [1, 2, 3, 4], {}, [createEindtoetsOnderdeel()]),
             createLeerjaar(2, [5, 6, 7, 8], {
                 5: {
                     themas: [
                         {
                             id: "voedingskennis",
-                            naam: "Voedingskennis",
+                            naam: "Les 1 – Voedingskennis Herhaling vorig jaar",
                             modules: [
                                 {
                                     id: "herhaling-voedingskennis",
-                                    titel: "Herhaling voedingskennis",
+                                    titel: "Les 1 – Herhaling voedingskennis vorig jaar",
                                     type: "Flashcardgame",
                                     duur: "10–15 minuten",
-                                    beschrijving: "Oefen belangrijke begrippen over voeding, voedingsstoffen en voedingswaarde.",
+                                    beschrijving: "Oefen de belangrijkste begrippen uit de voedingskennis van leerjaar 1.",
                                     bestand: "modules/flashcardgame-herhaling-voedingskennis.html",
                                     beschikbaar: true
                                 }
@@ -54,15 +107,15 @@ const academyData = {
                         }
                     ]
                 }
-            })
+            }, [createEindexamenOnderdeel()])
         ]),
         createOpleiding("bol-allround-food-expert", "BOL Allround Food Expert", [
-            createLeerjaar(1, [1, 2, 3, 4]),
-            createLeerjaar(2, [1, 2, 3, 4])
+            createLeerjaar(1, [1, 2, 3, 4], {}, [createEindtoetsOnderdeel()]),
+            createLeerjaar(2, [1, 2, 3, 4], {}, [createEindexamenOnderdeel()])
         ]),
         createOpleiding("hospitality", "Hospitality", [
-            createLeerjaar(1, [1, 2, 3, 4]),
-            createLeerjaar(2, [1, 2, 3, 4])
+            createLeerjaar(1, [1, 2, 3, 4], {}, [createEindtoetsOnderdeel()]),
+            createLeerjaar(2, [1, 2, 3, 4], {}, [createEindexamenOnderdeel()])
         ]),
         createOpleiding("burgerschap", "Burgerschap", [
             createLeerjaar(1, [1, 2, 3, 4]),
@@ -79,7 +132,7 @@ const academyData = {
     ]
 };
 
-function createLeerjaar(nummer, periodeNummers, periodeInhoud = {}) {
+function createLeerjaar(nummer, periodeNummers, periodeInhoud = {}, specialeOnderdelen = []) {
     return {
         id: `leerjaar-${nummer}`,
         naam: `Leerjaar ${nummer}`,
@@ -87,7 +140,26 @@ function createLeerjaar(nummer, periodeNummers, periodeInhoud = {}) {
             id: `periode-${periodeNummer}`,
             naam: `Periode ${periodeNummer}`,
             themas: periodeInhoud[periodeNummer]?.themas || []
-        }))
+        })),
+        specialeOnderdelen
+    };
+}
+
+function createEindtoetsOnderdeel() {
+    return {
+        id: "eindtoets-proeve-van-bekwaamheid",
+        naam: "Eindtoets & Proeve van bekwaamheid",
+        beschrijving: "Oefenmodules, voorbereiding en informatie voor de eindtoets en proeve van bekwaamheid van leerjaar 1.",
+        themas: []
+    };
+}
+
+function createEindexamenOnderdeel() {
+    return {
+        id: "eindexamen-proeven-van-bekwaamheid",
+        naam: "Eindexamen & Proeven van bekwaamheid",
+        beschrijving: "Oefenmodules, voorbereiding en informatie voor het eindexamen en de proeven van bekwaamheid van leerjaar 2.",
+        themas: []
     };
 }
 
@@ -138,11 +210,43 @@ function renderCards(items, parentRoute) {
     `;
 }
 
+function renderLeerjaarOverview(leerjaar, parentRoute) {
+    return `
+        <section class="card-grid" aria-label="Perioden en toets- en examenonderdelen">
+            ${leerjaar.periodes.map(periode => `
+                <a class="navigation-card" href="${routeTo([...parentRoute, periode.id])}">
+                    <span>${periode.naam}</span>
+                </a>
+            `).join("")}
+            ${leerjaar.specialeOnderdelen.map(onderdeel => `
+                <a class="navigation-card special-card" href="${routeTo([...parentRoute, "speciaal", onderdeel.id])}">
+                    <span class="special-card-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" focusable="false"><path d="M7 3.75h7l3 3V20.25H7zM14 3.75v3h3M9.5 11h5M9.5 14.5h5"/></svg>
+                    </span>
+                    <span class="special-card-content">
+                        <strong>${onderdeel.naam}</strong>
+                        <small>${onderdeel.beschrijving}</small>
+                    </span>
+                </a>
+            `).join("")}
+        </section>
+    `;
+}
+
 function renderEmptyState() {
     return `
         <section class="empty-state">
             <h2>Nog geen modules</h2>
             <p>Voor deze periode zijn nog geen oefenmodules beschikbaar.</p>
+        </section>
+    `;
+}
+
+function renderSpecialEmptyState() {
+    return `
+        <section class="empty-state">
+            <h2>Nog geen modules</h2>
+            <p>Voor dit toets- en examenonderdeel zijn nog geen oefenmodules beschikbaar.</p>
         </section>
     `;
 }
@@ -210,10 +314,16 @@ function renderModuleOverview(themas) {
 
 function render() {
     const parts = getRouteParts();
-    const [opleidingId, leerjaarId, periodeId] = parts;
+    const [opleidingId, leerjaarId, routeTypeOfPeriodeId, speciaalOnderdeelId] = parts;
     const opleiding = findById(academyData.opleidingen, opleidingId);
     const leerjaar = opleiding && findById(opleiding.leerjaren, leerjaarId);
-    const periode = leerjaar && findById(leerjaar.periodes, periodeId);
+    const isSpecialeRoute = routeTypeOfPeriodeId === "speciaal";
+    const periode = leerjaar && !isSpecialeRoute
+        ? findById(leerjaar.periodes, routeTypeOfPeriodeId)
+        : undefined;
+    const speciaalOnderdeel = leerjaar && isSpecialeRoute
+        ? findById(leerjaar.specialeOnderdelen, speciaalOnderdeelId)
+        : undefined;
 
     if (!parts.length) {
         renderBreadcrumb([]);
@@ -225,7 +335,13 @@ function render() {
         return;
     }
 
-    if (!opleiding || (leerjaarId && !leerjaar) || (periodeId && !periode) || parts.length > 3) {
+    const isOngeldigeSpecialeRoute = isSpecialeRoute
+        && (!speciaalOnderdeel || parts.length !== 4);
+    const isOngeldigePeriodeRoute = routeTypeOfPeriodeId
+        && !isSpecialeRoute
+        && (!periode || parts.length !== 3);
+
+    if (!opleiding || (leerjaarId && !leerjaar) || isOngeldigeSpecialeRoute || isOngeldigePeriodeRoute || parts.length > 4) {
         window.location.replace(routeTo([]));
         return;
     }
@@ -244,13 +360,31 @@ function render() {
 
     crumbs.push({ label: leerjaar.naam, route: [opleiding.id, leerjaar.id] });
 
-    if (!periodeId) {
+    if (!routeTypeOfPeriodeId) {
         renderBreadcrumb(crumbs);
         app.innerHTML = renderHeader(
             "Kies je periode",
             `${opleiding.naam} · ${leerjaar.naam}`,
             [opleiding.id]
-        ) + renderCards(leerjaar.periodes, [opleiding.id, leerjaar.id]);
+        ) + renderLeerjaarOverview(leerjaar, [opleiding.id, leerjaar.id]);
+        return;
+    }
+
+    if (isSpecialeRoute) {
+        const specialCrumbs = [
+            { label: " Academy Oefenplein", route: [] },
+            { label: opleiding.naam, route: [opleiding.id] },
+            { label: leerjaar.naam, route: [opleiding.id, leerjaar.id] },
+            { label: speciaalOnderdeel.naam, route: [...parts] }
+        ];
+        renderBreadcrumb(specialCrumbs);
+        app.innerHTML = renderHeader(
+            speciaalOnderdeel.naam,
+            speciaalOnderdeel.beschrijving,
+            [opleiding.id, leerjaar.id]
+        ) + (speciaalOnderdeel.themas.length
+            ? renderModuleOverview(speciaalOnderdeel.themas)
+            : renderSpecialEmptyState());
         return;
     }
 

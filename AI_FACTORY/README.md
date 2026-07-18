@@ -45,7 +45,7 @@ Een afwijking wordt niet stilzwijgend ingevoerd. Documenteer de reden en laat de
 
 ## Prompt Library
 
-De map [`PROMPTS/`](PROMPTS/) bevat vijftien taakgerichte prompts met een vaste opmaak:
+De map [`PROMPTS/`](PROMPTS/) bevat zeventien taakgerichte prompts met een vaste opmaak:
 Doel, Wanneer gebruiken, Variabelen, Prompt, Voorbeeld en Verwachte uitvoer. Kies altijd de
 kleinste prompt die de opdracht volledig dekt en vul alle blokhaakvariabelen in. De prompts
 vervangen de standaarden niet; zij passen de standaarden toe op een concreet werkproces.
@@ -84,3 +84,10 @@ Nieuwe moduletypen worden eerst als ontwerpvoorstel vastgelegd. Automatisering m
 - Leerinhoud is herleidbaar naar een goedgekeurde bron.
 - Toegankelijkheid, mobiel gebruik en foutafhandeling zijn oplevereisen.
 - Alleen volledig geteste modules krijgen status `available`.
+- Thema's gebruiken semantische CSS-variabelen; componenten bevatten geen eigen hardcoded themakleuren.
+
+## Theme Engine
+
+De launcher ondersteunt de voorkeuren `system`, `light` en `dark` via `academy-theme-preference`. De waarde `system` wordt met `prefers-color-scheme` opgelost; het toegepaste resultaat staat als `data-theme="light"` of `data-theme="dark"` op het root-element. Nieuwe modules kunnen dezelfde voorkeur fouttolerant lezen en dezelfde semantische variabelen definiëren. Bestaande zelfstandige modules delen de launcher-CSS niet en zijn daarom niet automatisch gethematiseerd.
+
+Een toekomstig visueel thema wordt toegevoegd door uitsluitend een nieuwe variabelenset onder een eigen `data-theme`-selector te definiëren. De component-CSS blijft daarbij ongewijzigd.

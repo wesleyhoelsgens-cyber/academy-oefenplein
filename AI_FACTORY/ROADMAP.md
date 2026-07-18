@@ -9,6 +9,30 @@ Deze roadmap beschrijft richting, geen automatische toestemming om functionalite
 - Nieuwe mogelijkheden blijven achterwaarts compatibel binnen dezelfde major-versie.
 - Toegankelijkheid, offline werking en privacy zijn vaste kwaliteitsgrenzen.
 
+## Uitgevoerd
+
+### Donkere modus en themawisselaar
+
+Doel: een toegankelijke lichte en donkere weergave bieden zonder de eenvoudige Academy-architectuur te veranderen.
+
+- ondersteuning voor een licht en donker kleurthema;
+- handmatige themawisselaar met behoud van de keuze in `localStorage`;
+- systeemvoorkeur via `prefers-color-scheme` als uitgangspunt wanneer nog geen keuze is opgeslagen;
+- consistente toepassing op de launcher en zelfstandige modules;
+- aantoonbare toetsenbordbediening, zichtbare focus en voldoende kleurcontrast in beide thema's.
+
+Status: uitgevoerd in PB-010 voor de volledige Academy Launcher.
+
+## Eerstvolgende backlog
+
+### Theme Engine toepassen op bestaande zelfstandige modules
+
+Laat bestaande modules veilig dezelfde voorkeur en semantische variabelen gebruiken, met regressietests per zelfstandig HTML-bestand. Tot deze migratie is afgerond behouden modules hun eigen vormgeving.
+
+### Academy Content Manager
+
+Later backlog-item voor gecontroleerd inhoudsbeheer; geen onderdeel van PB-010.
+
 ## v1.1 — Verdieping van de standaard
 
 Doel: meer variatie ondersteunen zonder de basisarchitectuur te veranderen.
@@ -66,4 +90,3 @@ De volgende onderwerpen zijn bewust geen toezegging:
 - Is migratie van bestaande modules beheersbaar?
 - Zijn privacy, beveiliging en onderhoud belegd?
 - Is menselijke acceptatie expliciet onderdeel van de workflow?
-

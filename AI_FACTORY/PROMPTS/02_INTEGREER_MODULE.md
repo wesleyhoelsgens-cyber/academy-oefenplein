@@ -11,7 +11,7 @@ Gebruik deze prompt nadat een module in `modules/` is geplaatst en inhoudelijk g
 ## Variabelen
 
 - `[Bestandsnaam]`
-- `[Opleiding]`, `[Leerjaar]`, `[Periode]`, `[Thema]`
+- `[Opleiding]`, `[Leerjaar]`, `[Plaatsingstype: periode/speciaal onderdeel]`, `[Periode of speciaal onderdeel]`, `[Thema]`
 - `[Titel]`, `[Type]`, `[Duur]`, `[Beschrijving]`
 
 ## Prompt
@@ -19,7 +19,7 @@ Gebruik deze prompt nadat een module in `modules/` is geplaatst en inhoudelijk g
 ```text
 Lees eerst de bestaande module modules/[Bestandsnaam], app.js en de AI Factory-
 catalogusstandaard. Integreer de module onder [Opleiding] / Leerjaar [Leerjaar] /
-Periode [Periode], met themakop [Thema].
+[Plaatsingstype: periode/speciaal onderdeel] [Periode of speciaal onderdeel], met themakop [Thema].
 
 Gebruik metadata uit de module. Verwachte waarden: titel [Titel], type [Type],
 duur [Duur], beschrijving [Beschrijving]. Meld verschillen voordat je ze overschrijft.
@@ -41,4 +41,3 @@ Integreer `flashcards-les-3.html` onder Traiteur, Leerjaar 2, Periode 6, thema `
 - Gerichte cataloguswijziging.
 - Werkende tegel en link.
 - Testverslag en lijst van gewijzigde bestanden.
-

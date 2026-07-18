@@ -75,6 +75,8 @@ Markeer een punt pas als het aantoonbaar is gecontroleerd. Noteer `n.v.t.` met r
 - [ ] Afbeeldingen hebben correcte alternatieve tekst.
 - [ ] Dynamische feedback wordt passend aangekondigd.
 - [ ] `prefers-reduced-motion` wordt gerespecteerd.
+- [ ] Licht en donker hebben voldoende contrast voor tekst, bediening, borders en focus.
+- [ ] Themakeuze is niet uitsluitend door kleur herkenbaar.
 
 ## F. LocalStorage en privacy
 
@@ -85,6 +87,7 @@ Markeer een punt pas als het aantoonbaar is gecontroleerd. Noteer `n.v.t.` met r
 - [ ] De module blijft werken als opslag is geblokkeerd.
 - [ ] De student kan opgeslagen voortgang resetten.
 - [ ] Er worden geen persoonsgegevens of gevoelige gegevens opgeslagen.
+- [ ] Thema-overname accepteert uitsluitend `system`, `light` of `dark` onder `academy-theme-preference`, of: [ ] n.v.t.
 
 ## G. Codekwaliteit en prestaties
 
@@ -103,7 +106,8 @@ Markeer een punt pas als het aantoonbaar is gecontroleerd. Noteer `n.v.t.` met r
 
 - [ ] Alle verplichte canonieke metadata is aanwezig.
 - [ ] `id`, versie, datum en enums zijn geldig.
-- [ ] Opleiding, leerjaar, periode en thema kloppen.
+- [ ] Opleiding, leerjaar, periode of speciaal onderdeel en thema kloppen.
+- [ ] De module staat in precies een plaatsingstype: reguliere periode of speciaal onderdeel.
 - [ ] Titel, type, duur en beschrijving komen overeen met de module.
 - [ ] Het bestandspad bestaat en opent de juiste module.
 - [ ] `status` is pas na acceptatie `available`.
