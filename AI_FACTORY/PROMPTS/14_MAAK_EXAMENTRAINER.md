@@ -10,15 +10,16 @@ Gebruik deze prompt voor een goedgekeurde set examengerichte vragen met bekende 
 
 ## Variabelen
 
-- `[Bestandsnaam]`, `[Opleiding]`, `[Leerjaar]`, `[Periode]`, `[Thema]`
+- `[Bestandsnaam]`, `[Opleiding]`, `[Leerjaar indien van toepassing]`, `[Periode of onderdeel]`, `[Thema]`
 - `[Titel]`, `[Duur]`, `[Aantal vragen]`, `[Vraagtypen]`
 - `[Bronmateriaal]`, `[Beoordelingsmodel]`, `[Tijdslimiet]`
 
 ## Prompt
 
 ```text
-Bouw modules/[Bestandsnaam] als zelfstandige examentrainer voor [Opleiding], Leerjaar
-[Leerjaar], Periode [Periode], thema [Thema]. Titel: [Titel]. Duur: [Duur].
+Lees eerst AI_FACTORY/MODULES/inbox-workflow/CONFIG.md.
+Bouw `[CONFIG.inboxPath]/[Bestandsnaam]` als zelfstandige examentrainer voor [Opleiding] op de werkelijk
+geconfigureerde plaatsing [Leerjaar indien van toepassing] / [Periode of onderdeel] / [Thema]. Titel: [Titel]. Duur: [Duur].
 Gebruik [Aantal vragen] van type [Vraagtypen] uit [Bronmateriaal].
 Beoordelingsmodel: [Beoordelingsmodel]. Tijdslimiet: [Tijdslimiet].
 
@@ -40,4 +41,3 @@ Twintig vragen in 30 minuten met een cesuur van 70% en feedback na afloop.
 - Zelfstandige examentrainer.
 - Transparant beoordelingscontract.
 - Metadata en bewijs voor score-, timer- en opslagtests.
-

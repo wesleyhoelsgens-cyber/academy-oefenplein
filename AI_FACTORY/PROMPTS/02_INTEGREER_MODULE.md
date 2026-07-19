@@ -2,42 +2,40 @@
 
 ## Doel
 
-Een bestaand, werkend HTML-bestand op de juiste plaats in de Academy Launcher registreren.
+Een bestaand, werkend HTML-bestand via de officiële Inbox Workflow laten registreren.
 
 ## Wanneer gebruiken
 
-Gebruik deze prompt nadat een module in `modules/` is geplaatst en inhoudelijk gereed is.
+Gebruik deze prompt als ingang voor registratie. De feitelijke analyse en uitvoering worden
+uitsluitend gedelegeerd aan `AI_FACTORY/MODULES/inbox-workflow/`.
 
 ## Variabelen
 
-- `[Bestandsnaam]`
-- `[Opleiding]`, `[Leerjaar indien van toepassing]`, `[Plaatsingstype: periode/speciaal onderdeel/opleidingsonderdeel]`, `[Periode of onderdeel]`, `[Thema]`
-- `[Titel]`, `[Type]`, `[Duur]`, `[Beschrijving]`
+- `[Bestandsnaam in inbox]`
+- `[Bekende metadata en gewenste plaatsing]`
 
 ## Prompt
 
 ```text
-Lees eerst de bestaande module modules/[Bestandsnaam], app.js en de AI Factory-
-catalogusstandaard. Integreer de module onder [Opleiding] / Leerjaar [Leerjaar indien van toepassing] /
-[Plaatsingstype: periode/speciaal onderdeel/opleidingsonderdeel] [Periode of onderdeel], met themakop [Thema].
+Lees AI_FACTORY/MODULES/inbox-workflow/README.md en CONFIG.md volledig.
+Te registreren inboxbestand: [Bestandsnaam in inbox].
+Bekende metadata en gewenste plaatsing: [Bekende metadata en gewenste plaatsing].
+Gebruik AI_FACTORY/MODULES/inbox-workflow/PROMPTS/01_ANALYSE_INBOX.md. Toon het volledige
+actieve rapport en eindig exact met: Wil je het registratieplan uitvoeren?
 
-Gebruik metadata uit de module. Verwachte waarden: titel [Titel], type [Type],
-duur [Duur], beschrijving [Beschrijving]. Meld verschillen voordat je ze overschrijft.
-Voeg exact één beschikbare catalogus-entry toe. Maak de onderwijsstructuur generiek
-configureerbaar als de gevraagde periode nog niet bestaat; voeg geen hardcoded route-
-uitzondering toe. Wijzig geen modulelogica en geen andere catalogusitems.
+Verwerk het korte antwoord volgens PROMPTS/03_GOEDKEURING.md. Bij `Ja` voer je automatisch en
+intern PROMPTS/02_REGISTREER_MODULES.md uit op basis van de eerdere analyse. Vraag de gebruiker
+nooit om de uitvoeringsprompt, het rapport of variabelen opnieuw te plakken.
 
-Controleer syntax, fysieke bestandslink, volledige hashroute, browser Terug, kruimelpad,
-desktop, tablet en mobiel. Open de module in een echte browser. Rapporteer uitsluitend
-tests die werkelijk zijn uitgevoerd.
+Kopieer de workflow niet in deze uitvoering, omzeil de goedkeuringspoort niet en integreer nooit
+rechtstreeks vanuit de inbox. Rapporteer uitsluitend werkelijk uitgevoerde controles.
 ```
 
 ## Voorbeeld
 
-Integreer `flashcards-les-3.html` onder Traiteur, Leerjaar 2, Periode 6, thema `Les 3`.
+Analyseer inboxbestand `flashcards-les-3.html` met de bekende gewenste plaatsing uit de opdracht.
 
 ## Verwachte uitvoer
 
-- Gerichte cataloguswijziging.
-- Werkende tegel en link.
-- Testverslag en lijst van gewijzigde bestanden.
+- Zonder goedkeuring: alleen een read-only registratierapport.
+- Met antwoord `Ja`: automatische gecontroleerde registratie volgens het actieve rapport.

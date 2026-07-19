@@ -10,15 +10,16 @@ Gebruik deze prompt voor gesloten vragen met aantoonbaar juiste antwoorden.
 
 ## Variabelen
 
-- `[Bestandsnaam]`, `[Opleiding]`, `[Leerjaar]`, `[Periode]`, `[Thema]`
+- `[Bestandsnaam]`, `[Opleiding]`, `[Leerjaar indien van toepassing]`, `[Periode of onderdeel]`, `[Thema]`
 - `[Titel]`, `[Duur]`, `[Aantal vragen]`, `[Vraagtypen]`
 - `[Bronmateriaal]`, `[Cesuur of scorewijze]`
 
 ## Prompt
 
 ```text
-Bouw modules/[Bestandsnaam] als zelfstandige quiz voor [Opleiding], Leerjaar [Leerjaar],
-Periode [Periode], thema [Thema]. Titel: [Titel]. Duur: [Duur].
+Lees eerst AI_FACTORY/MODULES/inbox-workflow/CONFIG.md.
+Bouw `[CONFIG.inboxPath]/[Bestandsnaam]` als zelfstandige quiz voor [Opleiding] op de werkelijk geconfigureerde
+plaatsing [Leerjaar indien van toepassing] / [Periode of onderdeel] / [Thema]. Titel: [Titel]. Duur: [Duur].
 Gebruik [Aantal vragen] vragen van type [Vraagtypen], uitsluitend gebaseerd op [Bronmateriaal].
 Scorewijze: [Cesuur of scorewijze].
 
@@ -40,4 +41,3 @@ Tien meerkeuzevragen over voedingsstoffen met uitleg per antwoord.
 - Zelfstandig quizbestand.
 - Vraagset met correcte antwoorden en feedback.
 - Metadata, scorecontract en testverslag.
-

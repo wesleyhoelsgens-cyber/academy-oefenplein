@@ -10,15 +10,16 @@ Gebruik deze prompt voor relaties zoals begrip–definitie, product–eigenschap
 
 ## Variabelen
 
-- `[Bestandsnaam]`, `[Opleiding]`, `[Leerjaar]`, `[Periode]`, `[Thema]`
+- `[Bestandsnaam]`, `[Opleiding]`, `[Leerjaar indien van toepassing]`, `[Periode of onderdeel]`, `[Thema]`
 - `[Titel]`, `[Duur]`, `[Aantal paren]`, `[Paartype]`
 - `[Bronmateriaal]`, `[Feedback na match]`
 
 ## Prompt
 
 ```text
-Bouw modules/[Bestandsnaam] als zelfstandig Memory voor [Opleiding], Leerjaar [Leerjaar],
-Periode [Periode], thema [Thema]. Titel: [Titel]. Duur: [Duur].
+Lees eerst AI_FACTORY/MODULES/inbox-workflow/CONFIG.md.
+Bouw `[CONFIG.inboxPath]/[Bestandsnaam]` als zelfstandig Memory voor [Opleiding] op de werkelijk geconfigureerde
+plaatsing [Leerjaar indien van toepassing] / [Periode of onderdeel] / [Thema]. Titel: [Titel]. Duur: [Duur].
 Maak [Aantal paren] betekenisvolle paren van type [Paartype] uit [Bronmateriaal].
 Feedback na een match: [Feedback na match].
 
@@ -40,4 +41,3 @@ Twaalf paren waarin voedingsstoffen aan hun belangrijkste functie worden gekoppe
 - Zelfstandig memoryspel.
 - Gevalideerde paren en matchlogica.
 - Metadata, toegankelijkheids- en regressietests.
-

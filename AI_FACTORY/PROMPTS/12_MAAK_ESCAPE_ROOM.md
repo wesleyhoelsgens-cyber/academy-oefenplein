@@ -10,15 +10,16 @@ Gebruik deze prompt wanneer studenten kennis in meerdere opeenvolgende beroepsge
 
 ## Variabelen
 
-- `[Bestandsnaam]`, `[Opleiding]`, `[Leerjaar]`, `[Periode]`, `[Thema]`
+- `[Bestandsnaam]`, `[Opleiding]`, `[Leerjaar indien van toepassing]`, `[Periode of onderdeel]`, `[Thema]`
 - `[Titel]`, `[Duur]`, `[Verhaalcontext]`, `[Aantal puzzels]`
 - `[Leerdoelen]`, `[Bronmateriaal]`, `[Hintsysteem]`
 
 ## Prompt
 
 ```text
-Bouw modules/[Bestandsnaam] als zelfstandige educatieve Escape Room voor [Opleiding],
-Leerjaar [Leerjaar], Periode [Periode], thema [Thema]. Titel: [Titel], duur: [Duur].
+Lees eerst AI_FACTORY/MODULES/inbox-workflow/CONFIG.md.
+Bouw `[CONFIG.inboxPath]/[Bestandsnaam]` als zelfstandige educatieve Escape Room voor [Opleiding] op de werkelijk
+geconfigureerde plaatsing [Leerjaar indien van toepassing] / [Periode of onderdeel] / [Thema]. Titel: [Titel], duur: [Duur].
 Context: [Verhaalcontext]. Maak [Aantal puzzels] puzzels voor [Leerdoelen], uitsluitend
 op basis van [Bronmateriaal]. Hintsysteem: [Hintsysteem].
 
@@ -40,4 +41,3 @@ Een voorraadkamer met vier voedselveiligheidspuzzels die samen een eindcode ople
 - Zelfstandige Escape Room.
 - Puzzel-leerdoelmatrix en hints.
 - Metadata en volledig flowtestverslag.
-

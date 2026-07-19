@@ -27,7 +27,7 @@ Iedere nieuwe module levert het volgende volledige object op:
     difficulty: "basis",
     tags: ["voeding", "voedingsstoffen", "quiz"],
     status: "available",
-    file: "modules/quiz-voedingsstoffen.html",
+    file: "modules/traiteur/leerjaar-2/periode-1/voedingskennis/quiz-voedingsstoffen.html",
     version: "1.0.0",
     factoryVersion: "1.0.0",
     author: "Academy Oefenplein",
@@ -89,6 +89,8 @@ Iedere nieuwe module levert het volgende volledige object op:
 - `in-development` en `review` zijn interne statussen en worden niet aan studenten aangeboden.
 - `retired` wordt uit de actieve launcher verwijderd, maar blijft in releasehistorie herkenbaar.
 - Het pad begint met `modules/`, eindigt op `.html` en bevat geen `..`, backslashes of absolute schijflocatie.
+- Het pad volgt de werkelijke catalogusplaatsing onder `modules/[opleiding]/`.
+- Een module die door meerdere opleidingen wordt gebruikt, heeft één bestand onder `modules/gedeeld/[domein]/` en meerdere cataloguskoppelingen naar exact datzelfde pad.
 
 ### Onderwijsplaatsing
 
@@ -99,6 +101,7 @@ Iedere nieuwe module levert het volgende volledige object op:
 - Speciale onderdelen staan naast, en nooit binnen, de reguliere periodenavigatie.
 - Een leerjaar mag nul, een of meerdere speciale onderdelen bevatten.
 - Een opleiding mag nul, een of meerdere configureerbare `onderdelen` bevatten.
+- Opleidingen hoeven niet dezelfde navigatiestructuur te gebruiken: leerjaren en perioden mogen ontbreken wanneer een opleiding rechtstreekse onderdelen gebruikt.
 
 ### Versies en datum
 
@@ -129,7 +132,7 @@ De huidige launcher gebruikt een compact Nederlandstalig catalogusblok. Vertaal 
     type: "Quiz",
     duur: "10 minuten",
     beschrijving: "Test je kennis van koolhydraten, eiwitten, vetten, vitamines en mineralen.",
-    bestand: "modules/quiz-voedingsstoffen.html",
+    bestand: "modules/traiteur/leerjaar-2/periode-1/voedingskennis/quiz-voedingsstoffen.html",
     beschikbaar: true
 }
 ```

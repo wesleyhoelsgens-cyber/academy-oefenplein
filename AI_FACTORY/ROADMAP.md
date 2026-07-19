@@ -11,6 +11,16 @@ Deze roadmap beschrijft richting, geen automatische toestemming om functionalite
 
 ## Uitgevoerd
 
+### Inbox Workflow & Module Registration
+
+Projectonafhankelijke AI Factory-module voor read-only inboxanalyse, expliciete goedkeuring en
+gecontroleerde registratie. Projectspecifieke waarden staan uitsluitend in `CONFIG.md`; nieuwe
+Academy-modules komen eerst in `modules/_inbox/`. Na het rapport volstaat een kort antwoord:
+`Ja` voert het actieve plan automatisch uit; de drie afwijzings- en herzieningsantwoorden voeren
+geen mutaties uit.
+
+Status: uitgevoerd in AI Factory 1.3.0 en uitgebreid met korte goedkeuringsflow in 1.4.0.
+
 ### Donkere modus en themawisselaar
 
 Doel: een toegankelijke lichte en donkere weergave bieden zonder de eenvoudige Academy-architectuur te veranderen.

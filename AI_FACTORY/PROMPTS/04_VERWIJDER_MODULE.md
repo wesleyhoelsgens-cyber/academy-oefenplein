@@ -10,18 +10,18 @@ Gebruik deze prompt alleen na een expliciet verwijderbesluit van de projecteigen
 
 ## Variabelen
 
-- `[Bestandsnaam]`, `[Module-id]`
-- `[Opleiding]`, `[Leerjaar]`, `[Periode]`, `[Thema]`
+- `[Modulepad]` (relatief onder `modules/`, inclusief bestandsnaam), `[Module-id]`
+- `[Opleiding]`, `[Plaatsingstype]`, `[Leerjaar indien van toepassing]`, `[Periode of onderdeel]`, `[Thema]`
 - `[Bestand verwijderen: ja/nee]`, `[Reden]`
 
 ## Prompt
 
 ```text
-Verwijder module [Module-id] op [Opleiding] / Leerjaar [Leerjaar] / Periode [Periode] /
-[Thema] gecontroleerd. Reden: [Reden]. Lees eerst app.js, het modulebestand en alle
+Verwijder module [Module-id] op [Opleiding] / [Plaatsingstype] / [Leerjaar indien van toepassing] /
+[Periode of onderdeel] / [Thema] gecontroleerd. Reden: [Reden]. Lees eerst app.js, het modulebestand en alle
 verwijzingen. Verwijder de catalogus-entry exact één keer.
 
-Verwijder modules/[Bestandsnaam] alleen als [Bestand verwijderen: ja/nee] exact "ja" is
+Verwijder modules/[Modulepad] alleen als [Bestand verwijderen: ja/nee] exact "ja" is
 en het pad aantoonbaar binnen de projectmap ligt. Verwijder een lege themasectie alleen
 wanneer zij daarna geen echte modules meer bevat. Behoud leerjaar- en periodeconfiguratie,
 tenzij de opdracht die afzonderlijk laat verwijderen. Verwijder bijbehorende dode CSS of
@@ -40,4 +40,3 @@ Verwijder een ingetrokken module uit de catalogus, maar behoud het HTML-bestand 
 - Verwijderde catalogus-entry.
 - Alleen bij toestemming een verwijderd modulebestand.
 - Regressie- en verwijderrapport.
-

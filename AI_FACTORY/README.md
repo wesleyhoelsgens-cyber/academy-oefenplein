@@ -1,14 +1,14 @@
 # Academy Oefenplein AI Factory
 
-**Versie:** 1.0.0  
-**Status:** officiële ontwikkelstandaard  
+**Versie:** 1.4.0
+**Status:** officiële ontwikkelstandaard
 **Toepassing:** alle nieuwe oefenmodules voor Academy Oefenplein
 
 ## Doel
 
 De AI Factory is het vaste ontwerp-, bouw- en kwaliteitskader voor zelfstandige oefenmodules. Het kader zorgt ervoor dat mensen en AI-systemen dezelfde keuzes maken, dezelfde metadata aanleveren en modules opleveren die zonder technische verrassingen in Academy Oefenplein kunnen worden opgenomen.
 
-De Academy Launcher blijft een eenvoudige catalogus. Iedere oefening blijft een zelfstandig HTML-bestand in `modules/`. De AI Factory bevat documentatie en bouwafspraken; zij is zelf geen generator, runtime of oefenengine.
+De Academy Launcher blijft een eenvoudige catalogus. Iedere oefening blijft een zelfstandig HTML-bestand onder een geneste locatie in `modules/`. Gedeelde modules staan één keer onder `modules/gedeeld/`. De AI Factory bevat documentatie en bouwafspraken; zij is zelf geen generator, runtime of oefenengine.
 
 ## Documenten
 
@@ -19,6 +19,7 @@ De Academy Launcher blijft een eenvoudige catalogus. Iedere oefening blijft een 
 | [MODULE_CATALOG_STANDARD.md](MODULE_CATALOG_STANDARD.md) | Canoniek metadatacontract en launchervertaling | Bij registratie en integratie |
 | [MODULE_CHECKLIST.md](MODULE_CHECKLIST.md) | Acceptatie- en kwaliteitscontrole | Voor oplevering en na integratie |
 | [PROMPTS/README.md](PROMPTS/README.md) | Index van direct bruikbare AI-prompts | Voor creatie, beheer, review en releasewerk |
+| [MODULES/inbox-workflow/README.md](MODULES/inbox-workflow/README.md) | Projectonafhankelijke inboxanalyse en gecontroleerde moduleregistratie | Voor iedere nieuwe aangeleverde HTML-module |
 | [CHANGELOG.md](CHANGELOG.md) | Historie van versies en wijzigingen | Bij iedere Factory-release |
 | [ROADMAP.md](ROADMAP.md) | Richting voor toekomstige uitbreidingen | Bij planning en besluitvorming |
 
@@ -35,13 +36,22 @@ Een afwijking wordt niet stilzwijgend ingevoerd. Documenteer de reden en laat de
 ## Aanbevolen workflow
 
 1. Verzamel leerdoelen, doelgroep, bronmateriaal en randvoorwaarden.
-2. Start met `ACADEMY_CREATOR_PROMPT.md` en vul alle opdrachtvelden in.
-3. Ontwerp en bouw volgens `MODULE_STANDARD.md`.
-4. Maak metadata volgens `MODULE_CATALOG_STANDARD.md`.
-5. Doorloop `MODULE_CHECKLIST.md` en leg bewijs vast.
-6. Plaats het modulebestand in `modules/`.
-7. Integreer de catalogus-entry in de bestaande launcherstructuur.
-8. Test de volledige route en laat de gebruiker accepteren.
+2. Start met `ACADEMY_CREATOR_PROMPT.md` en bouw volgens `MODULE_STANDARD.md`.
+3. Plaats iedere nieuwe module eerst in de inbox uit `MODULES/inbox-workflow/CONFIG.md`.
+4. Gebruik `MODULES/inbox-workflow/PROMPTS/01_ANALYSE_INBOX.md`; deze fase is read-only.
+5. De AI eindigt het rapport met `Wil je het registratieplan uitvoeren?`.
+6. Antwoord `Ja`, `Nee`, `Ja, maar wijzig eerst...` of `Nee, analyseer opnieuw.`; bij `Ja` voert de AI intern automatisch `02_REGISTREER_MODULES.md` uit.
+7. Doorloop de module- en registratielijsten en leg werkelijk testbewijs vast.
+8. Commit, push of publiceer alleen na een afzonderlijke expliciete opdracht.
+
+## Officiële Inbox Workflow
+
+De module [`MODULES/inbox-workflow/`](MODULES/inbox-workflow/) is de officiële standaard voor
+de intake en registratie van nieuwe HTML-modules. Academy gebruikt `modules/_inbox/` als tijdelijke
+wachtrij. De workflow, goedkeuringspoort en rapportage worden niet elders gekopieerd; alleen
+`MODULES/inbox-workflow/CONFIG.md` bevat de Academy-specifieke koppeling.
+De gebruiker plakt na de analyse geen tweede uitvoeringsprompt. De beslisregels voor het korte
+antwoord staan centraal in `MODULES/inbox-workflow/PROMPTS/03_GOEDKEURING.md`.
 
 ## Prompt Library
 

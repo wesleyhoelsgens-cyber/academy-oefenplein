@@ -10,14 +10,14 @@ Gebruik deze prompt voor een expliciete nieuwe versie van een bestaande oefening
 
 ## Variabelen
 
-- `[Bestandsnaam]`, `[Huidige versie]`, `[Nieuwe versie]`
+- `[Modulepad]` (relatief onder `modules/`, inclusief bestandsnaam), `[Huidige versie]`, `[Nieuwe versie]`
 - `[Gewenste wijzigingen]`, `[Bronmateriaal]`
 - `[Metadatawijzigingen]`, `[Niet wijzigen]`
 
 ## Prompt
 
 ```text
-Lees modules/[Bestandsnaam] volledig, plus de relevante AI Factory-standaarden.
+Lees modules/[Modulepad] volledig, plus de relevante AI Factory-standaarden.
 Werk de module bij van [Huidige versie] naar [Nieuwe versie].
 Gewenste wijzigingen: [Gewenste wijzigingen].
 Gebruik voor vakinhoud uitsluitend: [Bronmateriaal].
@@ -40,4 +40,3 @@ Voeg vijf goedgekeurde kaarten toe en verbeter de feedback; behoud opslagkey en 
 - Bijgewerkt modulebestand en eventueel metadata.
 - Versie- en regressierapport.
 - Geen wijzigingen buiten de opgegeven scope.
-

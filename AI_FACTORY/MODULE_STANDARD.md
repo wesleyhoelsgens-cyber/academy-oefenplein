@@ -1,6 +1,6 @@
 # Academy Module Standard
 
-**Versie:** 1.0.0  
+**Versie:** 1.0.0
 **Normatief:** ja
 
 ## 1. Reikwijdte
@@ -9,20 +9,38 @@ Deze standaard geldt voor iedere nieuwe of ingrijpend gewijzigde oefenmodule van
 
 ## 2. Bestands- en mapstructuur
 
+Nieuwe modules worden tijdens intake eerst geplaatst in de inbox die is geconfigureerd in
+`MODULES/inbox-workflow/CONFIG.md`. De definitieve geneste locatie wordt pas vastgesteld en
+uitgevoerd via de officiële Inbox Workflow na expliciete goedkeuring.
+
+Na de read-only analyse toont de AI het volledige registratieplan en eindigt zij exact met
+`Wil je het registratieplan uitvoeren?`. De gebruiker antwoordt alleen `Ja`, `Nee`,
+`Ja, maar wijzig eerst...` of `Nee, analyseer opnieuw.` Bij `Ja` voert dezelfde AI automatisch
+het meest recente actieve rapport uit; een tweede lange uitvoeringsprompt is niet toegestaan.
+
 ```text
 Academy-Oefenplein/
 ├── index.html
 ├── app.js
 ├── style.css
 └── modules/
-    └── quiz-voedingsstoffen.html
+    ├── [opleiding]/
+    │   └── [onderwijsplaatsing]/
+    │       └── [thema]/
+    │           └── quiz-voedingsstoffen.html
+    └── gedeeld/
+        └── [domein]/
+            └── [thema]/
+                └── gedeelde-module.html
 ```
 
 - Lever standaard één HTML-bestand per module op.
-- Plaats het bestand rechtstreeks in `modules/`.
+- Plaats een opleidingsgebonden module onder `modules/[opleiding]/` en laat de verdere mappen de werkelijke catalogusplaatsing volgen.
+- Plaats één module die door meerdere opleidingen wordt gebruikt onder `modules/gedeeld/[domein]/`; maak geen kopieën per opleiding of leerjaar.
 - Gebruik een beschrijvende kebab-case bestandsnaam.
 - Voeg geen algemene module-engine, nieuwe contentmap of duplicaat van launchercode toe.
-- Extra lokale assets zijn alleen toegestaan wanneer inlining onredelijk is; plaats ze dan in een uniek benoemde submap onder `modules/` en documenteer ze.
+- Extra lokale assets zijn alleen toegestaan wanneer inlining onredelijk is; plaats ze dan naast de module in een uniek benoemde submap en documenteer ze.
+- Opleidingen hoeven niet dezelfde navigatiediepte te hebben. Een opleiding kan leerjaren en perioden gebruiken of rechtstreeks configureerbare opleidingsonderdelen aanbieden.
 
 ## 3. Zelfstandigheid en afhankelijkheden
 
@@ -63,11 +81,11 @@ Iedere module bevat boven de oefeninhoud:
 
 - een tekstknop `← Terug`;
 - een klikbaar Academy-logo en/of de tekst `Academy Oefenplein` naar Academy Home;
-- een klikbare breadcrumb voor opleiding, leerjaar en periode;
-- een veilige periodefallback wanneer geen bruikbare browsergeschiedenis beschikbaar is.
+- een klikbare breadcrumb voor ieder navigatieniveau dat voor de werkelijke plaatsing geldt;
+- een veilige fallback naar het moduleoverzicht wanneer geen bruikbare browsergeschiedenis beschikbaar is.
 
-Gebruik altijd de bestaande launcherhashes. Een module in `modules/` verwijst met `../index.html`
-naar de launcher, zodat navigatie ook werkt wanneer het HTML-bestand rechtstreeks wordt geopend.
+Gebruik altijd de bestaande launcherhashes. Bereken het relatieve pad naar `index.html` vanuit de
+werkelijke geneste modulemap, zodat navigatie ook werkt wanneer het HTML-bestand rechtstreeks wordt geopend.
 Alle links openen in hetzelfde venster. De header breekt op mobiel af zonder horizontale overflow.
 
 Herbruikbaar voorbeeld, met projectspecifieke waarden ingevuld:
@@ -75,24 +93,23 @@ Herbruikbaar voorbeeld, met projectspecifieke waarden ingevuld:
 ```html
 <header class="module-header">
     <button id="moduleBackButton" type="button">← Terug</button>
-    <a href="../index.html" aria-label="Naar Academy Home">Academy Oefenplein</a>
+    <a href="[relatief-pad-naar-root]/index.html" aria-label="Naar Academy Home">Academy Oefenplein</a>
     <nav aria-label="Modulelocatie">
         <ol>
-            <li><a href="../index.html#/[opleiding-id]">[Opleiding]</a></li>
-            <li><a href="../index.html#/[opleiding-id]/leerjaar-[nummer]">Leerjaar [nummer]</a></li>
-            <li><a href="../index.html#/[opleiding-id]/leerjaar-[nummer]/periode-[nummer]">Periode [nummer]</a></li>
+            <li><a href="[relatief-pad-naar-root]/index.html#/[opleiding-id]">[Opleiding]</a></li>
+            <!-- Voeg alleen leerjaar-, periode- of onderdeellinks toe die voor deze plaatsing bestaan. -->
         </ol>
     </nav>
 </header>
 
 <script>
-const PERIOD_FALLBACK = "../index.html#/[opleiding-id]/leerjaar-[nummer]/periode-[nummer]";
+const MODULE_OVERVIEW_FALLBACK = "[relatief-pad-naar-root]/index.html#/[werkelijke-moduleoverzicht-route]";
 
 document.getElementById("moduleBackButton").addEventListener("click", () => {
     if (window.history.length > 1) {
         window.history.back();
     } else {
-        window.location.href = PERIOD_FALLBACK;
+        window.location.href = MODULE_OVERVIEW_FALLBACK;
     }
 });
 </script>

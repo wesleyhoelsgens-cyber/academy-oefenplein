@@ -16,7 +16,7 @@ Gebruik deze prompt wanneer een leerjaar een afzonderlijk overzicht nodig heeft 
 - `[Titel]`
 - `[Beschrijving]`
 - `[Thema]` indien direct een bestaande module wordt geplaatst
-- `[Bestandsnaam]` indien direct een bestaande module wordt geplaatst
+- `[Modulepad]` (relatief onder `modules/`, inclusief bestandsnaam) indien direct een bestaande module wordt geplaatst
 
 ## Prompt
 
@@ -30,7 +30,7 @@ Plaats het buiten de reguliere perioden en toon de tegel direct na de periodekaa
 Gebruik de bestaande hashrouter en een eigen route volgens het aanwezige routepatroon.
 Zorg voor een eigen overzicht, breadcrumb, Terug-link en directe bereikbaarheid via de hash.
 
-Als [Bestandsnaam] is ingevuld, integreer uitsluitend die bestaande module onder
+Als [Modulepad] is ingevuld, integreer uitsluitend die bestaande module onder
 themakop [Thema] en gebruik de modulemetadata. Als geen module is opgegeven, toon alleen
 de vastgelegde lege toestand en verzin geen voorbeeldmodule.
 

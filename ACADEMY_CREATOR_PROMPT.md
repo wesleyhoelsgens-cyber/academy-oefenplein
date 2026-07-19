@@ -4,17 +4,17 @@ Gebruik deze prompt om een nieuwe oefenmodule voor Academy Oefenplein te ontwerp
 
 ## 1. Doel van Academy Oefenplein
 
-Academy Oefenplein helpt mbo-studenten snel een passende oefening te vinden via:
-
-**Opleiding → Leerjaar → Periode → Modules**
+Academy Oefenplein helpt mbo-studenten snel een passende oefening te vinden. De route is
+per opleiding configureerbaar: via leerjaar en periode, via een speciaal leerjaaronderdeel
+of rechtstreeks via een opleidingsonderdeel.
 
 De launcher is uitsluitend een catalogus en navigatielaag. Academy Oefenplein is geen centrale oefenengine. Iedere oefening is een volledig zelfstandig HTML-bestand in `modules/` en bevat alle eigen inhoud, vormgeving en werking.
 
 Maak een oefenmodule voor:
 
 - Opleiding: `[opleiding]`
-- Leerjaar: `[leerjaar]`
-- Plaatsing: `[periode of speciaal onderdeel]`
+- Leerjaar: `[indien van toepassing]`
+- Plaatsing: `[periode, speciaal onderdeel of rechtstreeks opleidingsonderdeel]`
 - Thema/sectiekop: `[thema]`
 - Onderwerp: `[onderwerp]`
 - Doelgroep/niveau: `[doelgroep en mbo-niveau]`
@@ -49,7 +49,8 @@ Gebruik geen:
 
 Technische randvoorwaarden:
 
-- Lever één zelfstandig bestand op: `modules/[bestandsnaam].html`.
+- Lever één zelfstandig bestand op in de inbox uit `AI_FACTORY/MODULES/inbox-workflow/CONFIG.md`.
+- Laat de definitieve opleidings- of gedeelde locatie uitsluitend bepalen en uitvoeren via de officiële Inbox Workflow.
 - Neem benodigde CSS en JavaScript op in het modulebestand.
 - De module moet rechtstreeks en via Live Server werken.
 - Gebruik UTF-8 en `<html lang="nl">`.
@@ -130,18 +131,22 @@ Leg voor iedere module deze metadata vast:
 | `type` | `[oefenvorm]` |
 | `duur` | `[bijvoorbeeld 10–15 minuten]` |
 | `beschrijving` | `[één korte, actieve beschrijving]` |
-| `bestand` | `modules/[bestandsnaam].html` |
+| `bestand` | `[voorgesteld definitief pad; te bevestigen via Inbox Workflow]` |
 | `beschikbaar` | `true` |
 | Opleiding | `[opleiding]` |
-| Leerjaar | `[leerjaar]` |
-| Periode of speciaal onderdeel | `[periode of speciaal onderdeel]` |
+| Leerjaar | `[indien van toepassing]` |
+| Periode of onderdeel | `[periode, speciaal onderdeel of opleidingsonderdeel]` |
 | Thema/sectiekop | `[thema]` |
 
 De bestandsnaam en het `id` zijn uniek, beschrijvend en geschreven in kebab-case.
 
 ## 8. Catalogusblok
 
-Voeg de module na succesvolle controle toe aan het bestaande JavaScript-object in `app.js`, onder de juiste opleiding, het juiste leerjaar, de juiste periode of het juiste speciale onderdeel en de juiste themasectie.
+Voeg de module niet rechtstreeks vanuit deze creator-prompt toe. Gebruik eerst
+`AI_FACTORY/MODULES/inbox-workflow/PROMPTS/01_ANALYSE_INBOX.md`. De AI toont daarna het volledige
+rapport en vraagt `Wil je het registratieplan uitvoeren?`. De gebruiker antwoordt alleen met
+`Ja`, `Nee`, `Ja, maar wijzig eerst...` of `Nee, analyseer opnieuw.` Bij `Ja` voert de AI
+`02_REGISTREER_MODULES.md` automatisch intern uit; de gebruiker plakt geen tweede prompt.
 
 Gebruik dit formaat:
 
@@ -152,7 +157,7 @@ Gebruik dit formaat:
     type: "[oefenvorm]",
     duur: "[geschatte duur]",
     beschrijving: "[korte beschrijving]",
-    bestand: "modules/[bestandsnaam].html",
+    bestand: "[goedgekeurd definitief pad uit het registratierapport]",
     beschikbaar: true
 }
 ```
@@ -161,6 +166,8 @@ Regels voor de catalogus:
 
 - Maak geen extra navigatieniveau voor thema's.
 - Plaats een speciale toets-, examen- of PVB-module in `specialeOnderdelen`, nooit in een fictieve periode.
+- Plaats een rechtstreeks opleidingsonderdeel in `onderdelen`; maak geen fictief leerjaar.
+- Plaats één module voor meerdere opleidingen onder `modules/gedeeld/` en koppel hetzelfde pad meerdere keren.
 - Thema's zijn uitsluitend zichtbare sectiekoppen op de modulepagina.
 - Voeg geen losse JSON-bestanden of tweede databron toe.
 - Gebruik `beschikbaar: false` voor een aangekondigde module zonder werkend bestand.
@@ -171,8 +178,8 @@ Regels voor de catalogus:
 
 Lever op:
 
-- het zelfstandige modulebestand in `modules/`;
-- alleen indien nodig het nieuwe catalogusblok in `app.js`;
+- het zelfstandige modulebestand in de geconfigureerde inbox;
+- metadata en een voorgesteld catalogusblok voor de read-only inboxanalyse;
 - alleen noodzakelijke wijzigingen;
 - een korte rapportage met gewijzigde bestanden, toegevoegde werking, uitgevoerde controles en bekende aandachtspunten.
 

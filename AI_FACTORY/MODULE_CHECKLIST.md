@@ -28,7 +28,8 @@ Markeer een punt pas als het aantoonbaar is gecontroleerd. Noteer `n.v.t.` met r
 
 ## B. Bestand en architectuur
 
-- [ ] De module staat als zelfstandig HTML-bestand in `modules/`.
+- [ ] De module staat als zelfstandig HTML-bestand onder de juiste geneste locatie in `modules/`.
+- [ ] Een opleidingsoverschrijdende module staat één keer onder `modules/gedeeld/` en wordt niet gedupliceerd.
 - [ ] De bestandsnaam is uniek, beschrijvend en kebab-case.
 - [ ] De module is niet afhankelijk van `app.js` of `style.css`.
 - [ ] Er zijn geen frameworks, externe libraries, CDN's of buildstappen.
@@ -48,9 +49,9 @@ Markeer een punt pas als het aantoonbaar is gecontroleerd. Noteer `n.v.t.` met r
 - [ ] Opnieuw oefenen werkt.
 - [ ] Lege en ongeldige inhoud levert een nette toestand op.
 - [ ] Er zijn geen dode knoppen of links.
-- [ ] De module bevat een werkende `← Terug`-knop met periodefallback.
+- [ ] De module bevat een werkende `← Terug`-knop met fallback naar het werkelijke moduleoverzicht.
 - [ ] Academy-logo en/of Academy-naam opent altijd Academy Home.
-- [ ] Opleiding, leerjaar en periode zijn afzonderlijk klikbaar in de breadcrumb.
+- [ ] Alle navigatieniveaus die voor deze plaatsing bestaan, zijn afzonderlijk klikbaar in de breadcrumb.
 
 ## D. Responsive ontwerp
 
@@ -106,8 +107,8 @@ Markeer een punt pas als het aantoonbaar is gecontroleerd. Noteer `n.v.t.` met r
 
 - [ ] Alle verplichte canonieke metadata is aanwezig.
 - [ ] `id`, versie, datum en enums zijn geldig.
-- [ ] Opleiding, leerjaar, periode of speciaal onderdeel en thema kloppen.
-- [ ] De module staat in precies een plaatsingstype: reguliere periode of speciaal onderdeel.
+- [ ] Opleiding, eventueel leerjaar, periode, speciaal onderdeel of opleidingsonderdeel en thema kloppen.
+- [ ] De module staat in precies één plaatsingstype: reguliere periode, speciaal onderdeel of rechtstreeks opleidingsonderdeel; gedeelde modules mogen meerdere expliciete koppelingen hebben.
 - [ ] Titel, type, duur en beschrijving komen overeen met de module.
 - [ ] Het bestandspad bestaat en opent de juiste module.
 - [ ] `status` is pas na acceptatie `available`.
@@ -118,11 +119,11 @@ Markeer een punt pas als het aantoonbaar is gecontroleerd. Noteer `n.v.t.` met r
 ## I. Integratie en regressie
 
 - [ ] De module opent rechtstreeks.
-- [ ] De module opent via Opleiding → Leerjaar → Periode → Modules.
+- [ ] De module opent via de werkelijk geconfigureerde opleidingsroute.
 - [ ] Kruimelpad en Terug-knoppen van de launcher blijven werken.
 - [ ] De browserknop Terug blijft logisch werken.
-- [ ] Module Terug gebruikt browsergeschiedenis en valt bij directe opening veilig terug op de periodepagina.
-- [ ] Academy Home-, opleiding-, leerjaar- en periodelinks gebruiken de bestaande launcherhashes.
+- [ ] Module Terug gebruikt browsergeschiedenis en valt bij directe opening veilig terug op het moduleoverzicht.
+- [ ] Academy Home en alle toepasselijke breadcrumbniveaus gebruiken de bestaande launcherhashes.
 - [ ] Andere opleidingen en lege perioden tonen een nette melding.
 - [ ] Minimaal één bestaande module is als regressiecontrole geopend.
 - [ ] Alleen noodzakelijke bestanden zijn gewijzigd.

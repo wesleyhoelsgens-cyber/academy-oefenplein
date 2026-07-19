@@ -1,6 +1,6 @@
 # Academy Creator Prompt
 
-**Versie:** 1.0.0  
+**Versie:** 1.0.0
 **Doel:** met alleen dit document een complete, launchercompatibele Academy-module ontwikkelen
 
 > Gebruik deze tekst als uitvoeringsopdracht voor ChatGPT, Gemini, Claude, Copilot, Codex of een menselijke ontwikkelaar. Vervang alle waarden tussen `[blokhaken]`. Stop en vraag om ontbrekende leerinhoud wanneer inhoudelijke aannames de betrouwbaarheid zouden aantasten.
@@ -12,8 +12,9 @@ Ontwerp, bouw, controleer en lever één zelfstandige oefenmodule op voor Academ
 | Onderdeel | Opdrachtwaarde |
 |---|---|
 | Opleiding | `[Traiteur / BOL Allround Food Expert / Hospitality / Burgerschap / Rekenen / Nederlands]` |
-| Leerjaar | `[1 of 2]` |
-| Periode | `[1, 2, 3 of 4]` |
+| Plaatsing | `[leerjaar en periode / speciaal onderdeel / rechtstreeks opleidingsonderdeel]` |
+| Leerjaar | `[indien van toepassing]` |
+| Periode of onderdeel | `[geconfigureerde waarde]` |
 | Thema/sectiekop | `[thema]` |
 | Titel | `[moduletitel]` |
 | Oefenvorm | `[Flashcardgame / Quiz / Memory / Oefentoets / Escape Room / anders]` |
@@ -21,6 +22,7 @@ Ontwerp, bouw, controleer en lever één zelfstandige oefenmodule op voor Academ
 | Geschatte duur | `[duur]` |
 | Bronmateriaal | `[aangeleverde en goedgekeurde bron]` |
 | Gewenste bestandsnaam | `[kebab-case].html` |
+| Modulemap | `[opleiding/onderwijsplaatsing/thema of gedeeld/domein/thema]` |
 
 Leerdoelen:
 
@@ -135,9 +137,10 @@ Richtlijnen:
 - geef status naast kleur ook met tekst aan.
 
 Iedere moduleheader bevat standaard een duidelijke `← Terug`-knop, een klikbare Academy
-Home-link en een klikbare breadcrumb naar opleiding, leerjaar en periode. Gebruik relatieve
-links via `../index.html` met de bestaande launcherhashes. De Terug-knop gebruikt
-`window.history.back()` wanneer geschiedenis beschikbaar is en anders de huidige periodepagina.
+Home-link en een klikbare breadcrumb voor alle niveaus van de werkelijke onderwijsplaatsing.
+Bereken het relatieve pad naar `index.html` vanuit de geneste modulemap en gebruik de bestaande
+launcherhashes. De Terug-knop gebruikt `window.history.back()` wanneer geschiedenis beschikbaar
+is en anders het huidige moduleoverzicht.
 Maak deze navigatie volledig met toetsenbord bedienbaar en laat de header op mobiel afbreken.
 
 ## 8. Responsive ontwerp
@@ -227,7 +230,10 @@ De module moet volledig werken wanneer de internetverbinding ontbreekt. Gebruik 
 - geen externe fonts;
 - geen verplichte downloads na het openen.
 
-De standaardoplevering is één bestand in `modules/`. Wanneer lokale media noodzakelijk zijn, lever alle bestanden mee, gebruik relatieve paden en documenteer de aanvullende submap.
+De standaardoplevering is één bestand in de inbox uit `MODULES/inbox-workflow/CONFIG.md`.
+De definitieve opleidings- of gedeelde locatie wordt alleen voorgesteld en uitgevoerd via de
+officiële Inbox Workflow. Wanneer lokale media noodzakelijk zijn, lever alle bestanden samen
+in een unieke inboxsubmap aan en documenteer ze.
 
 ## 13. Toegankelijkheid
 
@@ -300,7 +306,7 @@ Lever naast het HTML-bestand een volledig metadata-object op:
     difficulty: "[basis / gemiddeld / verdieping]",
     tags: ["[tag-1]", "[tag-2]"],
     status: "available",
-    file: "modules/[bestandsnaam].html",
+    file: "[voorgesteld definitief pad uit het registratieplan]",
     version: "1.0.0",
     factoryVersion: "1.0.0",
     author: "[maker]",
@@ -312,7 +318,11 @@ Een themanaam is een visuele sectiekop en geen extra route. Gebruik alleen `stat
 
 ## 18. Integratie in de Academy Launcher
 
-Integreer alleen wanneer de opdracht daarvoor toestemming geeft. Voeg de compacte entry toe onder de juiste opleiding, het juiste leerjaar, de juiste periode en het juiste thema in het bestaande object in `app.js`:
+Integreer nooit rechtstreeks vanuit deze creator-prompt. Gebruik altijd eerst de read-only analyse
+uit `MODULES/inbox-workflow/`. De AI toont daarna het volledige actieve rapport en vraagt exact
+`Wil je het registratieplan uitvoeren?`. De gebruiker antwoordt alleen `Ja`, `Nee`,
+`Ja, maar wijzig eerst...` of `Nee, analyseer opnieuw.` Bij `Ja` voert de AI de interne
+registratieprompt automatisch uit en vertaalt zij het goedgekeurde plan naar de compacte launcher-entry:
 
 ```js
 {
@@ -321,42 +331,52 @@ Integreer alleen wanneer de opdracht daarvoor toestemming geeft. Voeg de compact
     type: "[zichtbare typeaanduiding]",
     duur: "[duur]",
     beschrijving: "[beschrijving]",
-    bestand: "modules/[bestandsnaam].html",
+    bestand: "[voorgesteld definitief pad uit het registratieplan]",
     beschikbaar: true
 }
 ```
 
-Maak geen JSON-bestand, nieuwe databron, automatische scanner of extra themaroute. Verplaats geen modulelogica naar de launcher. Controleer na integratie de volledige hashroute, Terug-knoppen, browserknop Terug en de startlink.
+Maak geen JSON-bestand, nieuwe databron, runtime-mapscanner of extra themaroute. Verplaats geen
+modulelogica naar de launcher. De registrator controleert na integratie de volledige hashroute,
+Terug-knoppen, browserknop Terug en de startlink.
 
 Controleer voor de moduleheader afzonderlijk Academy Home, opleiding, leerjaar en periode.
-Open de module ook rechtstreeks vanuit `modules/` om relatieve paden en de periodefallback
-te verifiëren. Gebruik het herbruikbare navigatievoorbeeld uit `MODULE_STANDARD.md`.
+Open de module ook rechtstreeks vanuit de geneste modulemap om relatieve paden en de fallback
+naar het werkelijke moduleoverzicht te verifiëren. Gebruik het herbruikbare navigatievoorbeeld uit `MODULE_STANDARD.md`.
 
 ## 19. Workflow voor het ontwikkelen van een nieuwe module
 
-### Stap 1 — AI maakt een zelfstandig HTML-bestand
+### Stap 1 — AI maakt een zelfstandig HTML-bestand in de inbox
 
-De AI gebruikt goedgekeurde leerinhoud en bouwt één compleet bestand volgens deze standaard. De module wordt eerst rechtstreeks getest.
+De AI gebruikt goedgekeurde leerinhoud en bouwt één compleet bestand volgens deze standaard in
+de inbox uit `MODULES/inbox-workflow/CONFIG.md`. De module wordt daar eerst rechtstreeks getest.
 
 ### Stap 2 — AI levert een complete catalogus-entry
 
 De AI levert canonieke metadata én de compacte launchervertaling. Status blijft `review` of `beschikbaar: false` zolang acceptatie niet is afgerond.
 
-### Stap 3 — Gebruiker plaatst het HTML-bestand in `modules/`
+### Stap 3 — AI voert de read-only inboxanalyse uit
 
-De gebruiker controleert bestandsnaam en locatie en stelt het bestand beschikbaar in de projectworkspace.
+Gebruik `MODULES/inbox-workflow/PROMPTS/01_ANALYSE_INBOX.md`. Deze stap wijzigt geen bestanden
+en levert een exact registratievoorstel met bronhash op.
 
-### Stap 4 — Codex integreert de module in de Academy Launcher
+### Stap 4 — Projecteigenaar keurt het registratieplan goed
 
-Codex leest de actuele code, voegt uitsluitend de benodigde catalogus-entry toe en behoudt de bestaande structuur en werking.
+De AI eindigt het rapport exact met `Wil je het registratieplan uitvoeren?`. De projecteigenaar
+antwoordt met `Ja`, `Nee`, `Ja, maar wijzig eerst...` of `Nee, analyseer opnieuw.` Zonder een
+ondubbelzinnig `Ja` op het actieve rapport stopt de workflow vóór iedere mutatie.
 
-### Stap 5 — Gebruiker test de module
+### Stap 5 — AI registreert automatisch het goedgekeurde plan
 
-De gebruiker doorloopt de module inhoudelijk en functioneel op relevante apparaten. Bevindingen worden hersteld en opnieuw gecontroleerd.
+Bij `Ja` gebruikt de AI de eerdere analyse automatisch als bron en voert zij intern
+`MODULES/inbox-workflow/PROMPTS/02_REGISTREER_MODULES.md` uit. De gebruiker plakt geen tweede
+lange prompt. De AI verplaatst het ene bronbestand, herstelt links, werkt de catalogus bij en
+voert de checklists uit.
 
-### Stap 6 — Module is direct beschikbaar voor studenten
+### Stap 6 — Gebruiker test en accepteert de module
 
-Na acceptatie wordt de status `available`/`beschikbaar: true`. De startknop opent het zelfstandige bestand vanuit de juiste periodepagina.
+Na inhoudelijke en functionele acceptatie is de module beschikbaar via de goedgekeurde route.
+De inbox is buiten de marker weer leeg.
 
 ## 20. Workflow voor AI-systemen
 
@@ -386,7 +406,7 @@ Wanneer een tool of browser niet beschikbaar is, rapporteer exact welke controle
 
 Lever in deze volgorde:
 
-1. `modules/[bestandsnaam].html`;
+1. `[CONFIG.inboxPath]/[bestandsnaam].html`;
 2. het volledige canonieke metadata-object;
 3. de compacte launcher-entry;
 4. overzicht van gewijzigde bestanden;

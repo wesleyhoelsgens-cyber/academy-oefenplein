@@ -10,13 +10,13 @@ Gebruik deze prompt voor bewezen onderhoudbaarheidsproblemen, niet als algemene 
 
 ## Variabelen
 
-- `[Bestandsnaam]`, `[Refactordoel]`, `[Probleemlocaties]`
+- `[Modulepad]` (relatief onder `modules/`, inclusief bestandsnaam), `[Refactordoel]`, `[Probleemlocaties]`
 - `[Gedrag dat gelijk moet blijven]`, `[Prestatiegrens]`
 
 ## Prompt
 
 ```text
-Refactor modules/[Bestandsnaam] met als doel: [Refactordoel].
+Refactor modules/[Modulepad] met als doel: [Refactordoel].
 Probleemlocaties: [Probleemlocaties].
 Dit gedrag en deze contracten moeten exact gelijk blijven: [Gedrag dat gelijk moet blijven].
 Prestatiegrens: [Prestatiegrens].
@@ -38,4 +38,3 @@ Centraliseer dubbele schermwissellogica zonder de flashcardflow of opslag te ver
 - Intern verbeterde module.
 - Ongewijzigde externe werking.
 - Voor/na-uitleg en regressietests.
-

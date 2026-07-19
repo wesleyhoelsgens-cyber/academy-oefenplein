@@ -73,7 +73,7 @@ const academyData = {
                                     type: "Flashcardgame",
                                     duur: "10–15 minuten",
                                     beschrijving: "Oefen de belangrijkste begrippen uit de voedingskennis van leerjaar 1.",
-                                    bestand: "modules/flashcardgame-herhaling-voedingskennis.html",
+                                    bestand: "modules/traiteur/leerjaar-2/periode-5/voedingskennis/flashcardgame-herhaling-voedingskennis.html",
                                     beschikbaar: true
                                 }
                             ]
@@ -88,7 +88,7 @@ const academyData = {
                                     type: "Flashcardgame",
                                     duur: "10–15 minuten",
                                     beschrijving: "Zelfstandige flashcardgame over diëten, eetwensen, microbiologie en voedselveiligheid voor mbo Traiteur leerjaar 2.",
-                                    bestand: "modules/flashcards-dieten-microbiologie-eetwensen.html",
+                                    bestand: "modules/traiteur/leerjaar-2/periode-5/dieten-microbiologie-eetwensen/flashcards-dieten-microbiologie-eetwensen.html",
                                     beschikbaar: true
                                 }
                             ]
@@ -103,7 +103,7 @@ const academyData = {
                                     type: "Begrippenformulier",
                                     duur: "20–30 minuten",
                                     beschrijving: "Leg 30 belangrijke begrippen over diëten, microbiologie en eetwensen uit in je eigen woorden.",
-                                    bestand: "modules/begrippenformulier-dieten-microbiologie-eetwensen.html",
+                                    bestand: "modules/traiteur/leerjaar-2/periode-5/begrippenlijst/begrippenformulier-dieten-microbiologie-eetwensen.html",
                                     beschikbaar: true
                                 }
                             ]
@@ -120,7 +120,27 @@ const academyData = {
                 createEindtoetsOnderdeel(),
                 createWarmeBereidingstechniekenOnderdeel()
             ]),
-            createLeerjaar(2, [1, 2, 3, 4], {}, [
+            createLeerjaar(2, [5, 6, 7, 8], {
+                8: {
+                    themas: [
+                        {
+                            id: "warenkennis",
+                            naam: "Warenkennis",
+                            modules: [
+                                {
+                                    id: "examen-master-flashcards-warenkennis",
+                                    titel: "Examen Master Flashcards Warenkennis",
+                                    type: "Flashcards",
+                                    duur: "30–45 minuten",
+                                    beschrijving: "Oefen uitgebreide product- en warenkennis met flashcards, kennisvragen en een overzicht per onderwerp.",
+                                    bestand: "modules/bol-allround-food-expert/leerjaar-2/periode-8/warenkennis/flashcards-warenkennis.html",
+                                    beschikbaar: true
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }, [
                 createEindexamenOnderdeel(),
                 createWarmeBereidingstechniekenOnderdeel()
             ])
@@ -149,16 +169,16 @@ const academyData = {
                                 type: "Oefenmodule",
                                 duur: "20–30 minuten",
                                 beschrijving: "Leer stap voor stap berekenen wat het bruikbare product werkelijk kost.",
-                                bestand: "modules/gecorrigeerde-inkoopprijs-oefenmodule.html",
+                                bestand: "modules/rekenen/financieel/inkoopprijs-en-rendement/gecorrigeerde-inkoopprijs-oefenmodule.html",
                                 beschikbaar: true
                             },
                             {
-                                id: "gecorrigeerde-inkoopprijs-niveau-4-acht-oefenvragen",
+                                id: "gecorrigeerde-inkoopprijs-niveau-3-acht-oefenvragen",
                                 titel: "Niveau 3 – Gecorrigeerde inkoopprijs",
                                 type: "Oefenvragen",
                                 duur: "15–20 minuten",
                                 beschrijving: "Oefen met acht steeds moeilijkere sommen over inkoopprijs, rendement en bruikbaar gewicht.",
-                                bestand: "modules/gecorrigeerde-inkoopprijs-niveau-4-acht-oefenvragen.html",
+                                bestand: "modules/rekenen/financieel/inkoopprijs-en-rendement/gecorrigeerde-inkoopprijs-niveau-3-acht-oefenvragen.html",
                                 beschikbaar: true
                             }
                         ]
@@ -166,10 +186,7 @@ const academyData = {
                 ]
             }
         ]),
-        createOpleiding("nederlands", "Nederlands", [
-            createLeerjaar(1, [1, 2, 3, 4]),
-            createLeerjaar(2, [1, 2, 3, 4])
-        ])
+        createOpleiding("nederlands", "Nederlands", [])
     ]
 };
 
@@ -220,7 +237,7 @@ function createWarmeBereidingstechniekenOnderdeel() {
                         type: "Leermodule",
                         duur: "60–90 minuten",
                         beschrijving: "Leer warme bereidingstechnieken begrijpen, oefenen en toepassen met theorie, flashcards, quiz en oefenexamen.",
-                        bestand: "modules/Leermodule_Warme_Bereidingstechnieken_STANDALONE (2).html",
+                        bestand: "modules/gedeeld/food/warme-bereidingstechnieken/leermodule-warme-bereidingstechnieken.html",
                         beschikbaar: true
                     }
                 ]
@@ -344,6 +361,15 @@ function renderSpecialEmptyState() {
     `;
 }
 
+function renderOpleidingEmptyState() {
+    return `
+        <section class="empty-state">
+            <h2>Nog geen modules</h2>
+            <p>Voor deze opleiding zijn nog geen oefenmodules beschikbaar.</p>
+        </section>
+    `;
+}
+
 function renderBreadcrumb(items) {
     if (!items.length) {
         breadcrumb.hidden = true;
@@ -449,16 +475,21 @@ function render() {
     const crumbs = [{ label: opleiding.naam, route: [opleiding.id] }];
 
     if (!leerjaarIdOfRouteType) {
-        const pageTitle = opleiding.leerjaren.length
-            ? (opleiding.onderdelen.length ? "Kies je leerjaar of onderdeel" : "Kies je leerjaar")
-            : "Kies een onderdeel";
+        const hasLeerjaren = opleiding.leerjaren.length > 0;
+        const hasOnderdelen = opleiding.onderdelen.length > 0;
+        const pageTitle = hasLeerjaren
+            ? (hasOnderdelen ? "Kies je leerjaar of onderdeel" : "Kies je leerjaar")
+            : (hasOnderdelen ? "Kies een onderdeel" : opleiding.naam);
+        const overview = hasLeerjaren || hasOnderdelen
+            ? renderOpleidingOverview(opleiding)
+            : renderOpleidingEmptyState();
 
         renderBreadcrumb(crumbs);
         app.innerHTML = renderHeader(
             pageTitle,
             opleiding.naam,
             []
-        ) + renderOpleidingOverview(opleiding);
+        ) + overview;
         return;
     }
 

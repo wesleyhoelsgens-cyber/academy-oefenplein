@@ -589,19 +589,29 @@ main {
         gap: var(--space-4);
     }
 
+    .site-title {
+        display: flex;
+        width: 100%;
+    }
+
     .site-header p {
         margin-left: 0;
     }
 
     .theme-control {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         min-width: 0;
         width: 100%;
     }
 
     .theme-control button {
         padding-inline: var(--space-2);
+    }
+
+    .theme-control button span {
+        min-width: 0;
+        overflow-wrap: anywhere;
     }
 
     main {
@@ -639,6 +649,7 @@ main {
     }
 
     .module-card {
+        min-width: 0;
         padding: var(--space-6);
         grid-template-columns: 48px minmax(0, 1fr);
         grid-template-areas:
@@ -651,6 +662,11 @@ main {
         column-gap: var(--space-4);
         row-gap: var(--space-3);
         align-items: start;
+    }
+
+    .module-card > * {
+        min-width: 0;
+        max-width: 100%;
     }
 
     .module-card::before {

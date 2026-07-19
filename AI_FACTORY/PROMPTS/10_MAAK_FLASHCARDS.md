@@ -10,15 +10,16 @@ Gebruik deze prompt voor begrippen, definities, kenmerken, procedures of beroeps
 
 ## Variabelen
 
-- `[Bestandsnaam]`, `[Opleiding]`, `[Leerjaar]`, `[Periode]`, `[Thema]`
+- `[Bestandsnaam]`, `[Opleiding]`, `[Leerjaar indien van toepassing]`, `[Periode of onderdeel]`, `[Thema]`
 - `[Titel]`, `[Duur]`, `[Aantal kaarten]`, `[Bronmateriaal]`
 - `[Kaartvelden]`, `[Opslag gewenst: ja/nee]`
 
 ## Prompt
 
 ```text
-Bouw modules/[Bestandsnaam] als zelfstandige flashcardmodule voor [Opleiding], Leerjaar
-[Leerjaar], Periode [Periode], thema [Thema]. Titel: [Titel]. Duur: [Duur].
+Lees eerst AI_FACTORY/MODULES/inbox-workflow/CONFIG.md.
+Bouw `[CONFIG.inboxPath]/[Bestandsnaam]` als zelfstandige flashcardmodule voor [Opleiding] op de werkelijk
+geconfigureerde plaatsing [Leerjaar indien van toepassing] / [Periode of onderdeel] / [Thema]. Titel: [Titel]. Duur: [Duur].
 Maak [Aantal kaarten] kaarten uitsluitend uit [Bronmateriaal].
 Kaartvelden: [Kaartvelden]. Opslag gewenst: [Opslag gewenst: ja/nee].
 
@@ -39,4 +40,3 @@ toestand volgens de AI Factory. Lever metadata en tests; integreer alleen na toe
 - Zelfstandige flashcardgame.
 - Controleerbare kaartenset en metadata.
 - Functionele, responsive en toetsenbordtests.
-

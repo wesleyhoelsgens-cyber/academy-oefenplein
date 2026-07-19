@@ -10,15 +10,15 @@ Gebruik deze prompt vóór modulebouw wanneer broninhoud omvangrijk of ongestruc
 
 ## Variabelen
 
-- `[Pakketnaam]`, `[Opleiding]`, `[Leerjaar]`, `[Periode]`, `[Thema]`
+- `[Pakketnaam]`, `[Opleiding]`, `[Plaatsingstype]`, `[Leerjaar indien van toepassing]`, `[Periode of onderdeel]`, `[Thema]`
 - `[Bronmateriaal]`, `[Leerdoelen]`, `[Gewenste onderdelen]`
 - `[Niet afleiden]`
 
 ## Prompt
 
 ```text
-Maak een Knowledge Package met naam [Pakketnaam] voor [Opleiding], Leerjaar [Leerjaar],
-Periode [Periode], thema [Thema]. Gebruik uitsluitend [Bronmateriaal].
+Maak een Knowledge Package met naam [Pakketnaam] voor [Opleiding] op [Plaatsingstype] /
+[Leerjaar indien van toepassing] / [Periode of onderdeel], thema [Thema]. Gebruik uitsluitend [Bronmateriaal].
 Leerdoelen: [Leerdoelen]. Gewenste onderdelen: [Gewenste onderdelen].
 Leid niet zelfstandig af: [Niet afleiden].
 
@@ -39,4 +39,3 @@ Zet een lesdocument over microbiologie om naar begrippen, voorbeelden en toetsba
 - Herleidbaar kennispakket.
 - Dekkingsmatrix en open inhoudsvragen.
 - Herbruikbaar datavoorbeeld zonder modulecode.
-

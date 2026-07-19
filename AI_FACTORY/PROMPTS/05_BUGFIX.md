@@ -10,14 +10,14 @@ Gebruik deze prompt bij foutmeldingen, kapotte interactie, verkeerde score, opsl
 
 ## Variabelen
 
-- `[Bestandsnaam]`, `[Probleembeschrijving]`
+- `[Modulepad]` (relatief onder `modules/`, inclusief bestandsnaam), `[Probleembeschrijving]`
 - `[Reproductiestappen]`, `[Verwacht gedrag]`, `[Werkelijk gedrag]`
 - `[Niet wijzigen]`
 
 ## Prompt
 
 ```text
-Onderzoek het defect in [Bestandsnaam]. Probleem: [Probleembeschrijving].
+Onderzoek het defect in modules/[Modulepad]. Probleem: [Probleembeschrijving].
 Reproductie: [Reproductiestappen]. Verwacht: [Verwacht gedrag]. Werkelijk: [Werkelijk gedrag].
 Niet wijzigen: [Niet wijzigen].
 
@@ -38,4 +38,3 @@ Na `Opnieuw oefenen` blijft de vorige score zichtbaar terwijl een nieuwe ronde s
 - Oorzaakanalyse.
 - Minimale codewijziging.
 - Bewijs dat de fout en relevante regressies zijn gecontroleerd.
-

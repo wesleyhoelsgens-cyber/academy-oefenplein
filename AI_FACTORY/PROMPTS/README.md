@@ -16,7 +16,7 @@ Bij tegenstrijdigheid hebben de expliciete gebruikersopdracht en de normatieve s
 | Prompt | Gebruik |
 |---|---|
 | [01_MAAK_NIEUWE_MODULE.md](01_MAAK_NIEUWE_MODULE.md) | Bouw een complete zelfstandige module en lever metadata op |
-| [02_INTEGREER_MODULE.md](02_INTEGREER_MODULE.md) | Voeg een bestaand modulebestand aan de launcher toe |
+| [02_INTEGREER_MODULE.md](02_INTEGREER_MODULE.md) | Start de officiële Inbox Workflow; na het rapport volstaat een kort goedkeuringsantwoord |
 | [03_UPDATE_MODULE.md](03_UPDATE_MODULE.md) | Werk inhoud of werking van een bestaande module gecontroleerd bij |
 | [04_VERWIJDER_MODULE.md](04_VERWIJDER_MODULE.md) | Verwijder een module en catalogus-entry met expliciete toestemming |
 | [05_BUGFIX.md](05_BUGFIX.md) | Diagnoseer en herstel een afgebakend defect |
