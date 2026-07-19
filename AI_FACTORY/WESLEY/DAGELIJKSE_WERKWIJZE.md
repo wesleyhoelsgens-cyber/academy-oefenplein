@@ -40,9 +40,13 @@ Lees foutmeldingen helemaal.
 
 ## 5. Git controleren
 
-Controleer welke bestanden zijn gewijzigd.
+Start **Terminal > Run Task... > Git Assistent**.
 
-De Git-handleiding wordt later uitgebreid.
+Gebruik optie `1` voor de status, optie `2` voor de wijzigingen en optie `3` voor advies.
+
+Wil je alleen weten wat je nu moet doen? Kies optie `7`.
+
+Kies `0` of `Q` om het dashboard af te sluiten.
 
 ## 6. Pushen
 

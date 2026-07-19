@@ -40,8 +40,10 @@ Open in VS Code:
 
 Nieuwe taken verschijnen daar nadat ze veilig aan `.vscode/tasks.json` zijn toegevoegd.
 
-Voor Git-hulp:
+Voor het interactieve Git Dashboard:
 
 **Terminal > Run Task... > Git Assistent**
+
+Kies `0` of `Q` om het dashboard af te sluiten.
 
 Wil je weten wat je iedere dag doet? Open `DAGELIJKSE_WERKWIJZE.md`.

@@ -1,6 +1,6 @@
 # Git Assistent Checklist
 
-**Module version:** 1.0.0
+**Module version:** 1.2.0
 
 ## Module and installation
 
@@ -10,6 +10,8 @@
 - [ ] `vscode/tasks.json.fragment` is valid under the documented fragment convention.
 - [ ] Exactly one workspace task is visible as `Git Assistent`.
 - [ ] Existing VS Code tasks remain unchanged.
+- [ ] Dashboard remains active after every action.
+- [ ] `0` and `Q` both close the dashboard safely.
 
 ## Required scenarios
 
@@ -29,6 +31,11 @@
 - [ ] Conflict warning tested or safely simulated.
 - [ ] Detached HEAD tested or safely simulated.
 - [ ] Active merge or rebase tested or safely simulated when practical.
+- [ ] All menu choices 1 through 7 tested.
+- [ ] Repository scan tested with temporary, backup, system, unusual and unknown root files.
+- [ ] Smart advice tested for clean, modified/untracked, staged-only, ahead, behind, conflict and detached HEAD.
+- [ ] Smart advice uses green for clean, yellow for action and red for blocking problems.
+- [ ] Smart advice contains only situation, reason and next step.
 
 ## Output quality
 
@@ -38,6 +45,7 @@
 - [ ] At most one recommended workflow is shown.
 - [ ] No remote URL is invented.
 - [ ] Development branches are explained without unnecessary alarm.
+- [ ] Difference output uses `git --no-pager diff` or `git diff --stat` and never opens a pager.
 
 ## Safety
 
@@ -46,6 +54,8 @@
 - [ ] Conflict, merge, rebase and detached HEAD stop ordinary commit/push advice.
 - [ ] Test scenarios use isolated temporary repositories where project changes would be unsafe.
 - [ ] The real project remains unchanged by scenario tests.
+- [ ] Repository scan performs no edits, moves or deletions.
+- [ ] Smart advice displays commands but executes none of them.
 
 ## Release
 

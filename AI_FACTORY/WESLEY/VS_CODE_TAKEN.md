@@ -24,11 +24,22 @@ Je vindt deze taak via:
 
 **Terminal > Run Task... > Git Assistent**
 
-De taak leest de huidige Git-status.
+De taak opent het interactieve Git Dashboard.
 
 Hij toont de branch, wijzigingen, staging en de koppeling met GitHub.
 
-De taak geeft alleen advies en verandert niets.
+Kies in het menu:
+
+- `1` voor Git-status;
+- `2` voor wijzigingen;
+- `3` voor aanbevolen stappen;
+- `4` om te vernieuwen;
+- `5` voor Git-uitleg;
+- `6` voor repositorycontrole;
+- `7` voor één duidelijk advies over wat je nu moet doen;
+- `0` of `Q` om af te sluiten.
+
+Na iedere actie blijft het dashboard actief. De taak geeft alleen advies en verandert niets.
 
 De bestaande Inbox Workflow-taken blijven beschikbaar.
 

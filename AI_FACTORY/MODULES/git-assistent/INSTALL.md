@@ -21,7 +21,8 @@
 4. Keep all existing tasks and confirm that the script path uses `${workspaceFolder}`.
 5. Confirm that `scriptPath` points to
    `AI_FACTORY/MODULES/git-assistent/scripts/Show-GitAssistant.ps1`.
-6. Start **Terminal > Run Task... > Git Assistent**.
+6. Start **Terminal > Run Task... > Git Assistent** and confirm that the dashboard menu remains
+   active until `0` or `Q` is entered.
 7. Complete `CHECKLIST.md` and record actual test evidence.
 
 ## Upgrade
@@ -45,3 +46,6 @@ task object.
 - exactly one task has label `Git Assistent`;
 - the task runs from `${workspaceFolder}`;
 - the script reports status but leaves repository state unchanged.
+- all seven menu options work and option 2 never opens an interactive pager;
+- option 7 gives one clear next-step advice without executing its displayed commands;
+- the repository scan reports warnings but never deletes or edits files.

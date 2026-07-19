@@ -1,15 +1,15 @@
 # Git Assistent
 
 **Module id:** `git-assistent`  
-**Version:** 1.0.0  
+**Version:** 1.2.0  
 **Status:** review  
 **Standard:** AI Factory Module Standard 1.0
 
 ## Purpose
 
-Git Assistent is a reusable, read-only AI Factory module that explains the current Git state in
-simple Dutch and recommends at most one safe next workflow. It is designed for users who are still
-learning Git.
+Git Assistent is a reusable, read-only AI Factory module with an interactive Dutch Git Dashboard.
+It keeps running until the user chooses `0` or `Q`, explains the current state and recommends at
+most one safe next workflow. It is designed for users who are still learning Git.
 
 ## Capabilities
 
@@ -19,13 +19,16 @@ learning Git.
 - detects detached HEAD, merge and rebase states;
 - detects remotes, missing upstream, ahead and behind counts when locally available;
 - prints short explanations for recommended commands;
+- offers status, differences, workflow advice, refresh, Git explanations and a repository scan;
+- warns about temporary, backup, system, unusual and unknown root files;
+- turns the current state into one short, color-coded answer to “Wat moet ik nu doen?”;
 - changes no Git state and writes no project files.
 
 ## Scope and safety
 
 The production script only invokes read-only Git commands: `rev-parse`, `symbolic-ref`, `status`,
-`remote` and `rev-list`. Commands such as add, commit, push, pull and switch are displayed only as
-advice and are never executed.
+`remote`, `rev-list`, `git --no-pager diff` and, for large output, `git diff --stat`. Commands such
+as add, commit, push, pull and switch are displayed only as advice and are never executed.
 
 Git inspection runs with `GIT_OPTIONAL_LOCKS=0` so status checks do not perform optional index
 refresh writes.
@@ -63,8 +66,19 @@ values. The project name falls back to `Git-project`; invalid repository paths s
 
 ## Use
 
-In VS Code choose **Terminal > Run Task... > Git Assistent**. Read the status and decide yourself
-whether to run the displayed commands.
+In VS Code choose **Terminal > Run Task... > Git Assistent**. Choose a menu option and decide
+yourself whether to run displayed advice. Choose `0` or `Q` to close the dashboard.
+
+| Choice | Function |
+|---:|---|
+| 1 | Show the full Git status |
+| 2 | Show unstaged and staged differences without a pager |
+| 3 | Show one recommended workflow as text only |
+| 4 | Refresh all dashboard data |
+| 5 | Explain common Git terms |
+| 6 | Scan the repository for suspicious files and unknown root files |
+| 7 | Show one situation-specific next-step advice in simple Dutch |
+| 0 / Q | Exit without changes |
 
 Direct PowerShell use:
 
@@ -80,3 +94,4 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File "AI_FACTORY/MODULES/git-
 - The assistant does not inspect whether a commit message is meaningful.
 - It does not resolve conflicts or decide which files belong in a commit.
 - It assumes the remote name `origin` only when suggesting the first upstream command.
+- The repository scan is heuristic: review every warning before removing or ignoring a file.

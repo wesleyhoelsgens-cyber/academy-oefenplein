@@ -5,9 +5,9 @@ Wijzigingen maken
        ↓
 Git Assistent starten
        ↓
-Status lezen
+Optie 1 en 2 controleren
        ↓
-Wijzigingen controleren
+Optie 3 lezen
        ↓
 Commit maken
        ↓
@@ -24,11 +24,15 @@ Kies **Terminal > Run Task... > Git Assistent**.
 
 ## 3. Status lezen
 
-Lees wat gewijzigd, nieuw of al staged is.
+Kies `1` voor de status en `2` voor de wijzigingen.
+
+Het dashboard opent geen apart pagerscherm.
 
 ## 4. Wijzigingen controleren
 
-Gebruik alleen het advies dat bij jouw situatie staat.
+Kies `7` voor één duidelijk advies over wat je nu moet doen.
+
+Optie `3` blijft beschikbaar wanneer je het volledige stappenplan wilt zien.
 
 ## 5. Commit maken
 
@@ -41,3 +45,5 @@ Een commit is een lokaal herstelpunt.
 Push pas als de commit klopt.
 
 Daarmee stuur je de commit naar GitHub.
+
+Kies `0` of `Q` wanneer je het dashboard wilt afsluiten.

@@ -2,7 +2,8 @@
 
 ## Purpose
 
-Read a local Git repository without changing it and explain the safest next step in simple Dutch.
+Operate the interactive Git Dashboard without changing the repository and explain the safest next
+step in simple Dutch.
 
 ## When to use
 
@@ -19,7 +20,8 @@ state before deciding whether to commit or push.
 
 ```text
 Read CONFIG.md and WORKFLOW.md completely. Inspect only the configured local Git repository.
-Use read-only Git commands. Report the current branch; counts of modified, new, deleted, renamed,
+Use read-only Git commands. Keep the dashboard active until the user chooses 0 or Q. Offer the seven
+documented menu functions. Report the current branch; counts of modified, new, deleted, renamed,
 staged, unstaged and conflicted files; remote and upstream state; and local ahead/behind counts
 when available without fetching.
 
@@ -30,13 +32,19 @@ Never run add, commit, push, pull, branch creation, switch, checkout, restore, r
 rebase or remote modification. Never invent a remote URL. In conflict, active merge/rebase or
 detached HEAD state, stop ordinary commit/push advice and tell the user to resolve or ask for help.
 
+For differences use git --no-pager diff, or git diff --stat when output is too large. Never open a
+pager. The repository scan may only report warnings and must never edit, move or delete files.
+Option 7 must return one color-coded advice with only the current situation, why it matters and the
+next logical step. Displayed commands are advice only and must never be executed.
+
 End by confirming that no Git state or project file was changed.
 ```
 
 ## Example
 
-An ordinary modified file produces a short status summary followed by `git status`, `git diff`,
-`git add .`, `git commit -m "Korte omschrijving"` and the appropriate push command as advice only.
+An ordinary modified file produces a short status summary followed by `git status`,
+`git --no-pager diff`, `git add .`, `git commit -m "Korte omschrijving"` and the appropriate push
+command as advice only.
 
 ## Expected output
 

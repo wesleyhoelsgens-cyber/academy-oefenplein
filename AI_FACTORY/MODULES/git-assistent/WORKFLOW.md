@@ -1,7 +1,7 @@
 # Git Assistent Workflow
 
 **Normative:** yes  
-**Workflow version:** 1.0.0
+**Workflow version:** 1.2.0
 
 ## Scope
 
@@ -23,7 +23,32 @@ The order is normative because a warning state must not be hidden by ordinary st
 3. Read porcelain status and count file states.
 4. Detect merge, rebase, conflicts and detached HEAD.
 5. Detect remotes, upstream and local ahead/behind counts without fetching.
-6. Show the first matching decision below.
+6. Show the dashboard and menu.
+7. Execute only the selected read-only view and return to the refreshed dashboard.
+8. Stop only when the user chooses `0` or `Q`, or when a stop condition occurs.
+
+## Dashboard menu
+
+| Choice | Required behavior |
+|---:|---|
+| 1 | Run and show `git status` |
+| 2 | Use `git --no-pager diff` and `git --no-pager diff --staged`; use the matching `git diff --stat` form when output is too large |
+| 3 | Display the first matching recommendation below; execute none of its commands |
+| 4 | Read all repository state again |
+| 5 | Explain working tree clean, branch, stage, commit, push, pull, repository, origin and upstream |
+| 6 | Read-only scan for temporary, backup, system, unusual, unreadable and unknown root files |
+| 7 | Show exactly one color-coded smart advice containing only the situation, reason and next step |
+| 0 / Q | Exit and confirm that nothing was changed |
+
+Every completed action returns to the dashboard. Invalid input shows a short error and returns to
+the menu.
+
+## Smart advice priority
+
+Option 7 uses this fixed order: Git unavailable, repository missing, conflict or merge/rebase,
+detached HEAD, behind, unstaged or untracked changes, staged-only changes, ahead, missing upstream,
+missing remote, clean and synchronized. Red means a problem, yellow means action is needed and
+green means the repository is ready for continued development. Commands are text only.
 
 ## Decisions
 
@@ -54,8 +79,10 @@ that a development branch is normal.
 
 ## Safety contract
 
-The production script may execute only read-only Git inspection commands. Suggested commands are
-plain terminal text. It must never invoke add, commit, push, pull, switch, checkout, branch
+The production script may execute only read-only Git inspection commands and filesystem reads.
+Differences must never use plain `git diff` with a pager: use `git --no-pager diff`, or `git diff
+--stat` for a large summary. Suggested commands are plain terminal text. It must never invoke add,
+commit, push, pull, switch, checkout, branch
 creation, reset, clean, restore, merge, rebase or remote modification.
 
 The workflow never gives destructive reset, clean or force-push commands as standard advice.
@@ -68,6 +95,9 @@ The workflow never gives destructive reset, clean or force-push commands as stan
 - remote/upstream state when available;
 - one warning or one safe next workflow;
 - explicit confirmation that the assistant changed nothing.
+
+The repository scan uses `knownRootFiles` from `CONFIG.md`. Its findings are warnings, not removal
+instructions; it never changes or deletes a reported file.
 
 ## Stop conditions
 

@@ -14,11 +14,16 @@ Iedere module heeft een eigen doel.
 
 ### Git Assistent
 
-De Git Assistent leest de Git-status en legt in gewone taal uit wat de veiligste volgende stap is.
+De Git Assistent opent een interactief dashboard. Je kunt de Git-status, wijzigingen, aanbevolen
+stappen, uitleg en repositorycontrole bekijken.
+
+Met optie `7` vertelt het dashboard in één kort advies wat de logisch volgende stap is.
 
 Hij verandert zelf niets en voert geen commit of push uit.
 
 Start hem via **Terminal > Run Task... > Git Assistent**.
+
+Het menu blijft actief totdat je `0` of `Q` kiest.
 
 ## Documentatie
 

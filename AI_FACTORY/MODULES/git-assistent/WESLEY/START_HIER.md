@@ -1,6 +1,6 @@
 # Start hier
 
-De Git Assistent vertelt wat er nu in Git gebeurt.
+De Git Assistent opent een Git Dashboard.
 
 Hij laat zien:
 
@@ -21,6 +21,15 @@ Kies in VS Code:
 
 **Terminal > Run Task... > Git Assistent**
 
-Lees daarna het advies in de terminal.
+Kies daarna een nummer in het menu.
+
+- `1`: Git-status
+- `2`: wijzigingen bekijken
+- `3`: aanbevolen stappen
+- `4`: dashboard vernieuwen
+- `5`: Git-uitleg
+- `6`: repository controleren
+- `7`: direct advies over wat je nu moet doen
+- `0` of `Q`: afsluiten
 
 Jij kiest zelf of je een commando uitvoert.
