@@ -69,6 +69,27 @@
                 "panel": "shared",
                 "clear": true
             }
+        },
+        {
+            "label": "Git Assistent",
+            "type": "shell",
+            "command": "powershell.exe",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}\\AI_FACTORY\\MODULES\\git-assistent\\scripts\\Show-GitAssistant.ps1"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true
+            }
         }
     ]
 }
