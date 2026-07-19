@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oefenmodule – Gecorrigeerde inkoopprijs</title>
+  <style>
+    :root{
+      --bg:#0f1720;
+      --panel:#18232f;
+      --panel-2:#223140;
+      --line:#33475a;
+      --text:#f7f2e8;
+      --muted:#b9c3cc;
+      --accent:#f4b942;
+      --accent-2:#5fc0a5;
+      --danger:#ef6b73;
+      --success:#68d391;
+      --paper:#fffaf0;
+      --ink:#243447;
+      --shadow:0 12px 30px rgba(0,0,0,.22);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(95,192,165,.09), transparent 25rem),
+        radial-gradient(circle at 90% 20%, rgba(244,185,66,.08), transparent 22rem),
+        var(--bg);
+      color:var(--text);
+      line-height:1.55;
+    }
+
+    button,input{font:inherit}
+    button{cursor:pointer}
+
+    .app{
+      width:min(1080px, 94vw);
+      margin:0 auto;
+      padding:24px 0 70px;
+    }
+
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      align-items:center;
+      margin-bottom:18px;
+    }
+
+    .brand{
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+
+    .brand-icon{
+      width:46px;
+      height:46px;
+      border-radius:14px;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg,var(--accent),#ffdd84);
+      color:#2d220d;
+      font-size:25px;
+      box-shadow:var(--shadow);
+    }
+
+    .eyebrow{
+      margin:0;
+      color:var(--accent-2);
+      font-weight:800;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      font-size:.75rem;
+    }
+
+    h1{
+      margin:2px 0 0;
+      font-size:clamp(1.45rem,4vw,2.35rem);
+      line-height:1.08;
+    }
+
+    .small-btn{
+      border:1px solid var(--line);
+      background:var(--panel);
+      color:var(--text);
+      border-radius:12px;
+      padding:10px 14px;
+      font-weight:750;
+    }
+
+    .hero{
+      background:linear-gradient(145deg,var(--panel),#14212b);
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:clamp(20px,4vw,38px);
+      box-shadow:var(--shadow);
+      display:grid;
+      grid-template-columns:1.25fr .75fr;
+      gap:28px;
+      align-items:center;
+    }
+
+    .hero h2{
+      margin:0 0 10px;
+      font-size:clamp(1.55rem,3.5vw,2.45rem);
+    }
+
+    .hero p{color:var(--muted);max-width:65ch}
+
+    .route{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:9px;
+      align-items:center;
+      margin:22px 0 8px;
+    }
+
+    .route-step{
+      min-height:88px;
+      display:grid;
+      place-items:center;
+      text-align:center;
+      background:var(--panel-2);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:10px 8px;
+      font-weight:800;
+    }
+
+    .route-step span{
+      display:block;
+      font-size:1.45rem;
+      margin-bottom:3px;
+    }
+
+    .hero-note{
+      background:var(--paper);
+      color:var(--ink);
+      border-radius:18px;
+      padding:20px;
+      transform:rotate(1deg);
+      box-shadow:0 14px 28px rgba(0,0,0,.2);
+      border-left:8px solid var(--accent);
+    }
+
+    .hero-note strong{
+      display:block;
+      font-size:1.15rem;
+      margin-bottom:8px;
+    }
+
+    .toolbar{
+      margin:18px 0;
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:15px;
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:14px;
+      align-items:center;
+    }
+
+    .progress-shell{
+      height:13px;
+      border-radius:99px;
+      background:#0c141c;
+      overflow:hidden;
+      border:1px solid #2c3c49;
+    }
+
+    .progress-bar{
+      height:100%;
+      width:0%;
+      background:linear-gradient(90deg,var(--accent-2),var(--accent));
+      transition:width .35s ease;
+    }
+
+    .progress-label{
+      color:var(--muted);
+      font-weight:700;
+      font-size:.92rem;
+      margin-top:6px;
+    }
+
+    .level-nav{
+      display:grid;
+      grid-template-columns:repeat(6,1fr);
+      gap:8px;
+      margin:18px 0;
+    }
+
+    .level-tab{
+      border:1px solid var(--line);
+      background:var(--panel);
+      color:var(--muted);
+      border-radius:14px;
+      padding:11px 8px;
+      font-weight:850;
+    }
+
+    .level-tab.active{
+      background:var(--accent);
+      color:#2d220d;
+      border-color:var(--accent);
+    }
+
+    .level-tab.done::after{
+      content:" ✓";
+      color:var(--success);
+    }
+
+    .lesson{
+      display:none;
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:22px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+    }
+
+    .lesson.active{display:block}
+
+    .lesson-head{
+      padding:24px;
+      background:linear-gradient(135deg,#20303e,#18232f);
+      border-bottom:1px solid var(--line);
+    }
+
+    .lesson-kicker{
+      color:var(--accent);
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.07em;
+      font-size:.78rem;
+    }
+
+    .lesson h2{margin:4px 0 8px}
+    .lesson-head p{margin:0;color:var(--muted)}
+
+    .explanation{
+      padding:22px 24px 0;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+    }
+
+    .info-card{
+      background:var(--panel-2);
+      border:1px solid var(--line);
+      border-radius:17px;
+      padding:18px;
+    }
+
+    .info-card h3{
+      margin:0 0 8px;
+      font-size:1rem;
+    }
+
+    .formula{
+      margin-top:12px;
+      padding:14px;
+      border-left:5px solid var(--accent-2);
+      background:#101b24;
+      border-radius:10px;
+      font-weight:850;
+      overflow-wrap:anywhere;
+    }
+
+    .flow{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top:12px;
+    }
+
+    .chip{
+      background:#111d26;
+      border:1px solid var(--line);
+      padding:8px 10px;
+      border-radius:10px;
+      font-weight:800;
+    }
+
+    .arrow{color:var(--accent);font-weight:900}
+
+    .questions{
+      padding:22px 24px 24px;
+    }
+
+    .question{
+      background:#121d27;
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:20px;
+      margin:0 0 16px;
+    }
+
+    .question h3{
+      margin:0 0 10px;
+      font-size:1.05rem;
+    }
+
+    .case{
+      color:var(--muted);
+      margin:0 0 15px;
+    }
+
+    .answer-row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    .answer-row input{
+      width:min(220px,100%);
+      background:#0b141c;
+      color:var(--text);
+      border:2px solid var(--line);
+      border-radius:12px;
+      padding:12px 14px;
+      outline:none;
+    }
+
+    .answer-row input:focus{border-color:var(--accent-2)}
+
+    .unit{
+      color:var(--muted);
+      font-weight:800;
+    }
+
+    .primary,.secondary,.hint-btn{
+      border:0;
+      border-radius:12px;
+      padding:11px 15px;
+      font-weight:900;
+    }
+
+    .primary{
+      background:var(--accent);
+      color:#30240c;
+    }
+
+    .secondary{
+      background:var(--accent-2);
+      color:#082018;
+    }
+
+    .hint-btn{
+      background:#293847;
+      color:var(--text);
+      border:1px solid var(--line);
+    }
+
+    .feedback{
+      display:none;
+      margin-top:13px;
+      border-radius:12px;
+      padding:12px 14px;
+      font-weight:700;
+    }
+
+    .feedback.good{
+      display:block;
+      background:rgba(104,211,145,.13);
+      border:1px solid rgba(104,211,145,.5);
+      color:#baf7d0;
+    }
+
+    .feedback.bad{
+      display:block;
+      background:rgba(239,107,115,.12);
+      border:1px solid rgba(239,107,115,.5);
+      color:#ffc4c8;
+    }
+
+    .hint{
+      display:none;
+      margin-top:12px;
+      color:#ffe3a3;
+      border-left:4px solid var(--accent);
+      padding:8px 12px;
+      background:rgba(244,185,66,.08);
+      border-radius:8px;
+    }
+
+    .hint.show{display:block}
+
+    details{
+      margin-top:12px;
+      background:#0d1821;
+      border:1px solid var(--line);
+      border-radius:11px;
+      padding:10px 12px;
+    }
+
+    summary{
+      cursor:pointer;
+      font-weight:850;
+      color:var(--accent-2);
+    }
+
+    .lesson-actions{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      padding:0 24px 24px;
+    }
+
+    .result-card{
+      text-align:center;
+      padding:32px 22px;
+    }
+
+    .score-ring{
+      width:132px;
+      height:132px;
+      border-radius:50%;
+      margin:18px auto;
+      display:grid;
+      place-items:center;
+      border:11px solid var(--accent-2);
+      background:#111d26;
+      font-size:1.6rem;
+      font-weight:900;
+    }
+
+    .sr-only{
+      position:absolute;
+      width:1px;
+      height:1px;
+      padding:0;
+      margin:-1px;
+      overflow:hidden;
+      clip:rect(0,0,0,0);
+      white-space:nowrap;
+      border:0;
+    }
+
+    @media(max-width:780px){
+      .hero,.explanation{grid-template-columns:1fr}
+      .hero-note{transform:none}
+      .route{grid-template-columns:1fr 1fr}
+      .level-nav{grid-template-columns:repeat(3,1fr)}
+      .toolbar{grid-template-columns:1fr}
+      .lesson-actions{flex-direction:column}
+      .lesson-actions button{width:100%}
+      .topbar{align-items:flex-start}
+    }
+
+    @media(max-width:460px){
+      .app{width:min(95vw,1080px)}
+      .route{grid-template-columns:1fr}
+      .level-nav{grid-template-columns:repeat(2,1fr)}
+      .lesson-head,.questions,.explanation{padding-left:16px;padding-right:16px}
+      .question{padding:16px}
+      .small-btn{padding:8px 10px}
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <div class="topbar">
+      <div class="brand">
+        <div class="brand-icon" aria-hidden="true">🧮</div>
+        <div>
+          <p class="eyebrow">Academy Oefenplein</p>
+          <h1>Gecorrigeerde inkoopprijs</h1>
+        </div>
+      </div>
+      <button class="small-btn" id="resetBtn" type="button">Opnieuw beginnen</button>
+    </div>
+
+    <section class="hero">
+      <div>
+        <h2>Van inkopen naar echte kostprijs</h2>
+        <p>
+          Je koopt een heel product, maar gebruikt vaak maar een deel. In deze module leer je stap voor stap
+          hoe je berekent wat het bruikbare product werkelijk kost.
+        </p>
+
+        <div class="route" aria-label="Stappenplan">
+          <div class="route-step"><div><span>🛒</span>Inkopen</div></div>
+          <div class="route-step"><div><span>✂️</span>Schoonmaken</div></div>
+          <div class="route-step"><div><span>⚖️</span>Bruikbaar gewicht</div></div>
+          <div class="route-step"><div><span>€</span>Echte prijs</div></div>
+        </div>
+      </div>
+
+      <aside class="hero-note">
+        <strong>Onthoud dit:</strong>
+        Je betaalt voor het begin, maar je rekent met wat je echt overhoudt.
+      </aside>
+    </section>
+
+    <section class="toolbar" aria-label="Voortgang">
+      <div>
+        <div class="progress-shell"><div class="progress-bar" id="progressBar"></div></div>
+        <div class="progress-label" id="progressLabel">0 van 15 sommen goed</div>
+      </div>
+      <div><strong id="scoreLabel">Score: 0%</strong></div>
+    </section>
+
+    <nav class="level-nav" aria-label="Niveaus">
+      <button class="level-tab active" data-level="0">1. Begrijpen</button>
+      <button class="level-tab" data-level="1">2. Rendement</button>
+      <button class="level-tab" data-level="2">3. Gewicht</button>
+      <button class="level-tab" data-level="3">4. Prijs</button>
+      <button class="level-tab" data-level="4">5. Praktijk</button>
+      <button class="level-tab" data-level="5">6. Eindproef</button>
+    </nav>
+
+    <section class="lesson active" data-lesson="0">
+      <header class="lesson-head">
+        <div class="lesson-kicker">Niveau 1</div>
+        <h2>Waarom moet je corrigeren?</h2>
+        <p>Je leert het verschil tussen ingekocht gewicht en bruikbaar gewicht.</p>
+      </header>
+
+      <div class="explanation">
+        <article class="info-card">
+          <h3>🛒 Wat koop je?</h3>
+          <p>Het volledige product heet het <strong>brutogewicht</strong>.</p>
+          <div class="flow">
+            <span class="chip">1000 g gekocht</span>
+            <span class="arrow">→</span>
+            <span class="chip">200 g afval</span>
+            <span class="arrow">→</span>
+            <span class="chip">800 g bruikbaar</span>
+          </div>
+        </article>
+
+        <article class="info-card">
+          <h3>💡 Belangrijk inzicht</h3>
+          <p>Als je minder product overhoudt, wordt iedere bruikbare gram duurder.</p>
+          <div class="formula">Meer afval = hogere gecorrigeerde inkoopprijs</div>
+        </article>
+      </div>
+
+      <div class="questions">
+        <article class="question" data-id="q1" data-answer="800">
+          <h3>Som 1</h3>
+          <p class="case">Je koopt 1000 gram wortelen. Na schoonmaken houd je 800 gram over. Hoeveel gram is bruikbaar?</p>
+          <div class="answer-row">
+            <label class="sr-only" for="q1input">Antwoord som 1</label>
+            <input id="q1input" inputmode="decimal" placeholder="Vul je antwoord in">
+            <span class="unit">gram</span>
+            <button class="primary check-btn" type="button">Nakijken</button>
+            <button class="hint-btn" type="button">Hint</button>
+          </div>
+          <div class="hint">Kijk naar wat er na het schoonmaken overblijft.</div>
+          <div class="feedback"></div>
+          <details><summary>Bekijk uitleg</summary><p>De opgave zegt dat er 800 gram overblijft. Dat is dus het bruikbare gewicht.</p></details>
+        </article>
+
+        <article class="question" data-id="q2" data-answer="200">
+          <h3>Som 2</h3>
+          <p class="case">Je koopt 1000 gram bloemkool en houdt 800 gram bruikbaar product over. Hoeveel gram afval heb je?</p>
+          <div class="answer-row">
+            <input inputmode="decimal" placeholder="Vul je antwoord in" aria-label="Antwoord som 2">
+            <span class="unit">gram</span>
+            <button class="primary check-btn" type="button">Nakijken</button>
+            <button class="hint-btn" type="button">Hint</button>
+          </div>
+          <div class="hint">Bereken: gekocht gewicht − bruikbaar gewicht.</div>
+          <div class="feedback"></div>
+          <details><summary>Bekijk uitleg</summary><p>1000 − 800 = 200 gram afval.</p></details>
+        </article>
+      </div>
+
+      <div class="lesson-actions">
+        <span></span>
+        <button class="secondary next-level" type="button">Naar niveau 2 →</button>
+      </div>
+    </section>
+
+    <section class="lesson" data-lesson="1">
+      <header class="lesson-head">
+        <div class="lesson-kicker">Niveau 2</div>
+        <h2>Rendement berekenen</h2>
+        <p>Rendement is het percentage dat je werkelijk kunt gebruiken.</p>
+      </header>
+
+      <div class="explanation">
+        <article class="info-card">
+          <h3>📊 Vanuit afval</h3>
+          <div class="formula">Rendement = 100% − afvalpercentage</div>
+          <p>Bij 20% afval is het rendement dus 80%.</p>
+        </article>
+        <article class="info-card">
+          <h3>⚖️ Vanuit gewichten</h3>
+          <div class="formula">Rendement = bruikbaar gewicht ÷ brutogewicht × 100</div>
+          <p>700 ÷ 1000 × 100 = 70%.</p>
+        </article>
+      </div>
+
+      <div class="questions">
+        <article class="question" data-id="q3" data-answer="80">
+          <h3>Som 3</h3>
+          <p class="case">Een product heeft 20% afval. Wat is het rendement?</p>
+          <div class="answer-row">
+            <input inputmode="decimal" placeholder="Vul je antwoord in" aria-label="Antwoord som 3">
+            <span class="unit">%</span>
+            <button class="primary check-btn" type="button">Nakijken</button>
+            <button class="hint-btn" type="button">Hint</button>
+          </div>
+          <div class="hint">Begin bij 100% en trek het afval eraf.</div>
+          <div class="feedback"></div>
+          <details><summary>Bekijk uitleg</summary><p>100% − 20% = 80% rendement.</p></details>
+        </article>
+
+        <article class="question" data-id="q4" data-answer="70">
+          <h3>Som 4</h3>
+          <p class="case">Van 1000 gram bloemkool blijft 700 gram over. Wat is het rendement?</p>
+          <div class="answer-row">
+            <input inputmode="decimal" placeholder="Vul je antwoord in" aria-label="Antwoord som 4">
+            <span class="unit">%</span>
+            <button class="primary check-btn" type="button">Nakijken</button>
+            <button class="hint-btn" type="button">Hint</button>
+          </div>
+          <div class="hint">Deel wat je overhoudt door wat je hebt gekocht en vermenigvuldig met 100.</div>
+          <div class="feedback"></div>
+          <details><summary>Bekijk uitleg</summary><p>700 ÷ 1000 × 100 = 70%.</p></details>
+        </article>
+
+        <article class="question" data-id="q5" data-answer="85">
+          <h3>Som 5</h3>
+          <p class="case">Bij het schoonmaken van vlees ontstaat 15% verlies. Wat is het rendement?</p>
+          <div class="answer-row">
+            <input inputmode="decimal" placeholder="Vul je antwoord in" aria-label="Antwoord som 5">
+            <span class="unit">%</span>
+            <button class="primary check-btn" type="button">Nakijken</button>
+            <button class="hint-btn" type="button">Hint</button>
+          </div>
+          <div class="hint">Verlies is hetzelfde als afval. Trek het af van 100%.</div>
+          <div class="feedback"></div>
+          <details><summary>Bekijk uitleg</summary><p>100% − 15% = 85% rendement.</p></details>
+        </article>
+      </div>
+
+      <div class="lesson-actions">
+        <button class="small-btn previous-level" type="button">← Terug</button>
+        <button class="secondary next-level" type="button">Naar niveau 3 →</button>
+      </div>
+    </section>
+
+    <section class="lesson" data-lesson="2">
+      <header class="lesson-head">
+        <div class="lesson-kicker">Niveau 3</div>
+        <h2>Bruikbaar gewicht berekenen</h2>
+        <p>Je combineert het brutogewicht met het rendement.</p>
+      </header>
+
+      <div class="explanation">
+        <article class="info-card">
+          <h3>🧠 Stappenplan</h3>
+          <div class="flow">
+            <span class="chip">Rendement 80%</span>
+            <span class="arrow">→</span>
+            <span class="chip">0,80</span>
+            <span class="arrow">→</span>
+            <span class="chip">gewicht × 0,80</span>
+          </div>
+        </article>
+        <article class="info-card">
+          <h3>🧮 Formule</h3>
+          <div class="formula">Bruikbaar gewicht = brutogewicht × rendement als kommagetal</div>
+        </article>
+      </div>
+
+      <div class="questions">
+        <article class="question" data-id="q6" data-answer="800">
+          <h3>Som 6</h3>
+          <p class="case">Je koopt 1000 gram wortelen. Het rendement is 80%. Hoeveel gram is bruikbaar?</p>
+          <div class="answer-row">
+            <input inputmode="decimal" placeholder="Vul je antwoord in" aria-label="Antwoord som 6">
+            <span class="unit">gram</span>
+            <button class="primary check-btn" type="button">Nakijken</button>
+            <button class="hint-btn" type="button">Hint</button>
+          </div>
+          <div class="hint">80% = 0,80. Bereken 1000 × 0,80.</div>
+          <div class="feedback"></div>
+          <details><summary>Bekijk uitleg</summary><p>1000 × 0,80 = 800 gram bruikbaar product.</p></details>
+        </article>
+
+        <article class="question" data-id="q7" data-answer="4000">
+          <h3>Som 7</h3>
+          <p class="case">Je koopt 5 kg aardappelen. Het rendement is 80%. Hoeveel gram blijft bruikbaar?</p>
+          <div class="answer-row">
+            <input inputmode="decimal" placeholder="Vul je antwoord in" aria-label="Antwoord som 7">
+            <span class="unit">gram</span>
+            <button class="primary check-btn" type="button">Nakijken</button>
+            <button class="hint-btn" type="button">Hint</button>
+          </div>
+          <div class="hint">Zet eerst 5 kg om naar 5000 gram. Bereken daarna 5000 × 0,80.</div>
+          <div class="feedback"></div>
+          <details><summary>Bekijk uitleg</summary><p>5 kg = 5000 gram. 5000 × 0,80 = 4000 gram.</p></details>
+        </article>
+
+        <article class="question" data-id="q8" data-answer="2550">
+          <h3>Som 8</h3>
+          <p class="case">Je koopt 3 kg runderlende. Het rendement is 85%. Hoeveel gram is bruikbaar?</p>
+          <div class="answer-row">
+            <input inputmode="decimal" placeholder="Vul je antwoord in" aria-label="Antwoord som 8">
+            <span class="unit">gram</span>
+            <button class="primary check-btn" type="button">Nakijken</button>
+            <button class="hint-btn" type="button">Hint</button>
+          </div>
+          <div class="hint">3 kg = 3000 gram. Vermenigvuldig met 0,85.</div>
+          <div class="feedback"></div>
+          <details><summary>Bekijk uitleg</summary><p>3000 × 0,85 = 2550 gram bruikbaar product.</p></details>
+        </article>
+      </div>
+
+      <div class="lesson-actions">
+        <button class="small-btn previous-level" type="button">← Terug</button>
+        <button class="secondary next-level" type="button">Naar niveau 4 →</button>
+      </div>
+    </section>
+
+    <section class="lesson" data-lesson="3">
+      <header class="lesson-head">
+        <div class="lesson-kicker">Niveau 4</div>
+        <h2>Gecorrigeerde prijs berekenen</h2>
+        <p>Nu deel je de inkoopprijs door het bruikbare gewicht.</p>
+      </header>
+
+      <div class="explanation">
+        <article class="info-card">
+          <h3>€ Prijs per gram</h3>
+          <div class="formula">Prijs per gram = inkoopprijs ÷ bruikbaar gewicht</div>
+        </article>
+        <article class="info-card">
+          <h3>📦 Prijs per kilogram</h3>
+          <div class="formula">Prijs per kilogram = prijs per gram × 1000</div>
+        </article>
+      </div>
+
+      <div class="questions">
+        <article class="question" data-id="q9" data-answer="2.50" data-tolerance="0.01">
+          <h3>Som 9</h3>
+          <p class="case">Wortelen kosten €2,00 per kg. Na schoonmaken blijft 800 gram over. Wat kost 1 kg bruikbaar product?</p>
+          <div class="answer-row">
+            <span class="unit">€</span>
+            <input inputmode="decimal" placeholder="Bijv. 2,50" aria-label="Antwoord som 9">
+            <span class="unit">per kg</span>
+            <button class="primary check-btn" type="button">Nakijken</button>
+            <button class="hint-btn" type="button">Hint</button>
+          </div>
+          <div class="hint">€2,00 ÷ 800 × 1000.</div>
+          <div class="feedback"></div>
+          <details><summary>Bekijk uitleg</summary><p>€2,00 ÷ 800 = €0,0025 per gram. × 1000 = €2,50 per kg.</p></details>
+        </article>
+
+        <article class="question" data-id="q10" data-answer="1.88" data-tolerance="0.01">
+          <h3>Som 10</h3>
+          <p class="case">5 kg aardappelen kosten €7,50. Het bruikbare gewicht is 4000 gram. Wat is de gecorrigeerde prijs per kg?</p>
+          <div class="answer-row">
+            <span class="unit">€</span>
+            <input inputmode="decimal" placeholder="Vul je antwoord in" aria-label="Antwoord som 10">
+            <span class="unit">per kg</span>
+            <button class="primary check-btn" type="button">Nakijken</button>
+            <button class="hint-btn" type="button">Hint</button>
+          </div>
+          <div class="hint">€7,50 ÷ 4000 × 1000. Rond af op twee decimalen.</div>
+          <div class="feedback"></div>
+          <details><summary>Bekijk uitleg</summary><p>€7,50 ÷ 4000 × 1000 = €1,875. Afgerond is dat €1,88 per kg.</p></details>
+        </article>
+      </div>
+
+      <div class="lesson-actions">
+        <button class="small-btn previous-level" type="button">← Terug</button>
+        <button class="secondary next-level" type="button">Naar niveau 5 →</button>
+      </div>
+    </section>
+
+    <section class="lesson" data-lesson="4">
+      <header class="lesson-head">
+        <div class="lesson-kicker">Niveau 5</div>
+        <h2>Volledige praktijksommen</h2>
+        <p>Je bepaalt zelf welke tussenstappen nodig zijn.</p>
+      </header>
+
+      <div class="explanation">
+        <article class="info-card">
+          <h3>🪜 Vaste volgorde</h3>
+          <div class="flow">
+            <span class="chip">1. Rendement</span>
+            <span class="arrow">→</span>
+            <span class="chip">2. Bruikbaar gewicht</span>
+            <span class="arrow">→</span>
+            <span class="chip">3. Prijs</span>
+          </div>
+        </article>
+        <article class="info-card">
+          <h3>🚨 Veelgemaakte fout</h3>
+          <p>Reken niet met het afvalpercentage alsof dat het rendement is.</p>
+          <div class="formula">15% verlies betekent 85% rendement</div>
+        </article>
+      </div>
+
+      <div class="questions">
+        <article class="question" data-id="q11" data-answer="18.82" data-tolerance="0.01">
+          <h3>Som 11</h3>
+          <p class="case">3 kg runderlende kost €48,00. Het verlies is 15%. Bereken de gecorrigeerde inkoopprijs per kg.</p>
+          <div class="answer-row">
+            <span class="unit">€</span>
+            <input inputmode="decimal" placeholder="Vul je antwoord in" aria-label="Antwoord som 11">
+            <span class="unit">per kg</span>
+            <button class="primary check-btn" type="button">Nakijken</button>
+            <button class="hint-btn" type="button">Hint</button>
+          </div>
+          <div class="hint">Rendement 85%. Bruikbaar: 3000 × 0,85 = 2550 gram.</div>
+          <div class="feedback"></div>
+          <details><summary>Bekijk uitwerking</summary><p>Rendement = 85%. Bruikbaar gewicht = 3000 × 0,85 = 2550 gram. €48 ÷ 2550 × 1000 = €18,82 per kg.</p></details>
+        </article>
+
+        <article class="question" data-id="q12" data-answer="15" data-tolerance="0.01">
+          <h3>Som 12</h3>
+          <p class="case">Een zalm van 2 kg kost €18,00. Het rendement is 60%. Bereken de gecorrigeerde prijs per kg.</p>
+          <div class="answer-row">
+            <span class="unit">€</span>
+            <input inputmode="decimal" placeholder="Vul je antwoord in" aria-label="Antwoord som 12">
+            <span class="unit">per kg</span>
+            <button class="primary check-btn" type="button">Nakijken</button>
+            <button class="hint-btn" type="button">Hint</button>
+          </div>
+          <div class="hint">Bruikbaar gewicht = 2000 × 0,60 = 1200 gram.</div>
+          <div class="feedback"></div>
+          <details><summary>Bekijk uitwerking</summary><p>€18 ÷ 1200 × 1000 = €15,00 per kg.</p></details>
+        </article>
+
+        <article class="question" data-id="q13" data-answer="3" data-tolerance="0.01">
+          <h3>Som 13</h3>
+          <p class="case">De zalm uit de vorige som kost gecorrigeerd €0,015 per gram. Je gebruikt 200 gram. Wat kost de zalm in het gerecht?</p>
+          <div class="answer-row">
+            <span class="unit">€</span>
+            <input inputmode="decimal" placeholder="Vul je antwoord in" aria-label="Antwoord som 13">
+            <button class="primary check-btn" type="button">Nakijken</button>
+            <button class="hint-btn" type="button">Hint</button>
+          </div>
+          <div class="hint">Vermenigvuldig de prijs per gram met de gebruikte hoeveelheid.</div>
+          <div class="feedback"></div>
+          <details><summary>Bekijk uitwerking</summary><p>200 × €0,015 = €3,00.</p></details>
+        </article>
+      </div>
+
+      <div class="lesson-actions">
+        <button class="small-btn previous-level" type="button">← Terug</button>
+        <button class="secondary next-level" type="button">Naar de eindproef →</button>
+      </div>
+    </section>
+
+    <section class="lesson" data-lesson="5">
+      <header class="lesson-head">
+        <div class="lesson-kicker">Niveau 6</div>
+        <h2>Eindproef: slim inkopen</h2>
+        <p>Vergelijk producten op basis van hun werkelijke bruikbare prijs.</p>
+      </header>
+
+      <div class="explanation">
+        <article class="info-card">
+          <h3>Leverancier A</h3>
+          <p>5 kg aardappelen voor €7,50<br>Rendement: 80%</p>
+        </article>
+        <article class="info-card">
+          <h3>Leverancier B</h3>
+          <p>5 kg geschilde aardappelen voor €9,00<br>Rendement: 98%</p>
+        </article>
+      </div>
+
+      <div class="questions">
+        <article class="question" data-id="q14" data-answer="1.88" data-tolerance="0.01">
+          <h3>Som 14 – Leverancier A</h3>
+          <p class="case">Bereken de gecorrigeerde prijs per kg van leverancier A.</p>
+          <div class="answer-row">
+            <span class="unit">€</span>
+            <input inputmode="decimal" placeholder="Vul je antwoord in" aria-label="Antwoord som 14">
+            <span class="unit">per kg</span>
+            <button class="primary check-btn" type="button">Nakijken</button>
+            <button class="hint-btn" type="button">Hint</button>
+          </div>
+          <div class="hint">5000 × 0,80 = 4000 gram bruikbaar.</div>
+          <div class="feedback"></div>
+          <details><summary>Bekijk uitwerking</summary><p>€7,50 ÷ 4000 × 1000 = €1,88 per kg.</p></details>
+        </article>
+
+        <article class="question" data-id="q15" data-answer="1.84" data-tolerance="0.01">
+          <h3>Som 15 – Leverancier B</h3>
+          <p class="case">Bereken de gecorrigeerde prijs per kg van leverancier B.</p>
+          <div class="answer-row">
+            <span class="unit">€</span>
+            <input inputmode="decimal" placeholder="Vul je antwoord in" aria-label="Antwoord som 15">
+            <span class="unit">per kg</span>
+            <button class="primary check-btn" type="button">Nakijken</button>
+            <button class="hint-btn" type="button">Hint</button>
+          </div>
+          <div class="hint">5000 × 0,98 = 4900 gram bruikbaar.</div>
+          <div class="feedback"></div>
+          <details><summary>Bekijk uitwerking</summary><p>€9,00 ÷ 4900 × 1000 = €1,84 per kg. Leverancier B heeft een hogere aankoopprijs, maar is per bruikbare kg iets goedkoper.</p></details>
+        </article>
+
+        <div class="result-card">
+          <h2>🏁 Jouw resultaat</h2>
+          <div class="score-ring" id="finalScore">0%</div>
+          <p id="resultText">Maak de sommen om je resultaat te zien.</p>
+        </div>
+      </div>
+
+      <div class="lesson-actions">
+        <button class="small-btn previous-level" type="button">← Terug</button>
+        <button class="secondary" id="reviewBtn" type="button">Bekijk mijn fouten</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      const storageKey = "academy-gecorrigeerde-inkoopprijs-v1";
+      const questions = [...document.querySelectorAll(".question[data-id]")];
+      const tabs = [...document.querySelectorAll(".level-tab")];
+      const lessons = [...document.querySelectorAll(".lesson")];
+      let currentLevel = 0;
+      let state = loadState();
+
+      function loadState(){
+        try{
+          const saved = JSON.parse(localStorage.getItem(storageKey));
+          return saved && typeof saved === "object" ? saved : {correct:{}, attempts:{}};
+        }catch{
+          return {correct:{}, attempts:{}};
+        }
+      }
+
+      function saveState(){
+        localStorage.setItem(storageKey, JSON.stringify(state));
+      }
+
+      function normalizeNumber(value){
+        return Number(String(value).trim().replace(/\s/g,"").replace(",","."));
+      }
+
+      function showLevel(index){
+        currentLevel = Math.max(0, Math.min(index, lessons.length - 1));
+        lessons.forEach((lesson,i) => lesson.classList.toggle("active", i === currentLevel));
+        tabs.forEach((tab,i) => tab.classList.toggle("active", i === currentLevel));
+        window.scrollTo({top: document.querySelector(".level-nav").offsetTop - 12, behavior:"smooth"});
+      }
+
+      function checkQuestion(question){
+        const input = question.querySelector("input");
+        const feedback = question.querySelector(".feedback");
+        const id = question.dataset.id;
+        const expected = Number(question.dataset.answer);
+        const tolerance = Number(question.dataset.tolerance || 0);
+        const value = normalizeNumber(input.value);
+
+        state.attempts[id] = (state.attempts[id] || 0) + 1;
+
+        if(!Number.isFinite(value)){
+          feedback.className = "feedback bad";
+          feedback.textContent = "Vul eerst een getal in.";
+          saveState();
+          return;
+        }
+
+        const correct = Math.abs(value - expected) <= tolerance;
+        if(correct){
+          state.correct[id] = true;
+          feedback.className = "feedback good";
+          feedback.textContent = state.attempts[id] === 1
+            ? "Goed! Je hebt deze som in één keer correct."
+            : "Goed! Je hebt de juiste berekening gevonden.";
+          input.disabled = true;
+          question.querySelector(".check-btn").disabled = true;
+        }else{
+          feedback.className = "feedback bad";
+          feedback.textContent = "Nog niet goed. Controleer de eenheid en werk stap voor stap.";
+        }
+
+        saveState();
+        updateProgress();
+      }
+
+      function updateProgress(){
+        const total = questions.length;
+        const correct = questions.filter(q => state.correct[q.dataset.id]).length;
+        const percentage = Math.round((correct / total) * 100);
+
+        document.getElementById("progressBar").style.width = percentage + "%";
+        document.getElementById("progressLabel").textContent = `${correct} van ${total} sommen goed`;
+        document.getElementById("scoreLabel").textContent = `Score: ${percentage}%`;
+        document.getElementById("finalScore").textContent = percentage + "%";
+
+        const resultText = document.getElementById("resultText");
+        if(percentage === 100){
+          resultText.textContent = "Uitstekend. Je kunt de gecorrigeerde inkoopprijs zelfstandig berekenen.";
+        }else if(percentage >= 80){
+          resultText.textContent = "Goed bezig. Bekijk alleen de sommen die nog niet goed zijn.";
+        }else if(percentage >= 50){
+          resultText.textContent = "Je begrijpt de basis. Oefen de tussenstappen nog een keer.";
+        }else{
+          resultText.textContent = "Werk rustig van niveau 1 naar niveau 6 en gebruik de hints.";
+        }
+
+        lessons.forEach((lesson,index) => {
+          const levelQuestions = [...lesson.querySelectorAll(".question[data-id]")];
+          const done = levelQuestions.length > 0 && levelQuestions.every(q => state.correct[q.dataset.id]);
+          tabs[index]?.classList.toggle("done", done);
+        });
+      }
+
+      function restoreAnsweredQuestions(){
+        questions.forEach(question => {
+          const id = question.dataset.id;
+          if(state.correct[id]){
+            const input = question.querySelector("input");
+            const feedback = question.querySelector(".feedback");
+            input.disabled = true;
+            question.querySelector(".check-btn").disabled = true;
+            feedback.className = "feedback good";
+            feedback.textContent = "Deze som had je al correct.";
+          }
+        });
+      }
+
+      document.querySelectorAll(".check-btn").forEach(btn => {
+        btn.addEventListener("click", () => checkQuestion(btn.closest(".question")));
+      });
+
+      document.querySelectorAll(".hint-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          btn.closest(".question").querySelector(".hint").classList.toggle("show");
+        });
+      });
+
+      document.querySelectorAll(".next-level").forEach(btn => {
+        btn.addEventListener("click", () => showLevel(currentLevel + 1));
+      });
+
+      document.querySelectorAll(".previous-level").forEach(btn => {
+        btn.addEventListener("click", () => showLevel(currentLevel - 1));
+      });
+
+      tabs.forEach((tab,index) => tab.addEventListener("click", () => showLevel(index)));
+
+      document.getElementById("reviewBtn").addEventListener("click", () => {
+        const firstWrong = questions.find(q => !state.correct[q.dataset.id]);
+        if(!firstWrong){
+          alert("Alles is goed gemaakt. Prima resultaat!");
+          return;
+        }
+        const lesson = firstWrong.closest(".lesson");
+        showLevel(Number(lesson.dataset.lesson));
+        setTimeout(() => firstWrong.scrollIntoView({behavior:"smooth", block:"center"}), 350);
+      });
+
+      document.getElementById("resetBtn").addEventListener("click", () => {
+        const ok = confirm("Weet je zeker dat je alle voortgang wilt wissen?");
+        if(!ok) return;
+        localStorage.removeItem(storageKey);
+        location.reload();
+      });
+
+      document.addEventListener("keydown", event => {
+        if(event.key === "Enter" && event.target.matches(".question input")){
+          const question = event.target.closest(".question");
+          const button = question.querySelector(".check-btn");
+          if(!button.disabled) checkQuestion(question);
+        }
+      });
+
+      restoreAnsweredQuestions();
+      updateProgress();
+    })();
+  </script>
+</body>
+</html>

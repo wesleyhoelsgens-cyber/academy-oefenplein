@@ -56,7 +56,10 @@ updateThemeControls();
 const academyData = {
     opleidingen: [
         createOpleiding("traiteur", "Traiteur", [
-            createLeerjaar(1, [1, 2, 3, 4], {}, [createEindtoetsOnderdeel()]),
+            createLeerjaar(1, [1, 2, 3, 4], {}, [
+                createEindtoetsOnderdeel(),
+                createWarmeBereidingstechniekenOnderdeel()
+            ]),
             createLeerjaar(2, [5, 6, 7, 8], {
                 5: {
                     themas: [
@@ -107,11 +110,20 @@ const academyData = {
                         }
                     ]
                 }
-            }, [createEindexamenOnderdeel()])
+            }, [
+                createEindexamenOnderdeel(),
+                createWarmeBereidingstechniekenOnderdeel()
+            ])
         ]),
-        createOpleiding("bol-allround-food-expert", "BOL Allround Food Expert", [
-            createLeerjaar(1, [1, 2, 3, 4], {}, [createEindtoetsOnderdeel()]),
-            createLeerjaar(2, [1, 2, 3, 4], {}, [createEindexamenOnderdeel()])
+        createOpleiding("bol-allround-food-expert", "Allround Food Expert", [
+            createLeerjaar(1, [1, 2, 3, 4], {}, [
+                createEindtoetsOnderdeel(),
+                createWarmeBereidingstechniekenOnderdeel()
+            ]),
+            createLeerjaar(2, [1, 2, 3, 4], {}, [
+                createEindexamenOnderdeel(),
+                createWarmeBereidingstechniekenOnderdeel()
+            ])
         ]),
         createOpleiding("hospitality", "Hospitality", [
             createLeerjaar(1, [1, 2, 3, 4], {}, [createEindtoetsOnderdeel()]),
@@ -121,9 +133,38 @@ const academyData = {
             createLeerjaar(1, [1, 2, 3, 4]),
             createLeerjaar(2, [1, 2, 3, 4])
         ]),
-        createOpleiding("rekenen", "Rekenen", [
-            createLeerjaar(1, [1, 2, 3, 4]),
-            createLeerjaar(2, [1, 2, 3, 4])
+        createOpleiding("rekenen", "Rekenen", [], [
+            {
+                id: "financieel",
+                naam: "Financieel",
+                beschrijving: "Oefen financiële rekenvaardigheden in praktische situaties.",
+                themas: [
+                    {
+                        id: "inkoopprijs-en-rendement",
+                        naam: "Inkoopprijs en rendement",
+                        modules: [
+                            {
+                                id: "gecorrigeerde-inkoopprijs-oefenmodule",
+                                titel: "Oefenmodule – Gecorrigeerde inkoopprijs",
+                                type: "Oefenmodule",
+                                duur: "20–30 minuten",
+                                beschrijving: "Leer stap voor stap berekenen wat het bruikbare product werkelijk kost.",
+                                bestand: "modules/gecorrigeerde-inkoopprijs-oefenmodule.html",
+                                beschikbaar: true
+                            },
+                            {
+                                id: "gecorrigeerde-inkoopprijs-niveau-4-acht-oefenvragen",
+                                titel: "Niveau 3 – Gecorrigeerde inkoopprijs",
+                                type: "Oefenvragen",
+                                duur: "15–20 minuten",
+                                beschrijving: "Oefen met acht steeds moeilijkere sommen over inkoopprijs, rendement en bruikbaar gewicht.",
+                                bestand: "modules/gecorrigeerde-inkoopprijs-niveau-4-acht-oefenvragen.html",
+                                beschikbaar: true
+                            }
+                        ]
+                    }
+                ]
+            }
         ]),
         createOpleiding("nederlands", "Nederlands", [
             createLeerjaar(1, [1, 2, 3, 4]),
@@ -163,8 +204,33 @@ function createEindexamenOnderdeel() {
     };
 }
 
-function createOpleiding(id, naam, leerjaren) {
-    return { id, naam, leerjaren };
+function createWarmeBereidingstechniekenOnderdeel() {
+    return {
+        id: "warme-bereidingstechnieken",
+        naam: "Warme bereidingstechnieken",
+        beschrijving: "Leer en oefen warme bereidingstechnieken voor vlees, vis en AGF.",
+        themas: [
+            {
+                id: "warme-bereidingstechnieken",
+                naam: "Warme bereidingstechnieken",
+                modules: [
+                    {
+                        id: "leermodule-warme-bereidingstechnieken",
+                        titel: "Leermodule Warme Bereidingstechnieken",
+                        type: "Leermodule",
+                        duur: "60–90 minuten",
+                        beschrijving: "Leer warme bereidingstechnieken begrijpen, oefenen en toepassen met theorie, flashcards, quiz en oefenexamen.",
+                        bestand: "modules/Leermodule_Warme_Bereidingstechnieken_STANDALONE (2).html",
+                        beschikbaar: true
+                    }
+                ]
+            }
+        ]
+    };
+}
+
+function createOpleiding(id, naam, leerjaren, onderdelen = []) {
+    return { id, naam, leerjaren, onderdelen };
 }
 
 const app = document.getElementById("app");
@@ -204,6 +270,33 @@ function renderCards(items, parentRoute) {
             ${items.map(item => `
                 <a class="navigation-card" href="${routeTo([...parentRoute, item.id])}">
                     <span>${item.naam}</span>
+                </a>
+            `).join("")}
+        </section>
+    `;
+}
+
+function renderOpleidingOverview(opleiding) {
+    const overzichtLabel = opleiding.leerjaren.length
+        ? "Leerjaren en onderdelen"
+        : "Onderdelen";
+
+    return `
+        <section class="card-grid" aria-label="${overzichtLabel}">
+            ${opleiding.leerjaren.map(leerjaar => `
+                <a class="navigation-card" href="${routeTo([opleiding.id, leerjaar.id])}">
+                    <span>${leerjaar.naam}</span>
+                </a>
+            `).join("")}
+            ${opleiding.onderdelen.map(onderdeel => `
+                <a class="navigation-card special-card" href="${routeTo([opleiding.id, "onderdeel", onderdeel.id])}">
+                    <span class="special-card-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" focusable="false"><path d="M6 2.75h12v18.5H6zM8.5 6h7M9 10h.01M12 10h.01M15 10h.01M9 14h.01M12 14h.01M15 14h.01M9 18h.01M12 18h.01M15 18h.01"/></svg>
+                    </span>
+                    <span class="special-card-content">
+                        <strong>${onderdeel.naam}</strong>
+                        <small>${onderdeel.beschrijving}</small>
+                    </span>
                 </a>
             `).join("")}
         </section>
@@ -314,8 +407,13 @@ function renderModuleOverview(themas) {
 
 function render() {
     const parts = getRouteParts();
-    const [opleidingId, leerjaarId, routeTypeOfPeriodeId, speciaalOnderdeelId] = parts;
+    const [opleidingId, leerjaarIdOfRouteType, routeTypeOfPeriodeId, speciaalOnderdeelId] = parts;
     const opleiding = findById(academyData.opleidingen, opleidingId);
+    const isOpleidingOnderdeelRoute = leerjaarIdOfRouteType === "onderdeel";
+    const opleidingOnderdeel = opleiding && isOpleidingOnderdeelRoute
+        ? findById(opleiding.onderdelen, routeTypeOfPeriodeId)
+        : undefined;
+    const leerjaarId = isOpleidingOnderdeelRoute ? undefined : leerjaarIdOfRouteType;
     const leerjaar = opleiding && findById(opleiding.leerjaren, leerjaarId);
     const isSpecialeRoute = routeTypeOfPeriodeId === "speciaal";
     const periode = leerjaar && !isSpecialeRoute
@@ -335,26 +433,46 @@ function render() {
         return;
     }
 
-    const isOngeldigeSpecialeRoute = isSpecialeRoute
+    const isOngeldigeOpleidingOnderdeelRoute = isOpleidingOnderdeelRoute
+        && (!opleidingOnderdeel || parts.length !== 3);
+    const isOngeldigeSpecialeRoute = !isOpleidingOnderdeelRoute && isSpecialeRoute
         && (!speciaalOnderdeel || parts.length !== 4);
-    const isOngeldigePeriodeRoute = routeTypeOfPeriodeId
+    const isOngeldigePeriodeRoute = !isOpleidingOnderdeelRoute && routeTypeOfPeriodeId
         && !isSpecialeRoute
         && (!periode || parts.length !== 3);
 
-    if (!opleiding || (leerjaarId && !leerjaar) || isOngeldigeSpecialeRoute || isOngeldigePeriodeRoute || parts.length > 4) {
+    if (!opleiding || (leerjaarId && !leerjaar) || isOngeldigeOpleidingOnderdeelRoute || isOngeldigeSpecialeRoute || isOngeldigePeriodeRoute || parts.length > 4) {
         window.location.replace(routeTo([]));
         return;
     }
 
     const crumbs = [{ label: opleiding.naam, route: [opleiding.id] }];
 
-    if (!leerjaarId) {
+    if (!leerjaarIdOfRouteType) {
+        const pageTitle = opleiding.leerjaren.length
+            ? (opleiding.onderdelen.length ? "Kies je leerjaar of onderdeel" : "Kies je leerjaar")
+            : "Kies een onderdeel";
+
         renderBreadcrumb(crumbs);
         app.innerHTML = renderHeader(
-            "Kies je leerjaar",
+            pageTitle,
             opleiding.naam,
             []
-        ) + renderCards(opleiding.leerjaren, [opleiding.id]);
+        ) + renderOpleidingOverview(opleiding);
+        return;
+    }
+
+    if (isOpleidingOnderdeelRoute) {
+        crumbs.push({
+            label: opleidingOnderdeel.naam,
+            route: [opleiding.id, "onderdeel", opleidingOnderdeel.id]
+        });
+        renderBreadcrumb(crumbs);
+        app.innerHTML = renderHeader(
+            opleidingOnderdeel.naam,
+            opleidingOnderdeel.beschrijving,
+            [opleiding.id]
+        ) + renderModuleOverview(opleidingOnderdeel.themas);
         return;
     }
 

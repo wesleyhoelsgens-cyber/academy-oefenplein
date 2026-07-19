@@ -347,14 +347,14 @@ main {
 .navigation-card[href="#/burgerschap"]::before,
 .navigation-card[href="#/rekenen"]::before,
 .navigation-card[href="#/nederlands"]::before {
-    width: 46px;
-    height: 46px;
-    flex: 0 0 46px;
+    width: 60px;
+    height: 60px;
+    flex: 0 0 60px;
     content: "";
     background: var(--color-primary);
     mask-position: center;
     mask-repeat: no-repeat;
-    mask-size: 28px;
+    mask-size: 40px;
 }
 
 .navigation-card[href="#/traiteur"]::before {
@@ -620,6 +620,18 @@ main {
     .navigation-card {
         min-height: 104px;
         padding: var(--space-5);
+    }
+
+    .navigation-card[href="#/traiteur"]::before,
+    .navigation-card[href="#/bol-allround-food-expert"]::before,
+    .navigation-card[href="#/hospitality"]::before,
+    .navigation-card[href="#/burgerschap"]::before,
+    .navigation-card[href="#/rekenen"]::before,
+    .navigation-card[href="#/nederlands"]::before {
+        width: 54px;
+        height: 54px;
+        flex-basis: 54px;
+        mask-size: 36px;
     }
 
     .card-grid {

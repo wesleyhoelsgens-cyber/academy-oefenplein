@@ -1,0 +1,2283 @@
+﻿<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Leermodule Warme Bereidingstechnieken</title>
+  <meta name="description" content="Nederlandstalige leermodule voor warme bereidingstechnieken met quiz, flashcards en uitbreidingen voor vlees, vis en AGF.">
+  <style>
+:root {
+  --bg: #f7f3ec;
+  --card: #fffaf2;
+  --ink: #28231d;
+  --muted: #6f6456;
+  --accent: #cc6b37;
+  --accent2: #2f6f73;
+  --ok: #2f7d4a;
+  --bad: #a33b3b;
+  --line: #e4d8c8;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: linear-gradient(180deg, #fff7ed, #f5efe5);
+  color: var(--ink);
+}
+header {
+  padding: 22px 16px 18px;
+  background: #2f2a23;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+header h1 { margin: 0; font-size: 1.35rem; }
+header p { margin: 0.35rem 0 0; color: #e9dac8; font-size: .95rem; }
+nav {
+  display: flex;
+  gap: 8px;
+  overflow: auto;
+  padding: 10px 12px;
+  background: #fff8ef;
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 76px;
+  z-index: 4;
+}
+button, .btn {
+  border: 0;
+  border-radius: 12px;
+  padding: 10px 13px;
+  background: #efe2d0;
+  color: var(--ink);
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+button.active { background: var(--accent); color: white; }
+main { max-width: 1180px; margin: 0 auto; padding: 18px 14px 70px; }
+.section { display: none; }
+.section.active { display: block; }
+.hero { display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 16px; }
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+  margin-bottom: 14px;
+}
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+h2 { margin: 0 0 10px; font-size: 1.45rem; }
+h3 { margin: 0 0 8px; }
+.small { color: var(--muted); font-size: .92rem; }
+.badge { display: inline-block; background: #ead7bf; border-radius: 999px; padding: 4px 9px; margin: 3px; font-size: .8rem; font-weight: 700; }
+table { width: 100%; border-collapse: collapse; background: white; border-radius: 14px; overflow: hidden; }
+th, td { text-align: left; padding: 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { background: #3d352b; color: white; position: sticky; top: 130px; }
+input, select, textarea { width: 100%; padding: 12px; border: 1px solid var(--line); border-radius: 12px; background: white; font: inherit; }
+.flashcard { min-height: 260px; perspective: 1000px; cursor: pointer; }
+.flash-inner { position: relative; width: 100%; min-height: 260px; transition: transform .5s; transform-style: preserve-3d; }
+.flashcard.flipped .flash-inner { transform: rotateY(180deg); }
+.face { position: absolute; inset: 0; background: white; border: 1px solid var(--line); border-radius: 18px; padding: 22px; backface-visibility: hidden; display: flex; flex-direction: column; justify-content: center; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08); }
+.back { transform: rotateY(180deg); justify-content: flex-start; overflow: auto; }
+.face h2 { font-size: 2rem; text-align: center; }
+.kv { display: grid; grid-template-columns: 120px 1fr; gap: 8px; margin: 6px 0; }
+.option { display: block; width: 100%; text-align: left; margin: 8px 0; background: white; border: 1px solid var(--line); font-weight: 600; }
+.option.correct { background: #dff2e6; border-color: var(--ok); }
+.option.wrong { background: #f3dddd; border-color: var(--bad); }
+.notice { padding: 12px; border-left: 5px solid var(--accent2); background: #e8f1f0; border-radius: 12px; margin: 10px 0; }
+.result { font-weight: 800; margin-top: 10px; }
+.checklist li { margin: .35rem 0; }
+details { background: white; border: 1px solid var(--line); border-radius: 14px; padding: 10px 12px; margin: 8px 0; }
+summary { font-weight: 800; cursor: pointer; }
+.toolbar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 10px 0; }
+.intro-card {
+  background: linear-gradient(145deg, #fffaf4 0%, #ffffff 60%);
+  border: 1px solid #eadbc8;
+  border-radius: 24px;
+  box-shadow: 0 14px 30px rgba(47, 42, 35, 0.08);
+  padding: 18px;
+}
+.intro-card h2 {
+  color: #2f6f73;
+  font-size: 1.75rem;
+  margin-bottom: 10px;
+}
+.intro-card p {
+  color: #4c4338;
+  line-height: 1.55;
+}
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+.timeline-step {
+  background: linear-gradient(180deg, #fff, #fffaf2);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 12px;
+  box-shadow: 0 8px 18px rgba(47, 42, 35, 0.06);
+}
+.timeline-step strong {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 2px;
+}
+.timeline-step p {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: .95rem;
+  line-height: 1.45;
+}
+.timeline-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #efe2d0, #f7efe6);
+  margin-bottom: 6px;
+  font-size: 1.05rem;
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.65);
+}
+.quick-note {
+  background: linear-gradient(145deg, #fff6eb, #fffaf4);
+  border-left-color: var(--ok);
+}
+.key-note {
+  background: linear-gradient(145deg, #fff7ec, #fffdf8);
+  border-left-color: var(--accent);
+  box-shadow: 0 10px 18px rgba(204, 107, 55, 0.12);
+}
+.checklist {
+  padding-left: 0;
+  list-style: none;
+  margin: 8px 0 0;
+}
+.checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: .45rem 0;
+  color: #3f3a31;
+}
+.checklist li::before {
+  content: '✓';
+  color: var(--ok);
+  font-weight: 900;
+  flex: 0 0 auto;
+}
+.progress { height: 12px; background: #eadbc9; border-radius: 999px; overflow: hidden; }
+.progress div { height: 100%; background: var(--accent2); width: 0%; }
+.exam-sticky {
+  position: sticky;
+  top: 130px;
+  z-index: 3;
+}
+.exam-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.exam-timer {
+  background: var(--accent2);
+  color: white;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-weight: 900;
+  min-width: 76px;
+  text-align: center;
+}
+.exam-timer.timer-warning { background: #c77b1d; }
+.exam-timer.timer-danger { background: var(--bad); }
+.exam-option {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin: 8px 0;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: white;
+  cursor: pointer;
+}
+.exam-option input {
+  width: auto;
+  margin-top: 3px;
+}
+@media (max-width: 850px) {
+  header { position: relative; }
+  nav { top: 0; }
+  .exam-sticky { top: 0; }
+  .exam-status { align-items: flex-start; flex-direction: column; }
+  .hero, .grid, .two { grid-template-columns: 1fr; }
+  th { position: static; }
+  .face h2 { font-size: 1.6rem; }
+  .timeline { grid-template-columns: 1fr; }
+  .kv { grid-template-columns: 1fr; }
+  table { font-size: .9rem; }
+  th, td { padding: 8px; }
+}
+@media print {
+  header, nav, .toolbar, .no-print { display: none; }
+  .section { display: block; }
+  body { background: white; }
+  .card { box-shadow: none; break-inside: avoid; }
+}
+
+</style>
+</head>
+<body>
+  <header>
+    <h1>Leermodule Warme Bereidingstechnieken</h1>
+    <p>Algemene technieken als kern · uitbreiding naar vlees, vis en AGF · oefenen op basis, toepassing en examen/CGI-niveau</p>
+  </header>
+
+  <nav id="tabs" aria-label="Hoofdmenu"></nav>
+
+  <main>
+    <section id="start" class="section active">
+      <div class="hero">
+        <article class="card">
+          <h2>Voortgang</h2>
+          <p class="small">Voortgang wordt lokaal opgeslagen op dit apparaat.</p>
+          <div class="progress"><div id="progbar"></div></div>
+          <p id="progtext" class="result">0% afgerond</p>
+          <div class="toolbar">
+            <button type="button" onclick="resetProgress()">Reset voortgang</button>
+            <button type="button" onclick="window.print()">Print / PDF</button>
+          </div>
+        </article>
+      </div>
+
+      <article class="card intro-card">
+        <h2>👋 Welkom bij de Leermodule Warme Bereidingstechnieken</h2>
+        <p>Deze module is gemaakt voor SVO Eindhoven MBO Food-studenten die warmere bereidingstechnieken willen begrijpen, oefenen en goed kunnen toepassen in de praktijk. Je leert niet alleen wat een techniek is, maar ook waarom je die kiest en hoe je fouten voorkomt.</p>
+        <p>Gebruik deze module wanneer je wilt oefenen, herhalen of je kennis wilt controleren. Je kunt ook onderdelen overslaan als je al voldoende kennis hebt; kies dan gewoon de route die bij jou past.</p>
+        <p>Doorloop de module stap voor stap, of werk gericht aan de onderdelen die jij nodig hebt. Zo blijf je overzichtelijk en haal je meer uit je oefensessie.</p>
+
+        <h3>Leerroute</h3>
+        <div class="timeline">
+          <article class="timeline-step"><span class="timeline-icon">📖</span><strong>Overzicht</strong><p>Bekijk alle warme bereidingstechnieken in één overzicht. Leer welke technieken er zijn, welke temperaturen gebruikt worden en wanneer je welke techniek kiest.</p></article>
+          <article class="timeline-step"><span class="timeline-icon">🧠</span><strong>Flashcards</strong><p>Leer de belangrijkste begrippen, temperaturen, toepassingen en veelgemaakte fouten.</p></article>
+          <article class="timeline-step"><span class="timeline-icon">🎯</span><strong>Quiz</strong><p>Controleer of je de theorie begrijpt en ontdek welke onderwerpen extra aandacht nodig hebben.</p></article>
+          <article class="timeline-step"><span class="timeline-icon">🍳</span><strong>Praktijktrainer</strong><p>Pas de theorie toe in realistische praktijksituaties uit de keuken.</p></article>
+          <article class="timeline-step"><span class="timeline-icon">🥩</span><strong>Producttrainer</strong><p>Werk vanuit producten zoals vlees, vis en groenten en leer welke techniek het beste resultaat geeft.</p></article>
+          <article class="timeline-step"><span class="timeline-icon">🎤</span><strong>CGI Trainer</strong><p>Oefen met het uitleggen van je keuzes in vaktaal, zoals tijdens een mondeling examen of gesprek.</p></article>
+          <article class="timeline-step"><span class="timeline-icon">🏆</span><strong>Examentrainer</strong><p>Test jezelf met examenvragen op kennis, begrip en toepassing.</p></article>
+        </div>
+
+        <article class="notice quick-note">
+          <h3>🚀 Heb je weinig tijd?</h3>
+          <p>Volg dan deze verkorte route:</p>
+          <p class="small">📖 Overzicht ↓ 🎯 Quiz ↓ 🏆 Examentrainer</p>
+        </article>
+
+        <article class="notice key-note">
+          <h3>👨‍🍳 Belangrijk</h3>
+          <p>Deze module gaat niet alleen over het onthouden van technieken. Na afloop moet je kunnen:</p>
+          <ul class="checklist">
+            <li>De juiste bereidingstechniek kiezen</li>
+            <li>Uitleggen waarom je die techniek kiest</li>
+            <li>Beschrijven wat er tijdens de bereiding gebeurt</li>
+            <li>Veelgemaakte fouten herkennen en voorkomen</li>
+          </ul>
+        </article>
+      </article>
+    </section>
+
+    <section id="overview" class="section">
+      <article class="card">
+        <h2>Overzicht warme bereidingstechnieken</h2>
+        <p class="small">Gebruik dit als digitale spiekkaart. Zoek op techniek, product of trefwoord.</p>
+        <input id="techSearch" type="search" placeholder="Zoek bijvoorbeeld: vis, korst, groente, 100°C, stoven..." oninput="renderTechTable()">
+      </article>
+      <article class="card" style="overflow:auto">
+        <table id="techTable"></table>
+      </article>
+    </section>
+
+    <section id="cards" class="section">
+      <article class="card">
+        <h2>Flashcards</h2>
+        <p>Gebruik de bestaande flashcards uit de datafiles. Zoek of filter op techniek.</p>
+        <div id="techIndex" class="toolbar"></div>
+        <div class="toolbar">
+          <input id="flashSearch" type="search" placeholder="Zoek op techniek, vraag of antwoord..." oninput="renderCard()" style="max-width: 360px;">
+          <select id="flashFilter" onchange="currentFlashcard=0; renderCard();">
+            <option value="Alle">Alle technieken</option>
+          </select>
+          <button type="button" onclick="prevCard()">Vorige</button>
+          <button type="button" onclick="flipCard()">Draai kaart</button>
+          <button type="button" onclick="nextCard()">Volgende</button>
+          <button type="button" onclick="markKnown()">Deze ken ik</button>
+        </div>
+      </article>
+      <div id="flash" class="flashcard" onclick="flipCard()"></div>
+    </section>
+
+    <section id="quiz" class="section">
+      <article class="card">
+        <h2>Oefenquiz</h2>
+        <p>Vragen gaan niet alleen over definities, maar ook over toepassing in de keuken.</p>
+        <div class="toolbar">
+          <button type="button" onclick="renderQuiz()">Nieuwe ronde</button>
+          <span id="score" class="badge">Score: 0 / 0</span>
+        </div>
+      </article>
+      <div id="quizBox"></div>
+    </section>
+
+    <section id="cgi" class="section">
+      <article class="card">
+        <h2>CGI trainer / open vragen</h2>
+        <p>Student typt een antwoord. De tool checkt op belangrijke vakwoorden en toont daarna een voorbeeldantwoord.</p>
+      </article>
+      <div id="openBox"></div>
+    </section>
+
+    <section id="practice" class="section">
+      <article class="card">
+        <h2>Praktijktrainer</h2>
+        <p>Gebruik de bestaande praktijkvragen. Kies een techniek en bekijk daarna de uitleg.</p>
+      </article>
+      <div id="practiceBox" class="grid"></div>
+    </section>
+
+    <section id="products" class="section">
+      <article class="card">
+        <h2>Producttrainer</h2>
+        <p>Filter op vlees, vis of AGF en bekijk geschikte en minder geschikte technieken.</p>
+        <select id="productFilter" onchange="renderProductCards()">
+          <option value="Alles">Alle productgroepen</option>
+          <option value="Vlees">Vlees</option>
+          <option value="Vis">Vis</option>
+          <option value="AGF">AGF</option>
+        </select>
+      </article>
+      <div id="productBox" class="grid"></div>
+    </section>
+
+    <section id="exam" class="section">
+      <article class="card">
+        <h2>Examentrainer</h2>
+        <p>Gebruik de bestaande examenvragen op kennis-, begrip- en toepassingsniveau.</p>
+      </article>
+      <div id="examBox"></div>
+    </section>
+
+    <section id="examPractice" class="section">
+      <article class="card">
+        <h2>Oefenexamen Warme Bereidingstechnieken</h2>
+        <p>Maak een oefenexamen met verschillende vraagtypes. Je antwoorden worden pas nagekeken als je het oefenexamen afrondt of als de tijd voorbij is.</p>
+      </article>
+      <div id="examPracticeBox"></div>
+    </section>
+
+    <section id="glossary" class="section">
+      <article class="card">
+        <h2>Begrippenlijst</h2>
+        <p>Gebruik de bestaande vaktermen en zoek direct op term of uitleg.</p>
+        <input id="glossarySearch" type="search" placeholder="Zoek op term of uitleg..." oninput="renderGlossary()">
+      </article>
+      <div id="glossaryBox" class="grid"></div>
+    </section>
+
+    <section id="choice" class="section">
+      <article class="card">
+        <h2>Welke techniek kies je?</h2>
+        <p>Gebruik deze pagina om product-denken te oefenen: welk product vraagt om welke techniek?</p>
+      </article>
+      <div class="grid">
+        <article class="card"><h3>Broccoli voor buffet</h3><p><strong>Beste keuze:</strong> blancheren of stomen.</p><p>Blancheren is handig als je later snel wilt afwerken. Direct terugkoelen stopt doorgaring.</p></article>
+        <article class="card"><h3>Kabeljauwfilet</h3><p><strong>Beste keuze:</strong> pocheren of stomen.</p><p>Kwetsbare vis droogt snel uit. Lage, rustige garing houdt de structuur mooier.</p></article>
+        <article class="card"><h3>Sukadelap</h3><p><strong>Beste keuze:</strong> stoven.</p><p>Door langdurige bereiding wordt bindweefsel omgezet in gelatine.</p></article>
+        <article class="card"><h3>Friet</h3><p><strong>Beste keuze:</strong> frituren.</p><p>De juiste temperatuur zorgt voor een snelle korst en minder vetopname.</p></article>
+        <article class="card"><h3>Biefstuk</h3><p><strong>Beste keuze:</strong> bakken of grillen.</p><p>Hoge temperatuur geeft bruine korst en smaak. Rusttijd is belangrijk.</p></article>
+        <article class="card"><h3>Ovenschotel</h3><p><strong>Beste keuze:</strong> gratineren als afwerking.</p><p>Het product moet al gaar en warm zijn; gratineren maakt vooral de korst.</p></article>
+      </div>
+    </section>
+
+    <section id="meat" class="section">
+      <article class="card">
+        <h2>Uitbreiding: vlees</h2>
+        <p>Hier staat het overzicht voor vleesproducten met roerbakken, bakken, braden, kerntemperatuur, stoven en trekken.</p>
+        <input id="meatSearch" type="search" placeholder="Zoek op product, techniek of temperatuur..." oninput="renderMeatTable()">
+      </article>
+      <article class="card" style="overflow:auto">
+        <table id="meatTable"></table>
+      </article>
+      <div class="two">
+        <article class="card"><h3>Vuistregel vlees</h3><p>Korte bereiding past bij malse delen. Lange bereiding met vocht past bij taaiere delen met bindweefsel.</p></article>
+        <article class="card"><h3>Let op</h3><p>Tijden zijn richtlijnen. Dikte, starttemperatuur, pan, oven en hoeveelheid bepalen het echte resultaat. Controleer waar nodig de kern.</p></article>
+      </div>
+    </section>
+
+    <section id="fish" class="section">
+      <article class="card">
+        <h2>Uitbreiding: vis</h2>
+        <div id="visCards" class="grid"></div>
+        <div class="notice" id="visNote"></div>
+      </article>
+    </section>
+
+    <section id="agf" class="section">
+      <article class="card">
+        <h2>Uitbreiding: AGF</h2>
+        <table id="agfTable"></table>
+      </article>
+    </section>
+
+    <section id="teacher" class="section">
+      <article class="card">
+        <h2>Docentmodus</h2>
+        <p>Gebruik deze knoppen om resultaten lokaal te exporteren of de tool klassikaal in te zetten.</p>
+        <p class="small">Het oefenexamen slaat resultaten niet automatisch op op een server. Studenten moeten zelf op 'Verstuur resultaten naar docent' klikken of de resultaten kopieren en inleveren via mail of Teams.</p>
+        <div class="toolbar">
+          <button type="button" onclick="exportAnswers()">Exporteer antwoorden</button>
+          <button type="button" onclick="window.print()">Print als PDF</button>
+          <button type="button" onclick="resetProgress()">Reset voortgang</button>
+        </div>
+        <textarea id="exportBox" rows="12" placeholder="Hier verschijnt de export..."></textarea>
+      </article>
+      <article class="card">
+        <h3>Didactische inzet</h3>
+        <ul>
+          <li><strong>10 minuten:</strong> overzichtspagina samen doornemen.</li>
+          <li><strong>15 minuten:</strong> flashcards in tweetallen.</li>
+          <li><strong>20 minuten:</strong> quiz individueel.</li>
+          <li><strong>25 minuten:</strong> CGI-vraag uitwerken en klassikaal bespreken.</li>
+        </ul>
+      </article>
+    </section>
+  </main>
+
+  <script>
+// Kerngegevens voor de algemene warme bereidingstechnieken.
+const techniques = [
+  {
+    name: 'Blancheren',
+    temp: '100°C',
+    time: 'kort, meestal enkele minuten',
+    core: 'Product kort onderdompelen in ruim kokend water en daarna direct terugkoelen.',
+    goal: 'Beetgaar maken, kleur behouden en voorbereiden op verdere bereiding.',
+    products: 'Groenten, aardappelen, sommige fruitsoorten',
+    happens: 'De korte hittebehandeling maakt het product deels gaar. Direct terugkoelen stopt doorgaring.',
+    mistakes: ['Te weinig water gebruiken', 'Niet direct terugkoelen', 'Te lang blancheren'],
+    tip: 'Gebruik ruim kokend water: ongeveer 1 deel product op 10 delen water.'
+  },
+  {
+    name: 'Koken',
+    temp: '100°C',
+    time: 'afhankelijk van product',
+    core: 'Garen in kokende vloeistof.',
+    goal: 'Product gaar, veilig en beter verteerbaar maken.',
+    products: 'Aardappelen, pasta, rijst, groenten, peulvruchten',
+    happens: 'Warmte dringt via water het product binnen. Smaakstoffen kunnen deels oplossen in het kookvocht.',
+    mistakes: ['Te lang koken', 'Te weinig water', 'Kookvocht onnodig weggooien'],
+    tip: 'Gebruik een deksel voor energiebehoud, maar let op overkoken.'
+  },
+  {
+    name: 'Pocheren',
+    temp: '60-90°C',
+    time: 'afhankelijk van product',
+    core: 'Zacht garen in vloeistof die niet kookt.',
+    goal: 'Kwetsbare producten garen zonder uitdrogen of kapot koken.',
+    products: 'Vis, eieren, kipfilet, fruit',
+    happens: 'Eiwitten stollen rustiger dan bij koken. Daardoor blijft het product malser.',
+    mistakes: ['Vloeistof laten koken', 'Te veel beweging in de pan', 'Product te lang laten garen'],
+    tip: 'De vloeistof mag bewegen, maar niet borrelen.'
+  },
+  {
+    name: 'Stomen',
+    temp: '100°C stoom',
+    time: 'afhankelijk van product',
+    core: 'Garen door hete waterdamp.',
+    goal: 'Smaak, kleur en voedingsstoffen beter behouden.',
+    products: 'Groenten, vis, aardappelen, rijstproducten',
+    happens: 'Het product komt niet direct in water. Daardoor is er minder uitloging.',
+    mistakes: ['Product in het water laten hangen', 'Te weinig ruimte tussen producten', 'Te lange stoomtijd'],
+    tip: 'Laat de damp goed circuleren en gebruik een deksel.'
+  },
+  {
+    name: 'Bakken',
+    temp: 'hoge temperatuur',
+    time: 'kort, afhankelijk van dikte',
+    core: 'Garen in een hete pan met weinig vet.',
+    goal: 'Korstvorming en aroma ontwikkelen.',
+    products: 'Biefstuk, schnitzels, groenten, tofu',
+    happens: 'Hoge hitte geeft bruine korst en Maillard-reactie. Rusttijd helpt bij vochtverdeling.',
+    mistakes: ['Te koude pan', 'Te veel product tegelijk', 'Niet drogen vóór het bakken'],
+    tip: 'Dep het product droog en laat de pan goed warm worden.'
+  },
+  {
+    name: 'Frituren',
+    temp: '170-190°C',
+    time: 'kort',
+    core: 'Garen door middel van heet frituurvet.',
+    goal: 'Krokante korst en snelle garing.',
+    products: 'Friet, schnitzels, visfilets, groenten',
+    happens: 'Snelle verhitting laat een korst ontstaan, waardoor minder vet wordt opgenomen bij goede temperatuur.',
+    mistakes: ['Vet te koud', 'Mand te vol', 'Product te nat'],
+    tip: 'Werk in kleine hoeveelheden en controleer de temperatuur.'
+  },
+  {
+    name: 'Stoven',
+    temp: 'lage temperatuur met vocht',
+    time: 'langzaam',
+    core: 'Garen met vocht en deksel op lage temperatuur.',
+    goal: 'Bindweefsel omzetten in gelatine en vlees mals maken.',
+    products: 'Sukadelap, stoofvlees, lamsvlees',
+    happens: 'Langzame warmte maakt bindweefsel zacht en geeft diepe smaak.',
+    mistakes: ['Te veel vuur', 'Niet genoeg vocht', 'Te snel openen van deksel'],
+    tip: 'Laat het product rustig garen; de tijd is vaak belangrijker dan de hitte.'
+  },
+  {
+    name: 'Gratineren',
+    temp: 'bovenste warmte',
+    time: 'kort',
+    core: 'Afwerking met een bruine korst onder de grill of in de oven.',
+    goal: 'Korst, kleur en extra smaak toevoegen.',
+    products: 'Aardappelgratin, ovenschotels, groenten',
+    happens: 'De oppervlaktelaag wordt bruin en knapperig zonder dat het hele product opnieuw hoeft te garen.',
+    mistakes: ['Te vroeg beginnen', 'Te weinig droogheid', 'Te veel topping'],
+    tip: 'Gebruik gratineren als laatste stap bij een al warm product.'
+  },
+  {
+    name: 'Grillen',
+    temp: 'tot 250°C',
+    time: 'kort',
+    core: 'Garen met directe hitte via rooster, plaat of salamander.',
+    goal: 'Bruine grillstrepen, smaak en een krokante buitenkant ontwikkelen.',
+    products: 'Vlees, vis, groenten, broodproducten',
+    happens: 'Sterke hitte geeft snelle korstvorming en een sterke geroosterde smaak.',
+    mistakes: ['Te vaak keren', 'Te hoge hitte zonder controle', 'Product te dik op het rooster'],
+    tip: 'Laat het product rusten na het grillen en draai het regelmatig om.'
+  },
+  {
+    name: 'Braden',
+    temp: 'middelmatige hitte',
+    time: 'langzaam',
+    core: 'Garen van grotere stukken vlees of gevogelte in pan of oven.',
+    goal: 'Vleessappen behouden en gelijkmatig garen.',
+    products: 'Braadstuk, kip, kalkoen, grotere stukken vlees',
+    happens: 'De warmte dringt rustig door het product heen. Regelmatig bedruipen houdt het sappig.',
+    mistakes: ['Te hoge temperatuur', 'Niet bedruipen', 'Niet laten rusten'],
+    tip: 'Gebruik een matige temperatuur en laat het vlees na bereiding even rusten.'
+  },
+  {
+    name: 'Sous-vide',
+    temp: '65-99°C',
+    time: '20-25 minuten of langer',
+    core: 'Garen onder vacuüm op een precieze lage temperatuur.',
+    goal: 'Constante kwaliteit, weinig vochtverlies en goede smaakbehoud.',
+    products: 'Vlees, vis, groenten',
+    happens: 'De producttemperatuur blijft gelijk, waardoor het product nauwkeurig garen kan.',
+    mistakes: ['Onhygiënisch werken', 'Niet snel terugkoelen', 'Onjuiste temperatuur kiezen'],
+    tip: 'Werk hygiënisch en gebruik een goede vacuümsealing.'
+  },
+  {
+    name: 'Regenereren',
+    temp: 'minimaal 60°C',
+    time: 'kort',
+    core: 'Opnieuw verwarmen van reeds bereide producten tot serveertemperatuur.',
+    goal: 'Kwaliteit behouden bij hergebruik in catering of service.',
+    products: 'Voorgerechte maaltijden, grootkeukens, buffet',
+    happens: 'De opwarming gebeurt snel en gelijkmatig, zonder het product te overgaren.',
+    mistakes: ['Te lang opwarmen', 'Te lage temperatuur', 'Niet controleren op kernwarmte'],
+    tip: 'Gebruik een combisteamer of andere gelijkmatige opwarmmethode.'
+  },
+  {
+    name: 'Binden en liëren',
+    temp: 'afhankelijk van saus',
+    time: 'kort',
+    core: 'Vloeistoffen verdikken of afwerken met room of eidooier.',
+    goal: 'Sausen textuur geven en de smaak afwerken.',
+    products: 'Sauzen, soepen, ovenschotels',
+    happens: 'Bindmiddelen zoals bloem, maizena of roux maken de vloeistof dikkere en gladdere.',
+    mistakes: ['Te veel bindmiddel', 'Onvoldoende roux', 'Te hoge hitte'],
+    tip: 'Voeg bindmiddelen rustig toe en roer continu.'
+  }
+];
+
+</script>
+  <script>
+// Vleesgerichte toepassingen voor de uitbreidingstabel.
+const meatRows = [
+  ['Varkenshaas', '', '', '10-14 min', '', '', ''],
+  ['Fricandeau 500 g', '', '', '35 min', '60-63°C', '', ''],
+  ['Hamlappen', '', '6-10 min', '', '', '90 min', ''],
+  ['Schnitzels', '', '3-4 min', '', '', '', ''],
+  ['Halskarbonade', '', '', '10-14 min', '', '120 min', ''],
+  ['Filetlappen', '', '4-6 min', '', '', '', ''],
+  ['Speklappen', '', '8-10 min', '', '', '', ''],
+  ['Varkensbraadstuk', '', '', '40 min', '63°C', '', ''],
+  ['Biefstuk', '', '3-6 min', '', '', '', ''],
+  ['Rosbief 500 g', '', '', '25-30 min', '45-55°C', '', ''],
+  ['Sukadelap', '', '', '', '', '150 min', ''],
+  ['Runderreepjes', '2-4 min', '2-4 min', '', '', '', ''],
+  ['Lamsbout 700 g', '', '', '50 min', '55°C', '120 min', ''],
+  ['Kipfilet enkel', '', '10-15 min', '', '', '', ''],
+  ['Kiprollade', '', '', '50 min', '72°C', '', ''],
+  ['Kalkoenfilet/fricandeau', '', '', '25 min', '', '', '']
+];
+
+</script>
+  <script>
+// Visgerichte voorbeelden en richtlijnen voor de uitbreiding.
+const visCards = [
+  {
+    title: 'Magere vis',
+    detail: 'Kabeljauw, koolvis, schelvis.',
+    suited: 'Pocheren, stomen, voorzichtig bakken.',
+    risk: 'Snel droog of kapot.'
+  },
+  {
+    title: 'Vette vis',
+    detail: 'Zalm, makreel.',
+    suited: 'Bakken, grillen, stomen.',
+    risk: 'Te ver doorgaren.'
+  },
+  {
+    title: 'Schaal- en schelpdieren',
+    detail: 'Garnalen, mosselen.',
+    suited: 'Kort koken, stomen, roerbakken.',
+    risk: 'Taai door te lang garen.'
+  }
+];
+
+const visNote = 'Garing herkennen: vis verandert van glazig naar opaak/wit en valt makkelijker in lamellen uit elkaar.';
+
+</script>
+  <script>
+// AGF-voorbeelden voor de uitbreidingstabel.
+const agfRows = [
+  ['Broccoli', 'Stomen / blancheren', 'Kleur en bite behouden.'],
+  ['Sperziebonen', 'Blancheren', 'Kort voorgaren, daarna snel afwerken.'],
+  ['Asperges', 'Koken / stomen', 'Rustige garing, kwetsbare structuur.'],
+  ['Aardappelen', 'Koken', 'Basis voor puree of verdere bereiding.'],
+  ['Friet', 'Frituren', 'Krokante korst en zachte binnenkant.'],
+  ['Aardappelgratin', 'Gratineren', 'Bruine korst als afwerking.']
+];
+
+</script>
+  <script>
+// Quizvragen en open vragen voor de oefenmodule.
+const quizData = [
+  {
+    level: 'Basis',
+    q: 'Welke techniek gebruik je om broccoli kort voor te garen en kleur te behouden?',
+    options: ['Stoven', 'Blancheren', 'Braden', 'Trekken'],
+    answer: 1,
+    why: 'Blancheren is kort koken en direct terugkoelen. Dit helpt bij kleurbehoud en beetgare structuur.'
+  },
+  {
+    level: 'Basis',
+    q: 'Bij welke techniek mag de vloeistof niet koken?',
+    options: ['Pocheren', 'Koken', 'Frituren', 'Gratineren'],
+    answer: 0,
+    why: 'Pocheren gebeurt tussen ongeveer 60 en 90°C. De vloeistof blijft rustig.'
+  },
+  {
+    level: 'Toepassing',
+    q: 'Friet komt slap en vet uit de frituur. Wat is waarschijnlijk de oorzaak?',
+    options: ['Vet te heet', 'Vet te koud of mand te vol', 'Te lang uitgelekt', 'Te droog product'],
+    answer: 1,
+    why: 'Bij te lage temperatuur ontstaat niet snel genoeg een korst. Het product neemt dan meer vet op.'
+  },
+  {
+    level: 'Inzicht',
+    q: 'Waarom laat je biefstuk rusten na het bakken?',
+    options: ['Om hem kouder te maken', 'Voor betere vochtverdeling', 'Om vet te verwijderen', 'Om de pan te sparen'],
+    answer: 1,
+    why: 'Tijdens rusten verdeelt vocht zich beter door het vlees. Daardoor verlies je minder sap bij aansnijden.'
+  },
+  {
+    level: 'Kennis',
+    q: 'Welke techniek gebruik je voor garen in een hete pan met weinig vet?',
+    options: ['Bakken', 'Stomen', 'Trekken', 'Pocheren'],
+    answer: 0,
+    why: 'Bakken gebeurt in een hete pan of op een bakplaat met weinig vet.'
+  },
+  {
+    level: 'Kennis',
+    q: 'Welke techniek past bij grotere stukken vlees die eerst worden aangebraden en daarna rustiger doorgaren?',
+    options: ['Blancheren', 'Braden', 'Roerbakken', 'Trekken'],
+    answer: 1,
+    why: 'Braden wordt gebruikt voor grotere stukken vlees of gevogelte met een langere garing.'
+  },
+  {
+    level: 'Kennis',
+    q: 'Welke techniek gebruikt directe sterke hitte van een rooster, grillpan of salamander?',
+    options: ['Grilleren', 'Koken', 'Stoven', 'Pocheren'],
+    answer: 0,
+    why: 'Grilleren werkt met directe, sterke hitte en geeft geroosterde smaak en grillstrepen.'
+  },
+  {
+    level: 'Kennis',
+    q: 'Welke techniek gebruik je om een product in hete olie of vet te garen?',
+    options: ['Frituren', 'Stomen', 'Blancheren', 'Trekken'],
+    answer: 0,
+    why: 'Frituren is garen in heet vet of hete olie.'
+  },
+  {
+    level: 'Kennis',
+    q: 'Welke techniek is zacht garen in vloeistof die niet kookt?',
+    options: ['Koken', 'Pocheren', 'Gratineren', 'Roosteren'],
+    answer: 1,
+    why: 'Bij pocheren blijft de vloeistof rustig en kookt die niet.'
+  },
+  {
+    level: 'Kennis',
+    q: 'Welke techniek is garen in kokende vloeistof?',
+    options: ['Koken', 'Stoven', 'Grilleren', 'Roerbakken'],
+    answer: 0,
+    why: 'Koken betekent garen in een kokende vloeistof.'
+  },
+  {
+    level: 'Kennis',
+    q: 'Welke techniek bestaat uit kort koken en daarna direct terugkoelen?',
+    options: ['Braden', 'Blancheren', 'Trekken', 'Gratineren'],
+    answer: 1,
+    why: 'Blancheren is kort verhitten in kokend water en daarna direct terugkoelen.'
+  },
+  {
+    level: 'Kennis',
+    q: 'Welke techniek gaart een product door hete waterdamp?',
+    options: ['Stomen', 'Frituren', 'Bakken', 'Roosteren'],
+    answer: 0,
+    why: 'Bij stomen gaart het product door hete damp en niet direct in water.'
+  },
+  {
+    level: 'Kennis',
+    q: 'Welke techniek gebruik je voor langzame garing met vocht en een deksel?',
+    options: ['Stoven', 'Roerbakken', 'Grilleren', 'Blancheren'],
+    answer: 0,
+    why: 'Stoven is langzaam garen met vocht, meestal met een gesloten deksel.'
+  },
+  {
+    level: 'Kennis',
+    q: 'Welke techniek gebruik je om bouillon of fond te maken?',
+    options: ['Trekken', 'Frituren', 'Bakken', 'Gratineren'],
+    answer: 0,
+    why: 'Bij trekken gaan smaakstoffen langzaam over in vloeistof.'
+  },
+  {
+    level: 'Kennis',
+    q: 'Welke techniek gebruik je om een goudbruine korst te maken met bovenwarmte?',
+    options: ['Pocheren', 'Gratineren', 'Stomen', 'Stoven'],
+    answer: 1,
+    why: 'Gratineren is afwerken met sterke bovenwarmte voor kleur en korst.'
+  },
+  {
+    level: 'Kennis',
+    q: 'Welke techniek gebruik je voor kleine stukjes product die snel op hoge hitte worden gegaard?',
+    options: ['Roerbakken', 'Trekken', 'Braden', 'Pocheren'],
+    answer: 0,
+    why: 'Roerbakken werkt met kleine stukjes, hoge temperatuur en voortdurende beweging.'
+  },
+  {
+    level: 'Kennis',
+    q: 'Welke techniek past bij droge hitte in oven of op plaat, vaak voor kleur en smaak?',
+    options: ['Roosteren', 'Koken', 'Pocheren', 'Stomen'],
+    answer: 0,
+    why: 'Roosteren gebruikt droge hitte en zorgt voor kleur, geur en geroosterde smaak.'
+  },
+  {
+    level: 'Kennis',
+    q: 'Welke techniek hoort bij vis, eieren en kipfilet die voorzichtig moeten garen?',
+    options: ['Pocheren', 'Frituren', 'Roerbakken', 'Gratineren'],
+    answer: 0,
+    why: 'Kwetsbare producten blijven bij pocheren beter heel en drogen minder snel uit.'
+  },
+  {
+    level: 'Kennis',
+    q: 'Welke techniek wordt vaak gebruikt om groenten beetgaar te houden?',
+    options: ['Blancheren', 'Trekken', 'Braden', 'Gratineren'],
+    answer: 0,
+    why: 'Blancheren is geschikt om groenten kort voor te garen en beetgaar te houden.'
+  },
+  {
+    level: 'Kennis',
+    q: 'Welke techniek vraagt meestal om een frituurtemperatuur rond 170 tot 190 graden Celsius?',
+    options: ['Frituren', 'Pocheren', 'Stomen', 'Trekken'],
+    answer: 0,
+    why: 'Frituren gebeurt in heet vet, vaak rond 170 tot 190 graden Celsius.'
+  },
+  {
+    level: 'Kennis',
+    q: 'Welke techniek gebruik je voor soepvlees en mergpijp om smaak af te geven?',
+    options: ['Trekken', 'Roerbakken', 'Bakken', 'Grilleren'],
+    answer: 0,
+    why: 'Soepvlees en botten worden getrokken om smaakstoffen aan de vloeistof af te geven.'
+  },
+  {
+    level: 'Kennis',
+    q: 'Welke techniek gebruikt meestal een deksel om warmte en vocht vast te houden?',
+    options: ['Stoven', 'Grilleren', 'Frituren', 'Roosteren'],
+    answer: 0,
+    why: 'Bij stoven helpt een deksel om vocht en warmte in de pan te houden.'
+  },
+  {
+    level: 'Kennis',
+    q: 'Welke techniek is vooral een afwerking en geen volledige garing vanaf rauw product?',
+    options: ['Gratineren', 'Koken', 'Stomen', 'Pocheren'],
+    answer: 0,
+    why: 'Gratineren wordt meestal gebruikt om een gaar of bijna gaar product af te werken met een korst.'
+  },
+  {
+    level: 'Kennis',
+    q: 'Welke techniek hoort bij voortdurend bewegen van het product in wok of pan?',
+    options: ['Roerbakken', 'Braden', 'Trekken', 'Stomen'],
+    answer: 0,
+    why: 'Bij roerbakken blijf je het product bewegen zodat kleine stukjes snel en gelijkmatig garen.'
+  },
+  {
+    level: 'Begrip',
+    q: 'Waarom moet een pan goed heet zijn voordat je gaat bakken?',
+    options: ['Voor snellere korstvorming', 'Om het product te koken', 'Om minder smaak te krijgen', 'Om meer vocht in de pan te maken'],
+    answer: 0,
+    why: 'Een hete pan helpt bij bruinkleuring en korstvorming.'
+  },
+  {
+    level: 'Begrip',
+    q: 'Waarom laat je een gebraden stuk vlees rusten?',
+    options: ['Voor betere vochtverdeling', 'Om het vlees opnieuw rauw te maken', 'Om de korst te verwijderen', 'Om het zout te verdampen'],
+    answer: 0,
+    why: 'Rusttijd helpt vleessappen zich beter te verdelen, waardoor minder vocht verloren gaat bij aansnijden.'
+  },
+  {
+    level: 'Begrip',
+    q: 'Waarom dep je een product droog voordat je gaat grilleren?',
+    options: ['Voor betere grillstrepen en minder stoomvorming', 'Omdat water de grill heter maakt', 'Omdat het product dan langer rauw blijft', 'Omdat vet dan niet nodig is'],
+    answer: 0,
+    why: 'Een nat product stoomt eerder dan dat het mooi kleurt.'
+  },
+  {
+    level: 'Begrip',
+    q: 'Waarom mag pocheren niet te hard koken?',
+    options: ['Kwetsbare producten kunnen kapotgaan of taai worden', 'De vloeistof wordt dan koud', 'Er ontstaat dan geen smaak', 'Het product neemt dan geen zout op'],
+    answer: 0,
+    why: 'Rustige vloeistof voorkomt beschadiging en te snelle eiwitstolling.'
+  },
+  {
+    level: 'Begrip',
+    q: 'Waarom koel je geblancheerde groenten direct terug?',
+    options: ['Om doorgaring te stoppen', 'Om ze langer te laten koken', 'Om alle smaak te verwijderen', 'Om de pan af te koelen'],
+    answer: 0,
+    why: 'Direct terugkoelen stopt de garing en helpt kleur en beet te behouden.'
+  },
+  {
+    level: 'Begrip',
+    q: 'Waarom blijft de smaak bij stomen vaak beter behouden dan bij koken?',
+    options: ['Het product ligt niet direct in water', 'Er wordt altijd vet toegevoegd', 'Stoom verwijdert alle smaak', 'Het product wordt niet warm'],
+    answer: 0,
+    why: 'Omdat het product niet in water ligt, lossen minder smaakstoffen uit in kookvocht.'
+  },
+  {
+    level: 'Begrip',
+    q: 'Waarom wordt stoofvlees mals door lang stoven?',
+    options: ['Bindweefsel wordt langzaam omgezet in gelatine', 'Het vlees droogt volledig uit', 'Het vet verdwijnt meteen', 'De buitenkant blijft rauw'],
+    answer: 0,
+    why: 'Lange, rustige garing maakt bindweefsel zachter en zorgt voor malsheid.'
+  },
+  {
+    level: 'Begrip',
+    q: 'Waarom zet je bouillon vaak op met koud water?',
+    options: ['Voor betere smaakafgifte', 'Omdat warm water nooit kan koken', 'Om frituren te voorkomen', 'Omdat groenten anders niet garen'],
+    answer: 0,
+    why: 'Bij koud opzetten kunnen smaakstoffen geleidelijk uit vlees, botten en groenten trekken.'
+  },
+  {
+    level: 'Begrip',
+    q: 'Waarom moet frituurvet heet genoeg zijn?',
+    options: ['Dan vormt snel een korst en neemt het product minder vet op', 'Dan wordt het product altijd rauw', 'Dan verdwijnt alle kleur', 'Dan lost het product op'],
+    answer: 0,
+    why: 'Bij juiste temperatuur ontstaat snel korstvorming; bij te koud vet neemt het product meer vet op.'
+  },
+  {
+    level: 'Begrip',
+    q: 'Waarom is een frituurmand niet te vol doen belangrijk?',
+    options: ['De temperatuur zakt dan minder sterk', 'Het product wordt dan kleiner', 'Het vet wordt dan koud door het vuur', 'De korst verdwijnt altijd'],
+    answer: 0,
+    why: 'Te veel product tegelijk laat de vettemperatuur dalen en geeft slappere resultaten.'
+  },
+  {
+    level: 'Begrip',
+    q: 'Waarom is roerbakken geschikt voor kleine gelijkmatige stukjes?',
+    options: ['Ze garen snel en gelijkmatig op hoge hitte', 'Ze hebben altijd veel vocht nodig', 'Ze moeten uren garen', 'Ze mogen niet bewegen'],
+    answer: 0,
+    why: 'Kleine stukken hebben een korte gaartijd en passen bij de snelle techniek roerbakken.'
+  },
+  {
+    level: 'Begrip',
+    q: 'Waarom moet een gratin vaak al gaar en warm zijn voor het gratineren?',
+    options: ['Gratineren maakt vooral kleur en korst', 'Gratineren gebeurt altijd onder koud water', 'Gratineren verwijdert de binnenkant', 'Gratineren is bedoeld om bouillon te maken'],
+    answer: 0,
+    why: 'Gratineren is meestal een korte afwerking met bovenwarmte, geen lange kerngaring.'
+  },
+  {
+    level: 'Begrip',
+    q: 'Waarom geeft grilleren vaak een sterke geroosterde smaak?',
+    options: ['Door hoge directe hitte en bruinkleuring', 'Door koken in veel water', 'Door langdurig trekken', 'Door direct terugkoelen'],
+    answer: 0,
+    why: 'Directe hitte zorgt voor bruinkleuring en geroosterde aroma\'s.'
+  },
+  {
+    level: 'Begrip',
+    q: 'Waarom moet je bij koken rekening houden met smaakverlies in het kookvocht?',
+    options: ['Smaakstoffen kunnen oplossen in water', 'Water maakt producten altijd droog', 'Koken gebruikt geen warmte', 'Koken stopt smaakafgifte volledig'],
+    answer: 0,
+    why: 'Bij koken kunnen smaakstoffen en voedingsstoffen in het kookvocht terechtkomen.'
+  },
+  {
+    level: 'Begrip',
+    q: 'Waarom past roosteren goed bij producten die kleur en geroosterde geur mogen krijgen?',
+    options: ['Droge hitte zorgt voor bruinkleuring', 'Veel koud water zorgt voor korst', 'Lage vloeistof houdt alles wit', 'Terugkoelen maakt het product gaar'],
+    answer: 0,
+    why: 'Roosteren gebruikt droge hitte, waardoor kleur en geroosterde smaak ontstaan.'
+  },
+  {
+    level: 'Toepassing',
+    q: 'Je bereidt dunne groentereepjes en kipreepjes in korte tijd. Welke techniek kies je?',
+    options: ['Roerbakken', 'Trekken', 'Stoven', 'Gratineren'],
+    answer: 0,
+    why: 'Kleine reepjes garen snel op hoge hitte en passen goed bij roerbakken.'
+  },
+  {
+    level: 'Toepassing',
+    q: 'Je wilt een ovenschotel met kaas een bruine bovenkant geven. Welke techniek kies je?',
+    options: ['Gratineren', 'Pocheren', 'Trekken', 'Blancheren'],
+    answer: 0,
+    why: 'Gratineren geeft met bovenwarmte een goudbruine korst.'
+  },
+  {
+    level: 'Toepassing',
+    q: 'Je maakt bouillon van kip, groenten en botten. Welke techniek kies je?',
+    options: ['Trekken', 'Bakken', 'Frituren', 'Grilleren'],
+    answer: 0,
+    why: 'Voor bouillon laat je smaakstoffen rustig in de vloeistof trekken.'
+  },
+  {
+    level: 'Toepassing',
+    q: 'Je hebt sukadelappen met veel bindweefsel. Welke techniek geeft het meest malse resultaat?',
+    options: ['Stoven', 'Kort grilleren', 'Blancheren', 'Roerbakken'],
+    answer: 0,
+    why: 'Sukade heeft tijd en vocht nodig; door stoven wordt bindweefsel zacht.'
+  },
+  {
+    level: 'Toepassing',
+    q: 'Je wilt kabeljauwfilet heel en sappig houden. Welke techniek is het meest geschikt?',
+    options: ['Pocheren', 'Hard koken', 'Lang frituren', 'Droog roosteren'],
+    answer: 0,
+    why: 'Pocheren gaart rustig en voorkomt dat kwetsbare vis snel uitdroogt of uit elkaar valt.'
+  },
+  {
+    level: 'Toepassing',
+    q: 'Je wilt sperziebonen kort voorgaren en later snel afwerken. Welke techniek kies je eerst?',
+    options: ['Blancheren', 'Braden', 'Trekken', 'Gratineren'],
+    answer: 0,
+    why: 'Blancheren is geschikt om groenten kort voor te garen en daarna terug te koelen.'
+  },
+  {
+    level: 'Toepassing',
+    q: 'Je maakt aardappelen gaar in ruim kokend water. Welke techniek gebruik je?',
+    options: ['Koken', 'Grilleren', 'Roerbakken', 'Trekken'],
+    answer: 0,
+    why: 'Aardappelen in kokend water garen is koken.'
+  },
+  {
+    level: 'Toepassing',
+    q: 'Je wilt broccoli garen zonder dat die in water ligt. Welke techniek kies je?',
+    options: ['Stomen', 'Frituren', 'Bakken', 'Trekken'],
+    answer: 0,
+    why: 'Bij stomen gaart broccoli door hete damp en blijft hij uit het water.'
+  },
+  {
+    level: 'Toepassing',
+    q: 'Je bakt een schnitzel, maar de korst wordt slap en vet. Wat is waarschijnlijk fout gegaan?',
+    options: ['Pan of vet was te koud', 'Het product was te droog', 'Er was te weinig beweging in bouillon', 'De bovenwarmte stond te hoog'],
+    answer: 0,
+    why: 'Bij te lage temperatuur ontstaat minder snel korst en kan het product meer vet opnemen.'
+  },
+  {
+    level: 'Toepassing',
+    q: 'Je grillt groenten, maar ze krijgen geen grillstrepen en worden vooral nat. Wat helpt het meest?',
+    options: ['Droogdeppen en de grill goed heet maken', 'Meer water toevoegen', 'De grill lager zetten', 'Direct terugkoelen voor het grillen'],
+    answer: 0,
+    why: 'Voor grillstrepen zijn een droog product en voldoende hoge directe hitte belangrijk.'
+  },
+  {
+    level: 'Toepassing',
+    q: 'Je wilt een kiprollade gelijkmatig garen met bruine buitenkant. Welke techniek past het best?',
+    options: ['Braden', 'Blancheren', 'Pocheren', 'Trekken'],
+    answer: 0,
+    why: 'Een rollade is een groter stuk dat past bij aanbraden en rustiger doorgaren.'
+  },
+  {
+    level: 'Toepassing',
+    q: 'Je wilt friet krokant maken. Welke keuze is het belangrijkst?',
+    options: ['Frituren op voldoende hoge temperatuur', 'Pocheren in rustige vloeistof', 'Lang trekken onder deksel', 'Direct gratineren zonder vet'],
+    answer: 0,
+    why: 'Voor krokante friet is heet frituurvet nodig zodat snel een korst ontstaat.'
+  },
+  {
+    level: 'Toepassing',
+    q: 'Je hebt kleine stukjes rundvlees en paprika voor een wokgerecht. Wat moet je vermijden?',
+    options: ['Te veel tegelijk in de pan doen', 'De pan goed heet maken', 'Alles vooraf snijden', 'Kort en krachtig werken'],
+    answer: 0,
+    why: 'Te veel product tegelijk laat de temperatuur dalen en geeft eerder stoven dan roerbakken.'
+  },
+  {
+    level: 'Toepassing',
+    q: 'Je wilt paprika en courgette in de oven kleur en geroosterde smaak geven. Welke techniek kies je?',
+    options: ['Roosteren', 'Pocheren', 'Trekken', 'Blancheren'],
+    answer: 0,
+    why: 'Roosteren met droge hitte geeft kleur en geroosterde smaak.'
+  },
+  {
+    level: 'Toepassing',
+    q: 'Je pocheert eieren, maar het water borrelt hard. Wat moet je aanpassen?',
+    options: ['De hitte verlagen zodat de vloeistof rustig blijft', 'Meer frituurvet toevoegen', 'De eieren langer roosteren', 'De pan volledig droog maken'],
+    answer: 0,
+    why: 'Pocheren vraagt rustige vloeistof; hard koken kan het product beschadigen.'
+  }
+];
+
+const openQuestions = [
+  {
+    title: 'Biefstuk medium bakken',
+    question: 'Beschrijf stap voor stap hoe je een biefstuk medium bakt. Verklaar ook wat er gebeurt tijdens het bakken.',
+    keywords: ['pan voorverwarmen', 'olie', 'boter', 'hete pan', 'aanbraden', 'keren', 'kerntemperatuur', 'rusten', 'Maillardreactie', 'vochtverdeling'],
+    model: 'Laat het vlees op temperatuur komen. Dep droog. Verhit pan goed. Voeg olie en eventueel boter toe. Bak de biefstuk op hoge hitte voor bruine korst. Keer met tang. Controleer garing/kerntemperatuur. Laat rusten. De bruine korst ontstaat door Maillardreactie; tijdens rusten verdeelt vocht zich beter.'
+  },
+  {
+    title: 'Sukadelap mals maken',
+    question: 'Je hebt sukadelappen. Welke techniek kies je en waarom? Beschrijf de stappen.',
+    keywords: ['stoven', 'aanbraden', 'vocht', 'deksel', 'lage temperatuur', 'langzaam', 'bindweefsel', 'gelatine', 'mals'],
+    model: 'Kies stoven. Braad het vlees eerst aan voor kleur en smaak. Voeg vocht toe, eventueel bouillon of wijn. Laat met deksel op lage temperatuur rustig garen. Door lange bereiding wordt bindweefsel omgezet in gelatine en wordt het vlees mals.'
+  },
+  {
+    title: 'Kabeljauw bereiden',
+    question: 'Je wilt kabeljauw sappig houden. Welke warme bereidingstechniek kies je? Verklaar je keuze.',
+    keywords: ['pocheren', 'stomen', 'lage temperatuur', 'kwetsbaar', 'niet koken', 'eiwitten', 'minder uitdrogen', 'zachte structuur'],
+    model: 'Pocheren of stomen past goed. Kabeljauw is kwetsbaar en droogt snel uit. Bij pocheren blijft de vloeistof rustig tussen 60 en 90°C, waardoor eiwitten minder snel samentrekken en de structuur zacht blijft.'
+  }
+];
+
+const oefenExamenTrueFalse = [
+  {
+    statement: 'Bij blancheren koel je het product direct terug om doorgaring te stoppen.',
+    answer: true,
+    why: 'Direct terugkoelen stopt de garing en helpt kleur en beet te behouden.'
+  },
+  {
+    statement: 'Pocheren gebeurt in hard kokende vloeistof.',
+    answer: false,
+    why: 'Pocheren gebeurt juist in rustige vloeistof die niet kookt.'
+  },
+  {
+    statement: 'Stomen geeft minder uitloging dan koken, omdat het product niet direct in water ligt.',
+    answer: true,
+    why: 'Bij stomen gaart het product door damp en komen minder smaakstoffen in water terecht.'
+  },
+  {
+    statement: 'Bij frituren zorgt te koud vet vaak voor een slap en vet resultaat.',
+    answer: true,
+    why: 'Bij te koud vet vormt minder snel een korst en neemt het product meer vet op.'
+  },
+  {
+    statement: 'Gratineren is vooral bedoeld om bouillon te maken.',
+    answer: false,
+    why: 'Gratineren is een afwerking met bovenwarmte voor kleur en korst.'
+  },
+  {
+    statement: 'Stoven is geschikt voor vlees met bindweefsel, omdat lange garing het vlees mals maakt.',
+    answer: true,
+    why: 'Tijdens stoven wordt bindweefsel langzaam zachter en omgezet in gelatine.'
+  },
+  {
+    statement: 'Roerbakken werkt het best met grote stukken die lang moeten garen.',
+    answer: false,
+    why: 'Roerbakken werkt juist met kleine, gelijkmatige stukken op hoge hitte.'
+  },
+  {
+    statement: 'Bij trekken laat je smaakstoffen langzaam overgaan in vloeistof.',
+    answer: true,
+    why: 'Trekken wordt gebruikt voor bouillon, fond of soep.'
+  },
+  {
+    statement: 'Bakken gebeurt meestal met veel water en een deksel.',
+    answer: false,
+    why: 'Bakken gebeurt in een hete pan of op een plaat met weinig vet.'
+  },
+  {
+    statement: 'Braden past goed bij grotere stukken vlees of gevogelte.',
+    answer: true,
+    why: 'Grotere stukken worden vaak eerst aangebraden en daarna rustiger verder gegaard.'
+  },
+  {
+    statement: 'Grilleren gebruikt directe sterke hitte.',
+    answer: true,
+    why: 'Die directe hitte zorgt voor grillstrepen, korst en geroosterde smaak.'
+  },
+  {
+    statement: 'Koken betekent garen in kokende vloeistof.',
+    answer: true,
+    why: 'Koken gebeurt bij kokende vloeistof, vaak rond 100 graden Celsius.'
+  },
+  {
+    statement: 'Sous-vide is garen op een nauwkeurige lage temperatuur.',
+    answer: true,
+    why: 'Sous-vide gebruikt gecontroleerde temperatuur voor gelijkmatige garing.'
+  },
+  {
+    statement: 'Regenereren betekent een rauw product voor het eerst gaar maken.',
+    answer: false,
+    why: 'Regenereren is het opnieuw verwarmen van een al bereid product.'
+  },
+  {
+    statement: 'Binden en lieren wordt gebruikt om vloeistoffen dunner te maken.',
+    answer: false,
+    why: 'Binden en lieren wordt gebruikt om sauzen, soepen of vullingen dikker of romiger te maken.'
+  },
+  {
+    statement: 'Roosteren gebruikt droge hitte voor kleur en geroosterde smaak.',
+    answer: true,
+    why: 'Droge hitte zorgt voor bruinkleuring en geroosterde aroma\'s.'
+  },
+  {
+    statement: 'Bij stoven is te hard koken meestal gunstig voor mals vlees.',
+    answer: false,
+    why: 'Te hard koken kan vlees juist droog of hard maken; rustig garen is belangrijk.'
+  },
+  {
+    statement: 'Voor goede grillstrepen helpt het om het product droog te deppen.',
+    answer: true,
+    why: 'Een droog oppervlak kleurt beter en stoomt minder.'
+  },
+  {
+    statement: 'Bij blancheren gebruik je meestal korte bereidingstijd.',
+    answer: true,
+    why: 'Blancheren is kort verhitten en daarna direct terugkoelen.'
+  },
+  {
+    statement: 'Een gratin moet vaak al gaar of bijna gaar zijn voordat je de korst maakt.',
+    answer: true,
+    why: 'Gratineren is kort en werkt vooral op de bovenlaag.'
+  }
+];
+
+const oefenExamenOpenQuestions = [
+  {
+    title: 'Kabeljauw sappig bereiden',
+    question: 'Je wilt een kabeljauwfilet zo sappig mogelijk bereiden. Welke techniek kies je, waarom, en wat gebeurt er tijdens de bereiding?',
+    keywords: ['pocheren', 'stomen', 'lage temperatuur', 'kwetsbaar', 'eiwitten', 'sappig', 'niet koken'],
+    model: 'Kies pocheren of stomen. Kabeljauw is kwetsbaar en droogt snel uit. Bij rustige garing op lage temperatuur stollen de eiwitten minder hard en blijft de vis sappiger.'
+  },
+  {
+    title: 'Sukadelappen stoven',
+    question: 'Leg uit waarom stoven geschikt is voor sukadelappen. Gebruik vaktaal zoals bindweefsel, gelatine en langzaam garen.',
+    keywords: ['stoven', 'bindweefsel', 'gelatine', 'langzaam', 'vocht', 'lage temperatuur', 'mals'],
+    model: 'Sukadelappen bevatten bindweefsel. Door langzaam te garen met vocht en lage temperatuur wordt bindweefsel omgezet in gelatine. Daardoor wordt het vlees mals.'
+  },
+  {
+    title: 'Friet op te lage temperatuur',
+    question: 'Een student frituurt friet op 140 graden Celsius. Wat gaat er fout, waarom gebeurt dit, en hoe los je het op?',
+    keywords: ['frituren', '140', 'te koud', 'korst', 'vetopname', 'slap', 'temperatuur verhogen'],
+    model: '140 graden Celsius is te laag voor krokante friet. Er vormt niet snel genoeg een korst, waardoor de friet slap wordt en meer vet opneemt. Verhoog de temperatuur en frituur in kleinere porties.'
+  },
+  {
+    title: 'Pocheren en koken vergelijken',
+    question: 'Noem en verklaar twee verschillen tussen pocheren en koken.',
+    keywords: ['pocheren', 'koken', 'niet koken', '100', 'rustige vloeistof', 'kwetsbare producten', 'hard koken'],
+    model: 'Pocheren gebeurt in rustige vloeistof die niet kookt, koken in kokende vloeistof rond 100 graden Celsius. Pocheren past bij kwetsbare producten; koken past bij producten die stevigere garing verdragen.'
+  },
+  {
+    title: 'Broccoli voor buffet',
+    question: 'Je moet broccoli voorbereiden voor een buffet. Welke techniek gebruik je, waarom, en welke fout moet je voorkomen?',
+    keywords: ['blancheren', 'broccoli', 'kort', 'terugkoelen', 'kleur', 'beetgaar', 'doorgaring'],
+    model: 'Gebruik blancheren. Kook de broccoli kort en koel direct terug. Zo blijft de kleur beter en wordt hij beetgaar. Voorkom te lang koken en niet terugkoelen, want dan gaart de broccoli door.'
+  }
+];
+
+</script>
+  <script>
+// Flashcards met vier krachtige vragen per techniek.
+const flashcards = [
+  { techniek: 'Blancheren', vraag: 'Wat is blancheren?', antwoord: 'Een product kort onderdompelen in ruim kokend water en daarna direct terugkoelen.' },
+  { techniek: 'Blancheren', vraag: 'Waarom gebruik je blancheren?', antwoord: 'Om groenten beetgaar te maken, kleur te behouden en ze voor te bereiden op invriezen of verdere bereiding.' },
+  { techniek: 'Blancheren', vraag: 'Welke producten passen hier goed bij?', antwoord: 'Broccoli, sperziebonen, asperges, aardappelen en sommige fruitsoorten.' },
+  { techniek: 'Blancheren', vraag: 'Wat is de veelgemaakte fout?', antwoord: 'Te lang blancheren of niet direct terugkoelen, waardoor kleur en bite verloren gaan.' },
+
+  { techniek: 'Pocheren', vraag: 'Wat is pocheren?', antwoord: 'Garen in vloeistof tussen ongeveer 60 en 90 graden Celsius, zonder dat de vloeistof kookt.' },
+  { techniek: 'Pocheren', vraag: 'Waarom pocheer je vis?', antwoord: 'Omdat kwetsbare producten minder uitdrogen en zachter blijven.' },
+  { techniek: 'Pocheren', vraag: 'Welke producten zijn geschikt?', antwoord: 'Kabeljauw, zalm, eieren, kipfilet en fruit.' },
+  { techniek: 'Pocheren', vraag: 'Wat gebeurt er als de vloeistof kookt?', antwoord: 'De eiwitten trekken sneller samen en het product kan uitdrogen of kapotgaan.' },
+
+  { techniek: 'Koken', vraag: 'Wat is koken?', antwoord: 'Garen in kokend water of een andere kokende vloeistof.' },
+  { techniek: 'Koken', vraag: 'Waarom kies je koken?', antwoord: 'Voor een veilige, gaar en goed verteerbare bereiding van aardappelen, rijst, pasta en groenten.' },
+  { techniek: 'Koken', vraag: 'Waar let je op in de praktijk?', antwoord: 'Op genoeg water, de juiste kooktijd en het voorkomen van kwaliteitsverlies.' },
+  { techniek: 'Koken', vraag: 'Wat is een veelgemaakte fout?', antwoord: 'Te lang koken, waardoor smaak, kleur en structuur verslechteren.' },
+
+  { techniek: 'Stomen', vraag: 'Wat is stomen?', antwoord: 'Garen door hete waterdamp, zonder dat het product in het water ligt.' },
+  { techniek: 'Stomen', vraag: 'Waarom stoom je groenten?', antwoord: 'Omdat kleur, smaak en vitaminen beter behouden blijven.' },
+  { techniek: 'Stomen', vraag: 'Waarvoor gebruik je deze techniek?', antwoord: 'Bij groenten, vis, aardappelen en rijstproducten.' },
+  { techniek: 'Stomen', vraag: 'Wat is de veelgemaakte fout?', antwoord: 'Te weinig ruimte tussen producten of te weinig water in de stoompan.' },
+
+  { techniek: 'Frituren', vraag: 'Wat is frituren?', antwoord: 'Garen in heet vet of olie, meestal tussen 160 en 190 graden Celsius.' },
+  { techniek: 'Frituren', vraag: 'Waarom gebruik je frituren?', antwoord: 'Voor een snelle korst, krokanter resultaat en korte bereidingstijd.' },
+  { techniek: 'Frituren', vraag: 'Welke producten passen hier goed bij?', antwoord: 'Friet, schnitzels, visfilets en groente.' },
+  { techniek: 'Frituren', vraag: 'Wat is de veelgemaakte fout?', antwoord: 'Te koud vet of een te volle mand, waardoor het product slap en vettig wordt.' },
+
+  { techniek: 'Grillen', vraag: 'Wat is grillen?', antwoord: 'Garen met sterke directe hitte via rooster, plaat of salamander.' },
+  { techniek: 'Grillen', vraag: 'Waarom gril je vlees of vis?', antwoord: 'Voor bruine korst, aroma en een duidelijke smaakontwikkeling.' },
+  { techniek: 'Grillen', vraag: 'Welke producten zijn geschikt?', antwoord: 'Biefstuk, entrecote, visfilets, groenten en broodproducten.' },
+  { techniek: 'Grillen', vraag: 'Wat is de veelgemaakte fout?', antwoord: 'Te vaak keren of te hoge hitte zonder controle, waardoor het product uitdroogt.' },
+
+  { techniek: 'Gratineren', vraag: 'Wat is gratineren?', antwoord: 'Een gerecht afwerken met sterke bovenwarmte zodat een bruine korst ontstaat.' },
+  { techniek: 'Gratineren', vraag: 'Waarom gratineer je?', antwoord: 'Om kleur, smaak en een krokante bovenlaag toe te voegen.' },
+  { techniek: 'Gratineren', vraag: 'Waar gebruik je het voor?', antwoord: 'Voor ovenschotels, aardappelgratin, kaassaus of gecuite groenten.' },
+  { techniek: 'Gratineren', vraag: 'Wat is de veelgemaakte fout?', antwoord: 'Te vroeg beginnen, waardoor het product al te veel uitdroogt.' },
+
+  { techniek: 'Bakken', vraag: 'Wat is bakken?', antwoord: 'Garen in een kleine hoeveelheid vetstof in pan of op bakplaat.' },
+  { techniek: 'Bakken', vraag: 'Waarom bak je biefstuk of schnitzel?', antwoord: 'Omdat je snel een bruine korst en aroma ontwikkelt.' },
+  { techniek: 'Bakken', vraag: 'Welke producten passen hier?', antwoord: 'Vlees, vis, eieren, aardappelen en groenten.' },
+  { techniek: 'Bakken', vraag: 'Wat is de veelgemaakte fout?', antwoord: 'De pan niet genoeg voorverwarmen of te veel product tegelijk in de pan doen.' },
+
+  { techniek: 'Braden', vraag: 'Wat is braden?', antwoord: 'Langzamer garen van grotere stukken vlees of gevogelte in de oven of pan.' },
+  { techniek: 'Braden', vraag: 'Waarom brad je grotere stukken?', antwoord: 'Omdat de warmte gelijkmatig naar binnen dringt en het vlees sappiger blijft.' },
+  { techniek: 'Braden', vraag: 'Waarvoor kies je braden?', antwoord: 'Voor braadstuk, kip, kalkoen of grote stukken vlees.' },
+  { techniek: 'Braden', vraag: 'Wat is de veelgemaakte fout?', antwoord: 'Niet regelmatig bedruipen of te hoge temperatuur gebruiken.' },
+
+  { techniek: 'Stoven', vraag: 'Wat is stoven?', antwoord: 'Langzaam garen met vocht en een gesloten deksel.' },
+  { techniek: 'Stoven', vraag: 'Waarom is stoven geschikt voor sukadelap?', antwoord: 'Omdat bindweefsel langzaam verandert in gelatine en het vlees mals wordt.' },
+  { techniek: 'Stoven', vraag: 'Welke producten zijn geschikt?', antwoord: 'Taaiere vleessoorten, stoofvlees en stevige groenten.' },
+  { techniek: 'Stoven', vraag: 'Wat is de veelgemaakte fout?', antwoord: 'Te veel hitte of te weinig vocht, waardoor het product hard blijft.' }
+];
+
+</script>
+  <script>
+// Praktijkvragen gericht op techniekkeuze en uitleg.
+const praktijkvragen = [
+  { techniek: 'Blancheren', vraag: 'Je wilt broccoli voorbereiden voor een buffet. Welke techniek kies je en waarom?', uitleg: 'Kies blancheren, omdat de broccoli kort beetgaar wordt en direct terugkoelen de kleur en bite behoudt.' },
+  { techniek: 'Blancheren', vraag: 'Je wilt groene groenten later snel afwerken. Welke techniek past het best?', uitleg: 'Blancheren is geschikt omdat het product voorvoorgaren en later snel verder worden verwerkt.' },
+  { techniek: 'Blancheren', vraag: 'Waarom is direct terugkoelen belangrijk na blancheren?', uitleg: 'Dan stopt de garing en blijft de groene kleur beter behouden.' },
+
+  { techniek: 'Pocheren', vraag: 'Je wilt kabeljauw sappig houden. Welke techniek kies je?', uitleg: 'Kies pocheren, omdat de vloeistof niet kookt en het product zacht en minder droog blijft.' },
+  { techniek: 'Pocheren', vraag: 'Je hebt een kwetsbaar product dat niet mag uitdrogen. Welke techniek kies je?', uitleg: 'Pocheren is geschikt omdat de temperatuur rustig is en de structuur behouden blijft.' },
+  { techniek: 'Pocheren', vraag: 'Waarom mag de vloeistof niet koken bij pocheren?', uitleg: 'Omdat dan de eiwitten te snel samentrekken en het product kapot kan gaan.' },
+
+  { techniek: 'Koken', vraag: 'Je wilt aardappelen voor puree gaar maken. Welke techniek kies je?', uitleg: 'Koken is geschikt omdat de aardappelen gelijkmatig zacht worden in kokend water.' },
+  { techniek: 'Koken', vraag: 'Waarom gebruik je vaak voldoende water bij koken?', uitleg: 'Omdat het product gelijkmatig en sneller gaar wordt en de smaak niet te veel uitlogt.' },
+  { techniek: 'Koken', vraag: 'Welke fout voorkomt een goede kookbereiding?', uitleg: 'Te lang koken of te weinig water, waardoor structuur en smaak verloren gaan.' },
+
+  { techniek: 'Stomen', vraag: 'Je wilt groenten met behoud van kleur en vitamines garen. Welke techniek kies je?', uitleg: 'Stomen is passend, omdat de damp de producten zacht gaart zonder veel uitloging.' },
+  { techniek: 'Stomen', vraag: 'Waarom is stomen geschikt voor vis?', uitleg: 'Omdat vis kwetsbaar is en stomen de structuur zachter en mooier behoudt.' },
+  { techniek: 'Stomen', vraag: 'Wat is belangrijk bij stomen?', uitleg: 'Het water moet onder het rooster blijven en de damp moet goed kunnen circuleren.' },
+
+  { techniek: 'Frituren', vraag: 'Je wilt friet krokant maken. Welke techniek kies je?', uitleg: 'Frituren, omdat hoge temperatuur een snelle korst geeft en de binnenkant zacht blijft.' },
+  { techniek: 'Frituren', vraag: 'Waarom komt friet slap uit de frituur?', uitleg: 'Vaak omdat het vet te koud is of de mand te vol is, waardoor er te weinig korst ontstaat.' },
+  { techniek: 'Frituren', vraag: 'Wat is belangrijk bij het frituren van schnitzels?', uitleg: 'Het vet moet op temperatuur zijn en het product moet droog en in kleine hoeveelheden worden ingevoerd.' },
+
+  { techniek: 'Grillen', vraag: 'Je wilt een biefstuk met grillstrepen en aroma. Welke techniek kies je?', uitleg: 'Grillen, omdat directe hitte een bruine korst en rokerige smaak geeft.' },
+  { techniek: 'Grillen', vraag: 'Waarom moet je grillen regelmatig draaien?', uitleg: 'Dan garen de producten gelijkmatig en voorkom je verbranden.' },
+  { techniek: 'Grillen', vraag: 'Welke fout zie je vaak bij grillen?', uitleg: 'Te hoge hitte of te vaak keren, waardoor het product uitdroogt.' },
+
+  { techniek: 'Gratineren', vraag: 'Je wilt een ovenschotel afwerken met een bruine korst. Welke techniek kies je?', uitleg: 'Gratineren, omdat de bovenlaag snel bruin wordt onder sterke bovenwarmte.' },
+  { techniek: 'Gratineren', vraag: 'Waarom is gratineren meestal een laatste stap?', uitleg: 'Omdat het product al gaar moet zijn en alleen de bovenlaag nog moet kleuren.' },
+  { techniek: 'Gratineren', vraag: 'Wat is de grootste valkuil?', uitleg: 'Te vroeg beginnen, waardoor de korst te vroeg donker wordt en het gerecht uitdroogt.' },
+
+  { techniek: 'Bakken', vraag: 'Je wilt een schnitzel snel en smakelijk garen. Welke techniek kies je?', uitleg: 'Bakken, omdat een hete pan een goede korst en smaakontwikkeling geeft.' },
+  { techniek: 'Bakken', vraag: 'Waarom is een hete pan belangrijk?', uitleg: 'Dan ontstaat een bruine korst en blijft het product van binnen sappig.' },
+  { techniek: 'Bakken', vraag: 'Wat is een veelgemaakte fout?', uitleg: 'Te veel product tegelijk in de pan, waardoor de temperatuur daalt en het product gaat stomen.' },
+
+  { techniek: 'Braden', vraag: 'Je wilt een groot stuk vlees gelijkmatig garen. Welke techniek kies je?', uitleg: 'Braden, omdat de warmte rustig en gelijkmatig door het stuk heen werkt.' },
+  { techniek: 'Braden', vraag: 'Waarom bedruip je bradend vlees?', uitleg: 'Dan behoud je meer sappigheid en voorkomt je uitdrogen.' },
+  { techniek: 'Braden', vraag: 'Welke fout is onhandig?', uitleg: 'Te hoge temperatuur of niet rusten na het braden, waardoor sap verloren gaat.' },
+
+  { techniek: 'Stoven', vraag: 'Je wilt een sukadelap mals maken. Welke techniek kies je?', uitleg: 'Stoven, omdat bindweefsel langzaam verandert in gelatine en het vlees mals wordt.' },
+  { techniek: 'Stoven', vraag: 'Waarom voeg je vocht toe tijdens stoven?', uitleg: 'Omdat het vlees langzamer gaar wordt en de smaak zich beter kan ontwikkelen.' },
+  { techniek: 'Stoven', vraag: 'Wat is de grootste fout bij stoven?', uitleg: 'Te veel hitte of te weinig vocht, waardoor het vlees hard blijft.' }
+];
+
+</script>
+  <script>
+// Productkaarten voor vlees, vis en AGF.
+const productkaarten = [
+  { groep: 'Vlees', product: 'biefstuk', geschikteTechnieken: ['Bakken', 'Grillen'], minderGeschikteTechnieken: ['Stoven', 'Pocheren'], waarom: 'Biefstuk heeft een korte bereiding nodig voor een mooie korst en sappigheid.', veelgemaakteFouten: ['Te lang bakken', 'Niet laten rusten'], aandachtspunten: ['Dep droog', 'Controleer kerntemperatuur'] },
+  { groep: 'Vlees', product: 'ribeye', geschikteTechnieken: ['Bakken', 'Grillen'], minderGeschikteTechnieken: ['Stoven'], waarom: 'De vetlaag geeft smaak; korte, hoge hitte is ideaal.', veelgemaakteFouten: ['Te hoge hitte', 'Te vaak keren'], aandachtspunten: ['Laat rusten na bakken'] },
+  { groep: 'Vlees', product: 'entrecote', geschikteTechnieken: ['Bakken', 'Grillen'], minderGeschikteTechnieken: ['Pocheren'], waarom: 'Entrecote is geschikt voor snelle, hoge hitte met goede korstvorming.', veelgemaakteFouten: ['Onvoldoende voorverwarmen'], aandachtspunten: ['Gebruik een hete pan'] },
+  { groep: 'Vlees', product: 'sukadelap', geschikteTechnieken: ['Stoven'], minderGeschikteTechnieken: ['Bakken', 'Grillen'], waarom: 'Bindweefsel wordt langzaam omgezet in gelatine.', veelgemaakteFouten: ['Te weinig vocht', 'Te hoge hitte'], aandachtspunten: ['Langzaam garen met deksel'] },
+  { groep: 'Vlees', product: 'riblap', geschikteTechnieken: ['Stoven'], minderGeschikteTechnieken: ['Grillen'], waarom: 'Riblap heeft tijd en vocht nodig voor malsheid.', veelgemaakteFouten: ['Te kort stoven'], aandachtspunten: ['Gebruik een zuur of bouillon'] },
+  { groep: 'Vlees', product: 'gehakt', geschikteTechnieken: ['Bakken', 'Roerbakken'], minderGeschikteTechnieken: ['Braden'], waarom: 'Gehakt garen snel en moet niet te lang blijven liggen.', veelgemaakteFouten: ['Overbakken', 'Te grote stukken'], aandachtspunten: ['Controleer kern en kleur'] },
+  { groep: 'Vlees', product: 'kipfilet', geschikteTechnieken: ['Bakken', 'Pocheren', 'Grillen'], minderGeschikteTechnieken: ['Stoven'], waarom: 'Kipfilet is snel gaar en droogt snel uit bij te veel hitte.', veelgemaakteFouten: ['Te lang koken'], aandachtspunten: ['Gebruik matige temperatuur'] },
+  { groep: 'Vlees', product: 'kipdrumstick', geschikteTechnieken: ['Braden', 'Grillen'], minderGeschikteTechnieken: ['Pocheren'], waarom: 'Dikke stukken hebben meer tijd nodig om gelijkmatig gaar te worden.', veelgemaakteFouten: ['Te hoge hitte aan het begin'], aandachtspunten: ['Draai regelmatig'] },
+  { groep: 'Vlees', product: 'rollade', geschikteTechnieken: ['Braden', 'Stoven'], minderGeschikteTechnieken: ['Frituren'], waarom: 'Rollade heeft tijd nodig voor een gelijkmatige garing.', veelgemaakteFouten: ['Te snelle garing'], aandachtspunten: ['Laat rusten en snijd netjes'] },
+  { groep: 'Vlees', product: 'varkenshaas', geschikteTechnieken: ['Bakken', 'Braden'], minderGeschikteTechnieken: ['Stoven'], waarom: 'Varkenshaas is mager en werkt goed bij korte tot gemiddelde bereiding.', veelgemaakteFouten: ['Te lange bereiding'], aandachtspunten: ['Controleer kerntemperatuur'] },
+  { groep: 'Vis', product: 'kabeljauw', geschikteTechnieken: ['Pocheren', 'Stomen'], minderGeschikteTechnieken: ['Frituren', 'Grillen'], waarom: 'Kabeljauw is kwetsbaar en droogt snel uit.', veelgemaakteFouten: ['Te hoge temperatuur', 'Te lang garen'], aandachtspunten: ['Gebruik rustige, lage bereiding'] },
+  { groep: 'Vis', product: 'zalm', geschikteTechnieken: ['Bakken', 'Grillen', 'Stomen'], minderGeschikteTechnieken: ['Koken'], waarom: 'Zalm heeft een rijke structuur en past bij korte, krachtige hitte.', veelgemaakteFouten: ['Te lang bakken'], aandachtspunten: ['Kijk op kleur en vlokvorming'] },
+  { groep: 'Vis', product: 'makreel', geschikteTechnieken: ['Grillen', 'Bakken'], minderGeschikteTechnieken: ['Pocheren'], waarom: 'Makreel is vette vis en mag niet te lang in een te lage temperatuur blijven.', veelgemaakteFouten: ['Te veel hitte'], aandachtspunten: ['Korte bereiding, netjes keren'] },
+  { groep: 'Vis', product: 'schol', geschikteTechnieken: ['Pocheren', 'Stomen'], minderGeschikteTechnieken: ['Frituren'], waarom: 'Schol is delicaat en droogt snel uit.', veelgemaakteFouten: ['Te hoge temperatuur'], aandachtspunten: ['Gebruik een zachte bereiding'] },
+  { groep: 'Vis', product: 'garnalen', geschikteTechnieken: ['Roerbakken', 'Stomen'], minderGeschikteTechnieken: ['Braden'], waarom: 'Garnalen garen snel en worden taai bij te lange hitte.', veelgemaakteFouten: ['Te lang garen'], aandachtspunten: ['Klaar als ze rosé kleuren'] },
+  { groep: 'Vis', product: 'mosselen', geschikteTechnieken: ['Stomen', 'Koken'], minderGeschikteTechnieken: ['Grillen'], waarom: 'Mosselen garen snel in vocht en zijn kwetsbaar voor te hard vuur.', veelgemaakteFouten: ['Te lang stomen'], aandachtspunten: ['Open alleen diegenen die goed gesloten zijn'] },
+  { groep: 'AGF', product: 'broccoli', geschikteTechnieken: ['Blancheren', 'Stomen'], minderGeschikteTechnieken: ['Frituren'], waarom: 'Broccoli heeft korte garing nodig om kleur en bite te behouden.', veelgemaakteFouten: ['Te lang garen'], aandachtspunten: ['Direct terugkoelen na blancheren'] },
+  { groep: 'AGF', product: 'sperziebonen', geschikteTechnieken: ['Blancheren'], minderGeschikteTechnieken: ['Grillen'], waarom: 'Sperziebonen zijn snel beetgaar en houden kleur beter bij kort blancheren.', veelgemaakteFouten: ['Te lang koken'], aandachtspunten: ['Niet te zacht laten worden'] },
+  { groep: 'AGF', product: 'asperges', geschikteTechnieken: ['Koken', 'Stomen'], minderGeschikteTechnieken: ['Frituren'], waarom: 'Asperges zijn kwetsbaar en hebben een rustige bereiding nodig.', veelgemaakteFouten: ['Te veel hitte'], aandachtspunten: ['Kleine stukken, korte tijd'] },
+  { groep: 'AGF', product: 'wortelen', geschikteTechnieken: ['Koken', 'Stomen'], minderGeschikteTechnieken: ['Grillen'], waarom: 'Wortelen zijn stevig en garen goed in vocht of stoom.', veelgemaakteFouten: ['Te kleine snijstukken'], aandachtspunten: ['Gebruik gelijkmatige stukken'] },
+  { groep: 'AGF', product: 'aardappelen', geschikteTechnieken: ['Koken', 'Stomen', 'Frituren'], minderGeschikteTechnieken: ['Gratineren'], waarom: 'Aardappelen zijn veelzijdig en kunnen zacht, krokant of puré worden.', veelgemaakteFouten: ['Te vroeg schillen'], aandachtspunten: ['Controleer gaarheid'] },
+  { groep: 'AGF', product: 'friet', geschikteTechnieken: ['Frituren'], minderGeschikteTechnieken: ['Koken'], waarom: 'Friet krijgt de juiste korst alleen in heet vet.', veelgemaakteFouten: ['Te koude olie', 'Te volle mand'], aandachtspunten: ['Werk in kleine porties'] }
+];
+
+</script>
+  <script>
+// Examenvragen op drie niveaus.
+const examenvragen = [
+  { niveau: 'Niveau 1 - Kennis', vraag: 'Wat is het doel van blancheren?', model: 'Blancheren maakt een product beetgaar, behoudt kleur en bereidt het voor op verdere verwerking.' },
+  { niveau: 'Niveau 1 - Kennis', vraag: 'Noem een voordeel van stomen ten opzichte van koken.', model: 'Stomen behoudt meer smaak, kleur en voedingsstoffen omdat het product niet in water ligt.' },
+  { niveau: 'Niveau 1 - Kennis', vraag: 'Waarom is frituren snel?', model: 'Door de hoge temperatuur ontstaat snel een korst en gaarheid.' },
+
+  { niveau: 'Niveau 2 - Begrijpen', vraag: 'Waarom is stoven geschikt voor sukadelappen?', model: 'Omdat bindweefsel langzaam omzet in gelatine, waardoor het vlees mals wordt.' },
+  { niveau: 'Niveau 2 - Begrijpen', vraag: 'Waarom is pocheren geschikt voor kabeljauw?', model: 'Omdat kabeljauw kwetsbaar is en bij rustige, lage temperatuur minder snel uitdroogt.' },
+  { niveau: 'Niveau 2 - Begrijpen', vraag: 'Waarom neemt friet meer vet op bij een te lage frituurtemperatuur?', model: 'Omdat er dan onvoldoende korst ontstaat en het product langer in het vet blijft.' },
+
+  { niveau: 'Niveau 3 - Toepassen', vraag: 'Je moet voor een buffet broccoli voorbereiden. Welke techniek kies je, en waarom?', model: 'Kies blancheren, want het product wordt kort beetgaar en direct teruggekoeld, zodat kleur en bite behouden blijven.' },
+  { niveau: 'Niveau 3 - Toepassen', vraag: 'Je hebt een taaie lamsbout. Welke techniek kies je en wat is je reden?', model: 'Kies stoven, omdat lange, rustige garing bindweefsel omzet in gelatine.' },
+  { niveau: 'Niveau 3 - Toepassen', vraag: 'Je wilt een sappig biefstukresultaat. Welke techniek en welke controle zijn belangrijk?', model: 'Gebruik bakken of grillen, voorverwarm de pan, dep het vlees droog en controleer de kerntemperatuur.' }
+];
+
+</script>
+  <script>
+// Begrippenlijst voor de leermodule.
+const vaktaal = [
+  { term: 'Maillardreactie', uitleg: 'Bruine, aromatische reactie tussen aminozuren en suikers bij hoge temperatuur.' },
+  { term: 'Kerntemperatuur', uitleg: 'De temperatuur in het midden van het product; belangrijk voor gaarheid en veiligheid.' },
+  { term: 'Gelatine', uitleg: 'Een zachtmakend product dat ontstaat uit bindweefsel tijdens langdurig stoven.' },
+  { term: 'Bindweefsel', uitleg: 'Weefsel in vlees dat structuur geeft; het wordt bij stoven zachter.' },
+  { term: 'Gaarheid', uitleg: 'De mate waarin een product klaar is voor consumptie.' },
+  { term: 'Uitloging', uitleg: 'Verlies van water, smaakstoffen of voedingsstoffen uit het product tijdens bereiding.' },
+  { term: 'Regenereren', uitleg: 'Opnieuw verwarmen van reeds bereide producten tot serveertemperatuur.' },
+  { term: 'Liëren', uitleg: 'Afwerken van een saus of gerecht met room, eidooier of bindmiddel voor glans en zachtheid.' },
+  { term: 'Blancheren', uitleg: 'Kort koken in ruim water en daarna direct terugkoelen om kleur en bite te behouden.' },
+  { term: 'Beetgaar', uitleg: 'Nog licht krokant of net niet volledig zacht; vaak gewenst bij groenten.' }
+];
+
+</script>
+  <script>
+// Hoofdscript voor de leermodule.
+// De app werkt lokaal zonder externe libraries en gebruikt de data-bestanden als bron.
+
+const tabList = [
+  ['start', 'Start'],
+  ['overview', 'Overzicht'],
+  ['cards', 'Flashcards'],
+  ['quiz', 'Quiz'],
+  ['cgi', 'CGI trainer'],
+  ['practice', 'Praktijktrainer'],
+  ['products', 'Producttrainer'],
+  ['exam', 'Examentrainer'],
+  ['examPractice', '📝 Oefenexamen'],
+  ['glossary', 'Begrippenlijst'],
+  ['choice', 'Techniek kiezen'],
+  ['meat', 'Vlees'],
+  ['fish', 'Vis'],
+  ['agf', 'AGF'],
+  ['teacher', 'Docent']
+];
+
+let state = JSON.parse(localStorage.getItem('wbt_state') || '{"known":[],"answers":{},"quizCorrect":0,"quizTotal":0}');
+let currentCard = 0;
+let currentFlashcard = 0;
+let score = { correct: 0, total: 0 };
+let examPractice = null;
+let examTimerId = null;
+
+function save() {
+  localStorage.setItem('wbt_state', JSON.stringify(state));
+  updateProgress();
+}
+
+function setupTabs() {
+  const nav = document.getElementById('tabs');
+  nav.innerHTML = tabList.map(([id, label], i) => `<button type="button" class="${i === 0 ? 'active' : ''}" onclick="showTab('${id}', this)">${label}</button>`).join('');
+}
+
+function showTab(id, btn) {
+  document.querySelectorAll('.section').forEach((section) => section.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('nav button').forEach((button) => button.classList.remove('active'));
+  btn.classList.add('active');
+
+  if (id === 'overview') renderTechTable();
+  if (id === 'cards') renderCard();
+  if (id === 'practice') renderPracticeQuestions();
+  if (id === 'products') renderProductCards();
+  if (id === 'exam') renderExamQuestions();
+  if (id === 'examPractice') renderExamPractice();
+  if (id === 'glossary') renderGlossary();
+  if (id === 'meat') renderMeatTable();
+  if (id === 'fish') renderVisSection();
+  if (id === 'agf') renderAGFTable();
+}
+
+function updateProgress() {
+  const total = techniques.length + quizData.length + openQuestions.length;
+  const known = new Set(state.known).size;
+  const openDone = Object.values(state.answers || {}).filter((value) => value && value.trim().length > 20).length;
+  const qDone = Math.min(state.quizTotal || 0, quizData.length);
+  const pct = Math.round(((known + openDone + qDone) / total) * 100);
+  document.getElementById('progbar').style.width = `${Math.min(100, pct)}%`;
+  document.getElementById('progtext').textContent = `${Math.min(100, pct)}% afgerond`;
+}
+
+function resetProgress() {
+  if (confirm('Weet je zeker dat je de voortgang wilt wissen?')) {
+    state = { known: [], answers: {}, quizCorrect: 0, quizTotal: 0 };
+    save();
+    renderCard();
+    renderQuiz();
+    renderOpenQuestions();
+  }
+}
+
+function renderTechTable() {
+  const query = (document.getElementById('techSearch')?.value || '').toLowerCase();
+  const rows = techniques.filter((technique) => Object.values(technique).join(' ').toLowerCase().includes(query));
+
+  document.getElementById('techTable').innerHTML = [
+    '<tr><th>Techniek</th><th>Temp.</th><th>Tijd</th><th>Geschikt voor</th><th>Resultaat / kern</th><th>Veelgemaakte fouten</th></tr>',
+    ...rows.map((technique) => `
+      <tr>
+        <td><strong>${technique.name}</strong></td>
+        <td>${technique.temp}</td>
+        <td>${technique.time}</td>
+        <td>${technique.products}</td>
+        <td>${technique.core}<br><span class="small">${technique.happens}</span></td>
+        <td>${technique.mistakes.map((item) => '• ' + item).join('<br>')}</td>
+      </tr>
+    `)
+  ].join('');
+}
+
+function renderFlashTechIndex() {
+  const container = document.getElementById('techIndex');
+  if (!container) return;
+
+  const techniques = [...new Set(flashcards.map((card) => card.techniek))];
+  container.innerHTML = techniques.map((technique) => `
+    <button type="button" class="btn" onclick="selectFlashTechnique('${technique}')">${technique}</button>
+  `).join('');
+}
+
+function selectFlashTechnique(technique) {
+  const filter = document.getElementById('flashFilter');
+  if (filter) filter.value = technique;
+  currentFlashcard = 0;
+  renderCard();
+}
+
+function getFilteredFlashcards() {
+  const query = (document.getElementById('flashSearch')?.value || '').toLowerCase();
+  const filter = document.getElementById('flashFilter')?.value || 'Alle';
+  return flashcards.filter((card) => {
+    const text = `${card.techniek} ${card.vraag} ${card.antwoord}`.toLowerCase();
+    const matchesFilter = filter === 'Alle' || card.techniek === filter;
+    return matchesFilter && text.includes(query);
+  });
+}
+
+function renderCard() {
+  const filtered = getFilteredFlashcards();
+  const flash = document.getElementById('flash');
+
+  if (!filtered.length) {
+    flash.classList.remove('flipped');
+    flash.innerHTML = '<article class="card"><h3>Geen flashcards gevonden</h3><p>Pas je zoekopdracht of filter aan.</p></article>';
+    return;
+  }
+
+  currentFlashcard = Math.min(currentFlashcard, filtered.length - 1);
+  const card = filtered[currentFlashcard];
+  flash.classList.remove('flipped');
+  flash.innerHTML = `
+    <div class="flash-inner">
+      <div class="face front">
+        <p class="small">Kaart ${currentFlashcard + 1} van ${filtered.length} · ${card.techniek}</p>
+        <h2>${card.vraag}</h2>
+        <p style="text-align:center">Klik om het antwoord te tonen.</p>
+      </div>
+      <div class="face back">
+        <h2>${card.techniek}</h2>
+        <p><strong>Vraag:</strong> ${card.vraag}</p>
+        <p><strong>Antwoord:</strong> ${card.antwoord}</p>
+      </div>
+    </div>`;
+}
+
+function flipCard() {
+  document.getElementById('flash').classList.toggle('flipped');
+}
+
+function nextCard() {
+  const filtered = getFilteredFlashcards();
+  if (!filtered.length) return;
+  currentFlashcard = (currentFlashcard + 1) % filtered.length;
+  renderCard();
+}
+
+function prevCard() {
+  const filtered = getFilteredFlashcards();
+  if (!filtered.length) return;
+  currentFlashcard = (currentFlashcard - 1 + filtered.length) % filtered.length;
+  renderCard();
+}
+
+function markKnown() {
+  const filtered = getFilteredFlashcards();
+  if (!filtered.length) return;
+  const name = filtered[currentFlashcard].techniek;
+  if (!state.known.includes(name)) state.known.push(name);
+  save();
+  nextCard();
+}
+
+function renderQuiz() {
+  score = { correct: 0, total: 0 };
+  document.getElementById('score').textContent = 'Score: 0 / 0';
+  document.getElementById('quizBox').innerHTML = quizData.map((item, index) => `
+    <article class="card" id="q${index}">
+      <span class="badge">${item.level}</span>
+      <h3>${index + 1}. ${item.q}</h3>
+      ${item.options.map((option, optionIndex) => `<button type="button" class="option" onclick="answerQuiz(${index}, ${optionIndex}, this)">${String.fromCharCode(65 + optionIndex)}. ${option}</button>`).join('')}
+      <p class="small" id="why${index}"></p>
+    </article>`).join('');
+}
+
+function answerQuiz(index, choice, button) {
+  const item = quizData[index];
+  const box = document.getElementById('q' + index);
+  if (box.dataset.done) return;
+
+  box.dataset.done = '1';
+  score.total += 1;
+  state.quizTotal = (state.quizTotal || 0) + 1;
+
+  box.querySelectorAll('.option').forEach((option, optionIndex) => {
+    if (optionIndex === item.answer) option.classList.add('correct');
+  });
+
+  if (choice === item.answer) {
+    score.correct += 1;
+    state.quizCorrect = (state.quizCorrect || 0) + 1;
+  } else {
+    button.classList.add('wrong');
+  }
+
+  document.getElementById('why' + index).innerHTML = `<strong>Uitleg:</strong> ${item.why}`;
+  document.getElementById('score').textContent = `Score: ${score.correct} / ${score.total}`;
+  save();
+}
+
+function renderOpenQuestions() {
+  document.getElementById('openBox').innerHTML = openQuestions.map((question, index) => `
+    <article class="card">
+      <h3>${question.title}</h3>
+      <p>${question.question}</p>
+      <textarea id="ans${index}" rows="6" oninput="storeOpen(${index})" placeholder="Typ hier je antwoord...">${(state.answers || {})[index] || ''}</textarea>
+      <div class="toolbar">
+        <button type="button" onclick="checkOpen(${index})">Check mijn antwoord</button>
+        <button type="button" onclick="toggleModel(${index})">Toon voorbeeldantwoord</button>
+      </div>
+      <div id="check${index}"></div>
+      <details id="model${index}" style="display:none"><summary>Voorbeeldantwoord</summary><p>${question.model}</p></details>
+    </article>`).join('');
+}
+
+function storeOpen(index) {
+  state.answers = state.answers || {};
+  state.answers[index] = document.getElementById('ans' + index).value;
+  save();
+}
+
+function checkOpen(index) {
+  const question = openQuestions[index];
+  const text = document.getElementById('ans' + index).value.toLowerCase();
+  const found = question.keywords.filter((keyword) => text.includes(keyword.toLowerCase()));
+  const missing = question.keywords.filter((keyword) => !text.includes(keyword.toLowerCase()));
+
+  document.getElementById('check' + index).innerHTML = `
+    <div class="notice">
+      <strong>Gevonden vakwoorden:</strong><br>${found.length ? found.map((item) => `<span class="badge">${item}</span>`).join(' ') : 'Nog weinig vaktaal gevonden.'}
+      <br><br><strong>Nog sterker met:</strong><br>${missing.slice(0, 8).map((item) => `<span class="badge">${item}</span>`).join(' ')}
+    </div>`;
+}
+
+function toggleModel(index) {
+  const element = document.getElementById('model' + index);
+  element.style.display = element.style.display === 'none' ? 'block' : 'none';
+}
+
+function renderPracticeQuestions() {
+  document.getElementById('practiceBox').innerHTML = praktijkvragen.map((item, index) => {
+    const options = [item.techniek, ...new Set(praktijkvragen.filter((entry) => entry.techniek !== item.techniek).map((entry) => entry.techniek))].slice(0, 3);
+    const shuffled = options.sort(() => Math.random() - 0.5);
+
+    return `
+      <article class="card">
+        <span class="badge">${item.techniek}</span>
+        <h3>${item.vraag}</h3>
+        <p class="small">Kies het beste antwoord.</p>
+        ${shuffled.map((option, optionIndex) => `<button type="button" class="option" onclick="answerPractice(${index}, '${option}', this)">${String.fromCharCode(65 + optionIndex)}. ${option}</button>`).join('')}
+        <div id="practiceResult${index}" class="small"></div>
+        <details id="practiceExplain${index}" style="display:none"><summary>Toon uitleg</summary><p>${item.uitleg}</p></details>
+      </article>`;
+  }).join('');
+}
+
+function answerPractice(index, choice, button) {
+  const item = praktijkvragen[index];
+  const box = button.parentElement;
+  const result = document.getElementById('practiceResult' + index);
+  const explain = document.getElementById('practiceExplain' + index);
+
+  box.querySelectorAll('.option').forEach((option) => option.disabled = true);
+  const isCorrect = choice === item.techniek;
+  if (isCorrect) {
+    button.classList.add('correct');
+    result.innerHTML = '<strong>Correct.</strong> Je hebt de juiste techniek gekozen.';
+  } else {
+    button.classList.add('wrong');
+    result.innerHTML = '<strong>Niet correct.</strong> Bekijk de uitleg voor de juiste keuze.';
+  }
+  explain.style.display = 'block';
+}
+
+function renderProductCards() {
+  const filter = document.getElementById('productFilter')?.value || 'Alles';
+  const cards = productkaarten.filter((item) => filter === 'Alles' || item.groep === filter);
+
+  document.getElementById('productBox').innerHTML = cards.map((item) => `
+    <article class="card">
+      <span class="badge">${item.groep}</span>
+      <h3>${item.product}</h3>
+      <p>${item.waarom}</p>
+      <p><strong>Geschikt:</strong> ${item.geschikteTechnieken.join(', ')}</p>
+      <p><strong>Minder geschikt:</strong> ${item.minderGeschikteTechnieken.join(', ')}</p>
+      <p><strong>Veelgemaakte fouten:</strong> ${item.veelgemaakteFouten.join(', ')}</p>
+      <p class="small"><strong>Aandachtspunten:</strong> ${item.aandachtspunten.join(' · ')}</p>
+    </article>`).join('');
+}
+
+function renderExamQuestions() {
+  const grouped = ['Niveau 1 - Kennis', 'Niveau 2 - Begrijpen', 'Niveau 3 - Toepassen'].map((level) => ({
+    level,
+    items: examenvragen.filter((item) => item.niveau.includes(level))
+  }));
+
+  document.getElementById('examBox').innerHTML = grouped.map((group) => `
+    <article class="card">
+      <h3>${group.level}</h3>
+      ${group.items.map((item) => `
+        <article class="card" style="background:white">
+          <p><strong>${item.vraag}</strong></p>
+          <details><summary>Toon modelantwoord</summary><p>${item.model}</p></details>
+        </article>`).join('')}
+    </article>`).join('');
+}
+
+function shuffleItems(items) {
+  return [...items].sort(() => Math.random() - 0.5);
+}
+
+function pickItems(items, amount) {
+  return shuffleItems(items).slice(0, amount);
+}
+
+function getTechniqueNames() {
+  return [...new Set([
+    ...techniques.map((item) => item.name),
+    ...praktijkvragen.map((item) => item.techniek),
+    ...flashcards.map((item) => item.techniek)
+  ])];
+}
+
+function inferTechniqueFromText(text) {
+  const lower = text.toLowerCase();
+  return getTechniqueNames().find((name) => lower.includes(name.toLowerCase())) || '';
+}
+
+function buildMultipleChoiceExamPool() {
+  const techniqueNames = getTechniqueNames();
+  const termNames = vaktaal.map((item) => item.term);
+  const fromQuiz = quizData.map((item) => ({
+    type: 'mc',
+    label: 'Meerkeuze',
+    question: item.q,
+    options: item.options,
+    answer: item.answer,
+    why: item.why,
+    points: 1
+  }));
+
+  const fromFlashcards = flashcards.map((item) => {
+    const options = shuffleItems([item.techniek, ...shuffleItems(techniqueNames.filter((name) => name !== item.techniek)).slice(0, 3)]);
+    return {
+      type: 'mc',
+      label: 'Meerkeuze',
+      question: `Welke techniek hoort bij deze uitleg: ${item.antwoord}`,
+      options,
+      answer: options.indexOf(item.techniek),
+      why: `Deze uitleg hoort bij ${item.techniek}.`,
+      points: 1
+    };
+  });
+
+  const fromVaktaal = vaktaal.map((item) => {
+    const options = shuffleItems([item.term, ...shuffleItems(termNames.filter((name) => name !== item.term)).slice(0, 3)]);
+    return {
+      type: 'mc',
+      label: 'Meerkeuze',
+      question: `Welke vakterm past bij deze uitleg: ${item.uitleg}`,
+      options,
+      answer: options.indexOf(item.term),
+      why: `De juiste vakterm is ${item.term}.`,
+      points: 1
+    };
+  });
+
+  return [...fromQuiz, ...fromFlashcards, ...fromVaktaal];
+}
+
+function buildApplicationExamPool() {
+  const techniqueNames = getTechniqueNames();
+  const fromPractice = praktijkvragen.map((item) => ({
+    type: 'application',
+    label: 'Toepassing',
+    question: item.vraag,
+    options: shuffleItems([item.techniek, ...shuffleItems(techniqueNames.filter((name) => name !== item.techniek)).slice(0, 3)]),
+    answer: item.techniek,
+    why: item.uitleg,
+    points: 1
+  }));
+
+  const fromProducts = productkaarten.map((item) => {
+    const answer = item.geschikteTechnieken[0];
+    const options = shuffleItems([answer, ...shuffleItems([...item.minderGeschikteTechnieken, ...techniqueNames.filter((name) => name !== answer)]).slice(0, 3)]);
+    return {
+      type: 'application',
+      label: 'Toepassing',
+      question: `Welke techniek kies je voor ${item.product}, en waarom past die bij dit product?`,
+      options,
+      answer,
+      why: item.waarom,
+      points: 1
+    };
+  });
+
+  const fromExamQuestions = examenvragen
+    .filter((item) => item.niveau.includes('Niveau 3'))
+    .map((item) => {
+      const answer = inferTechniqueFromText(`${item.vraag} ${item.model}`) || 'Bakken';
+      const options = shuffleItems([answer, ...shuffleItems(techniqueNames.filter((name) => name !== answer)).slice(0, 3)]);
+      return {
+        type: 'application',
+        label: 'Toepassing',
+        question: item.vraag,
+        options,
+        answer,
+        why: item.model,
+        points: 1
+      };
+    });
+
+  return [...fromPractice, ...fromProducts, ...fromExamQuestions];
+}
+
+function getExamPracticeMeta() {
+  return {
+    naam: document.getElementById('examStudentName')?.value.trim() || '',
+    klas: document.getElementById('examStudentClass')?.value.trim() || '',
+    datum: new Date().toLocaleDateString('nl-NL')
+  };
+}
+
+function renderExamPractice() {
+  const box = document.getElementById('examPracticeBox');
+  if (!box) return;
+
+  if (examPractice?.status === 'running') {
+    renderExamPracticeQuestion();
+    return;
+  }
+
+  if (examPractice?.status === 'finished') {
+    renderExamPracticeResult();
+    return;
+  }
+
+  box.innerHTML = `
+    <article class="card">
+      <h3>Start oefenexamen</h3>
+      <div class="two">
+        <label>Naam
+          <input id="examStudentName" type="text" autocomplete="name" placeholder="Naam student">
+        </label>
+        <label>Klas
+          <input id="examStudentClass" type="text" placeholder="Klas">
+        </label>
+      </div>
+      <p><strong>Datum:</strong> ${new Date().toLocaleDateString('nl-NL')}</p>
+      <p><strong>Aantal vragen:</strong> 20</p>
+      <p><strong>Tijdsduur:</strong> 30 minuten</p>
+      <p>Je krijgt verschillende soorten vragen. Je antwoorden worden pas nagekeken als je het oefenexamen afrondt of als de tijd voorbij is.</p>
+      <div class="toolbar">
+        <button type="button" onclick="startExamPractice()">Start oefenexamen</button>
+      </div>
+    </article>`;
+}
+
+function buildExamPracticeQuestions() {
+  const multipleChoice = pickItems(buildMultipleChoiceExamPool(), 6);
+
+  const trueFalse = pickItems(oefenExamenTrueFalse, 4).map((item) => ({
+    type: 'tf',
+    label: 'Waar / niet waar',
+    question: item.statement,
+    options: ['Waar', 'Niet waar'],
+    answer: item.answer,
+    why: item.why,
+    points: 1
+  }));
+
+  const application = pickItems(buildApplicationExamPool(), 5);
+
+  const open = pickItems(oefenExamenOpenQuestions, 5).map((item) => ({
+    type: 'open',
+    label: 'Open vraag',
+    question: item.question,
+    title: item.title,
+    keywords: item.keywords,
+    model: item.model,
+    points: 1
+  }));
+
+  return shuffleItems([...multipleChoice, ...trueFalse, ...application, ...open]);
+}
+
+function startExamPractice() {
+  const meta = getExamPracticeMeta();
+  if (!meta.naam || !meta.klas) {
+    alert('Vul eerst naam en klas in.');
+    return;
+  }
+
+  examPractice = {
+    status: 'running',
+    meta,
+    questions: buildExamPracticeQuestions(),
+    answers: {},
+    current: 0,
+    durationSeconds: 30 * 60,
+    remainingSeconds: 30 * 60,
+    startedAt: Date.now(),
+    finishedAt: null,
+    result: null
+  };
+  saveExamPracticeDraft();
+  startExamPracticeTimer();
+  renderExamPracticeQuestion();
+}
+
+function saveExamPracticeDraft() {
+  if (examPractice?.status === 'running') {
+    localStorage.setItem('wbt_exam_practice', JSON.stringify(examPractice));
+  }
+}
+
+function clearExamPracticeDraft() {
+  localStorage.removeItem('wbt_exam_practice');
+}
+
+function startExamPracticeTimer() {
+  clearInterval(examTimerId);
+  examTimerId = setInterval(() => {
+    if (!examPractice || examPractice.status !== 'running') {
+      clearInterval(examTimerId);
+      return;
+    }
+    const elapsed = Math.floor((Date.now() - examPractice.startedAt) / 1000);
+    examPractice.remainingSeconds = Math.max(0, examPractice.durationSeconds - elapsed);
+    updateExamPracticeTimer();
+    saveExamPracticeDraft();
+    if (examPractice.remainingSeconds <= 0) {
+      finishExamPractice(true);
+    }
+  }, 1000);
+  updateExamPracticeTimer();
+}
+
+function formatExamTime(seconds) {
+  const mins = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const secs = String(seconds % 60).padStart(2, '0');
+  return `${mins}:${secs}`;
+}
+
+function updateExamPracticeTimer() {
+  const timer = document.getElementById('examPracticeTimer');
+  if (!timer || !examPractice) return;
+  timer.textContent = formatExamTime(examPractice.remainingSeconds);
+  timer.classList.toggle('timer-warning', examPractice.remainingSeconds <= 5 * 60 && examPractice.remainingSeconds > 60);
+  timer.classList.toggle('timer-danger', examPractice.remainingSeconds <= 60);
+}
+
+function renderExamPracticeQuestion() {
+  const box = document.getElementById('examPracticeBox');
+  if (!box || !examPractice) return;
+
+  const question = examPractice.questions[examPractice.current];
+  const answer = examPractice.answers[examPractice.current];
+  const questionInput = renderExamPracticeInput(question, answer);
+
+  box.innerHTML = `
+    <article class="card exam-sticky">
+      <div class="exam-status">
+        <span><strong>Vraag ${examPractice.current + 1} van ${examPractice.questions.length}</strong></span>
+        <span id="examPracticeTimer" class="exam-timer">${formatExamTime(examPractice.remainingSeconds)}</span>
+      </div>
+      <div class="progress"><div style="width:${Math.round(((examPractice.current + 1) / examPractice.questions.length) * 100)}%"></div></div>
+    </article>
+    <article class="card">
+      <span class="badge">${question.label}</span>
+      ${question.title ? `<h3>${question.title}</h3>` : ''}
+      <p><strong>${question.question}</strong></p>
+      ${questionInput}
+      <div class="toolbar">
+        <button type="button" onclick="previousExamPracticeQuestion()" ${examPractice.current === 0 ? 'disabled' : ''}>Vorige</button>
+        <button type="button" onclick="nextExamPracticeQuestion()" ${examPractice.current === examPractice.questions.length - 1 ? 'disabled' : ''}>Volgende</button>
+        <button type="button" onclick="finishExamPractice(false)">Examen afronden</button>
+      </div>
+    </article>`;
+  updateExamPracticeTimer();
+}
+
+function renderExamPracticeInput(question, answer) {
+  if (question.type === 'open') {
+    return `<textarea rows="8" oninput="setExamPracticeAnswer(${examPractice.current}, this.value)" placeholder="Typ je antwoord...">${answer || ''}</textarea>`;
+  }
+
+  return question.options.map((option, index) => {
+    const value = question.type === 'tf' ? String(index === 0) : String(index);
+    const checked = String(answer) === value ? 'checked' : '';
+    return `
+      <label class="exam-option">
+        <input type="radio" name="examAnswer${examPractice.current}" value="${value}" ${checked} onchange="setExamPracticeAnswer(${examPractice.current}, this.value)">
+        <span>${option}</span>
+      </label>`;
+  }).join('');
+}
+
+function setExamPracticeAnswer(index, value) {
+  if (!examPractice || examPractice.status !== 'running') return;
+  examPractice.answers[index] = value;
+  saveExamPracticeDraft();
+}
+
+function previousExamPracticeQuestion() {
+  if (!examPractice) return;
+  examPractice.current = Math.max(0, examPractice.current - 1);
+  renderExamPracticeQuestion();
+}
+
+function nextExamPracticeQuestion() {
+  if (!examPractice) return;
+  examPractice.current = Math.min(examPractice.questions.length - 1, examPractice.current + 1);
+  renderExamPracticeQuestion();
+}
+
+function finishExamPractice(autoSubmitted) {
+  if (!examPractice || examPractice.status !== 'running') return;
+  if (!autoSubmitted && !confirm('Weet je zeker dat je het oefenexamen wilt afronden?')) return;
+
+  clearInterval(examTimerId);
+  examPractice.status = 'finished';
+  examPractice.finishedAt = Date.now();
+  examPractice.autoSubmitted = autoSubmitted;
+  examPractice.result = gradeExamPractice();
+  clearExamPracticeDraft();
+  renderExamPracticeResult();
+}
+
+function gradeExamPractice() {
+  const totals = {
+    mc: { label: 'Meerkeuze', score: 0, max: 0 },
+    tf: { label: 'Waar / niet waar', score: 0, max: 0 },
+    application: { label: 'Toepassing', score: 0, max: 0 },
+    open: { label: 'Open vragen', score: 0, max: 0 }
+  };
+  const details = examPractice.questions.map((question, index) => {
+    const answer = examPractice.answers[index];
+    totals[question.type].max += question.points;
+
+    if (question.type === 'open') {
+      const text = (answer || '').toLowerCase();
+      const found = question.keywords.filter((keyword) => text.includes(keyword.toLowerCase()));
+      const missing = question.keywords.filter((keyword) => !text.includes(keyword.toLowerCase()));
+      const scoreValue = found.length / question.keywords.length;
+      totals.open.score += scoreValue;
+      return { question, answer: answer || '', correct: scoreValue >= 0.8, score: scoreValue, found, missing };
+    }
+
+    let correct = false;
+    let correctAnswer = '';
+    if (question.type === 'mc') {
+      correct = Number(answer) === question.answer;
+      correctAnswer = question.options[question.answer];
+    }
+    if (question.type === 'tf') {
+      correct = String(answer) === String(question.answer);
+      correctAnswer = question.answer ? 'Waar' : 'Niet waar';
+    }
+    if (question.type === 'application') {
+      correct = question.options[Number(answer)] === question.answer;
+      correctAnswer = question.answer;
+    }
+
+    if (correct) totals[question.type].score += 1;
+    return { question, answer, correct, score: correct ? 1 : 0, correctAnswer };
+  });
+
+  const totalScore = Object.values(totals).reduce((sum, item) => sum + item.score, 0);
+  const totalMax = Object.values(totals).reduce((sum, item) => sum + item.max, 0);
+  const percent = Math.round((totalScore / totalMax) * 100);
+  return { totals, details, totalScore, totalMax, percent };
+}
+
+function getExamPracticeAdvice(percent) {
+  if (percent >= 80) return 'Goed bezig. Je kunt de technieken al goed toepassen.';
+  if (percent >= 60) return 'Je basis is voldoende. Oefen vooral met toepassen en uitleggen waarom je een techniek kiest.';
+  return 'Begin opnieuw met Overzicht, Flashcards en Praktijktrainer. Daarna kun je het oefenexamen opnieuw maken.';
+}
+
+function renderExamPracticeResult() {
+  const box = document.getElementById('examPracticeBox');
+  if (!box || !examPractice?.result) return;
+
+  const usedSeconds = Math.min(examPractice.durationSeconds, Math.floor(((examPractice.finishedAt || Date.now()) - examPractice.startedAt) / 1000));
+  const result = examPractice.result;
+  const wrongItems = result.details.filter((item) => !item.correct);
+
+  box.innerHTML = `
+    <article class="card">
+      <h3>Resultaten oefenexamen</h3>
+      <div class="kv"><strong>Naam</strong><span>${examPractice.meta.naam}</span></div>
+      <div class="kv"><strong>Klas</strong><span>${examPractice.meta.klas}</span></div>
+      <div class="kv"><strong>Datum</strong><span>${examPractice.meta.datum}</span></div>
+      <div class="kv"><strong>Tijdsduur gebruikt</strong><span>${formatExamTime(usedSeconds)}</span></div>
+      <div class="kv"><strong>Aantal vragen</strong><span>${examPractice.questions.length}</span></div>
+      <div class="kv"><strong>Totaalscore</strong><span>${result.percent}%</span></div>
+      <p class="notice">${getExamPracticeAdvice(result.percent)}</p>
+      ${renderExamPracticeScoreTable(result.totals)}
+      <div class="toolbar">
+        <button type="button" onclick="sendExamPracticeReport()">Verstuur resultaten naar docent</button>
+        <button type="button" onclick="copyExamPracticeReport()">Kopieer resultaten</button>
+        <button type="button" onclick="resetExamPractice()">Nieuw oefenexamen</button>
+      </div>
+    </article>
+    <article class="card">
+      <h3>Fout beantwoorde vragen en open-vraagcontrole</h3>
+      ${wrongItems.length ? wrongItems.map(renderExamPracticeDetail).join('') : '<p>Geen fout beantwoorde vragen.</p>'}
+    </article>`;
+}
+
+function renderExamPracticeScoreTable(totals) {
+  return `
+    <table>
+      <tr><th>Onderdeel</th><th>Score</th><th>Maximaal</th></tr>
+      ${Object.values(totals).map((item) => `<tr><td>${item.label}</td><td>${item.score.toFixed(1)}</td><td>${item.max}</td></tr>`).join('')}
+    </table>`;
+}
+
+function renderExamPracticeDetail(item, index) {
+  const question = item.question;
+  if (question.type === 'open') {
+    return `
+      <article class="card" style="background:white">
+        <span class="badge">Open vraag</span>
+        <p><strong>${index + 1}. ${question.question}</strong></p>
+        <p><strong>Antwoord student:</strong> ${item.answer || 'Geen antwoord'}</p>
+        <p><strong>Gevonden trefwoorden:</strong> ${item.found.length ? item.found.join(', ') : 'geen'}</p>
+        <p><strong>Ontbrekende trefwoorden:</strong> ${item.missing.length ? item.missing.join(', ') : 'geen'}</p>
+        <p><strong>Voorbeeldantwoord:</strong> ${question.model}</p>
+      </article>`;
+  }
+
+  const given = item.answer === undefined ? 'Geen antwoord' : (question.type === 'tf' ? (item.answer === 'true' ? 'Waar' : 'Niet waar') : question.options[Number(item.answer)]);
+  return `
+    <article class="card" style="background:white">
+      <span class="badge">${question.label}</span>
+      <p><strong>${index + 1}. ${question.question}</strong></p>
+      <p><strong>Antwoord student:</strong> ${given}</p>
+      <p><strong>Juiste antwoord:</strong> ${item.correctAnswer}</p>
+      <p class="small">${question.why}</p>
+    </article>`;
+}
+
+function buildExamPracticeReport() {
+  if (!examPractice?.result) return '';
+  const result = examPractice.result;
+  const lines = [
+    'Oefenexamen Warme Bereidingstechnieken',
+    `Naam: ${examPractice.meta.naam}`,
+    `Klas: ${examPractice.meta.klas}`,
+    `Datum: ${examPractice.meta.datum}`,
+    `Totaalscore: ${result.percent}%`,
+    '',
+    'Score per onderdeel:'
+  ];
+
+  Object.values(result.totals).forEach((item) => lines.push(`- ${item.label}: ${item.score.toFixed(1)} / ${item.max}`));
+  lines.push('', 'Fout beantwoorde vragen en open vragen:');
+
+  result.details.filter((item) => !item.correct || item.question.type === 'open').forEach((item, index) => {
+    lines.push(`${index + 1}. ${item.question.question}`);
+    if (item.question.type === 'open') {
+      lines.push(`Antwoord: ${item.answer || 'Geen antwoord'}`);
+      lines.push(`Gevonden trefwoorden: ${item.found.length ? item.found.join(', ') : 'geen'}`);
+      lines.push(`Ontbrekende trefwoorden: ${item.missing.length ? item.missing.join(', ') : 'geen'}`);
+    } else {
+      lines.push(`Juiste antwoord: ${item.correctAnswer}`);
+    }
+    lines.push('');
+  });
+
+  return lines.join('\n');
+}
+
+function sendExamPracticeReport() {
+  const subject = `Oefenexamen Warme Bereidingstechnieken - ${examPractice?.meta?.naam || ''}`;
+  const body = buildExamPracticeReport();
+  window.location.href = `mailto:DOCENT_EMAIL_HIER?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
+async function copyExamPracticeReport() {
+  const report = buildExamPracticeReport();
+  try {
+    await navigator.clipboard.writeText(report);
+    alert('Resultaten gekopieerd.');
+  } catch (error) {
+    const box = document.getElementById('exportBox');
+    if (box) box.value = report;
+    alert('Kopieren lukte niet automatisch. Het rapport staat in de docent-exportbox.');
+  }
+}
+
+function resetExamPractice() {
+  clearInterval(examTimerId);
+  examPractice = null;
+  clearExamPracticeDraft();
+  renderExamPractice();
+}
+
+function restoreExamPracticeDraft() {
+  try {
+    const draft = JSON.parse(localStorage.getItem('wbt_exam_practice') || 'null');
+    if (!draft || draft.status !== 'running') return;
+    examPractice = draft;
+    const elapsed = Math.floor((Date.now() - examPractice.startedAt) / 1000);
+    examPractice.remainingSeconds = Math.max(0, examPractice.durationSeconds - elapsed);
+    if (examPractice.remainingSeconds <= 0) {
+      finishExamPractice(true);
+    } else {
+      startExamPracticeTimer();
+    }
+  } catch (error) {
+    clearExamPracticeDraft();
+  }
+}
+
+function renderGlossary() {
+  const query = (document.getElementById('glossarySearch')?.value || '').toLowerCase();
+  const terms = vaktaal.filter((item) => `${item.term} ${item.uitleg}`.toLowerCase().includes(query));
+
+  document.getElementById('glossaryBox').innerHTML = terms.map((item) => `
+    <article class="card">
+      <h3>${item.term}</h3>
+      <p>${item.uitleg}</p>
+    </article>`).join('');
+}
+
+function populateFlashFilters() {
+  const select = document.getElementById('flashFilter');
+  if (!select) return;
+  const techniques = [...new Set(flashcards.map((card) => card.techniek))];
+  select.innerHTML = ['<option value="Alle">Alle technieken</option>', ...techniques.map((name) => `<option value="${name}">${name}</option>`)].join('');
+}
+
+function renderMeatTable() {
+  const query = (document.getElementById('meatSearch')?.value || '').toLowerCase();
+  const rows = meatRows.filter((row) => row.join(' ').toLowerCase().includes(query));
+
+  document.getElementById('meatTable').innerHTML = [
+    '<tr><th>Product</th><th>Roerbakken</th><th>Bakken</th><th>Braden</th><th>Kern</th><th>Stoven</th><th>Trekken</th></tr>',
+    ...rows.map((row) => `<tr>${row.map((cell, index) => `<td>${index === 0 ? `<strong>${cell}</strong>` : cell || ''}</td>`).join('')}</tr>`)
+  ].join('');
+}
+
+function renderVisSection() {
+  document.getElementById('visCards').innerHTML = visCards.map((item) => `
+    <article class="card">
+      <h3>${item.title}</h3>
+      <p>${item.detail}</p>
+      <p><strong>Geschikt:</strong> ${item.suited}</p>
+      <p><strong>Risico:</strong> ${item.risk}</p>
+    </article>`).join('');
+  document.getElementById('visNote').textContent = visNote;
+}
+
+function renderAGFTable() {
+  document.getElementById('agfTable').innerHTML = [
+    '<tr><th>Product</th><th>Techniek</th><th>Waarom</th></tr>',
+    ...agfRows.map((row) => `<tr>${row.map((cell) => `<td>${cell}</td>`).join('')}</tr>`)
+  ].join('');
+}
+
+function exportAnswers() {
+  const data = {
+    datum: new Date().toLocaleString('nl-NL'),
+    bekende_flashcards: state.known,
+    quiz_score: `${state.quizCorrect || 0} goed bij ${state.quizTotal || 0} beantwoorde pogingen`,
+    open_antwoorden: state.answers
+  };
+  document.getElementById('exportBox').value = JSON.stringify(data, null, 2);
+}
+
+setupTabs();
+populateFlashFilters();
+renderFlashTechIndex();
+renderTechTable();
+renderCard();
+renderQuiz();
+renderOpenQuestions();
+renderPracticeQuestions();
+renderProductCards();
+renderExamQuestions();
+restoreExamPracticeDraft();
+renderGlossary();
+renderMeatTable();
+renderVisSection();
+renderAGFTable();
+updateProgress();
+
+</script>
+</body>
+</html>
+

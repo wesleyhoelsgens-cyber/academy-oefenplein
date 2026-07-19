@@ -22,6 +22,7 @@ Iedere nieuwe module levert het volgende volledige object op:
     year: 2,
     period: 1,
     specialSection: null,
+    educationSection: null,
     theme: "Voedingskennis",
     difficulty: "basis",
     tags: ["voeding", "voedingsstoffen", "quiz"],
@@ -44,9 +45,10 @@ Iedere nieuwe module levert het volgende volledige object op:
 | `description` | string | ja | Eén concrete zin over wat de student oefent |
 | `estimatedDuration` | string | ja | Realistische geschatte tijd voor één ronde |
 | `education` | string | ja | Opleidings-id uit de launcher |
-| `year` | integer | ja | Leerjaar, momenteel `1` of `2` |
+| `year` | integer/null | conditioneel | Leerjaar, of `null` bij plaatsing in een opleidingsonderdeel |
 | `period` | integer/null | conditioneel | Geconfigureerde periode; `null` bij plaatsing in een speciaal onderdeel |
 | `specialSection` | string/null | conditioneel | Id van een speciaal toets- of PVB-onderdeel; `null` bij plaatsing in een periode |
+| `educationSection` | string/null | conditioneel | Id van een onderdeel dat rechtstreeks onder een opleiding staat |
 | `theme` | string | ja | Zichtbare sectiekop; geen navigatieniveau |
 | `difficulty` | string | ja | `basis`, `gemiddeld` of `verdieping` |
 | `tags` | array | ja | Zoek- en beheertermen, zonder duplicaten |
@@ -90,11 +92,13 @@ Iedere nieuwe module levert het volgende volledige object op:
 
 ### Onderwijsplaatsing
 
-- Precies een van `period` en `specialSection` bevat een plaatsingswaarde.
+- Bij leerjaarplaatsing bevat `year` een waarde en precies een van `period` en `specialSection` een plaatsingswaarde; `educationSection` is dan `null`.
+- Bij plaatsing rechtstreeks onder een opleiding bevat `educationSection` een waarde en zijn `year`, `period` en `specialSection` `null`.
 - `period` moet bestaan in de configureerbare perioden van het gekozen leerjaar.
 - `specialSection` moet bestaan in `specialeOnderdelen` van het gekozen leerjaar.
 - Speciale onderdelen staan naast, en nooit binnen, de reguliere periodenavigatie.
 - Een leerjaar mag nul, een of meerdere speciale onderdelen bevatten.
+- Een opleiding mag nul, een of meerdere configureerbare `onderdelen` bevatten.
 
 ### Versies en datum
 
@@ -116,7 +120,7 @@ De huidige launcher gebruikt een compact Nederlandstalig catalogusblok. Vertaal 
 | `file` | `bestand` |
 | `status === "available"` | `beschikbaar: true` |
 
-`education`, `year` en precies een van `period` of `specialSection` bepalen waar het blok in de bestaande hiërarchie wordt geplaatst. `theme` blijft een visuele sectiekop op de gekozen overzichtspagina. De overige canonieke velden blijven onderdeel van de oplevering en kunnen later zonder betekenisverlies in een uitgebreidere catalogus worden opgenomen.
+`education` en vervolgens `year` plus `period`/`specialSection`, of `educationSection`, bepalen waar het blok in de bestaande hiërarchie wordt geplaatst. `theme` blijft een visuele sectiekop op de gekozen overzichtspagina. De overige canonieke velden blijven onderdeel van de oplevering en kunnen later zonder betekenisverlies in een uitgebreidere catalogus worden opgenomen.
 
 ```js
 {
@@ -147,7 +151,7 @@ Voeg voor een toekomstige tegel geen niet-bestaand bestand toe:
 
 - [ ] Alle verplichte canonieke velden zijn aanwezig.
 - [ ] Waarden voldoen aan type en toegestane waarden.
-- [ ] Plaatsing in opleiding, leerjaar, periode of speciaal onderdeel en thema klopt.
+- [ ] Plaatsing in opleiding, opleidingsonderdeel, leerjaar, periode of speciaal onderdeel en thema klopt.
 - [ ] `available` verwijst naar een bestaand en getest bestand.
 - [ ] Er bestaat geen tweede module met dezelfde `id` of hetzelfde bestandspad.
 - [ ] De compacte launcher-entry is inhoudelijk gelijk aan de canonieke metadata.

@@ -11,15 +11,15 @@ Gebruik deze prompt nadat een module in `modules/` is geplaatst en inhoudelijk g
 ## Variabelen
 
 - `[Bestandsnaam]`
-- `[Opleiding]`, `[Leerjaar]`, `[Plaatsingstype: periode/speciaal onderdeel]`, `[Periode of speciaal onderdeel]`, `[Thema]`
+- `[Opleiding]`, `[Leerjaar indien van toepassing]`, `[Plaatsingstype: periode/speciaal onderdeel/opleidingsonderdeel]`, `[Periode of onderdeel]`, `[Thema]`
 - `[Titel]`, `[Type]`, `[Duur]`, `[Beschrijving]`
 
 ## Prompt
 
 ```text
 Lees eerst de bestaande module modules/[Bestandsnaam], app.js en de AI Factory-
-catalogusstandaard. Integreer de module onder [Opleiding] / Leerjaar [Leerjaar] /
-[Plaatsingstype: periode/speciaal onderdeel] [Periode of speciaal onderdeel], met themakop [Thema].
+catalogusstandaard. Integreer de module onder [Opleiding] / Leerjaar [Leerjaar indien van toepassing] /
+[Plaatsingstype: periode/speciaal onderdeel/opleidingsonderdeel] [Periode of onderdeel], met themakop [Thema].
 
 Gebruik metadata uit de module. Verwachte waarden: titel [Titel], type [Type],
 duur [Duur], beschrijving [Beschrijving]. Meld verschillen voordat je ze overschrijft.
