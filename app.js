@@ -146,8 +146,28 @@ const academyData = {
             ])
         ]),
         createOpleiding("hospitality", "Hospitality", [
-            createLeerjaar(1, [1, 2, 3, 4], {}, [createEindtoetsOnderdeel()]),
-            createLeerjaar(2, [1, 2, 3, 4], {}, [createEindexamenOnderdeel()])
+            createLeerjaar(1, [1, 2, 3, 4], {
+                1: {
+                    themas: [
+                        {
+                            id: "gastvrijheid-verlenen",
+                            naam: "3414 A – Gastvrijheid verlenen",
+                            modules: [
+                                {
+                                    id: "3414a-gastvrijheid-verlenen-oefenapp",
+                                    titel: "3414 A – Gastvrijheid verlenen",
+                                    type: "Examentraining",
+                                    duur: "45–60 minuten",
+                                    beschrijving: "Oefen begrippen, flashcards, praktijksituaties en examenvragen over gastvrijheid verlenen.",
+                                    bestand: "modules/hospitality/leerjaar-1/periode-1/gastvrijheid-verlenen/3414a-gastvrijheid-verlenen-oefenapp.html",
+                                    beschikbaar: true
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }, [createEindtoetsOnderdeel()]),
+            createLeerjaar(2, [5, 6], {}, [createEindexamenOnderdeel()])
         ]),
         createOpleiding("burgerschap", "Burgerschap", [
             createLeerjaar(1, [1, 2, 3, 4]),

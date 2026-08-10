@@ -25,6 +25,13 @@ Start hem via **Terminal > Run Task... > Git Assistent**.
 
 Het menu blijft actief totdat je `0` of `Q` kiest.
 
+### Project Health Check
+
+Project Health Check controleert read-only of de projectbasis, documentatie en oefenmodules
+kloppen. De taak meldt problemen, maar herstelt of verplaatst zelf niets.
+
+Start hem via **Terminal > Run Task... > Project Health Check**.
+
 ## Documentatie
 
 Technische uitleg staat in de modulemap.

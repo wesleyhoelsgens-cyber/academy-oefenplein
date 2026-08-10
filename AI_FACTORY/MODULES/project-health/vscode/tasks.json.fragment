@@ -1,0 +1,21 @@
+{
+    "label": "Project Health Check",
+    "type": "shell",
+    "command": "powershell.exe",
+    "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}\\AI_FACTORY\\MODULES\\project-health\\scripts\\Test-ProjectHealth.ps1"
+    ],
+    "options": {
+        "cwd": "${workspaceFolder}"
+    },
+    "problemMatcher": [],
+    "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+    }
+}

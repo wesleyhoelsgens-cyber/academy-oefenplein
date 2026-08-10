@@ -20,6 +20,7 @@ De Academy Launcher blijft een eenvoudige catalogus. Iedere oefening blijft een 
 | [MODULE_CHECKLIST.md](MODULE_CHECKLIST.md) | Acceptatie- en kwaliteitscontrole | Voor oplevering en na integratie |
 | [PROMPTS/README.md](PROMPTS/README.md) | Index van direct bruikbare AI-prompts | Voor creatie, beheer, review en releasewerk |
 | [MODULES/inbox-workflow/README.md](MODULES/inbox-workflow/README.md) | Projectonafhankelijke inboxanalyse en gecontroleerde moduleregistratie | Voor iedere nieuwe aangeleverde HTML-module |
+| [MODULES/project-health/README.md](MODULES/project-health/README.md) | Read-only controle van projectbasis, documentatie en moduleregistratie | Voor structurele controle en releasevoorbereiding |
 | [CHANGELOG.md](CHANGELOG.md) | Historie van versies en wijzigingen | Bij iedere Factory-release |
 | [ROADMAP.md](ROADMAP.md) | Richting voor toekomstige uitbreidingen | Bij planning en besluitvorming |
 

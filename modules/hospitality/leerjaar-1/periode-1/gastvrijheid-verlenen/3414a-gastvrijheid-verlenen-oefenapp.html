@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3414 A – Gastvrijheid verlenen | Oefenapp</title>
+<style>
+:root {
+  --bg:#f5f6f7; --card:#ffffff; --text:#1e2a32; --muted:#66737d; --accent:#6d3f91;
+  --accent2:#ece4f4; --good:#2d7a4b; --bad:#a84343; --line:#dde2e6;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.45}
+header{background:var(--card);border-bottom:1px solid var(--line);padding:18px 20px;position:sticky;top:0;z-index:5}
+.wrap{max-width:1100px;margin:auto}
+.brand{display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap}
+h1{font-size:1.35rem;margin:0} .sub{color:var(--muted);font-size:.93rem}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+nav button{border:1px solid var(--line);background:white;padding:9px 12px;border-radius:10px;cursor:pointer;font-weight:700}
+nav button.active{background:var(--accent);color:white;border-color:var(--accent)}
+main{max-width:1100px;margin:22px auto;padding:0 16px 40px}
+.panel{display:none} .panel.active{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,.03)}
+.hero{display:grid;grid-template-columns:1.3fr .7fr;gap:18px}
+@media(max-width:760px){.hero{grid-template-columns:1fr}}
+.badge{display:inline-block;background:var(--accent2);color:var(--accent);padding:5px 9px;border-radius:999px;font-size:.8rem;font-weight:700}
+.progress{height:12px;background:#e8ebed;border-radius:999px;overflow:hidden}
+.progress>div{height:100%;background:var(--accent);width:0%}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.term-card{cursor:pointer;min-height:145px}
+.term-card h3{margin-top:5px}
+.small{font-size:.9rem;color:var(--muted)}
+.flash{min-height:270px;display:flex;align-items:center;justify-content:center;text-align:center;cursor:pointer}
+.flash .front{font-size:2rem;font-weight:800} .flash .back{display:none}
+.flash.flipped .front{display:none} .flash.flipped .back{display:block}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.btn{border:0;background:var(--accent);color:white;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer}
+.btn.secondary{background:white;color:var(--text);border:1px solid var(--line)}
+.option{display:block;width:100%;text-align:left;border:1px solid var(--line);background:white;padding:12px;margin:8px 0;border-radius:10px;cursor:pointer}
+.option.correct{border-color:var(--good);background:#edf8f1} .option.wrong{border-color:var(--bad);background:#fff0f0}
+.feedback{margin-top:12px;padding:12px;border-radius:10px;background:#f2f4f6;display:none}
+.scorebox{font-size:1.25rem;font-weight:800}
+table{width:100%;border-collapse:collapse} th,td{padding:9px;border-bottom:1px solid var(--line);text-align:left}
+footer{text-align:center;color:var(--muted);padding:20px}
+</style>
+</head>
+<body>
+<header>
+<div class="wrap">
+<div class="brand">
+<div><h1>3414 A – Gastvrijheid verlenen</h1><div class="sub">Examentraining • SVO Oefenplein</div></div>
+<div class="badge">Examenbasis</div>
+</div>
+<nav id="nav">
+<button data-tab="start" class="active">Start</button>
+<button data-tab="leren">Leren</button>
+<button data-tab="flash">Flashcards</button>
+<button data-tab="oefenen">Oefenen</button>
+<button data-tab="examen">Oefenexamen</button>
+<button data-tab="resultaat">Resultaat</button>
+</nav>
+</div>
+</header>
+
+<main>
+<section id="start" class="panel active">
+<div class="hero">
+<div class="card">
+<span class="badge">Doel</span>
+<h2>Ken niet alleen het antwoord. Begrijp waarom het klopt.</h2>
+<p>Deze module traint de begrippen en kennis die horen bij examen 3414 A. De oefenvragen zijn nieuw en gebruiken vergelijkbare beroepssituaties.</p>
+<div class="controls"><button class="btn" onclick="goTab('leren')">Start met leren</button><button class="btn secondary" onclick="goTab('examen')">Direct oefenexamen</button></div>
+</div>
+<div class="card">
+<h3>Jouw voortgang</h3>
+<div class="progress"><div id="mainProgress"></div></div>
+<p class="small" id="progressText">Nog niet gestart.</p>
+</div>
+</div>
+<div class="grid">
+<div class="card"><b>1. Begrippen leren</b><p class="small">Uitleg + praktijkvoorbeeld.</p></div>
+<div class="card"><b>2. Flashcards</b><p class="small">Begrip ↔ betekenis.</p></div>
+<div class="card"><b>3. Oefenvragen</b><p class="small">Direct feedback en uitleg.</p></div>
+<div class="card"><b>4. Oefenexamen</b><p class="small">17 willekeurige vragen.</p></div>
+</div>
+</section>
+
+<section id="leren" class="panel">
+<div class="card"><h2>Begrippen leren</h2><p>Klik op een begrip om het praktijkvoorbeeld te bekijken.</p></div>
+<div id="termsGrid" class="grid"></div>
+</section>
+
+<section id="flash" class="panel">
+<div class="card"><h2>Flashcards</h2><p>Klik op de kaart om het antwoord te zien.</p></div>
+<div class="card flash" id="flashCard" onclick="flipFlash()"><div class="front" id="flashFront"></div><div class="back" id="flashBack"></div></div>
+<div class="controls"><button class="btn secondary" onclick="prevFlash()">← Vorige</button><button class="btn" onclick="nextFlash()">Volgende →</button></div>
+</section>
+
+<section id="oefenen" class="panel">
+<div class="card"><h2>Oefenvragen</h2><p>Beantwoord de vraag en lees waarom het antwoord klopt.</p></div>
+<div class="card" id="practiceBox"></div>
+</section>
+
+<section id="examen" class="panel">
+<div class="card"><h2>Oefenexamen</h2><p>17 willekeurige vragen. Je krijgt de uitleg pas na het afronden.</p><div class="controls"><button class="btn" onclick="startExam()">Start nieuw oefenexamen</button></div></div>
+<div id="examBox"></div>
+</section>
+
+<section id="resultaat" class="panel">
+<div class="card"><h2>Mijn resultaat</h2><div id="resultContent"></div></div>
+</section>
+</main>
+<footer>3414 A – Gastvrijheid verlenen • Zelfstandige oefenmodule</footer>
+
+<script>
+const TERMS = [{"term": "Bedrijfsformule", "def": "De manier waarop een bedrijf bepaalt wat het wil uitstralen en hoe het zich naar gasten presenteert.", "example": "Een lunchroom kiest voor gezond, snel en betaalbaar en richt menu, inrichting en service daarop.", "cat": "Bedrijf"}, {"term": "Imago", "def": "Het beeld dat gasten van een bedrijf hebben.", "example": "Een koffiezaak staat bekend als modern, duurzaam en gastvrij.", "cat": "Bedrijf"}, {"term": "Horecabranche", "def": "Bedrijven en organisaties waar eten, drinken, verblijf of gastvrijheid een belangrijk onderdeel van de dienstverlening is.", "example": "Een sportkantine ontvangt gasten en verkoopt eten en drinken.", "cat": "Bedrijf"}, {"term": "Doelgroep", "def": "De groep gasten waarop een bedrijf zich vooral richt.", "example": "Een familierestaurant richt zich vooral op gezinnen met kinderen.", "cat": "Bedrijf"}, {"term": "Product", "def": "Iets tastbaars dat een bedrijf aanbiedt of verkoopt.", "example": "Een kop koffie, lunchgerecht of hotelontbijt.", "cat": "Bedrijf"}, {"term": "Dienst", "def": "Een service of handeling die een bedrijf aan een gast aanbiedt.", "example": "Bediening aan tafel of het verzorgen van een overnachting.", "cat": "Bedrijf"}, {"term": "Commercieel aanbod", "def": "Alle producten en diensten die een bedrijf aan gasten verkoopt.", "example": "Een hotel verkoopt kamers, ontbijt, drankjes en extra services.", "cat": "Bedrijf"}, {"term": "Serviceniveau", "def": "De mate en manier waarop een gast wordt geholpen en bediend.", "example": "Zelfbediening heeft een ander serviceniveau dan bediening aan tafel.", "cat": "Bedrijf"}, {"term": "Gastbeleving", "def": "Hoe een gast het totale bezoek ervaart en welk gevoel daarbij ontstaat.", "example": "Een gast voelt zich welkom doordat hij snel wordt begroet en goed geholpen.", "cat": "Gastbeleving"}, {"term": "Sfeer", "def": "De uitstraling en het gevoel dat een omgeving bij gasten oproept.", "example": "Verlichting, muziek, inrichting en gedrag van medewerkers beïnvloeden de sfeer.", "cat": "Gastbeleving"}, {"term": "Guest journey", "def": "De reis die een gast doorloopt vóór, tijdens en na een bezoek.", "example": "Oriëntatie, aankomst, verblijf, afsluiting en terugblik.", "cat": "Gastbeleving"}, {"term": "Verblijfsfase", "def": "De fase waarin de gast daadwerkelijk bij het bedrijf aanwezig is en gebruikmaakt van de dienstverlening.", "example": "De gast zit in het restaurant, wordt geholpen en krijgt eten en drinken.", "cat": "Gastbeleving"}, {"term": "Gastgericht handelen", "def": "Je gedrag en keuzes afstemmen op wat de gast nodig heeft.", "example": "Je merkt dat een gast twijfelt en biedt vriendelijk hulp aan.", "cat": "Gastbeleving"}, {"term": "Omgangsvormen", "def": "De manier waarop je je netjes en professioneel gedraagt tegenover gasten en collega's.", "example": "Je begroet een gast vriendelijk en behandelt collega's met respect.", "cat": "Communicatie"}, {"term": "Verbale communicatie", "def": "Communicatie met woorden: wat je zegt en hoe je het zegt.", "example": "‘Goedemiddag, welkom. Kan ik u helpen?’", "cat": "Communicatie"}, {"term": "Non-verbale communicatie", "def": "Communicatie zonder woorden, zoals houding, gezichtsuitdrukking, oogcontact en gebaren.", "example": "Je glimlacht, maakt oogcontact en hebt een open houding.", "cat": "Communicatie"}, {"term": "Vriendelijke ontvangst", "def": "Een gast op een open, respectvolle en gastgerichte manier welkom heten.", "example": "Je maakt oogcontact, glimlacht en begroet de gast vriendelijk.", "cat": "Communicatie"}, {"term": "Procedure", "def": "Een afgesproken vaste werkwijze voor een bepaalde taak of situatie.", "example": "Na het schoonmaken wordt een hotelkamer volgens vaste stappen gecontroleerd.", "cat": "Regels & veiligheid"}, {"term": "Huisregel", "def": "Een regel die een bedrijf zelf opstelt voor gasten of medewerkers.", "example": "Op het terras mag geen zelf meegebracht eten worden genuttigd.", "cat": "Regels & veiligheid"}, {"term": "Wettelijke regel", "def": "Een regel die vanuit de wet geldt en waaraan een bedrijf zich moet houden.", "example": "Een bedrijf moet zich houden aan regels die wettelijk zijn vastgelegd.", "cat": "Regels & veiligheid"}, {"term": "Hygiënecode", "def": "Praktische regels en werkwijzen om veilig en hygiënisch met voedsel te werken.", "example": "Voedsel op de juiste temperatuur bewaren en kruisbesmetting voorkomen.", "cat": "Regels & veiligheid"}, {"term": "Onveilige situatie", "def": "Een situatie waarin iemand gevaar kan lopen.", "example": "Een natte vloer zonder waarschuwing kan tot uitglijden leiden.", "cat": "Regels & veiligheid"}, {"term": "Onveilig gedrag", "def": "Gedrag waardoor gevaar voor jezelf, collega's of gasten ontstaat.", "example": "Een medewerker negeert bewust een veiligheidsafspraak.", "cat": "Regels & veiligheid"}, {"term": "Melden", "def": "Een bijzonderheid of risico doorgeven aan de juiste verantwoordelijke persoon.", "example": "Je vertelt je leidinggevende dat materiaal defect is.", "cat": "Regels & veiligheid"}, {"term": "Leidinggevende", "def": "De persoon die verantwoordelijk is voor het aansturen van medewerkers en het nemen van beslissingen.", "example": "Een teamleider ontvangt een melding over een onveilige situatie.", "cat": "Regels & veiligheid"}, {"term": "Agressieve gast", "def": "Een gast die zich dreigend, intimiderend of agressief gedraagt.", "example": "Een gast weigert na meerdere verzoeken het restaurant te verlaten.", "cat": "Regels & veiligheid"}, {"term": "Duurzaamheid", "def": "Zo werken en kiezen dat mens, milieu en toekomst zo min mogelijk worden belast.", "example": "Minder verspillen, materialen opnieuw gebruiken en bewust inkopen.", "cat": "Duurzaamheid & diversiteit"}, {"term": "Hergebruik", "def": "Een materiaal of product opnieuw gebruiken in plaats van het direct weg te gooien.", "example": "Kartonnen dozen van leveranciers opnieuw gebruiken als opbergdozen.", "cat": "Duurzaamheid & diversiteit"}, {"term": "SDG's", "def": "Wereldwijde doelen voor een duurzamere en betere wereld.", "example": "Doelen rond gezondheid, gelijkheid, verantwoord produceren en klimaat.", "cat": "Duurzaamheid & diversiteit"}, {"term": "Diversiteit", "def": "Verschillen tussen mensen, bijvoorbeeld in leeftijd, cultuur, achtergrond of ervaring.", "example": "In één team werken mensen van verschillende leeftijden en achtergronden samen.", "cat": "Duurzaamheid & diversiteit"}, {"term": "Mise-en-place", "def": "Alle voorbereidende werkzaamheden voordat de gasten of de service beginnen.", "example": "Glazen klaarzetten, bestek poleren en materialen controleren.", "cat": "Vaktermen"}, {"term": "Walk-in / passant", "def": "Een gast die zonder reservering binnenkomt en vraagt of er plaats is.", "example": "Twee gasten lopen spontaan een restaurant binnen voor een tafel.", "cat": "Vaktermen"}, {"term": "Arrivé", "def": "Vakterm om aan te geven dat gasten arriveren of binnenkomen.", "example": "De bediening krijgt door dat een gereserveerde tafel is gearriveerd.", "cat": "Vaktermen"}, {"term": "Couvert", "def": "Een gedekte plaats aan tafel voor één persoon, met bijvoorbeeld bord, bestek en glas.", "example": "Een tafel voor vier gasten wordt met vier couverts gedekt.", "cat": "Vaktermen"}, {"term": "Pax", "def": "Vakterm voor het aantal personen of gasten.", "example": "Een reservering voor acht personen wordt aangeduid als 8 pax.", "cat": "Vaktermen"}, {"term": "Debarrasseren", "def": "Gebruikt servies, glazen en bestek van tafel afruimen nadat gasten klaar zijn.", "example": "Na het hoofdgerecht haalt de medewerker de gebruikte borden weg.", "cat": "Vaktermen"}, {"term": "Team", "def": "Een groep mensen die samenwerkt aan een gezamenlijk doel.", "example": "Keuken en bediening werken samen om gasten op tijd te helpen.", "cat": "Samenwerken"}, {"term": "Samenwerken", "def": "Taken, informatie en verantwoordelijkheid met elkaar afstemmen om samen resultaat te bereiken.", "example": "De bediening meldt een wijziging direct aan de keuken.", "cat": "Samenwerken"}, {"term": "Taakverdeling", "def": "Afspraken over wie welke werkzaamheden uitvoert.", "example": "Eén medewerker ontvangt gasten, een ander verzorgt de drankjes.", "cat": "Samenwerken"}, {"term": "Afstemmen", "def": "Met collega's overleggen en informatie delen zodat werkzaamheden goed op elkaar aansluiten.", "example": "De bediening vraagt aan de keuken wanneer een gerecht klaar is.", "cat": "Samenwerken"}];
+const QUESTIONS = [{"q": "Een lunchroom richt zich op studenten, biedt snelle service en betaalbare lunchdeals. Welk begrip gaat over de groep waarop het bedrijf zich richt?", "opts": ["Doelgroep", "Imago", "Procedure"], "a": 0, "why": "De doelgroep is de groep gasten waarop een bedrijf zich vooral richt.", "cat": "Bedrijf"}, {"q": "Een hotel verkoopt kamers, ontbijt, drankjes en fietsverhuur. Hoe noem je dit totaal?", "opts": ["Commercieel aanbod", "Serviceniveau", "Guest journey"], "a": 0, "why": "Het commerciële aanbod is het totaal aan producten en diensten dat aan gasten wordt verkocht.", "cat": "Bedrijf"}, {"q": "Een luxe restaurant kiest voor persoonlijke bediening aan tafel. Welk begrip past hierbij?", "opts": ["Serviceniveau", "Hergebruik", "Huisregel"], "a": 0, "why": "Serviceniveau gaat over de mate en manier waarop een gast wordt geholpen.", "cat": "Bedrijf"}, {"q": "Een koffiezaak staat bekend als duurzaam en modern. Welk begrip beschrijft dit beeld bij gasten?", "opts": ["Imago", "Doelgroep", "Couvert"], "a": 0, "why": "Imago is het beeld dat gasten van een bedrijf hebben.", "cat": "Bedrijf"}, {"q": "Een gast bekijkt eerst online het menu, bezoekt daarna het restaurant en schrijft later een review. Welk begrip beschrijft deze hele reis?", "opts": ["Guest journey", "Mise-en-place", "Taakverdeling"], "a": 0, "why": "De guest journey omvat de reis vóór, tijdens en na het bezoek.", "cat": "Gastbeleving"}, {"q": "Een gast zit aan tafel, krijgt uitleg over het menu en wordt bediend. In welke fase zit de gast?", "opts": ["Verblijfsfase", "Oriëntatiefase", "Terugblik"], "a": 0, "why": "Tijdens de verblijfsfase is de gast daadwerkelijk in het bedrijf en gebruikt hij de dienstverlening.", "cat": "Gastbeleving"}, {"q": "Welke combinatie beïnvloedt vooral de sfeer in een restaurant?", "opts": ["Verlichting en muziek", "KvK-nummer en postcode", "Aantal leveranciers en facturen"], "a": 0, "why": "Sfeer wordt onder andere bepaald door verlichting, muziek, inrichting en gedrag van medewerkers.", "cat": "Gastbeleving"}, {"q": "Een medewerker merkt dat een gast twijfelt en biedt uit zichzelf hulp aan. Welk begrip past het best?", "opts": ["Gastgericht handelen", "Debarrasseren", "Wettelijke regel"], "a": 0, "why": "Gastgericht handelen betekent je gedrag afstemmen op wat de gast nodig heeft.", "cat": "Gastbeleving"}, {"q": "Een medewerker zegt: ‘Goedemiddag, welkom!’ Welke vorm van communicatie is dit?", "opts": ["Verbale communicatie", "Non-verbale communicatie", "Procedure"], "a": 0, "why": "Verbale communicatie gebeurt met woorden.", "cat": "Communicatie"}, {"q": "Een medewerker glimlacht en maakt oogcontact zonder iets te zeggen. Welke vorm van communicatie is dit?", "opts": ["Non-verbale communicatie", "Verbale communicatie", "Commercieel aanbod"], "a": 0, "why": "Houding, gezichtsuitdrukking en oogcontact zijn non-verbaal.", "cat": "Communicatie"}, {"q": "Een bedrijf heeft afgesproken dat een kamer na schoonmaak altijd volgens vijf vaste stappen wordt gecontroleerd. Wat is dit?", "opts": ["Procedure", "Huisregel", "SDG"], "a": 0, "why": "Een procedure is een afgesproken vaste werkwijze.", "cat": "Regels & veiligheid"}, {"q": "Een terras staat niet toe dat gasten zelf meegebracht eten opeten. Wat voor regel is dit meestal?", "opts": ["Huisregel", "Hygiënecode", "Guest journey"], "a": 0, "why": "Een huisregel wordt door het bedrijf zelf opgesteld.", "cat": "Regels & veiligheid"}, {"q": "Een medewerker ziet een kapotte stoel waar een gast op kan gaan zitten. Wat moet hij als eerste herkennen?", "opts": ["Een onveilige situatie", "Een doelgroep", "Een commercieel aanbod"], "a": 0, "why": "Een kapotte stoel kan gevaar opleveren en is dus een onveilige situatie.", "cat": "Regels & veiligheid"}, {"q": "Waarom meld je een onveilige situatie bij je leidinggevende?", "opts": ["Zodat er actie kan worden genomen en herhaling of schade wordt voorkomen", "Omdat je dan zelf niets meer hoeft te doen", "Omdat gasten dit altijd verplicht vragen"], "a": 0, "why": "Melden zorgt dat de verantwoordelijke persoon passende maatregelen kan nemen.", "cat": "Regels & veiligheid"}, {"q": "Een bedrijf gebruikt stevige leveranciersdozen opnieuw voor opslag. Welk begrip past hierbij?", "opts": ["Hergebruik", "Diversiteit", "Serviceniveau"], "a": 0, "why": "Hergebruik betekent dat materiaal opnieuw wordt gebruikt in plaats van direct weggegooid.", "cat": "Duurzaamheid & diversiteit"}, {"q": "Waar staan SDG's voor in deze context?", "opts": ["Wereldwijde doelen voor een duurzamere en betere wereld", "Interne personeelsregels", "Vaktermen voor bediening"], "a": 0, "why": "SDG's zijn de Sustainable Development Goals: wereldwijde duurzaamheidsdoelen.", "cat": "Duurzaamheid & diversiteit"}, {"q": "In een team werken collega's van verschillende leeftijden en culturele achtergronden. Welk begrip past hierbij?", "opts": ["Diversiteit", "Mise-en-place", "Imago"], "a": 0, "why": "Diversiteit gaat over verschillen tussen mensen binnen bijvoorbeeld een team.", "cat": "Duurzaamheid & diversiteit"}, {"q": "Voor opening worden glazen klaargezet en bestek gepolijst. Welke vakterm hoort hierbij?", "opts": ["Mise-en-place", "Debarrasseren", "Pax"], "a": 0, "why": "Mise-en-place zijn de voorbereidende werkzaamheden vóór de service.", "cat": "Vaktermen"}, {"q": "Twee gasten komen zonder reservering binnen en vragen om een tafel. Hoe noem je deze gasten?", "opts": ["Walk-ins / passanten", "Pax", "Couverts"], "a": 0, "why": "Een walk-in of passant komt zonder reservering binnen.", "cat": "Vaktermen"}, {"q": "Een reservering is voor 12 personen. Welke vakterm gebruik je voor het aantal personen?", "opts": ["Pax", "Arrivé", "Couvert"], "a": 0, "why": "Pax wordt gebruikt voor het aantal personen/gasten.", "cat": "Vaktermen"}, {"q": "Een gedekte plaats aan tafel voor één persoon heet een...", "opts": ["Couvert", "Walk-in", "Mise-en-place"], "a": 0, "why": "Een couvert is één gedekte plaats voor één gast.", "cat": "Vaktermen"}, {"q": "Na het hoofdgerecht haalt de medewerker de gebruikte borden van tafel. Welke vakterm past hierbij?", "opts": ["Debarrasseren", "Arrivé", "Pax"], "a": 0, "why": "Debarrasseren betekent gebruikt servies afruimen.", "cat": "Vaktermen"}, {"q": "Een collega geeft direct aan de keuken door dat een gast een wijziging heeft. Welk teamworkbegrip past het best?", "opts": ["Afstemmen", "Imago", "Hergebruik"], "a": 0, "why": "Afstemmen betekent informatie delen zodat werkzaamheden goed op elkaar aansluiten.", "cat": "Samenwerken"}, {"q": "Eén medewerker ontvangt gasten en een ander verzorgt drankjes. Welk begrip beschrijft deze afspraak?", "opts": ["Taakverdeling", "Gastbeleving", "Hygiënecode"], "a": 0, "why": "Taakverdeling gaat over wie welke werkzaamheden uitvoert.", "cat": "Samenwerken"}, {"q": "Welke combinatie hoort het best bij een goed functionerend team?", "opts": ["Duidelijke communicatie en afspraken nakomen", "Iedereen werkt alleen en deelt niets", "Taken blijven onduidelijk zodat iedereen flexibel is"], "a": 0, "why": "Een goed team stemt af, communiceert duidelijk en komt afspraken na.", "cat": "Samenwerken"}, {"q": "Een medewerker ontvangt een gast met een glimlach én zegt vriendelijk goedemiddag. Wat combineert hij?", "opts": ["Verbale en non-verbale communicatie", "Procedure en huisregel", "Product en dienst"], "a": 0, "why": "De woorden zijn verbaal; glimlach en houding zijn non-verbaal.", "cat": "Communicatie"}, {"q": "Een bedrijf gebruikt vaste voedselveiligheidsafspraken om kruisbesmetting te voorkomen. Welk begrip hoort hierbij?", "opts": ["Hygiënecode", "Imago", "Verblijfsfase"], "a": 0, "why": "De hygiënecode beschrijft praktische regels voor veilig en hygiënisch werken met voedsel.", "cat": "Regels & veiligheid"}, {"q": "Een gast wordt steeds dreigender en weigert na herhaalde verzoeken te vertrekken. Welke gedachte is professioneel?", "opts": ["Schakel passende hulp in volgens de situatie en bedrijfsafspraken", "Ga alleen harder terugschreeuwen", "Negeer de situatie altijd"], "a": 0, "why": "Bij agressie moet je veilig handelen en passende hulp inschakelen volgens procedures en ernst.", "cat": "Regels & veiligheid"}, {"q": "Een restaurant kiest bewust voor lokale producten en minder verpakkingsmateriaal. Welk begrip past hierbij?", "opts": ["Duurzaamheid", "Arrivé", "Taakverdeling"], "a": 0, "why": "Duurzaamheid gaat over bewuste keuzes voor mens, milieu en toekomst.", "cat": "Duurzaamheid & diversiteit"}, {"q": "Een gast komt binnen en de bediening krijgt door dat de gereserveerde tafel is aangekomen. Welke vakterm past?", "opts": ["Arrivé", "Debarrasseren", "Couvert"], "a": 0, "why": "Arrivé verwijst naar het arriveren of binnenkomen van gasten.", "cat": "Vaktermen"}];
+let flashIndex=0, practiceIndex=0, practiceCorrect=0, practiceAnswered=0;
+let examQuestions=[], examAnswers=[], examDone=false;
+
+function goTab(id){
+ document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+ document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ const b=document.querySelector(`nav button[data-tab="${id}"]`); if(b)b.classList.add('active');
+ if(id==='resultaat') renderResult();
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>goTab(b.dataset.tab));
+
+function renderTerms(){
+ const g=document.getElementById('termsGrid'); g.innerHTML='';
+ TERMS.forEach((t,i)=>{
+  const d=document.createElement('div'); d.className='card term-card';
+  d.innerHTML=`<span class="badge">${t.cat}</span><h3>${t.term}</h3><p>${t.def}</p><p class="small" id="ex${i}" style="display:none"><b>Praktijk:</b> ${t.example}</p>`;
+  d.onclick=()=>{const x=d.querySelector('#ex'+i);x.style.display=x.style.display==='none'?'block':'none';markLearned(t.term)};
+  g.appendChild(d);
+ });
+}
+function markLearned(term){
+ let learned=JSON.parse(localStorage.getItem('hosp3414_learned')||'[]');
+ if(!learned.includes(term)) learned.push(term);
+ localStorage.setItem('hosp3414_learned',JSON.stringify(learned)); updateProgress();
+}
+
+function renderFlash(){
+ const t=TERMS[flashIndex]; const c=document.getElementById('flashCard'); c.classList.remove('flipped');
+ document.getElementById('flashFront').innerHTML=`<span class="badge">${t.cat}</span><br><br>${t.term}`;
+ document.getElementById('flashBack').innerHTML=`<h3>${t.term}</h3><p>${t.def}</p><p class="small"><b>Praktijk:</b> ${t.example}</p>`;
+}
+function flipFlash(){document.getElementById('flashCard').classList.toggle('flipped')}
+function nextFlash(){flashIndex=(flashIndex+1)%TERMS.length;renderFlash()}
+function prevFlash(){flashIndex=(flashIndex-1+TERMS.length)%TERMS.length;renderFlash()}
+
+function shuffled(arr){return [...arr].sort(()=>Math.random()-.5)}
+function renderPractice(){
+ const q=QUESTIONS[practiceIndex%QUESTIONS.length], box=document.getElementById('practiceBox');
+ box.innerHTML=`<span class="badge">${q.cat}</span><h3>${q.q}</h3><div id="opts"></div><div class="feedback" id="pf"></div>`;
+ const opts=document.getElementById('opts');
+ q.opts.forEach((o,i)=>{
+  const b=document.createElement('button'); b.className='option'; b.textContent=o;
+  b.onclick=()=>answerPractice(i,b,q);
+  opts.appendChild(b);
+ });
+}
+function answerPractice(i,btn,q){
+ const all=[...document.querySelectorAll('#opts .option')]; all.forEach(x=>x.disabled=true);
+ all[q.a].classList.add('correct'); if(i!==q.a)btn.classList.add('wrong');
+ practiceAnswered++; if(i===q.a)practiceCorrect++;
+ const f=document.getElementById('pf'); f.style.display='block';
+ f.innerHTML=`<b>${i===q.a?'Goed!':'Nog niet goed.'}</b><br>${q.why}<div class="controls"><button class="btn" onclick="nextPractice()">Volgende vraag</button></div>`;
+ localStorage.setItem('hosp3414_practice',JSON.stringify({answered:practiceAnswered,correct:practiceCorrect})); updateProgress();
+}
+function nextPractice(){practiceIndex=(practiceIndex+1)%QUESTIONS.length;renderPractice()}
+
+function startExam(){
+ examQuestions=shuffled(QUESTIONS).slice(0,Math.min(17,QUESTIONS.length)); examAnswers=new Array(examQuestions.length).fill(null); examDone=false; renderExam();
+}
+function renderExam(){
+ const box=document.getElementById('examBox'); box.innerHTML='';
+ examQuestions.forEach((q,qi)=>{
+  const c=document.createElement('div'); c.className='card';
+  c.innerHTML=`<span class="badge">${qi+1} / ${examQuestions.length}</span><h3>${q.q}</h3>`;
+  q.opts.forEach((o,oi)=>{
+   const lab=document.createElement('label'); lab.className='option';
+   lab.innerHTML=`<input type="radio" name="q${qi}" value="${oi}" ${examAnswers[qi]===oi?'checked':''}> ${o}`;
+   lab.querySelector('input').onchange=()=>examAnswers[qi]=oi;
+   c.appendChild(lab);
+  });
+  box.appendChild(c);
+ });
+ const end=document.createElement('div'); end.className='card';
+ end.innerHTML=`<button class="btn" onclick="finishExam()">Oefenexamen nakijken</button>`;
+ box.appendChild(end);
+}
+function finishExam(){
+ if(examAnswers.includes(null)){alert('Beantwoord eerst alle vragen.');return}
+ examDone=true; let correct=0; const cats={};
+ examQuestions.forEach((q,i)=>{
+  const ok=examAnswers[i]===q.a; if(ok)correct++;
+  if(!cats[q.cat])cats[q.cat]={c:0,t:0}; cats[q.cat].t++; if(ok)cats[q.cat].c++;
+ });
+ const result={correct,total:examQuestions.length,cats,date:new Date().toLocaleString('nl-NL')};
+ localStorage.setItem('hosp3414_exam',JSON.stringify(result)); updateProgress();
+ renderExamReview(result);
+}
+function renderExamReview(result){
+ const box=document.getElementById('examBox'); box.innerHTML=`<div class="card"><div class="scorebox">Score: ${result.correct} / ${result.total} (${Math.round(result.correct/result.total*100)}%)</div><p>Bekijk hieronder per vraag waarom het antwoord klopt.</p></div>`;
+ examQuestions.forEach((q,i)=>{
+  const ok=examAnswers[i]===q.a, c=document.createElement('div'); c.className='card';
+  c.innerHTML=`<span class="badge">${ok?'Goed':'Oefenen'}</span><h3>${q.q}</h3><p><b>Juiste antwoord:</b> ${q.opts[q.a]}</p><p>${q.why}</p>`;
+  box.appendChild(c);
+ });
+}
+
+function renderResult(){
+ const exam=JSON.parse(localStorage.getItem('hosp3414_exam')||'null');
+ const prac=JSON.parse(localStorage.getItem('hosp3414_practice')||'null');
+ const learned=JSON.parse(localStorage.getItem('hosp3414_learned')||'[]');
+ let html=`<p><b>Begrippen bekeken:</b> ${learned.length} / ${TERMS.length}</p>`;
+ if(prac) html+=`<p><b>Oefenvragen:</b> ${prac.correct} goed van ${prac.answered} beantwoord.</p>`;
+ if(exam){
+  html+=`<p class="scorebox">Laatste oefenexamen: ${exam.correct} / ${exam.total} (${Math.round(exam.correct/exam.total*100)}%)</p><table><tr><th>Kennisgebied</th><th>Score</th><th>Advies</th></tr>`;
+  Object.entries(exam.cats).forEach(([cat,v])=>{
+   const pct=Math.round(v.c/v.t*100); const adv=pct>=80?'Sterk':pct>=60?'Nog kort herhalen':'Extra oefenen';
+   html+=`<tr><td>${cat}</td><td>${pct}%</td><td>${adv}</td></tr>`;
+  });
+  html+='</table>';
+ } else html+='<p>Nog geen oefenexamen afgerond.</p>';
+ document.getElementById('resultContent').innerHTML=html;
+}
+function updateProgress(){
+ const learned=JSON.parse(localStorage.getItem('hosp3414_learned')||'[]').length;
+ const prac=JSON.parse(localStorage.getItem('hosp3414_practice')||'null');
+ const exam=JSON.parse(localStorage.getItem('hosp3414_exam')||'null');
+ let pct=Math.min(100, Math.round((learned/TERMS.length)*40 + (prac?Math.min(prac.answered,10)/10*25:0) + (exam?35:0)));
+ document.getElementById('mainProgress').style.width=pct+'%';
+ document.getElementById('progressText').textContent=pct?`Je hebt ongeveer ${pct}% van deze module doorlopen.`:'Nog niet gestart.';
+}
+renderTerms(); renderFlash(); renderPractice(); updateProgress();
+</script>
+</body>
+</html>

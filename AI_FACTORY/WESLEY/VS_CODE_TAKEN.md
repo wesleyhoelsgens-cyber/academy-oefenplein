@@ -43,6 +43,17 @@ Na iedere actie blijft het dashboard actief. De taak geeft alleen advies en vera
 
 De bestaande Inbox Workflow-taken blijven beschikbaar.
 
+## Project Health Check
+
+Je vindt deze taak via:
+
+**Terminal > Run Task... > Project Health Check**
+
+De taak controleert de projectbasis, documentatie en modulecatalogus. Hij meldt ontbrekende
+bestanden, dubbele module-ID's en HTML-modules die niet goed geregistreerd zijn.
+
+De taak is volledig read-only. Hij maakt, herstelt, verplaatst of verwijdert niets.
+
 ## Hoe worden nieuwe taken toegevoegd?
 
 Een module kan een voorbeeld leveren in:
