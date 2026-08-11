@@ -151,15 +151,34 @@ const academyData = {
                     themas: [
                         {
                             id: "gastvrijheid-verlenen",
-                            naam: "3414 A – Gastvrijheid verlenen",
+                            naam: "Hospitality vaktaal & examentraining",
                             modules: [
                                 {
                                     id: "3414a-gastvrijheid-verlenen-oefenapp",
-                                    titel: "3414 A – Gastvrijheid verlenen",
-                                    type: "Examentraining",
-                                    duur: "45–60 minuten",
-                                    beschrijving: "Oefen begrippen, flashcards, praktijksituaties en examenvragen over gastvrijheid verlenen.",
+                                    titel: "Hospitality Vaktaal & Oefentraining",
+                                    type: "Vaktaal & examentraining",
+                                    duur: "60–90 minuten",
+                                    beschrijving: "Oefen hospitality-vaktaal, begrippen, flashcards, praktijksituaties en gemengde examenvragen.",
                                     bestand: "modules/hospitality/leerjaar-1/periode-1/gastvrijheid-verlenen/3414a-gastvrijheid-verlenen-oefenapp.html",
+                                    beschikbaar: true
+                                }
+                            ]
+                        }
+                    ]
+                },
+                2: {
+                    themas: [
+                        {
+                            id: "hospitality-vaktaal",
+                            naam: "Hospitality vaktaal",
+                            modules: [
+                                {
+                                    id: "hospitality-p2-woordtrainer-80-begrippen",
+                                    titel: "Hospitality Woordtrainer – Periode 2",
+                                    type: "Woordtrainer",
+                                    duur: "45–60 minuten",
+                                    beschrijving: "Leer en oefen 80 hospitalitybegrippen met een woordenlijst, flashcards, praktijkvragen en slimme herhaling.",
+                                    bestand: "modules/hospitality/leerjaar-1/periode-2/hospitality-vaktaal/hospitality-p2-woordtrainer-80-begrippen.html",
                                     beschikbaar: true
                                 }
                             ]

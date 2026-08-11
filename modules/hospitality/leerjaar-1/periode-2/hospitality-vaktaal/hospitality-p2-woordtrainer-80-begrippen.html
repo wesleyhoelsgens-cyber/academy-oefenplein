@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hospitality Woordtrainer – Periode 2</title>
+<style>
+:root {
+  --bg:#f5f3f0; --card:#fff; --ink:#1d2430; --muted:#667085; --accent:#3b4664;
+  --accent2:#7b5b7e; --line:#ded9d4; --soft:#ece8e4;
+  --green:#dff3e4; --orange:#fff0c9; --red:#fde0df; --blue:#e4edf9;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}
+button,input,select{font:inherit}
+header{background:linear-gradient(135deg,#313a56,#6d5575);color:#fff;padding:26px 20px 22px}
+.wrap{max-width:1180px;margin:auto}
+.kicker{font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;opacity:.82}
+h1{margin:5px 0 4px;font-size:clamp(1.7rem,4vw,2.6rem)}
+header p{margin:0;max-width:820px;opacity:.9}
+nav{display:flex;gap:8px;overflow:auto;padding:11px 0 4px;scrollbar-width:thin}
+nav button{white-space:nowrap;border:0;background:rgba(255,255,255,.14);color:white;padding:9px 13px;border-radius:999px;cursor:pointer}
+nav button.active{background:#fff;color:#30384f;font-weight:700}
+main{max-width:1180px;margin:auto;padding:20px}
+.view{display:none} .view.active{display:block}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 5px 18px rgba(28,32,40,.04)}
+.card h2,.card h3{margin-top:0}
+.big{font-size:2rem;font-weight:800}
+.muted{color:var(--muted)}
+.btn{border:0;border-radius:11px;padding:10px 14px;background:var(--accent);color:white;cursor:pointer;font-weight:650}
+.btn.secondary{background:var(--soft);color:var(--ink)} .btn.warn{background:#7c4240}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap}
+.pill{display:inline-block;border-radius:999px;padding:4px 9px;font-size:.72rem;font-weight:750;background:var(--blue);margin:2px 4px 2px 0}
+.pill.week{background:#eee6f0} .pill.KERN{background:#dfeee7} .pill.VAKTAAL{background:#e4edf9} .pill.HERHALING{background:#f0e9d8} .pill.VERDIEPING{background:#f2e3ef}
+.filters{display:grid;grid-template-columns:2fr repeat(3,1fr);gap:9px;margin:12px 0 16px}
+.filters input,.filters select{width:100%;padding:10px 11px;border:1px solid var(--line);border-radius:10px;background:white}
+.termrow{border-top:1px solid var(--line);padding:13px 0}
+.termhead{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;cursor:pointer}
+.termname{font-weight:800;font-size:1.03rem}
+.detail{display:none;padding-top:10px} .detail.open{display:block}
+.statuses{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.statuses button{border:1px solid var(--line);background:white;border-radius:9px;padding:7px 10px;cursor:pointer}
+.statuses button.sel-green{background:var(--green)} .statuses button.sel-orange{background:var(--orange)} .statuses button.sel-red{background:var(--red)}
+.practice{max-width:780px;margin:0 auto}
+.prompt{font-size:1.35rem;font-weight:780;margin:14px 0}
+.answer{background:#f8f7f5;border:1px solid var(--line);border-radius:14px;padding:16px;margin:12px 0}
+.options{display:grid;gap:9px;margin:14px 0}
+.options button{text-align:left;border:1px solid var(--line);background:white;border-radius:11px;padding:12px;cursor:pointer}
+.options button.good{background:var(--green);border-color:#a8d5b2} .options button.bad{background:var(--red);border-color:#e3aaa6}
+.progress{height:10px;background:#e6e2de;border-radius:999px;overflow:hidden}
+.progress span{display:block;height:100%;background:#5f6d8c}
+.scorebar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+.weekcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.weekbtn{background:white;border:1px solid var(--line);border-radius:13px;padding:14px;cursor:pointer;text-align:left}
+.weekbtn strong{display:block;font-size:1.12rem}
+.notice{border-left:4px solid #806788;background:#f0eaf2;padding:12px 14px;border-radius:10px;margin:12px 0}
+footer{max-width:1180px;margin:0 auto;padding:16px 20px 30px;color:var(--muted);font-size:.85rem}
+@media(max-width:760px){.filters{grid-template-columns:1fr 1fr} .filters input{grid-column:1/-1}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="kicker">Hospitality • Periode 2</div>
+    <h1>Woordtrainer – De kunst van gastcontact</h1>
+    <p>80 begrippen. Gebruik de volledige lijst als naslagwerk of oefen per week, thema en moeilijkheid.</p>
+    <nav id="nav"></nav>
+  </div>
+</header>
+
+<main>
+<section id="home" class="view active">
+  <div class="grid">
+    <div class="card"><div class="muted">Begrippen</div><div class="big">80</div><p>Volledige begrippenbank voor deze periode.</p></div>
+    <div class="card"><div class="muted">Beheerst</div><div class="big" id="knownCount">0</div><div class="progress"><span id="knownBar" style="width:0%"></span></div></div>
+    <div class="card"><div class="muted">Nog oefenen</div><div class="big" id="redCount">0</div><p>Deze woorden krijgen voorrang bij Slim oefenen.</p></div>
+    <div class="card"><div class="muted">Twijfel</div><div class="big" id="orangeCount">0</div><p>Deze woorden komen extra terug.</p></div>
+  </div>
+  <div class="card" style="margin-top:14px">
+    <h2>Woord van deze week</h2>
+    <p class="muted">Kies de week waarin je nu zit. Je krijgt alleen de begrippen die in de lessen van die week voor het eerst of duidelijk aan bod komen.</p>
+    <div class="weekcards" id="weekButtons"></div>
+  </div>
+  <div class="card" style="margin-top:14px">
+    <h2>Hoe gebruik je de app?</h2>
+    <div class="grid">
+      <div><strong>1. Kijk</strong><p>Gebruik <em>Alle begrippen</em> als woordenboek.</p></div>
+      <div><strong>2. Oefen</strong><p>Flashcards, meerkeuze, raad het vakwoord en praktijkvragen.</p></div>
+      <div><strong>3. Markeer</strong><p>🟢 Ken ik • 🟠 Twijfel • 🔴 Oefenen.</p></div>
+      <div><strong>4. Herhaal slim</strong><p>Rode en oranje woorden komen als eerste terug.</p></div>
+    </div>
+    <div class="notice"><strong>Let op:</strong> dit is een begrippenbank bij Hospitality Periode 2. Het is geen officiële SVH-begrippenlijst.</div>
+  </div>
+</section>
+
+<section id="list" class="view">
+  <div class="card">
+    <h2>Alle 80 begrippen</h2>
+    <div class="filters">
+      <input id="search" placeholder="Zoek een begrip of uitleg…">
+      <select id="weekFilter"><option value="">Alle weken</option></select>
+      <select id="themeFilter"><option value="">Alle thema's</option></select>
+      <select id="labelFilter"><option value="">Alle labels</option><option>KERN</option><option>VAKTAAL</option><option>HERHALING</option><option>VERDIEPING</option></select>
+    </div>
+    <div id="termList"></div>
+  </div>
+</section>
+
+<section id="flash" class="view"><div class="practice card"><h2>Flashcards</h2><div id="flashBox"></div></div></section>
+<section id="mc" class="view"><div class="practice card"><h2>Wat betekent dit?</h2><div id="mcBox"></div></div></section>
+<section id="reverse" class="view"><div class="practice card"><h2>Raad het vakwoord</h2><div id="reverseBox"></div></div></section>
+<section id="challenge" class="view"><div class="practice card"><h2>Praktijkchallenge</h2><div id="challengeBox"></div></div></section>
+<section id="smart" class="view"><div class="practice card"><h2>Slim oefenen</h2><p class="muted">Eerst 🔴, daarna 🟠, daarna woorden zonder status.</p><div id="smartBox"></div></div></section>
+<section id="battle" class="view"><div class="practice card"><h2>Woordbattle • 10 vragen</h2><div id="battleBox"></div></div></section>
+<section id="week" class="view"><div class="card"><div class="btnrow"><button class="btn secondary" onclick="showView('home')">← Terug</button></div><h2 id="weekTitle"></h2><p id="weekIntro" class="muted"></p><div id="weekList"></div></div></section>
+
+<section id="settings" class="view">
+  <div class="card">
+    <h2>Voortgang beheren</h2>
+    <p>De voortgang wordt alleen op dit apparaat in de browser opgeslagen.</p>
+    <button class="btn warn" onclick="resetProgress()">Reset alle voortgang</button>
+  </div>
+</section>
+</main>
+<footer>Hospitality Woordtrainer • Periode 2 • lokaal opgeslagen voortgang</footer>
+
+<script>
+const WORDS = [{"term": "Hospitality", "simple": "Alles wat je doet om ervoor te zorgen dat een gast zich welkom en goed geholpen voelt.", "example": "Je merkt dat een gast twijfelt en biedt uit jezelf hulp aan.", "theme": "Gastcontact", "week": 1, "label": "KERN"}, {"term": "Gastvrijheid", "simple": "Een gast vriendelijk ontvangen, helpen en aandacht geven.", "example": "Je begroet een gast, maakt oogcontact en vraagt waarmee je kunt helpen.", "theme": "Gastcontact", "week": 1, "label": "KERN"}, {"term": "Gastgericht", "simple": "Rekening houden met wat de gast nodig heeft of prettig vindt.", "example": "Je past je uitleg aan omdat de gast haast heeft.", "theme": "Gastcontact", "week": 1, "label": "KERN"}, {"term": "Gastbeleving", "simple": "Hoe een gast het bezoek ervaart en welk gevoel hij eraan overhoudt.", "example": "Een klein persoonlijk gebaar kan ervoor zorgen dat de gast het bezoek onthoudt.", "theme": "Gastcontact", "week": 1, "label": "KERN"}, {"term": "Gastcontact", "simple": "Alle momenten waarop je direct met een gast communiceert of hem helpt.", "example": "Ontvangen, adviseren, een klacht behandelen en afscheid nemen zijn gastcontactmomenten.", "theme": "Gastcontact", "week": 1, "label": "KERN"}, {"term": "Eerste indruk", "simple": "Het eerste beeld of gevoel dat iemand van jou of het bedrijf krijgt.", "example": "Een opgeruimde entree en vriendelijke begroeting geven meteen een goede eerste indruk.", "theme": "Gastcontact", "week": 1, "label": "VAKTAAL"}, {"term": "FISH-filosofie", "simple": "Een manier van werken waarbij aandacht, plezier en een bewuste houding bijdragen aan een positieve ervaring.", "example": "Je kiest bewust voor positieve energie en probeert de dag van een gast beter te maken.", "theme": "FISH", "week": 1, "label": "KERN"}, {"term": "Spelen", "simple": "Binnen FISH: plezier en positieve energie gebruiken tijdens je werk.", "example": "Je maakt op een passende manier een grapje waardoor de gast zich op zijn gemak voelt.", "theme": "FISH", "week": 1, "label": "VAKTAAL"}, {"term": "Blij maken", "simple": "Binnen FISH: bewust iets doen waardoor iemand een positieve ervaring krijgt.", "example": "Je onthoudt hoe een vaste gast zijn koffie drinkt.", "theme": "FISH", "week": 1, "label": "VAKTAAL"}, {"term": "Erbij zijn", "simple": "Binnen FISH: met je volledige aandacht bij de ander zijn.", "example": "Je kijkt niet op je telefoon terwijl een gast een vraag stelt.", "theme": "FISH", "week": 1, "label": "VAKTAAL"}, {"term": "Je houding kiezen", "simple": "Binnen FISH: zelf bepalen met welke instelling je aan het werk gaat.", "example": "Ook als je moe bent, kies je ervoor professioneel en vriendelijk te reageren.", "theme": "FISH", "week": 1, "label": "VAKTAAL"}, {"term": "Gasttype", "simple": "Een soort gast met bepaald gedrag, wensen of verwachtingen.", "example": "Een haastige gast heeft vaak behoefte aan snelle en duidelijke informatie.", "theme": "Reserveringen & communicatie", "week": 2, "label": "KERN"}, {"term": "Gastbehoefte", "simple": "Iets wat een gast nodig heeft of belangrijk vindt.", "example": "Een gast met een kinderwagen heeft behoefte aan voldoende ruimte.", "theme": "Reserveringen & communicatie", "week": 2, "label": "KERN"}, {"term": "Gastverwachting", "simple": "Wat een gast denkt dat hij van het bedrijf of de medewerker krijgt.", "example": "Bij een reservering verwacht de gast dat afgesproken bijzonderheden worden onthouden.", "theme": "Reserveringen & communicatie", "week": 2, "label": "KERN"}, {"term": "Reservering", "simple": "Een plek, tafel, kamer of dienst vooraf vastleggen voor een gast.", "example": "Je noteert voor zaterdag om 19.00 uur een tafel voor vier personen.", "theme": "Reserveringen", "week": 2, "label": "KERN"}, {"term": "Reserveringsaanvraag", "simple": "Een verzoek van een gast om iets te reserveren.", "example": "Een gast belt om te vragen of er vrijdagavond nog plaats is.", "theme": "Reserveringen", "week": 2, "label": "VAKTAAL"}, {"term": "Beschikbaarheid", "simple": "Of er op het gewenste moment nog plaats, tijd of ruimte is.", "example": "Je controleert of er om 18.30 uur nog een tafel vrij is.", "theme": "Reserveringen", "week": 2, "label": "VAKTAAL"}, {"term": "Bevestiging", "simple": "Aan de gast laten weten dat de reservering correct en definitief is vastgelegd.", "example": "Je herhaalt datum, tijd, aantal personen en bijzondere wensen.", "theme": "Reserveringen", "week": 2, "label": "KERN"}, {"term": "Groepsreservering", "simple": "Een reservering voor een grotere groep mensen tegelijk.", "example": "Een bedrijf reserveert een lunch voor twaalf medewerkers.", "theme": "Reserveringen", "week": 2, "label": "VAKTAAL"}, {"term": "Dieetwens", "simple": "Een wens van een gast om bepaalde producten wel of niet te eten.", "example": "Een gast geeft aan vegetarisch te willen eten.", "theme": "Reserveringen", "week": 2, "label": "KERN"}, {"term": "Allergie", "simple": "Een reactie van het lichaam op een bepaalde stof of een bepaald voedingsmiddel.", "example": "Een gast meldt bij de reservering een notenallergie.", "theme": "Reserveringen", "week": 2, "label": "KERN"}, {"term": "Communicatie", "simple": "Informatie uitwisselen met andere mensen.", "example": "Je luistert naar de gast en geeft daarna duidelijke informatie terug.", "theme": "Communicatie", "week": 2, "label": "KERN"}, {"term": "Non-verbale communicatie", "simple": "Communiceren zonder woorden, bijvoorbeeld met houding, gezicht en gebaren.", "example": "Oogcontact en een open houding laten zien dat je aandacht hebt.", "theme": "Communicatie", "week": 2, "label": "VAKTAAL"}, {"term": "Lichaamstaal", "simple": "Wat je met je houding, gezicht en bewegingen laat zien.", "example": "Met gekruiste armen kun je afstandelijk overkomen.", "theme": "Communicatie", "week": 2, "label": "VAKTAAL"}, {"term": "Gesprekstechniek", "simple": "Een manier om een gesprek duidelijk en doelgericht te voeren.", "example": "Je gebruikt LSD om de wens van een gast goed te begrijpen.", "theme": "Communicatie", "week": 2, "label": "VAKTAAL"}, {"term": "LSD-techniek", "simple": "Luisteren, Samenvatten en Doorvragen.", "example": "Je luistert naar de reserveringswens, vat deze samen en stelt een extra vraag.", "theme": "Communicatie", "week": 2, "label": "KERN"}, {"term": "Actief luisteren", "simple": "Goed luisteren en laten merken dat je de ander begrijpt.", "example": "Je laat de gast uitpraten en reageert op wat hij werkelijk zegt.", "theme": "Communicatie", "week": 2, "label": "KERN"}, {"term": "Doorvragen", "simple": "Extra vragen stellen om beter te begrijpen wat iemand bedoelt of nodig heeft.", "example": "‘Zijn er nog dieetwensen waar we rekening mee moeten houden?’", "theme": "Communicatie", "week": 2, "label": "KERN"}, {"term": "Samenvatten", "simple": "Kort in eigen woorden herhalen wat iemand heeft verteld.", "example": "‘Dus u komt met zes personen om half acht en één gast eet glutenvrij?’", "theme": "Communicatie", "week": 2, "label": "KERN"}, {"term": "Open vraag", "simple": "Een vraag waarop iemand meer kan antwoorden dan alleen ja of nee.", "example": "‘Wat vindt u belangrijk aan de tafel?’", "theme": "Communicatie", "week": 2, "label": "VAKTAAL"}, {"term": "Klacht", "simple": "Een gast geeft aan ergens niet tevreden over te zijn.", "example": "Een gast zegt dat hij al erg lang op zijn bestelling wacht.", "theme": "Klachten", "week": 3, "label": "KERN"}, {"term": "Klachtafhandeling", "simple": "De manier waarop je een klacht opvangt, bespreekt en probeert op te lossen.", "example": "Je luistert, toont begrip en zoekt een passende oplossing.", "theme": "Klachten", "week": 3, "label": "KERN"}, {"term": "Begrip tonen", "simple": "Laten merken dat je begrijpt hoe iemand zich voelt of waarom iets vervelend is.", "example": "‘Ik begrijp dat het vervelend is dat u zo lang heeft moeten wachten.’", "theme": "Klachten", "week": 3, "label": "KERN"}, {"term": "Weerstand", "simple": "Wanneer iemand niet mee wil gaan in wat jij zegt of voorstelt.", "example": "De gast vindt jouw eerste oplossing niet goed genoeg.", "theme": "Klachten", "week": 3, "label": "VAKTAAL"}, {"term": "Escalatie", "simple": "Een probleem of conflict dat steeds erger wordt.", "example": "De gast gaat harder praten en andere gasten gaan zich ermee bemoeien.", "theme": "Klachten", "week": 3, "label": "VAKTAAL"}, {"term": "De-escaleren", "simple": "Ervoor zorgen dat een gespannen situatie weer rustiger wordt.", "example": "Je blijft rustig, luistert en haalt zo nodig een leidinggevende erbij.", "theme": "Klachten", "week": 3, "label": "VERDIEPING"}, {"term": "Compensatie", "simple": "Iets aanbieden om een fout of probleem voor de gast passend te herstellen.", "example": "Volgens de afspraken van het bedrijf bied je een passende tegemoetkoming aan.", "theme": "Klachten", "week": 3, "label": "VAKTAAL"}, {"term": "Sociale hygiëne", "simple": "In deze periode: basiskennis over hygiënisch en verantwoordelijk handelen zodat je rekening houdt met de gezondheid van anderen.", "example": "Je volgt de afspraken over schoon werken en voorkomt dat gasten ziek kunnen worden.", "theme": "Sociale hygiëne", "week": 3, "label": "KERN"}, {"term": "Persoonlijke hygiëne", "simple": "Jezelf en je kleding schoon en verzorgd houden tijdens het werk.", "example": "Je werkt met schone kleding en wast je handen op de juiste momenten.", "theme": "Sociale hygiëne", "week": 3, "label": "KERN"}, {"term": "Observeren", "simple": "Bewust kijken en letten op wat er gebeurt.", "example": "Je kijkt op je leerbedrijf welke hygiënische handelingen goed of minder goed gaan.", "theme": "Sociale hygiëne", "week": 3, "label": "KERN"}, {"term": "Adviseren", "simple": "Een gast helpen bij het maken van een passende keuze.", "example": "Je adviseert een drankje dat goed past bij de lunch van de gast.", "theme": "Verkoop", "week": 4, "label": "KERN"}, {"term": "Verkoopgesprek", "simple": "Een gesprek waarin je de gast helpt kiezen en producten of diensten aanbiedt.", "example": "Je stelt vragen en doet daarna een passend voorstel.", "theme": "Verkoop", "week": 4, "label": "VAKTAAL"}, {"term": "Bijverkoop", "simple": "Naast het gekozen product nog iets extra's aanbieden en verkopen.", "example": "Bij koffie bied je passend gebak aan.", "theme": "Verkoop", "week": 4, "label": "KERN"}, {"term": "Upselling", "simple": "De gast een betere, uitgebreidere of duurdere keuze aanbieden.", "example": "Je vraagt of de gast de kleine koffie wil vervangen door een grotere variant.", "theme": "Verkoop", "week": 4, "label": "KERN"}, {"term": "Cross-selling", "simple": "Een passend ander product naast de eerste keuze aanbieden.", "example": "Bij een lunchgerecht adviseer je een passend drankje.", "theme": "Verkoop", "week": 4, "label": "VERDIEPING"}, {"term": "Suggestieve verkoop", "simple": "De gast op een vriendelijke manier een concreet voorstel doen.", "example": "‘Zal ik daar onze huisgemaakte ijsthee bij schenken?’", "theme": "Verkoop", "week": 4, "label": "VAKTAAL"}, {"term": "Combinatieaanbieding", "simple": "Twee of meer producten samen als één aantrekkelijke combinatie aanbieden.", "example": "Een lunchgerecht met een drankje voor één combinatieprijs.", "theme": "Verkoop", "week": 4, "label": "VAKTAAL"}, {"term": "Verkoopkans", "simple": "Een passend moment waarop je iets extra's kunt adviseren of verkopen.", "example": "Een gast twijfelt over dessert; dat is een kans om gericht te adviseren.", "theme": "Verkoop", "week": 4, "label": "KERN"}, {"term": "Assortiment", "simple": "Alle producten en diensten die een bedrijf aanbiedt.", "example": "Je kent het assortiment zodat je een gast goed kunt adviseren.", "theme": "Verkoop", "week": 4, "label": "VAKTAAL"}, {"term": "Productkennis", "simple": "Weten wat je verkoopt en er goede informatie over kunnen geven.", "example": "Je kunt vertellen wat er in een gerecht zit en hoe het smaakt.", "theme": "Verkoop", "week": 4, "label": "KERN"}, {"term": "Duurzaam", "simple": "Rekening houden met mens, milieu en toekomst bij keuzes en producten.", "example": "Je kunt een seizoensproduct als duurzame keuze uitleggen.", "theme": "Verkoop", "week": 4, "label": "KERN"}, {"term": "Seizoensgebonden", "simple": "Een product dat vooral in een bepaalde tijd van het jaar beschikbaar is.", "example": "Asperges zijn een bekend seizoensproduct.", "theme": "Verkoop", "week": 4, "label": "VAKTAAL"}, {"term": "Service", "simple": "De hulp, aandacht en dienstverlening die je aan een gast geeft.", "example": "Je helpt een gast snel met een extra stoel zonder dat hij dit twee keer hoeft te vragen.", "theme": "Service op maat", "week": 5, "label": "KERN"}, {"term": "Service op maat", "simple": "De service aanpassen aan de specifieke wens of zorg van één gast.", "example": "Je zoekt een passend alternatief omdat een gast iets niet kan eten.", "theme": "Service op maat", "week": 5, "label": "KERN"}, {"term": "Aanspreekpunt", "simple": "De persoon bij wie een gast terechtkan met vragen, wensen of problemen.", "example": "Jij blijft verantwoordelijk voor het contact totdat de gast goed geholpen is.", "theme": "Service op maat", "week": 5, "label": "KERN"}, {"term": "Risico", "simple": "Iets waardoor een ongewenste of onveilige situatie kan ontstaan.", "example": "Een vies werkblad kan een risico vormen voor de gezondheid van gasten.", "theme": "Sociale hygiëne", "week": 5, "label": "KERN"}, {"term": "Verantwoordelijkheid", "simple": "Dat je ergens voor moet zorgen en actie moet nemen wanneer dat nodig is.", "example": "Je ziet dat iets niet goed gaat en je doet er iets mee in plaats van het te negeren.", "theme": "Sociale hygiëne", "week": 5, "label": "KERN"}, {"term": "Voedselveiligheid", "simple": "Zo werken dat eten en drinken veilig is voor de gast.", "example": "Je voorkomt dat vuil of ziekteverwekkers bij voedsel komen.", "theme": "Sociale hygiëne", "week": 5, "label": "KERN"}, {"term": "HACCP", "simple": "Een systeem waarmee een bedrijf risico's voor voedselveiligheid herkent en beheerst.", "example": "Het bedrijf gebruikt vaste afspraken om voedsel veilig te bewaren en te verwerken.", "theme": "Sociale hygiëne", "week": 5, "label": "VERDIEPING"}, {"term": "Hygiënecode", "simple": "Praktische regels en werkwijzen voor veilig en hygiënisch werken in het bedrijf.", "example": "Je volgt de hygiënecode bij schoonmaken, bewaren en werken met voedsel.", "theme": "Sociale hygiëne", "week": 5, "label": "VAKTAAL"}, {"term": "Kruisbesmetting", "simple": "Wanneer bacteriën of allergenen onbedoeld van het ene product of materiaal op het andere komen.", "example": "Je gebruikt niet dezelfde vuile snijplank voor verschillende producten.", "theme": "Sociale hygiëne", "week": 5, "label": "VERDIEPING"}, {"term": "Feedback", "simple": "Informatie geven over wat iemand goed doet en wat beter kan.", "example": "Je vertelt een klasgenoot één sterk punt en één concrete tip.", "theme": "Reflectie", "week": 6, "label": "KERN"}, {"term": "Reflecteren", "simple": "Terugkijken op wat je hebt gedaan en bedenken wat je ervan kunt leren.", "example": "Je beschrijft hoe je met een gast omging en wat je volgende keer anders doet.", "theme": "Reflectie", "week": 6, "label": "KERN"}, {"term": "Professioneel gedrag", "simple": "Je gedragen zoals van iemand in het beroep wordt verwacht.", "example": "Je blijft vriendelijk en duidelijk, ook wanneer een gast geïrriteerd is.", "theme": "Gastcontact", "week": 6, "label": "KERN"}, {"term": "Empathie", "simple": "Je proberen in te leven in wat een ander voelt of nodig heeft.", "example": "Je begrijpt waarom een gast teleurgesteld is en houdt daar rekening mee in je reactie.", "theme": "Gastcontact", "week": 6, "label": "VERDIEPING"}, {"term": "Initiatief nemen", "simple": "Zelf zien wat nodig is en actie ondernemen zonder eerst een opdracht te krijgen.", "example": "Je ziet dat een gast zoekt en stapt zelf op hem af.", "theme": "Gastcontact", "week": 6, "label": "KERN"}, {"term": "Signaleren", "simple": "Opmerken dat er iets aan de hand is of aandacht nodig heeft.", "example": "Je ziet dat een gast twijfelt en vraagt of je kunt helpen.", "theme": "Gastcontact", "week": 6, "label": "VAKTAAL"}, {"term": "Portfolio", "simple": "Een verzameling uitgewerkte opdrachten en bewijs waarmee je laat zien wat je hebt gedaan en geleerd.", "example": "Voor 3415 en 3416 moet je jouw eigen praktijksituaties goed kunnen toelichten.", "theme": "Examen & afronding", "week": 8, "label": "KERN"}, {"term": "Aftekenlijst", "simple": "Een officieel formulier waarop wordt gecontroleerd of een praktijkopdracht echt is uitgevoerd.", "example": "De praktijkbegeleider controleert en tekent af volgens de officiële opdracht.", "theme": "Examen & afronding", "week": 8, "label": "VAKTAAL"}, {"term": "Eindgesprek", "simple": "Een gesprek waarin je jouw eigen werk en keuzes aan een beoordelaar uitlegt.", "example": "Je legt uit wat je deed, waarom je dat deed en hoe de gast reageerde.", "theme": "Examen & afronding", "week": 8, "label": "KERN"}, {"term": "Terrasbediening", "simple": "Gasten op een terras ontvangen, helpen, bedienen en afrekenen.", "example": "Je houdt overzicht over je tafels en zorgt dat gasten op tijd geholpen worden.", "theme": "Terrastraining", "week": 9, "label": "KERN"}, {"term": "Terrasindeling", "simple": "De manier waarop tafels en werkgebieden op een terras zijn verdeeld.", "example": "Je weet welke tafels bij jouw werkgebied horen.", "theme": "Terrastraining", "week": 9, "label": "VAKTAAL"}, {"term": "Wijk", "simple": "Een groep tafels of een gedeelte van een restaurant of terras waarvoor een medewerker verantwoordelijk is.", "example": "Jij hebt vandaag wijk A met tafels 1 tot en met 8.", "theme": "Terrastraining", "week": 9, "label": "VAKTAAL"}, {"term": "Routing / looproute", "simple": "De route die medewerkers of gasten door een ruimte of over een terras lopen.", "example": "Een slimme looproute voorkomt dat medewerkers elkaar steeds in de weg lopen.", "theme": "Terrastraining", "week": 9, "label": "VAKTAAL"}, {"term": "Bestelling opnemen", "simple": "Vastleggen wat een gast wil eten of drinken.", "example": "Je herhaalt de bestelling zodat je zeker weet dat alles klopt.", "theme": "Terrastraining", "week": 9, "label": "KERN"}, {"term": "Serveren", "simple": "Eten of drinken op een nette en veilige manier aan de gast brengen.", "example": "Je zet het juiste drankje bij de juiste gast neer.", "theme": "Terrastraining", "week": 9, "label": "KERN"}, {"term": "Debarrasseren", "simple": "Gebruikte glazen, borden en bestek van tafel halen.", "example": "Je ruimt lege borden af wanneer dat past in het servicemoment.", "theme": "Terrastraining", "week": 9, "label": "VAKTAAL"}, {"term": "Mise-en-place", "simple": "Alles wat je vóór de service klaarzet zodat je goed kunt werken.", "example": "Je controleert tafels, servetten, glaswerk en materialen voordat de gasten komen.", "theme": "Terrastraining", "week": 9, "label": "VAKTAAL"}, {"term": "Terrascheck", "simple": "Controleren of het terras schoon, veilig, compleet en klaar voor gasten is.", "example": "Je controleert stoelen, tafels, looproutes en materialen vóór de opening.", "theme": "Terrastraining", "week": 9, "label": "VAKTAAL"}, {"term": "GIFTS-model", "simple": "Een model dat volgens het periodeplan in de terrastraining wordt gebruikt bij gastgericht handelen en klachtafhandeling. De precieze stappen volgen uit het aparte terrastrainingmateriaal.", "example": "Gebruik de stappen pas zoals ze in de terrastraining worden uitgelegd.", "theme": "Terrastraining", "week": 9, "label": "VERDIEPING"}];
+const NAV = [
+ ['home','Start'],['list','Alle begrippen'],['flash','Flashcards'],['mc','Meerkeuze'],
+ ['reverse','Raad vakwoord'],['challenge','Praktijkchallenge'],['smart','Slim oefenen'],
+ ['battle','Woordbattle'],['settings','Reset']
+];
+let progress = JSON.parse(localStorage.getItem('hospitalityP2Words') || '{}');
+let currentFlash=null, battle={q:0,score:0,used:[]};
+
+function save(){localStorage.setItem('hospitalityP2Words',JSON.stringify(progress)); updateStats();}
+function statusOf(t){return progress[t] || '';}
+function setStatus(t,s){progress[t]=s; save(); renderList();}
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));}
+function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
+function rand(arr){return arr[Math.floor(Math.random()*arr.length)]}
+
+function buildNav(){
+ const n=document.getElementById('nav');
+ NAV.forEach(([id,label])=>{let b=document.createElement('button'); b.textContent=label; b.dataset.id=id; b.onclick=()=>showView(id); n.appendChild(b);});
+}
+function showView(id){
+ document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x.dataset.id===id));
+ if(id==='list') renderList();
+ if(id==='flash') newFlash();
+ if(id==='mc') newMC('mcBox',false);
+ if(id==='reverse') newMC('reverseBox',true);
+ if(id==='challenge') newChallenge('challengeBox');
+ if(id==='smart') newSmart();
+ if(id==='battle') startBattle();
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+function updateStats(){
+ let g=0,o=0,r=0;
+ WORDS.forEach(w=>{let s=statusOf(w.term); if(s==='green')g++; else if(s==='orange')o++; else if(s==='red')r++;});
+ document.getElementById('knownCount').textContent=g; document.getElementById('orangeCount').textContent=o; document.getElementById('redCount').textContent=r;
+ document.getElementById('knownBar').style.width=(g/WORDS.length*100)+'%';
+}
+function fillFilters(){
+ const weeks=[...new Set(WORDS.map(w=>w.week))].sort((a,b)=>a-b);
+ const themes=[...new Set(WORDS.map(w=>w.theme))].sort();
+ weeks.forEach(w=>document.getElementById('weekFilter').insertAdjacentHTML('beforeend',`<option value="${w}">Week ${w}</option>`));
+ themes.forEach(t=>document.getElementById('themeFilter').insertAdjacentHTML('beforeend',`<option>${esc(t)}</option>`));
+ ['search','weekFilter','themeFilter','labelFilter'].forEach(id=>document.getElementById(id).addEventListener(id==='search'?'input':'change',renderList));
+}
+function statusButtons(w){
+ const s=statusOf(w.term);
+ return `<div class="statuses">
+ <button class="${s==='green'?'sel-green':''}" onclick="event.stopPropagation();setStatus('${w.term.replace(/'/g,"\'")}','green')">🟢 Ken ik</button>
+ <button class="${s==='orange'?'sel-orange':''}" onclick="event.stopPropagation();setStatus('${w.term.replace(/'/g,"\'")}','orange')">🟠 Twijfel</button>
+ <button class="${s==='red'?'sel-red':''}" onclick="event.stopPropagation();setStatus('${w.term.replace(/'/g,"\'")}','red')">🔴 Oefenen</button></div>`;
+}
+function renderList(){
+ const q=document.getElementById('search').value.toLowerCase();
+ const wf=document.getElementById('weekFilter').value, tf=document.getElementById('themeFilter').value, lf=document.getElementById('labelFilter').value;
+ let arr=WORDS.filter(w=>(!q || (w.term+' '+w.simple+' '+w.example).toLowerCase().includes(q)) && (!wf||String(w.week)===wf) && (!tf||w.theme===tf) && (!lf||w.label===lf));
+ arr.sort((a,b)=>a.term.localeCompare(b.term,'nl'));
+ document.getElementById('termList').innerHTML=arr.map((w,i)=>`<div class="termrow">
+ <div class="termhead" onclick="this.nextElementSibling.classList.toggle('open')">
+  <div><div class="termname">${esc(w.term)}</div><span class="pill week">Week ${w.week}</span><span class="pill ${w.label}">${w.label}</span><span class="pill">${esc(w.theme)}</span></div><div>⌄</div>
+ </div>
+ <div class="detail"><strong>Simpel:</strong> ${esc(w.simple)}<br><br><strong>Op het werk:</strong> ${esc(w.example)}${statusButtons(w)}</div>
+ </div>`).join('') || '<p>Geen begrippen gevonden.</p>';
+}
+function pool(){return WORDS}
+function cardMarkup(w, reveal=false){
+ return `<div class="scorebar"><span><span class="pill week">Week ${w.week}</span><span class="pill ${w.label}">${w.label}</span></span><span class="muted">${esc(w.theme)}</span></div>
+ <div class="prompt">${esc(w.term)}</div>
+ ${reveal?`<div class="answer"><strong>Simpel:</strong> ${esc(w.simple)}<br><br><strong>Op het werk:</strong> ${esc(w.example)}</div>${statusButtons(w)}`:''}`;
+}
+function newFlash(){
+ currentFlash=rand(pool());
+ document.getElementById('flashBox').innerHTML=cardMarkup(currentFlash,false)+`<div class="btnrow"><button class="btn" onclick="revealFlash()">Toon uitleg</button><button class="btn secondary" onclick="newFlash()">Volgende</button></div>`;
+}
+function revealFlash(){
+ document.getElementById('flashBox').innerHTML=cardMarkup(currentFlash,true)+`<div class="btnrow"><button class="btn" onclick="newFlash()">Volgende kaart</button></div>`;
+}
+function choicesFor(correct, field){
+ let others=shuffle(WORDS.filter(x=>x.term!==correct.term)).slice(0,3);
+ return shuffle([correct,...others]).map(w=>({obj:w,text:field==='term'?w.term:w.simple}));
+}
+function newMC(box,reverse){
+ const w=rand(pool()), field=reverse?'term':'simple';
+ const prompt=reverse?w.simple:w.term;
+ const opts=choicesFor(w,field);
+ document.getElementById(box).innerHTML=`<div class="scorebar"><span class="pill week">Week ${w.week}</span><span class="muted">${esc(w.theme)}</span></div>
+ <div class="prompt">${esc(prompt)}</div><div class="options">${opts.map(o=>`<button onclick="answerMC(this,${o.obj.term===w.term},'${box}',${reverse})">${esc(o.text)}</button>`).join('')}</div>`;
+}
+function answerMC(btn,good,box,reverse){
+ btn.classList.add(good?'good':'bad');
+ if(good) setTimeout(()=>newMC(box,reverse),650);
+}
+function newChallenge(box){
+ const w=rand(WORDS.filter(x=>x.example));
+ const opts=choicesFor(w,'term');
+ document.getElementById(box).innerHTML=`<span class="pill week">Week ${w.week}</span><div class="prompt">Welk vakwoord past bij deze situatie?</div>
+ <div class="answer">${esc(w.example)}</div><div class="options">${opts.map(o=>`<button onclick="answerChallenge(this,${o.obj.term===w.term},'${box}')">${esc(o.text)}</button>`).join('')}</div>`;
+}
+function answerChallenge(btn,good,box){btn.classList.add(good?'good':'bad'); if(good)setTimeout(()=>newChallenge(box),700);}
+function smartPool(){
+ let r=WORDS.filter(w=>statusOf(w.term)==='red'); if(r.length)return r;
+ let o=WORDS.filter(w=>statusOf(w.term)==='orange'); if(o.length)return o;
+ let u=WORDS.filter(w=>!statusOf(w.term)); return u.length?u:WORDS;
+}
+function newSmart(){
+ const w=rand(smartPool()); currentFlash=w;
+ document.getElementById('smartBox').innerHTML=cardMarkup(w,true)+`<div class="btnrow"><button class="btn" onclick="newSmart()">Volgende slimme kaart</button></div>`;
+}
+function startBattle(){
+ battle={q:0,score:0,used:[]}; nextBattle();
+}
+function nextBattle(){
+ const box=document.getElementById('battleBox');
+ if(battle.q>=10){box.innerHTML=`<div class="big">${battle.score} / 10</div><p>${battle.score>=8?'Sterk!':'Bekijk je oranje en rode woorden en probeer opnieuw.'}</p><button class="btn" onclick="startBattle()">Nog een battle</button>`;return;}
+ let candidates=WORDS.filter(w=>!battle.used.includes(w.term)); let w=rand(candidates); battle.used.push(w.term); battle.q++;
+ let reverse=Math.random()<.45; let field=reverse?'term':'simple'; let prompt=reverse?w.simple:w.term; let opts=choicesFor(w,field);
+ box.innerHTML=`<div class="scorebar"><strong>Vraag ${battle.q} / 10</strong><span>Score: ${battle.score}</span></div><div class="prompt">${esc(prompt)}</div>
+ <div class="options">${opts.map(o=>`<button onclick="answerBattle(this,${o.obj.term===w.term})">${esc(o.text)}</button>`).join('')}</div>`;
+}
+function answerBattle(btn,good){btn.classList.add(good?'good':'bad'); if(good)battle.score++; setTimeout(nextBattle,650);}
+function buildWeeks(){
+ const labels={1:'FISH & gastbeleving',2:'Reserveringen & communicatie',3:'Klachten + Sociale hygiëne 1',4:'Adviseren & verkopen',5:'Werkplek + Sociale hygiëne 2',6:'Gasttypes, reflectie + Sociale hygiëne 3',8:'Examenplein + Sociale hygiëne 4',9:'Terrastraining / gastles'};
+ const holder=document.getElementById('weekButtons');
+ Object.keys(labels).forEach(w=>{
+   const n=WORDS.filter(x=>x.week==w).length;
+   holder.insertAdjacentHTML('beforeend',`<button class="weekbtn" onclick="openWeek(${w})"><strong>Week ${w}</strong>${labels[w]}<br><span class="muted">${n} begrippen</span></button>`);
+ });
+}
+function openWeek(w){
+ const arr=WORDS.filter(x=>x.week===Number(w));
+ document.getElementById('weekTitle').textContent=`Week ${w} • ${arr.length} begrippen`;
+ document.getElementById('weekIntro').textContent='Dit zijn de woorden die in onze periodeplanning in deze week voor het eerst of nadrukkelijk aan bod komen.';
+ document.getElementById('weekList').innerHTML=arr.map(x=>`<div class="termrow"><div class="termname">${esc(x.term)}</div><div class="muted">${esc(x.simple)}</div>${statusButtons(x)}</div>`).join('');
+ showView('week');
+}
+function resetProgress(){
+ if(confirm('Weet je zeker dat je alle voortgang wilt wissen?')){progress={};save();renderList();alert('Voortgang is gereset.');}
+}
+buildNav(); fillFilters(); buildWeeks(); updateStats(); renderList(); document.querySelector('nav button[data-id="home"]').classList.add('active');
+</script>
+</body>
+</html>
