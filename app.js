@@ -72,7 +72,7 @@ const academyData = {
                                     titel: "Les 1 – Herhaling voedingskennis vorig jaar",
                                     type: "Flashcardgame",
                                     duur: "10–15 minuten",
-                                    beschrijving: "Oefen de belangrijkste begrippen uit de voedingskennis van leerjaar 1.",
+                                    beschrijving: "Herhaal de voedingskennis uit leerjaar 1. Dit is het minimale startniveau voor de nieuwe, moeilijkere lesstof: train tot je de begrippen vlot en foutloos beheerst.",
                                     bestand: "modules/traiteur/leerjaar-2/periode-5/voedingskennis/flashcardgame-herhaling-voedingskennis.html",
                                     beschikbaar: true
                                 }
@@ -80,14 +80,14 @@ const academyData = {
                         },
                         {
                             id: "les-2-dieten-microbiologie-eetwensen",
-                            naam: "Les 2 – Diëten, Microbiologie & Eetwensen",
+                            naam: "Les 2 – Herhaling diëten, microbiologie & eetwensen vorig jaar",
                             modules: [
                                 {
                                     id: "flashcards-dieten-microbiologie-eetwensen",
-                                    titel: "Flashcards Diëten, Microbiologie & Eetwensen",
+                                    titel: "Herhaling diëten, microbiologie & eetwensen vorig jaar",
                                     type: "Flashcardgame",
                                     duur: "10–15 minuten",
-                                    beschrijving: "Zelfstandige flashcardgame over diëten, eetwensen, microbiologie en voedselveiligheid voor mbo Traiteur leerjaar 2.",
+                                    beschrijving: "Herhaal deze basis uit leerjaar 1. Dit is het minimale startniveau voor de nieuwe, moeilijkere lesstof: train tot je de begrippen vlot en foutloos beheerst.",
                                     bestand: "modules/traiteur/leerjaar-2/periode-5/dieten-microbiologie-eetwensen/flashcards-dieten-microbiologie-eetwensen.html",
                                     beschikbaar: true
                                 }
@@ -104,6 +104,21 @@ const academyData = {
                                     duur: "20–30 minuten",
                                     beschrijving: "Leg 30 belangrijke begrippen over diëten, microbiologie en eetwensen uit in je eigen woorden.",
                                     bestand: "modules/traiteur/leerjaar-2/periode-5/begrippenlijst/begrippenformulier-dieten-microbiologie-eetwensen.html",
+                                    beschikbaar: true
+                                }
+                            ]
+                        },
+                        {
+                            id: "nieuwe-lesstof-voedingskennis-smaakleer",
+                            naam: "Nieuwe lesstof – Voedingskennis & Smaakleer",
+                            modules: [
+                                {
+                                    id: "voedingskennis-smaakleer-trainer",
+                                    titel: "Nieuwe lesstof – Voedingskennis & Smaakleer",
+                                    type: "Leer- en examentrainer",
+                                    duur: "8 weektrainingen",
+                                    beschrijving: "Ga na de herhalingslessen verder met nieuwe voedingskennis en smaakleer, inclusief praktijkopdrachten, etiketanalyse en examentraining.",
+                                    bestand: "modules/traiteur/leerjaar-2/periode-5/voedingskennis-smaakleer/voedingskennis-smaakleer-trainer.html",
                                     beschikbaar: true
                                 }
                             ]
