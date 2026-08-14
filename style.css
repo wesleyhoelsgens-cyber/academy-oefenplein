@@ -134,20 +134,17 @@ button {
     overflow-wrap: anywhere;
 }
 
-.academy-mark {
-    width: 42px;
-    height: 42px;
-    flex: 0 0 42px;
-    fill: var(--color-primary);
+.academy-logo {
+    width: 52px;
+    height: 52px;
+    flex: 0 0 52px;
+    border-radius: 12px;
+    object-fit: contain;
     filter: drop-shadow(0 6px 12px var(--color-primary-shadow));
 }
 
-.academy-mark-cutout {
-    fill: var(--color-surface);
-}
-
 .site-header p {
-    margin: var(--space-2) 0 0 54px;
+    margin: var(--space-2) 0 0 64px;
     color: var(--color-text-muted);
     font-size: 1.05rem;
     line-height: 1.5;

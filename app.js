@@ -124,6 +124,25 @@ const academyData = {
                             ]
                         }
                     ]
+                },
+                6: {
+                    themas: [
+                        {
+                            id: "personeel",
+                            naam: "Personeel",
+                            modules: [
+                                {
+                                    id: "theorie-personeel-periodetrainer",
+                                    titel: "Personeel – Periodetrainer",
+                                    type: "Theorie- en examentrainer",
+                                    duur: "Hele periode",
+                                    beschrijving: "Oefen de theorie over personeel gedurende de hele periode. Werk met herkenbare beroepssituaties, volg je voortgang en verdien verschillende beroepsbadges.",
+                                    bestand: "modules/traiteur/leerjaar-2/periode-6/personeel/theorie-personeel-periodetrainer.html",
+                                    beschikbaar: true
+                                }
+                            ]
+                        }
+                    ]
                 }
             }, [
                 createEindexamenOnderdeel(),
