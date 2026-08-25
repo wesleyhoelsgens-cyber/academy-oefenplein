@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Ontdek jouw professionele startprofiel en bereid jouw verhaal voor in maximaal drie dia's.">
+<meta name="author" content="Academy Oefenplein">
+<meta name="academy:module-id" content="mijn-professionele-start">
+<meta name="academy:type" content="profiel-en-reflectieopdracht">
+<meta name="academy:duration" content="45–60 minuten">
+<meta name="academy:education" content="bol-allround-food-expert">
+<meta name="academy:year" content="1">
+<meta name="academy:period" content="1">
+<meta name="academy:theme" content="Professionele ontwikkeling">
+<meta name="academy:difficulty" content="basis">
+<meta name="academy:version" content="1.0.0">
+<meta name="academy:factory-version" content="1.0.0">
+<meta name="academy:last-updated" content="2026-08-25">
+<title>Mijn professionele start – Academy Oefenplein</title>
+<style>
+:root{
+ --bg:#f3f5f7;--paper:#fff;--ink:#1e293b;--muted:#64748b;--line:#d9e0e7;
+ --nav:#172033;--accent:#b64e32;--soft:#f8fafc;--food:#f5eee7;
+ --v:#eaf1f6;--c:#edf4e8;--r:#f7eee3;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
+.academy-nav{background:#0b4f4a;color:#fff;padding:10px 20px}.academy-nav-inner{max-width:1400px;margin:auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}.academy-nav button,.academy-nav a{min-height:44px;display:inline-flex;align-items:center;color:#fff;font:inherit;font-weight:700}.academy-nav button{background:transparent;border:1px solid rgba(255,255,255,.7);border-radius:9px;padding:9px 12px;cursor:pointer}.academy-nav ol{display:flex;gap:8px;flex-wrap:wrap;list-style:none;margin:0;padding:0}.academy-nav li:not(:last-child)::after{content:"/";margin-left:8px;opacity:.7}.academy-nav :focus-visible{outline:3px solid #facc15;outline-offset:3px}
+.mobile-block{display:none}
+.app{min-width:1024px;min-height:100vh;display:grid;grid-template-columns:260px 1fr}
+aside{position:sticky;top:0;height:100vh;background:var(--nav);color:#fff;padding:28px 20px;display:flex;flex-direction:column}
+.brand{font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.75}.brand strong{display:block;font-size:23px;letter-spacing:0;margin-top:4px;opacity:1}
+.side-intro{font-size:13px;line-height:1.5;color:#cbd5e1;margin:22px 0}
+nav{display:grid;gap:7px}nav button{border:0;background:transparent;color:#cbd5e1;text-align:left;padding:11px 12px;border-radius:9px;font-weight:700;cursor:pointer}
+nav button.active,nav button:hover{background:#263249;color:#fff}.stepno{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#3a465d;margin-right:8px;font-size:11px}
+.side-progress{margin-top:auto}.progress-label{display:flex;justify-content:space-between;font-size:12px;margin-bottom:7px}.progress{height:8px;background:#364158;border-radius:99px;overflow:hidden}.progress div{height:100%;background:#fff;width:0;transition:.2s}
+main{padding:34px 42px 60px;max-width:1400px;width:100%}
+.screen{display:none}.screen.active{display:block}
+.hero{background:linear-gradient(120deg,#fff,#f7f0e9);border:1px solid var(--line);border-radius:20px;padding:34px;display:grid;grid-template-columns:1.5fr 1fr;gap:30px}
+.kicker{font-size:12px;font-weight:800;letter-spacing:.12em;color:var(--accent);text-transform:uppercase}
+h1{font-size:40px;line-height:1.08;margin:8px 0 13px}h2{font-size:27px;margin:0 0 12px}h3{margin:0 0 7px}
+.lead{font-size:18px;line-height:1.55;color:#475569}.hero-card,.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px}
+.hero-card{background:#fffdf9}.hero-card ul{padding-left:18px;line-height:1.7}
+.roles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:22px 0}.role{border:1px solid var(--line);border-radius:15px;padding:18px}.role.v{background:var(--v)}.role.c{background:var(--c)}.role.r{background:var(--r)}.role p{margin:0;color:#52606f;line-height:1.45}
+.btnrow{display:flex;justify-content:space-between;gap:10px;margin-top:24px}.btn{border:0;border-radius:10px;padding:12px 17px;font-weight:800;cursor:pointer}.primary{background:var(--nav);color:#fff}.secondary{background:#fff;border:1px solid var(--line);color:var(--ink)}
+.note{font-size:13px;color:var(--muted);line-height:1.5}
+.qwrap{display:grid;grid-template-columns:1fr 320px;gap:18px}.question-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px}.qcount{font-size:12px;color:var(--accent);font-weight:800}.question-card h3{font-size:24px;margin:7px 0 18px}
+.options{display:grid;gap:10px}.option{display:block;border:1px solid var(--line);border-radius:12px;padding:14px;cursor:pointer;line-height:1.45}.option:hover{background:var(--soft)}.option:has(input:checked){outline:2px solid var(--nav);background:#f7f9fb}.option input{margin-right:8px}
+.scoregrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.score{border-radius:16px;padding:20px;border:1px solid var(--line)}.score strong{font-size:32px}.bar{height:10px;background:#e2e8f0;border-radius:99px;overflow:hidden;margin:9px 0}.fill{height:100%;background:var(--nav);width:0}
+.reflect{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}label.field{display:block;font-size:13px;font-weight:700}.field textarea,.field input,.field select{width:100%;margin-top:6px;border:1px solid var(--line);border-radius:10px;padding:11px;font:inherit;background:#fff}.field textarea{min-height:90px;resize:vertical}
+.peer{background:var(--food);margin-top:15px}
+.dias{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0}.dia{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px}.dia .n{font-size:12px;color:var(--accent);font-weight:800}.dia h3{font-size:21px;margin:5px 0 9px}.dia ul{padding-left:18px;line-height:1.55;color:#52606f}
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin:18px 0}.mini{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;font-size:13px;line-height:1.4}.mini strong{display:block;margin-bottom:5px}
+.checklist{display:grid;grid-template-columns:1fr 1fr;gap:8px}.check{background:#fff;border:1px solid var(--line);border-radius:10px;padding:11px}
+.summary{background:#fff;border:1px solid var(--line);border-radius:18px;padding:25px}.summaryline{padding:11px 0;border-bottom:1px solid var(--line)}
+.desktop-badge{display:inline-flex;align-items:center;gap:7px;background:#fff3e8;color:#8b3f28;border:1px solid #efc7b5;padding:8px 11px;border-radius:999px;font-size:12px;font-weight:800}
+@media(max-width:1023px){
+ .app{display:none}.mobile-block{display:grid;min-height:100vh;place-items:center;padding:28px;background:#172033;color:white;text-align:center}
+ .mobile-card{max-width:520px}.mobile-card .icon{font-size:55px}.mobile-card h1{font-size:31px}.mobile-card p{color:#d5dbea;line-height:1.6}
+}
+@media print{.academy-nav,aside,.btnrow{display:none}.app{display:block;min-width:0}main{padding:15px}.screen{display:block;page-break-after:always}.screen:last-child{page-break-after:auto}}
+</style>
+</head>
+<body>
+<header class="academy-nav">
+ <div class="academy-nav-inner">
+  <button id="academyBack" type="button">← Terug</button>
+  <a href="../../../../../index.html" aria-label="Naar Academy Home">Academy Oefenplein</a>
+  <nav aria-label="Modulelocatie">
+   <ol>
+    <li><a href="../../../../../index.html#/bol-allround-food-expert">Allround Food Expert</a></li>
+    <li><a href="../../../../../index.html#/bol-allround-food-expert/leerjaar-1">Leerjaar 1</a></li>
+    <li><a href="../../../../../index.html#/bol-allround-food-expert/leerjaar-1/periode-1">Periode 1</a></li>
+   </ol>
+  </nav>
+ </div>
+</header>
+<div class="mobile-block"><div class="mobile-card"><div class="icon">🖥️</div><h1>Pak je laptop erbij</h1><p>Deze SVO Academy-opdracht is bewust gemaakt voor een laptop of desktop. Je maakt een uitgebreid profiel, schrijft reflecties en bereidt een presentatie voor. Op een telefoon is daarom geen mobiele versie beschikbaar.</p></div></div>
+
+<div class="app">
+<aside>
+ <div class="brand">SVO Academy<strong>Mijn professionele start</strong></div>
+ <div class="side-intro">Van wie je nu bent, via hoe je handelt, naar wie je wilt worden.</div>
+ <nav id="nav"></nav>
+ <div class="side-progress"><div class="progress-label"><span>Opdracht</span><span id="pct">0%</span></div><div class="progress"><div id="prog"></div></div></div>
+</aside>
+<main>
+<section class="screen active" data-step="0">
+ <div class="hero">
+  <div><div class="kicker">Start van jouw mbo-route</div><h1>Wie ben jij als beginnend professional?</h1>
+   <p class="lead">De <strong>B van mbo staat voor beroep</strong>. Je leert dus niet alleen vakkennis. In bijna ieder werkveld moet je kwaliteit leveren, samenwerken, communiceren, initiatief nemen en verantwoordelijkheid dragen.</p>
+   <span class="desktop-badge">🖥️ Desktopopdracht • maak deze op je laptop</span>
+  </div>
+  <div class="hero-card"><h3>Dit ga je doen</h3><ul><li>18 herkenbare situaties beantwoorden</li><li>jouw startprofiel bekijken</li><li>reflecteren en iemand anders om feedback vragen</li><li>een persoonlijk ontwikkeldoel kiezen</li><li>jouw verhaal voorbereiden in maximaal 3 dia's</li></ul><p class="note">Dit is geen toets en er bestaat geen beste profiel.</p></div>
+ </div>
+ <div class="roles">
+  <div class="role v"><h3>VAKMENS</h3><p>Ik wil iets goed kunnen, begrijpen, maken of uitvoeren. Ik let op kwaliteit.</p></div>
+  <div class="role c"><h3>COLLEGA</h3><p>Ik let op mensen, samenwerken, communicatie en elkaar helpen.</p></div>
+  <div class="role r"><h3>REGISSEUR</h3><p>Ik neem initiatief, houd overzicht en neem verantwoordelijkheid.</p></div>
+ </div>
+ <div class="card"><strong>Belangrijk:</strong> je bent niet één van deze drie. Een professional gebruikt <strong>alle drie</strong>. De situatie bepaalt welke rol op dat moment het meest nodig is. Wie later teamleider of ondernemer wil worden, bouwt dus verder op vakmanschap, collegialiteit én regie.</div>
+ <div class="btnrow"><span></span><button class="btn primary" onclick="go(1)">Start mijn profiel →</button></div>
+</section>
+
+<section class="screen" data-step="1">
+ <div class="kicker">Stap 1</div><h2>18 situaties — wat zou jij doen?</h2>
+ <p class="lead" style="font-size:16px">Kies steeds het antwoord dat het dichtst ligt bij wat jij waarschijnlijk écht zou doen. Probeer niet te kiezen wat je denkt dat het “beste” antwoord is.</p>
+ <div class="qwrap">
+  <div class="question-card"><div class="qcount" id="qcount"></div><h3 id="qtext"></h3><div class="options" id="options"></div>
+   <div class="btnrow"><button class="btn secondary" id="prevQ">← Vorige</button><button class="btn primary" id="nextQ">Volgende →</button></div>
+  </div>
+  <div class="card"><h3>Waarom deze situaties?</h3><p class="note">Je gedrag kan thuis, met vrienden, op school en op het werk verschillen. Daarom krijg je een mix van persoonlijke, school- en beroepssituaties.</p><hr style="border:0;border-top:1px solid var(--line);margin:16px 0"><strong>Onthoud</strong><p class="note">Geen antwoord is automatisch goed of fout. Het patroon van al je keuzes geeft een startpunt voor reflectie.</p></div>
+ </div>
+</section>
+
+<section class="screen" data-step="2">
+ <div class="kicker">Stap 2</div><h2>Mijn startprofiel</h2><p class="lead" style="font-size:16px">Dit profiel is een momentopname. Gebruik het als spiegel, niet als etiket.</p>
+ <div class="scoregrid">
+  <div class="score role v"><h3>VAKMENS</h3><strong id="sv">0</strong><div class="bar"><div class="fill" id="bv"></div></div><p class="note">kwaliteit • kennis • vaardigheid • iets goed willen doen</p></div>
+  <div class="score role c"><h3>COLLEGA</h3><strong id="sc">0</strong><div class="bar"><div class="fill" id="bc"></div></div><p class="note">samenwerken • helpen • afstemmen • contact</p></div>
+  <div class="score role r"><h3>REGISSEUR</h3><strong id="sr">0</strong><div class="bar"><div class="fill" id="br"></div></div><p class="note">initiatief • overzicht • keuzes • verantwoordelijkheid</p></div>
+ </div>
+ <div class="reflect">
+  <label class="field">Wat herken jij in deze uitslag?<textarea id="recognize" placeholder="Beschrijf kort wat bij jou past..."></textarea></label>
+  <label class="field">Wat verrast je?<textarea id="surprise" placeholder="Was er iets dat je anders had verwacht?"></textarea></label>
+  <label class="field">Geef een voorbeeld waarin jij echt Vakmens was.<textarea id="exv"></textarea></label>
+  <label class="field">Geef een voorbeeld waarin jij echt Collega of Regisseur was.<textarea id="excr"></textarea></label>
+ </div>
+ <div class="btnrow"><button class="btn secondary" onclick="go(1)">← Terug</button><button class="btn primary" onclick="go(3)">Verder naar feedback →</button></div>
+</section>
+
+<section class="screen" data-step="3">
+ <div class="kicker">Stap 3</div><h2>Een ander kijkt naar mij</h2>
+ <p class="lead" style="font-size:16px">Je eigen beeld is belangrijk, maar iemand anders ziet soms kwaliteiten die jij zelf normaal vindt. Vraag iemand die jou goed kent: een ouder/verzorger, vriend, collega, begeleider of iemand van je bijbaan.</p>
+ <div class="card peer">
+  <label class="field">Wie heb je gevraagd?<input id="peerWho" placeholder="Bijvoorbeeld: collega van mijn bijbaan"></label><br>
+  <label class="field">Waar ziet deze persoon jou het sterkst in?
+   <select id="peerRole"><option value="">Kies...</option><option>Vakmens</option><option>Collega</option><option>Regisseur</option></select>
+  </label><br>
+  <label class="field">Welk concreet voorbeeld gaf deze persoon?<textarea id="peerExample"></textarea></label>
+ </div>
+ <div class="card" style="margin-top:14px">
+  <h3>Mijn ontwikkeling</h3>
+  <div class="reflect">
+   <label class="field">Hier ben ik al sterk in<textarea id="strength"></textarea></label>
+   <label class="field">Hier wil ik dit jaar in groeien<select id="grow"><option value="">Kies...</option><option>Vakmens</option><option>Collega</option><option>Regisseur</option></select></label>
+   <label class="field">Dat wil ik doen door...<textarea id="howgrow"></textarea></label>
+   <label class="field">Mijn eerste kleine stap<textarea id="firststep" placeholder="Wat kun je deze week al doen?"></textarea></label>
+  </div>
+ </div>
+ <div class="btnrow"><button class="btn secondary" onclick="go(2)">← Terug</button><button class="btn primary" onclick="go(4)">Naar mijn verhaal →</button></div>
+</section>
+
+<section class="screen" data-step="4">
+ <div class="kicker">Stap 4</div><h2>Van mijn profiel naar mijn verhaal</h2>
+ <p class="lead" style="font-size:16px">Je profiel vertelt niet wie jij helemaal bent. Het geeft je wel woorden om over jezelf na te denken. Nu maak je daarvan jouw eigen verhaal in <strong>maximaal drie dia's</strong>.</p>
+ <div class="card"><strong>De regel:</strong> veel beeld, weinig tekst. De dia ondersteunt jou — <strong>jij vertelt het verhaal.</strong> Je hoeft je scores niet letterlijk op je dia te zetten.</div>
+ <div class="dias">
+  <div class="dia"><div class="n">DIA 1</div><h3>Wie ben ik nu?</h3><ul><li>hobby's, sport en interesses</li><li>bijbaan, werk of activiteiten</li><li>waar ben ik goed in?</li><li>waar ben ik trots op?</li><li>wat vinden anderen typisch aan mij?</li><li>wat herken ik uit mijn profiel?</li></ul></div>
+  <div class="dia"><div class="n">DIA 2</div><h3>Waar kom ik vandaan?</h3><ul><li>school of opleiding hiervoor</li><li>stage, bijbaan of ervaringen</li><li>keuzes die je hebt gemaakt</li><li>waarom ben je hier terechtgekomen?</li><li>wat heb je onderweg geleerd?</li><li>wat neem je al mee?</li></ul></div>
+  <div class="dia"><div class="n">DIA 3</div><h3>Waar wil ik naartoe?</h3><ul><li>wat wil ik leren?</li><li>waarin wil ik groeien?</li><li>welke rol wil ik ontwikkelen?</li><li>welke richting of beroep interesseert mij?</li><li>wat voor collega/professional wil ik zijn?</li><li>specialist, kwaliteit, teamleider, ondernemer...?</li></ul></div>
+ </div>
+ <div class="card"><strong>Weet je nog niet wat je later wilt worden?</strong> Dat is geen probleem. Dia 3 gaat ook over <em>wie je wilt worden</em>: zelfstandiger, beter samenwerken, meer initiatief nemen, vakkennis ontwikkelen of ontdekken welke richting bij je past.</div>
+ <div class="btnrow"><button class="btn secondary" onclick="go(3)">← Terug</button><button class="btn primary" onclick="go(5)">Zo ga ik beginnen →</button></div>
+</section>
+
+<section class="screen" data-step="5">
+ <div class="kicker">Stap 5</div><h2>Zo bouw je jouw 3 dia's</h2>
+ <div class="steps">
+  <div class="mini"><strong>1. Kijk terug</strong>Bekijk je profiel, feedback en groeidoel.</div>
+  <div class="mini"><strong>2. Verzamel beelden</strong>Zoek eerst 6–10 foto's of beelden die echt iets over jou zeggen.</div>
+  <div class="mini"><strong>3. Maak 3 stapels</strong>NU • MIJN ROUTE • MIJN TOEKOMST.</div>
+  <div class="mini"><strong>4. Bouw pas daarna</strong>Kies de sterkste beelden en voeg alleen kernwoorden toe.</div>
+  <div class="mini"><strong>5. Doe de verteltest</strong>Kun je per dia ongeveer een minuut vertellen zonder voor te lezen?</div>
+ </div>
+ <div class="card">
+  <h3>Mijn voorbereiding</h3>
+  <div class="reflect">
+   <label class="field">Beelden/onderwerpen voor dia 1<textarea id="d1"></textarea></label>
+   <label class="field">Beelden/onderwerpen voor dia 2<textarea id="d2"></textarea></label>
+   <label class="field">Beelden/onderwerpen voor dia 3<textarea id="d3"></textarea></label>
+   <label class="field">Wat uit mijn profiel wil ik in mijn verhaal laten terugkomen?<textarea id="profileToStory"></textarea></label>
+  </div>
+ </div>
+ <div class="btnrow"><button class="btn secondary" onclick="go(4)">← Terug</button><button class="btn primary" onclick="go(6)">Eindcheck →</button></div>
+</section>
+
+<section class="screen" data-step="6">
+ <div class="kicker">Stap 6</div><h2>Eindcheck — ben je klaar?</h2>
+ <div class="checklist" id="checks">
+  <label class="check"><input type="checkbox"> Ik heb maximaal 3 dia's.</label>
+  <label class="check"><input type="checkbox"> Mijn dia's bestaan vooral uit beelden.</label>
+  <label class="check"><input type="checkbox"> Dia 1 laat zien wie ik nu ben.</label>
+  <label class="check"><input type="checkbox"> Dia 2 vertelt iets over mijn route.</label>
+  <label class="check"><input type="checkbox"> Dia 3 laat zien waar ik naartoe wil of waarin ik wil groeien.</label>
+  <label class="check"><input type="checkbox"> Ik heb mijn profiel gebruikt om over mezelf na te denken.</label>
+  <label class="check"><input type="checkbox"> Ik kan mijn verhaal vertellen zonder alles voor te lezen.</label>
+  <label class="check"><input type="checkbox"> Ik heb alleen gedeeld wat ik zelf wil delen.</label>
+ </div>
+ <div class="summary" style="margin-top:18px">
+  <h3>Mijn professionele start in één oogopslag</h3>
+  <div class="summaryline"><strong>Mijn profiel:</strong> <span id="sumScore"></span></div>
+  <div class="summaryline"><strong>Mijn groeifocus:</strong> <span id="sumGrow">—</span></div>
+  <div class="summaryline"><strong>Mijn eerste stap:</strong> <span id="sumStep">—</span></div>
+  <p class="note">Bewaar dit als startpunt. Later in het jaar kun je opnieuw kijken: wat is veranderd en waarin ben je gegroeid?</p>
+  <button class="btn primary" onclick="window.print()">Print / opslaan als PDF</button>
+  <button class="btn secondary" id="resetProgress" type="button">Opgeslagen gegevens wissen</button>
+ </div>
+ <div class="btnrow"><button class="btn secondary" onclick="go(5)">← Terug</button><span></span></div>
+</section>
+</main>
+</div>
+
+<script>
+const MODULE_OVERVIEW_FALLBACK="../../../../../index.html#/bol-allround-food-expert/leerjaar-1/periode-1";
+document.getElementById("academyBack").addEventListener("click",()=>{
+ if(document.referrer.includes("/index.html")&&window.history.length>1){window.history.back()}else{window.location.href=MODULE_OVERVIEW_FALLBACK}
+});
+const steps=["Start","Mijn profiel","Mijn uitslag","Feedback & groei","Mijn verhaal","3 dia's bouwen","Eindcheck"];
+const STORAGE_KEY="academy.mijn-professionele-start.v1";
+const SAVED_FIELD_IDS=["recognize","surprise","exv","excr","peerWho","peerRole","peerExample","strength","grow","howgrow","firststep","d1","d2","d3","profileToStory"];
+const nav=document.getElementById("nav");
+steps.forEach((s,i)=>{const b=document.createElement("button");b.innerHTML=`<span class="stepno">${i+1}</span>${s}`;b.onclick=()=>go(i);nav.appendChild(b)});
+let current=0, qi=0;
+const Q=[
+["Samen met vrienden maak je pizza. Wat doe jij vanzelf?",["Ik let vooral op hoe we de pizza echt goed maken.","Ik zorg dat iedereen mee kan doen en het gezellig blijft.","Ik regel ingrediënten, taken en timing."],["V","C","R"]],
+["Je sport of doet een activiteit die je beter wilt leren.",["Ik oefen techniek en wil merken dat ik beter word.","Ik vind het vooral leuk als we het samen doen.","Ik maak een plan of stel mezelf een doel."],["V","C","R"]],
+["Je gaat een weekend weg met vrienden.",["Ik zoek uit wat echt leuk of goed is om te doen.","Ik let erop dat iedereen iets leuks heeft.","Ik regel planning, vervoer of afspraken."],["V","C","R"]],
+["Je probeert iets nieuws en het lukt niet meteen.",["Ik zoek uit hoe het precies moet en probeer opnieuw.","Ik vraag iemand om samen te kijken.","Ik kies een andere aanpak en ga verder."],["V","C","R"]],
+["Je groep krijgt een vrije opdracht.",["Ik wil eerst weten waaraan een goed resultaat moet voldoen.","Ik bespreek eerst wat iedereen wil en kan.","Ik stel voor een plan en taakverdeling te maken."],["V","C","R"]],
+["Je ziet iemand in je groep twijfelen.",["Ik leg uit hoe ik denk dat het moet.","Ik vraag of diegene hulp wil.","Ik zorg dat we samen een volgende stap kiezen."],["V","C","R"]],
+["Jullie hebben veel te doen.",["Ik wil eerst één belangrijke taak goed afmaken.","Ik kijk wie hulp nodig heeft en stem af.","Ik bepaal prioriteiten en een logische volgorde."],["V","C","R"]],
+["Je hebt een idee voor een opdracht.",["Ik werk het eerst inhoudelijk goed uit.","Ik leg het eerst aan anderen voor.","Ik doe een voorstel en probeer de groep mee te krijgen."],["V","C","R"]],
+["Je bent klaar, maar twee klasgenoten nog niet.",["Ik controleer of mijn eigen werk echt goed is.","Ik vraag of ik iemand kan helpen.","Ik kijk wat er nog nodig is om als groep af te ronden."],["V","C","R"]],
+["Niemand begint aan een groepsopdracht.",["Ik begin met het inhoudelijke deel dat ik goed kan.","Ik vraag wat iedereen nodig heeft om te starten.","Ik neem initiatief en stel een eerste taakverdeling voor."],["V","C","R"]],
+["Op je bijbaan is het rustig en niemand geeft je een taak.",["Ik zoek iets waarmee ik de kwaliteit of werkplek kan verbeteren.","Ik vraag een collega of ik ergens kan helpen.","Ik kijk zelf wat prioriteit heeft en pak dat op."],["V","C","R"]],
+["Je ontdekt een fout die waarschijnlijk niemand zal zien.",["Ik herstel hem omdat ik goed werk wil afleveren.","Ik vertel het als de fout gevolgen kan hebben voor anderen.","Ik meld hem, herstel hem en kijk hoe we herhaling voorkomen."],["V","C","R"]],
+["Een nieuwe collega of student kent nog niemand.",["Ik help vooral met uitleg over het werk of de opdracht.","Ik maak contact en zorg dat diegene zich welkom voelt.","Ik zorg dat diegene weet waar hij moet zijn en wat de volgende stap is."],["V","C","R"]],
+["Een klant of gast stelt een vraag waarop je het antwoord niet weet.",["Ik zoek het juiste antwoord uit.","Ik vraag een collega die het weet om te helpen.","Ik neem verantwoordelijkheid voor de vraag en zorg dat de klant een antwoord krijgt."],["V","C","R"]],
+["Tijdens drukte loopt de samenwerking niet lekker.",["Ik focus op mijn taak en zorg dat die goed gebeurt.","Ik stem kort af en help waar het team vastloopt.","Ik probeer overzicht te creëren en spreek af wie wat doet."],["V","C","R"]],
+["Je ziet dat een werkwijze slimmer kan.",["Ik onderzoek eerst of mijn idee inhoudelijk beter is.","Ik bespreek het met collega's en vraag hun mening.","Ik doe een concreet verbetervoorstel en help het uitproberen."],["V","C","R"]],
+["Je moet iemand iets nieuws uitleggen.",["Ik zorg dat mijn uitleg inhoudelijk klopt.","Ik kijk of de ander mij begrijpt en pas mijn uitleg aan.","Ik bouw de uitleg stap voor stap op en check het resultaat."],["V","C","R"]],
+["Later krijg je meer verantwoordelijkheid. Wat spreekt je het meest aan?",["Steeds beter worden in mijn vak en kwaliteit bewaken.","Een sterk team bouwen waarin mensen goed samenwerken.","Overzicht houden, beslissingen nemen en anderen richting geven."],["V","C","R"]]
+];
+let answers=Array(Q.length).fill(null);
+let storageReady=false;
+
+function readSavedState(){
+ try{
+  const saved=JSON.parse(localStorage.getItem(STORAGE_KEY));
+  return saved&&saved.version===1?saved:null;
+ }catch(_){
+  return null;
+ }
+}
+
+function saveState(){
+ if(!storageReady)return;
+ const fields={};
+ SAVED_FIELD_IDS.forEach(id=>{const field=document.getElementById(id);if(field)fields[id]=field.value});
+ const checks=[...document.querySelectorAll("#checks input[type=checkbox]")].map(input=>input.checked);
+ try{
+  localStorage.setItem(STORAGE_KEY,JSON.stringify({version:1,current,qi,answers:[...answers],fields,checks}));
+ }catch(_){
+  // De opdracht blijft bruikbaar wanneer browseropslag niet beschikbaar is.
+ }
+}
+
+function restoreState(){
+ const saved=readSavedState();
+ if(!saved)return 0;
+ if(Array.isArray(saved.answers)&&saved.answers.length===Q.length){
+  answers=saved.answers.map(value=>value===null||[0,1,2].includes(value)?value:null);
+ }
+ if(Number.isInteger(saved.qi)&&saved.qi>=0&&saved.qi<Q.length)qi=saved.qi;
+ if(saved.fields&&typeof saved.fields==="object"){
+  SAVED_FIELD_IDS.forEach(id=>{
+   const field=document.getElementById(id);
+   const value=saved.fields[id];
+   if(field&&typeof value==="string")field.value=value;
+  });
+ }
+ if(Array.isArray(saved.checks)){
+  document.querySelectorAll("#checks input[type=checkbox]").forEach((input,index)=>{input.checked=saved.checks[index]===true});
+ }
+ return Number.isInteger(saved.current)&&saved.current>=0&&saved.current<steps.length?saved.current:0;
+}
+
+function go(n){
+ current=n;document.querySelectorAll(".screen").forEach((x,i)=>x.classList.toggle("active",i===n));
+ [...nav.children].forEach((x,i)=>x.classList.toggle("active",i===n));
+ document.getElementById("prog").style.width=((n)/(steps.length-1)*100)+"%";
+ document.getElementById("pct").textContent=Math.round(n/(steps.length-1)*100)+"%";
+ if(n===1) renderQ(); if(n===2||n===6) score(); if(n===6) summary();
+ saveState();
+ window.scrollTo(0,0);
+}
+function renderQ(){
+ const q=Q[qi];document.getElementById("qcount").textContent=`VRAAG ${qi+1} VAN ${Q.length}`;
+ document.getElementById("qtext").textContent=q[0];
+ document.getElementById("options").innerHTML=q[1].map((o,j)=>`<label class="option"><input type="radio" name="cur" ${answers[qi]===j?"checked":""} onchange="answers[${qi}]=${j}">${o}</label>`).join("");
+ document.getElementById("prevQ").disabled=qi===0;
+ document.getElementById("nextQ").textContent=qi===Q.length-1?"Bekijk mijn profiel →":"Volgende →";
+}
+document.getElementById("prevQ").onclick=()=>{if(qi>0){qi--;renderQ();saveState()}};
+document.getElementById("nextQ").onclick=()=>{
+ if(answers[qi]===null){alert("Kies eerst het antwoord dat het beste bij jou past.");return}
+ if(qi<Q.length-1){qi++;renderQ();saveState()}else go(2);
+};
+function score(){
+ const c={V:0,C:0,R:0};answers.forEach((a,i)=>{if(a!==null)c[Q[i][2][a]]++});
+ ["V","C","R"].forEach(k=>{document.getElementById("s"+k.toLowerCase()).textContent=c[k];document.getElementById("b"+k.toLowerCase()).style.width=(c[k]/Q.length*100)+"%"});
+ return c;
+}
+function summary(){
+ const c=score();document.getElementById("sumScore").textContent=`Vakmens ${c.V} • Collega ${c.C} • Regisseur ${c.R}`;
+ document.getElementById("sumGrow").textContent=document.getElementById("grow").value||"—";
+ document.getElementById("sumStep").textContent=document.getElementById("firststep").value||"—";
+}
+document.addEventListener("input",saveState);
+document.addEventListener("change",saveState);
+document.getElementById("resetProgress").addEventListener("click",()=>{
+ if(!confirm("Alle opgeslagen antwoorden en teksten uit deze browser wissen?"))return;
+ try{localStorage.removeItem(STORAGE_KEY)}catch(_){}
+ window.location.reload();
+});
+const restoredStep=restoreState();
+storageReady=true;
+go(restoredStep);
+</script>
+</body>
+</html>

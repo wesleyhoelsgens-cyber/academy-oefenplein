@@ -439,7 +439,64 @@ footer{max-width:1180px;margin:auto;padding:0 22px 30px;color:var(--muted);font-
 <script>
 "use strict";
 const ACADEMY_HOME='../../../../index.html';
+const COMPLETION_STORAGE_KEY='academy.beroepsafspraken-interactief-eigenaarschap.v1';
 const total=16;
+
+function getSavedState(){
+  try{
+    const saved=JSON.parse(localStorage.getItem(COMPLETION_STORAGE_KEY));
+    return saved&&saved.version===1?saved:{};
+  }catch(_){
+    return {};
+  }
+}
+
+function collectState(extra={}){
+  const previous=getSavedState();
+  const answers={};
+  document.querySelectorAll('input[type=radio]:checked').forEach(input=>{answers[input.name]=input.value});
+  const notes={};
+  document.querySelectorAll('textarea[data-note]').forEach(field=>{notes[field.dataset.note]=field.value});
+  return {
+    version:1,
+    completed:previous.completed===true,
+    completedAt:previous.completedAt||null,
+    answers,
+    notes,
+    studentName:document.getElementById('studentName').value,
+    studentGoal:document.getElementById('studentGoal').value,
+    ...extra
+  };
+}
+
+function saveState(extra={}){
+  try{
+    localStorage.setItem(COMPLETION_STORAGE_KEY,JSON.stringify(collectState(extra)));
+  }catch(_){
+    // De opdracht blijft bruikbaar wanneer lokale opslag niet beschikbaar is.
+  }
+}
+
+function restoreState(){
+  const saved=getSavedState();
+  const allowedAnswers=['begrijp','uitleg','praten'];
+  if(saved.answers&&typeof saved.answers==='object'){
+    Object.entries(saved.answers).forEach(([name,value])=>{
+      if(!/^r(?:[1-9]|1[0-6])$/.test(name)||!allowedAnswers.includes(value)) return;
+      const input=[...document.querySelectorAll(`input[name="${name}"]`)].find(item=>item.value===value);
+      if(input) input.checked=true;
+    });
+  }
+  if(saved.notes&&typeof saved.notes==='object'){
+    document.querySelectorAll('textarea[data-note]').forEach(field=>{
+      const value=saved.notes[field.dataset.note];
+      if(typeof value==='string') field.value=value;
+    });
+  }
+  if(typeof saved.studentName==='string') document.getElementById('studentName').value=saved.studentName;
+  if(typeof saved.studentGoal==='string') document.getElementById('studentGoal').value=saved.studentGoal;
+}
+
 function update(){
   const checked=[...document.querySelectorAll('input[type=radio]:checked')];
   const done=checked.length;
@@ -451,7 +508,11 @@ function update(){
   document.getElementById('sExplain').textContent=count('uitleg');
   document.getElementById('sTalk').textContent=count('praten');
 }
-document.addEventListener('change',update);
+document.addEventListener('change',()=>{
+  update();
+  saveState();
+});
+document.addEventListener('input',()=>saveState());
 
 document.querySelectorAll('.filter').forEach(btn=>{
   btn.addEventListener('click',()=>{
@@ -496,14 +557,18 @@ document.getElementById('printBtn').addEventListener('click',()=>{
   }
   message.textContent='Kies in het afdrukvenster “Opslaan als PDF” en mail het PDF-bestand daarna naar je docent.';
   message.classList.add('success');
+  saveState({completed:true,completedAt:new Date().toISOString()});
   window.print();
 });
 document.getElementById('resetBtn').addEventListener('click',()=>{
   if(!confirm('Alles wissen en opnieuw beginnen?')) return;
   document.querySelectorAll('input[type=radio],input[type=checkbox]').forEach(x=>x.checked=false);
   document.querySelectorAll('textarea,input[type=text]').forEach(x=>x.value='');
+  document.getElementById('formMessage').textContent='';
+  try{localStorage.removeItem(COMPLETION_STORAGE_KEY)}catch(_){}
   update();
 });
+restoreState();
 update();
 </script>
 </body>

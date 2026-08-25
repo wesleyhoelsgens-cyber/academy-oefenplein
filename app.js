@@ -66,6 +66,9 @@ const academyData = {
                     duur: "20–30 minuten",
                     beschrijving: "Lees alle beroepsafspraken, vul je antwoorden, naam en beroepsdoel in, sla het formulier op als PDF en mail het naar je docent.",
                     bestand: "modules/gedeeld/beroepshouding/nieuw-in-de-klas/beroepsafspraken-interactief-eigenaarschap.html",
+                    actieLabel: "Invullen",
+                    compactNaAfronding: true,
+                    opslagSleutel: "academy.beroepsafspraken-interactief-eigenaarschap.v1",
                     beschikbaar: true
                 }
             ]
@@ -167,7 +170,27 @@ const academyData = {
             ])
         ]),
         createOpleiding("bol-allround-food-expert", "Allround Food Expert", [
-            createLeerjaar(1, [1, 2, 3, 4], {}, [
+            createLeerjaar(1, [1, 2, 3, 4], {
+                1: {
+                    themas: [
+                        {
+                            id: "professionele-ontwikkeling",
+                            naam: "Professionele ontwikkeling",
+                            modules: [
+                                {
+                                    id: "mijn-professionele-start",
+                                    titel: "Mijn professionele start",
+                                    type: "Profiel- en reflectieopdracht",
+                                    duur: "45–60 minuten",
+                                    beschrijving: "Bereid jouw verhaal voor in maximaal 3 dia’s.",
+                                    bestand: "modules/bol-allround-food-expert/leerjaar-1/periode-1/professionele-ontwikkeling/mijn-professionele-start.html",
+                                    beschikbaar: true
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }, [
                 createEindtoetsOnderdeel(),
                 createWarmeBereidingstechniekenOnderdeel()
             ]),
@@ -482,8 +505,11 @@ function renderBreadcrumb(items) {
 }
 
 function renderModuleCard(module) {
+    const isAfgerond = module.compactNaAfronding && isModuleAfgerond(module.opslagSleutel);
+    const cardClass = isAfgerond ? "module-card module-card-compact" : "module-card";
+    const statusLabel = isAfgerond ? "Ingevuld" : "Beschikbaar";
     return `
-        <article class="module-card">
+        <article class="${cardClass}">
             <p class="module-type">${module.type}</p>
             <h3>${module.titel}</h3>
             <p class="module-description">${module.beschrijving}</p>
@@ -491,10 +517,20 @@ function renderModuleCard(module) {
                 <span>${module.type}</span>
                 <span>${module.duur}</span>
             </div>
-            <p class="module-status"><span aria-hidden="true">✓</span> Beschikbaar</p>
-            <a class="start-button" href="${module.bestand}">Start oefening</a>
+            <p class="module-status"><span aria-hidden="true">✓</span> ${statusLabel}</p>
+            <a class="start-button" href="${module.bestand}">${module.actieLabel || "Start oefening"}</a>
         </article>
     `;
+}
+
+function isModuleAfgerond(opslagSleutel) {
+    if (!opslagSleutel) return false;
+    try {
+        const opgeslagenStatus = JSON.parse(localStorage.getItem(opslagSleutel));
+        return opgeslagenStatus?.completed === true;
+    } catch (_) {
+        return false;
+    }
 }
 
 function renderModuleOverview(themas) {
@@ -645,4 +681,7 @@ function render() {
 }
 
 window.addEventListener("hashchange", render);
+window.addEventListener("pageshow", event => {
+    if (event.persisted) render();
+});
 render();
