@@ -54,6 +54,23 @@ applyTheme(resolveTheme(themePreference));
 updateThemeControls();
 
 const academyData = {
+    algemeneThemas: [
+        {
+            id: "nieuw-in-de-klas",
+            naam: "Nieuw in de klas",
+            modules: [
+                {
+                    id: "beroepsafspraken-interactief-eigenaarschap",
+                    titel: "Nieuw in de klas? Vul de beroepsafspraken in",
+                    type: "Interactief afsprakenformulier",
+                    duur: "20–30 minuten",
+                    beschrijving: "Lees alle beroepsafspraken, vul je antwoorden, naam en beroepsdoel in, sla het formulier op als PDF en mail het naar je docent.",
+                    bestand: "modules/gedeeld/beroepshouding/nieuw-in-de-klas/beroepsafspraken-interactief-eigenaarschap.html",
+                    beschikbaar: true
+                }
+            ]
+        }
+    ],
     opleidingen: [
         createOpleiding("traiteur", "Traiteur", [
             createLeerjaar(1, [1, 2, 3, 4], {}, [
@@ -525,10 +542,15 @@ function render() {
     if (!parts.length) {
         renderBreadcrumb([]);
         app.innerHTML = renderHeader(
-            "Kies je opleiding",
-            "Selecteer de opleiding waarvoor je wilt oefenen.",
+            "Welkom bij SVO Academy Oefenplein",
+            "Ben je nieuw in de klas? Begin dan met de beroepsafspraken. Kies anders je opleiding om verder te gaan.",
             null
-        ) + renderCards(academyData.opleidingen, []);
+        ) + renderModuleOverview(academyData.algemeneThemas) + `
+            <section class="module-section" aria-labelledby="opleidingen-heading">
+                <h2 id="opleidingen-heading">Kies je opleiding</h2>
+                ${renderCards(academyData.opleidingen, [])}
+            </section>
+        `;
         return;
     }
 

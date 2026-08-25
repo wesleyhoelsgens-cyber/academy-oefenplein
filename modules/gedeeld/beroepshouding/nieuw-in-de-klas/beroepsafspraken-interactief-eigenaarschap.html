@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Lees de beroepsafspraken, vul je antwoorden in en lever het formulier als PDF in bij je docent.">
+<meta name="author" content="Academy Oefenplein">
+<meta name="academy:module-id" content="beroepsafspraken-interactief-eigenaarschap">
+<meta name="academy:type" content="interactief-afsprakenformulier">
+<meta name="academy:duration" content="20–30 minuten">
+<meta name="academy:theme" content="Nieuw in de klas">
+<meta name="academy:difficulty" content="basis">
+<meta name="academy:version" content="1.0.0">
+<meta name="academy:factory-version" content="1.0.0">
+<meta name="academy:last-updated" content="2026-08-25">
+<title>Beroepsafspraken in de klas – Academy Oefenplein</title>
+<style>
+:root {
+  --bg:#f4f1ea; --paper:#fffdfa; --ink:#24221f; --muted:#6d685f; --line:#ded8ce;
+  --accent:#6f7f5b; --accent2:#c77745; --soft:#f3eee5; --ok:#eaf2e5; --ask:#fff3d8; --talk:#f7e8df;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+.academy-nav{background:#174f41;color:white;padding:10px 22px}.academy-nav-inner{max-width:1180px;margin:auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}.academy-nav a,.academy-nav button{color:white;font:inherit;font-weight:700}.academy-nav a{padding:10px 0}.academy-nav button{min-height:44px;background:transparent;border:1px solid rgba(255,255,255,.7)}
+header{position:sticky;top:0;z-index:5;background:rgba(255,253,250,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.header-inner{max-width:1180px;margin:auto;padding:18px 22px;display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center}
+h1{margin:0;font-size:clamp(25px,3vw,38px)} .subtitle{color:var(--muted);margin-top:5px}
+.progress-wrap{min-width:260px} .progress-label{display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px}
+.progress{height:10px;background:#ebe6dd;border-radius:999px;overflow:hidden} .progress > div{height:100%;width:0;background:var(--accent);transition:.2s}
+main{max-width:1180px;margin:auto;padding:24px 22px 50px}
+.intro{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:20px;margin-bottom:18px}
+.intro-grid{display:grid;grid-template-columns:2fr 1fr;gap:18px}
+.intro h2{margin:0 0 8px} .intro p{line-height:1.55;margin:0}
+.legend{display:grid;gap:8px} .pill{padding:10px 12px;border-radius:12px;font-size:14px;border:1px solid var(--line)} .pill.ok{background:var(--ok)} .pill.ask{background:var(--ask)} .pill.talk{background:var(--talk)}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 18px} .filter{border:1px solid var(--line);background:var(--paper);padding:8px 12px;border-radius:999px;cursor:pointer} .filter.active{background:var(--ink);color:white}
+.rules{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.rule-card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.rule-top{display:grid;grid-template-columns:38px 1fr;gap:10px} .number{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--soft);font-weight:700}
+.eyebrow{font-size:12px;color:var(--accent2);font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.rule-card h3{margin:2px 0 0;font-size:17px;line-height:1.35} .why{background:var(--soft);border-radius:12px;padding:11px 12px;line-height:1.45;font-size:14px}
+.choices{display:grid;grid-template-columns:repeat(3,1fr);gap:7px} .choice{border:1px solid var(--line);border-radius:10px;padding:9px;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:6px}
+.choice input{accent-color:var(--accent)} .choice:has(input:checked){outline:2px solid var(--accent)} .choice.ok{background:var(--ok)} .choice.explain{background:var(--ask)} .choice.talk{background:var(--talk)}
+.note-label{font-size:12px;font-weight:700} textarea{margin-top:5px;width:100%;min-height:64px;border:1px solid var(--line);border-radius:10px;padding:9px;font:inherit;resize:vertical;background:white}
+.summary{margin-top:22px;background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:20px}
+.summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0} .stat{background:var(--soft);border-radius:12px;padding:13px;text-align:center} .stat strong{display:block;font-size:26px}
+.student-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:15px} input[type=text]{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px;font:inherit}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px} button{border:0;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer} .primary{background:var(--ink);color:white} .secondary{background:var(--soft);color:var(--ink);border:1px solid var(--line)}
+.teacher-box{margin-top:18px;background:#eef2ec;border-left:5px solid var(--accent);padding:14px;border-radius:10px;line-height:1.5}
+.submit-instruction{margin-top:14px;background:var(--ask);border:1px solid #d9bd78;border-radius:12px;padding:14px;line-height:1.5}.form-message{min-height:24px;margin:12px 0 0;font-weight:700;color:#8a2d20}.form-message.success{color:#285f32}button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #f0b429;outline-offset:3px}
+footer{max-width:1180px;margin:auto;padding:0 22px 30px;color:var(--muted);font-size:13px}
+@media(max-width:900px){.header-inner,.intro-grid,.rules{grid-template-columns:1fr} .progress-wrap{min-width:0} .choices{grid-template-columns:1fr} .summary-grid{grid-template-columns:repeat(2,1fr)}}
+@media print{.academy-nav,header{position:static}.academy-nav,.toolbar,.actions,.form-message{display:none} body{background:white} .rule-card,.intro,.summary{break-inside:avoid;box-shadow:none} main{padding-top:10px}}
+</style>
+</head>
+<body>
+<nav class="academy-nav" aria-label="Modulenavigatie">
+  <div class="academy-nav-inner">
+    <button id="academyBack" type="button">← Terug</button>
+    <a href="../../../../index.html" aria-label="Naar Academy Home">Academy Oefenplein</a>
+  </div>
+</nav>
+<header>
+  <div class="header-inner">
+    <div>
+      <h1>Beroepsafspraken in de klas</h1>
+      <div class="subtitle">Lees • begrijp • stel vragen • neem eigenaarschap</div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-label"><span>Mijn voortgang</span><strong id="progressText">0 / 16</strong></div>
+      <div class="progress"><div id="progressBar"></div></div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="intro">
+    <div class="intro-grid">
+      <div>
+        <h2>Waarom doen we dit zo?</h2>
+        <p>De B van mbo staat voor <strong>beroep</strong>. Je oefent hier niet alleen vakkennis, maar ook hoe je functioneert als collega, medewerker, teamleider, ondernemer of kwaliteitsmedewerker. Lees iedere afspraak en geef eerlijk aan of je hem begrijpt, verduidelijking wilt of erover wilt praten. Dat is geen probleem — juist vragen stellen hoort bij professioneel eigenaarschap.</p>
+        <div class="submit-instruction"><strong>Zo lever je dit in:</strong> beantwoord alle 16 afspraken, vul onderaan je naam en beroepsdoel in en kies <strong>Opslaan als PDF</strong>. Sla het PDF-bestand op en mail het naar je docent.</div>
+      </div>
+      <div class="legend">
+        <div class="pill ok">✓ Ik begrijp dit</div>
+        <div class="pill ask">? Ik wil verduidelijking</div>
+        <div class="pill talk">💬 Ik wil hierover praten</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="toolbar">
+    <button class="filter active" data-filter="all">Alles</button>
+    <button class="filter" data-filter="Startklaar &amp; betrouwbaar">Startklaar &amp; betrouwbaar</button><button class="filter" data-filter="Aandacht &amp; verbinding">Aandacht &amp; verbinding</button><button class="filter" data-filter="Actieve beroepshouding">Actieve beroepshouding</button><button class="filter" data-filter="Professionele omgang">Professionele omgang</button><button class="filter" data-filter="Werkplek, hygiëne &amp; omgeving">Werkplek, hygiëne &amp; omgeving</button>
+  </div>
+
+  <section class="rules">
+    
+    <article class="rule-card" data-index="1" data-category="Startklaar &amp; betrouwbaar">
+      <div class="rule-top">
+        <span class="number">1</span>
+        <div>
+          <div class="eyebrow">Startklaar &amp; betrouwbaar</div>
+          <h3>Ik ben op de afgesproken begintijd aanwezig én startklaar.</h3>
+        </div>
+      </div>
+      <div class="why"><strong>Waarom?</strong> Begint een les of dienst om 08.45 uur, dan ben je om 08.45 uur klaar om te starten. Een werkgever verwacht dat je op de afgesproken tijd inzetbaar bent.</div>
+      <div class="choices" role="group" aria-label="Begrip van afspraak 1">
+        <label class="choice ok"><input type="radio" name="r1" value="begrijp"> <span>✓ Ik begrijp dit</span></label>
+        <label class="choice explain"><input type="radio" name="r1" value="uitleg"> <span>? Ik wil verduidelijking</span></label>
+        <label class="choice talk"><input type="radio" name="r1" value="praten"> <span>💬 Ik wil hierover praten</span></label>
+      </div>
+      <label class="note-label">Mijn vraag of opmerking
+        <textarea data-note="1" placeholder="Alleen invullen als je iets wilt vragen, bespreken of onthouden…"></textarea>
+      </label>
+    </article>
+    
+    <article class="rule-card" data-index="2" data-category="Startklaar &amp; betrouwbaar">
+      <div class="rule-top">
+        <span class="number">2</span>
+        <div>
+          <div class="eyebrow">Startklaar &amp; betrouwbaar</div>
+          <h3>Ik kan zelfstandig opstarten.</h3>
+        </div>
+      </div>
+      <div class="why"><strong>Waarom?</strong> Je hoeft niet op de docent te wachten om je laptop te pakken. Start op, log in, controleer updates en bekijk schoolmail en relevante informatie.</div>
+      <div class="choices" role="group" aria-label="Begrip van afspraak 2">
+        <label class="choice ok"><input type="radio" name="r2" value="begrijp"> <span>✓ Ik begrijp dit</span></label>
+        <label class="choice explain"><input type="radio" name="r2" value="uitleg"> <span>? Ik wil verduidelijking</span></label>
+        <label class="choice talk"><input type="radio" name="r2" value="praten"> <span>💬 Ik wil hierover praten</span></label>
+      </div>
+      <label class="note-label">Mijn vraag of opmerking
+        <textarea data-note="2" placeholder="Alleen invullen als je iets wilt vragen, bespreken of onthouden…"></textarea>
+      </label>
+    </article>
+    
+    <article class="rule-card" data-index="3" data-category="Startklaar &amp; betrouwbaar">
+      <div class="rule-top">
+        <span class="number">3</span>
+        <div>
+          <div class="eyebrow">Startklaar &amp; betrouwbaar</div>
+          <h3>Ik kom afspraken en deadlines na en meld problemen op tijd.</h3>
+        </div>
+      </div>
+      <div class="why"><strong>Waarom?</strong> Professionals zijn betrouwbaar. Als iets echt niet lukt, meld je dit voordat het een probleem voor anderen wordt en denk je mee over een oplossing.</div>
+      <div class="choices" role="group" aria-label="Begrip van afspraak 3">
+        <label class="choice ok"><input type="radio" name="r3" value="begrijp"> <span>✓ Ik begrijp dit</span></label>
+        <label class="choice explain"><input type="radio" name="r3" value="uitleg"> <span>? Ik wil verduidelijking</span></label>
+        <label class="choice talk"><input type="radio" name="r3" value="praten"> <span>💬 Ik wil hierover praten</span></label>
+      </div>
+      <label class="note-label">Mijn vraag of opmerking
+        <textarea data-note="3" placeholder="Alleen invullen als je iets wilt vragen, bespreken of onthouden…"></textarea>
+      </label>
+    </article>
+    
+    <article class="rule-card" data-index="4" data-category="Aandacht &amp; verbinding">
+      <div class="rule-top">
+        <span class="number">4</span>
+        <div>
+          <div class="eyebrow">Aandacht &amp; verbinding</div>
+          <h3>Mijn telefoon is tijdens de les uit het zicht.</h3>
+        </div>
+      </div>
+      <div class="why"><strong>Waarom?</strong> Een berichtje beantwoorden wordt gemakkelijk WhatsApp, Snapchat en nog meer meldingen. Daardoor mis je uitleg en kost dezelfde instructie later opnieuw tijd.</div>
+      <div class="choices" role="group" aria-label="Begrip van afspraak 4">
+        <label class="choice ok"><input type="radio" name="r4" value="begrijp"> <span>✓ Ik begrijp dit</span></label>
+        <label class="choice explain"><input type="radio" name="r4" value="uitleg"> <span>? Ik wil verduidelijking</span></label>
+        <label class="choice talk"><input type="radio" name="r4" value="praten"> <span>💬 Ik wil hierover praten</span></label>
+      </div>
+      <label class="note-label">Mijn vraag of opmerking
+        <textarea data-note="4" placeholder="Alleen invullen als je iets wilt vragen, bespreken of onthouden…"></textarea>
+      </label>
+    </article>
+    
+    <article class="rule-card" data-index="5" data-category="Aandacht &amp; verbinding">
+      <div class="rule-top">
+        <span class="number">5</span>
+        <div>
+          <div class="eyebrow">Aandacht &amp; verbinding</div>
+          <h3>Ik draag tijdens de les geen oortjes, ook niet tijdens zelfstandig werken.</h3>
+        </div>
+      </div>
+      <div class="why"><strong>Waarom?</strong> Op een professionele werkplek moet je bereikbaar blijven voor collega&#x27;s, klanten, leidinggevenden, instructies en wat er om je heen gebeurt.</div>
+      <div class="choices" role="group" aria-label="Begrip van afspraak 5">
+        <label class="choice ok"><input type="radio" name="r5" value="begrijp"> <span>✓ Ik begrijp dit</span></label>
+        <label class="choice explain"><input type="radio" name="r5" value="uitleg"> <span>? Ik wil verduidelijking</span></label>
+        <label class="choice talk"><input type="radio" name="r5" value="praten"> <span>💬 Ik wil hierover praten</span></label>
+      </div>
+      <label class="note-label">Mijn vraag of opmerking
+        <textarea data-note="5" placeholder="Alleen invullen als je iets wilt vragen, bespreken of onthouden…"></textarea>
+      </label>
+    </article>
+    
+    <article class="rule-card" data-index="6" data-category="Aandacht &amp; verbinding">
+      <div class="rule-top">
+        <span class="number">6</span>
+        <div>
+          <div class="eyebrow">Aandacht &amp; verbinding</div>
+          <h3>Tijdens uitleg, gesprekken en samenwerken ben ik met mijn aandacht bij de groep.</h3>
+        </div>
+      </div>
+      <div class="why"><strong>Waarom?</strong> Een briefing of werkinstructie missen kan leiden tot fouten, tijdverlies of onveilige situaties. Aandacht geven hoort bij je beroepshouding.</div>
+      <div class="choices" role="group" aria-label="Begrip van afspraak 6">
+        <label class="choice ok"><input type="radio" name="r6" value="begrijp"> <span>✓ Ik begrijp dit</span></label>
+        <label class="choice explain"><input type="radio" name="r6" value="uitleg"> <span>? Ik wil verduidelijking</span></label>
+        <label class="choice talk"><input type="radio" name="r6" value="praten"> <span>💬 Ik wil hierover praten</span></label>
+      </div>
+      <label class="note-label">Mijn vraag of opmerking
+        <textarea data-note="6" placeholder="Alleen invullen als je iets wilt vragen, bespreken of onthouden…"></textarea>
+      </label>
+    </article>
+    
+    <article class="rule-card" data-index="7" data-category="Actieve beroepshouding">
+      <div class="rule-top">
+        <span class="number">7</span>
+        <div>
+          <div class="eyebrow">Actieve beroepshouding</div>
+          <h3>Ik doe actief mee aan gesprekken, opdrachten en werkvormen.</h3>
+        </div>
+      </div>
+      <div class="why"><strong>Waarom?</strong> Alleen aanwezig zijn is niet genoeg. Je leert door mee te denken, te oefenen, vragen te stellen, feedback te geven en bij te dragen aan de groep.</div>
+      <div class="choices" role="group" aria-label="Begrip van afspraak 7">
+        <label class="choice ok"><input type="radio" name="r7" value="begrijp"> <span>✓ Ik begrijp dit</span></label>
+        <label class="choice explain"><input type="radio" name="r7" value="uitleg"> <span>? Ik wil verduidelijking</span></label>
+        <label class="choice talk"><input type="radio" name="r7" value="praten"> <span>💬 Ik wil hierover praten</span></label>
+      </div>
+      <label class="note-label">Mijn vraag of opmerking
+        <textarea data-note="7" placeholder="Alleen invullen als je iets wilt vragen, bespreken of onthouden…"></textarea>
+      </label>
+    </article>
+    
+    <article class="rule-card" data-index="8" data-category="Actieve beroepshouding">
+      <div class="rule-top">
+        <span class="number">8</span>
+        <div>
+          <div class="eyebrow">Actieve beroepshouding</div>
+          <h3>&#x27;Weet ik niet&#x27; mag het begin zijn, maar nooit het eindantwoord.</h3>
+        </div>
+      </div>
+      <div class="why"><strong>Waarom?</strong> Je hoeft niet alles meteen te weten. Denk terug aan de uitleg, vraag om een hint of probeer een antwoord. Fouten maken mag; stoppen met denken niet.</div>
+      <div class="choices" role="group" aria-label="Begrip van afspraak 8">
+        <label class="choice ok"><input type="radio" name="r8" value="begrijp"> <span>✓ Ik begrijp dit</span></label>
+        <label class="choice explain"><input type="radio" name="r8" value="uitleg"> <span>? Ik wil verduidelijking</span></label>
+        <label class="choice talk"><input type="radio" name="r8" value="praten"> <span>💬 Ik wil hierover praten</span></label>
+      </div>
+      <label class="note-label">Mijn vraag of opmerking
+        <textarea data-note="8" placeholder="Alleen invullen als je iets wilt vragen, bespreken of onthouden…"></textarea>
+      </label>
+    </article>
+    
+    <article class="rule-card" data-index="9" data-category="Actieve beroepshouding">
+      <div class="rule-top">
+        <span class="number">9</span>
+        <div>
+          <div class="eyebrow">Actieve beroepshouding</div>
+          <h3>Ik stel vragen als iets niet duidelijk is en probeer ook zelf een volgende stap te vinden.</h3>
+        </div>
+      </div>
+      <div class="why"><strong>Waarom?</strong> Op het werk is doorvragen professioneler dan een opdracht verkeerd uitvoeren. Tegelijk wordt verwacht dat je niet voor iedere kleine stap op instructie wacht.</div>
+      <div class="choices" role="group" aria-label="Begrip van afspraak 9">
+        <label class="choice ok"><input type="radio" name="r9" value="begrijp"> <span>✓ Ik begrijp dit</span></label>
+        <label class="choice explain"><input type="radio" name="r9" value="uitleg"> <span>? Ik wil verduidelijking</span></label>
+        <label class="choice talk"><input type="radio" name="r9" value="praten"> <span>💬 Ik wil hierover praten</span></label>
+      </div>
+      <label class="note-label">Mijn vraag of opmerking
+        <textarea data-note="9" placeholder="Alleen invullen als je iets wilt vragen, bespreken of onthouden…"></textarea>
+      </label>
+    </article>
+    
+    <article class="rule-card" data-index="10" data-category="Professionele omgang">
+      <div class="rule-top">
+        <span class="number">10</span>
+        <div>
+          <div class="eyebrow">Professionele omgang</div>
+          <h3>Ik laat anderen uitspreken, gebruik respectvolle taal en accepteer verschillen.</h3>
+        </div>
+      </div>
+      <div class="why"><strong>Waarom?</strong> Je kiest je collega&#x27;s en klanten niet altijd zelf. Professioneel samenwerken betekent dat je met verschillende mensen kunt omgaan.</div>
+      <div class="choices" role="group" aria-label="Begrip van afspraak 10">
+        <label class="choice ok"><input type="radio" name="r10" value="begrijp"> <span>✓ Ik begrijp dit</span></label>
+        <label class="choice explain"><input type="radio" name="r10" value="uitleg"> <span>? Ik wil verduidelijking</span></label>
+        <label class="choice talk"><input type="radio" name="r10" value="praten"> <span>💬 Ik wil hierover praten</span></label>
+      </div>
+      <label class="note-label">Mijn vraag of opmerking
+        <textarea data-note="10" placeholder="Alleen invullen als je iets wilt vragen, bespreken of onthouden…"></textarea>
+      </label>
+    </article>
+    
+    <article class="rule-card" data-index="11" data-category="Professionele omgang">
+      <div class="rule-top">
+        <span class="number">11</span>
+        <div>
+          <div class="eyebrow">Professionele omgang</div>
+          <h3>Ik ben aanspreekbaar op mijn gedrag en spreek anderen respectvol aan.</h3>
+        </div>
+      </div>
+      <div class="why"><strong>Waarom?</strong> Feedback ontvangen hoort bij leren. Feedback geven hoort bij samenwerken en later mogelijk bij leidinggeven. We corrigeren gedrag, niet de persoon.</div>
+      <div class="choices" role="group" aria-label="Begrip van afspraak 11">
+        <label class="choice ok"><input type="radio" name="r11" value="begrijp"> <span>✓ Ik begrijp dit</span></label>
+        <label class="choice explain"><input type="radio" name="r11" value="uitleg"> <span>? Ik wil verduidelijking</span></label>
+        <label class="choice talk"><input type="radio" name="r11" value="praten"> <span>💬 Ik wil hierover praten</span></label>
+      </div>
+      <label class="note-label">Mijn vraag of opmerking
+        <textarea data-note="11" placeholder="Alleen invullen als je iets wilt vragen, bespreken of onthouden…"></textarea>
+      </label>
+    </article>
+    
+    <article class="rule-card" data-index="12" data-category="Professionele omgang">
+      <div class="rule-top">
+        <span class="number">12</span>
+        <div>
+          <div class="eyebrow">Professionele omgang</div>
+          <h3>Ik help anderen waar dat passend is, zonder hun verantwoordelijkheid over te nemen.</h3>
+        </div>
+      </div>
+      <div class="why"><strong>Waarom?</strong> Een goed team helpt elkaar vooruit. Dat betekent niet dat jij het werk van een ander maakt; iedereen blijft verantwoordelijk voor zijn eigen bijdrage.</div>
+      <div class="choices" role="group" aria-label="Begrip van afspraak 12">
+        <label class="choice ok"><input type="radio" name="r12" value="begrijp"> <span>✓ Ik begrijp dit</span></label>
+        <label class="choice explain"><input type="radio" name="r12" value="uitleg"> <span>? Ik wil verduidelijking</span></label>
+        <label class="choice talk"><input type="radio" name="r12" value="praten"> <span>💬 Ik wil hierover praten</span></label>
+      </div>
+      <label class="note-label">Mijn vraag of opmerking
+        <textarea data-note="12" placeholder="Alleen invullen als je iets wilt vragen, bespreken of onthouden…"></textarea>
+      </label>
+    </article>
+    
+    <article class="rule-card" data-index="13" data-category="Werkplek, hygiëne &amp; omgeving">
+      <div class="rule-top">
+        <span class="number">13</span>
+        <div>
+          <div class="eyebrow">Werkplek, hygiëne &amp; omgeving</div>
+          <h3>Ik ga zorgvuldig om met producten, materialen en spullen en laat mijn werkplek schoon en netjes achter.</h3>
+        </div>
+      </div>
+      <div class="why"><strong>Waarom?</strong> Schade, verspilling en rommel kosten tijd en geld. Orde, hygiëne en zorgvuldig werken horen bij professioneel vakmanschap.</div>
+      <div class="choices" role="group" aria-label="Begrip van afspraak 13">
+        <label class="choice ok"><input type="radio" name="r13" value="begrijp"> <span>✓ Ik begrijp dit</span></label>
+        <label class="choice explain"><input type="radio" name="r13" value="uitleg"> <span>? Ik wil verduidelijking</span></label>
+        <label class="choice talk"><input type="radio" name="r13" value="praten"> <span>💬 Ik wil hierover praten</span></label>
+      </div>
+      <label class="note-label">Mijn vraag of opmerking
+        <textarea data-note="13" placeholder="Alleen invullen als je iets wilt vragen, bespreken of onthouden…"></textarea>
+      </label>
+    </article>
+    
+    <article class="rule-card" data-index="14" data-category="Werkplek, hygiëne &amp; omgeving">
+      <div class="rule-top">
+        <span class="number">14</span>
+        <div>
+          <div class="eyebrow">Werkplek, hygiëne &amp; omgeving</div>
+          <h3>Eten, snoep, koek en frisdrank horen niet in het lokaal. Drinken mag uit een goed afgesloten fles of beker met dop.</h3>
+        </div>
+      </div>
+      <div class="why"><strong>Waarom?</strong> Een open beker kan worden omgestoten en over je eigen laptop of die van iemand anders lopen. Een afgesloten fles of beker verkleint de kans op schade.</div>
+      <div class="choices" role="group" aria-label="Begrip van afspraak 14">
+        <label class="choice ok"><input type="radio" name="r14" value="begrijp"> <span>✓ Ik begrijp dit</span></label>
+        <label class="choice explain"><input type="radio" name="r14" value="uitleg"> <span>? Ik wil verduidelijking</span></label>
+        <label class="choice talk"><input type="radio" name="r14" value="praten"> <span>💬 Ik wil hierover praten</span></label>
+      </div>
+      <label class="note-label">Mijn vraag of opmerking
+        <textarea data-note="14" placeholder="Alleen invullen als je iets wilt vragen, bespreken of onthouden…"></textarea>
+      </label>
+    </article>
+    
+    <article class="rule-card" data-index="15" data-category="Werkplek, hygiëne &amp; omgeving">
+      <div class="rule-top">
+        <span class="number">15</span>
+        <div>
+          <div class="eyebrow">Werkplek, hygiëne &amp; omgeving</div>
+          <h3>Ik plan toiletbezoek en drinken zoveel mogelijk vóór of na de les en in de pauze.</h3>
+        </div>
+      </div>
+      <div class="why"><strong>Waarom?</strong> Een lesblok duurt maximaal 90 minuten. Net als op het werk plan je persoonlijke zaken zoveel mogelijk rondom gezamenlijke werkzaamheden.</div>
+      <div class="choices" role="group" aria-label="Begrip van afspraak 15">
+        <label class="choice ok"><input type="radio" name="r15" value="begrijp"> <span>✓ Ik begrijp dit</span></label>
+        <label class="choice explain"><input type="radio" name="r15" value="uitleg"> <span>? Ik wil verduidelijking</span></label>
+        <label class="choice talk"><input type="radio" name="r15" value="praten"> <span>💬 Ik wil hierover praten</span></label>
+      </div>
+      <label class="note-label">Mijn vraag of opmerking
+        <textarea data-note="15" placeholder="Alleen invullen als je iets wilt vragen, bespreken of onthouden…"></textarea>
+      </label>
+    </article>
+    
+    <article class="rule-card" data-index="16" data-category="Werkplek, hygiëne &amp; omgeving">
+      <div class="rule-top">
+        <span class="number">16</span>
+        <div>
+          <div class="eyebrow">Werkplek, hygiëne &amp; omgeving</div>
+          <h3>Ik rook niet bij de trap of direct bij school, ook niet als het regent of als anderen daar staan.</h3>
+        </div>
+      </div>
+      <div class="why"><strong>Waarom?</strong> Ondernemers en buren mogen geen overlast ervaren. Je laat ook zien dat je zelfstandig een professionele keuze kunt maken, zelfs als de groep iets anders doet.</div>
+      <div class="choices" role="group" aria-label="Begrip van afspraak 16">
+        <label class="choice ok"><input type="radio" name="r16" value="begrijp"> <span>✓ Ik begrijp dit</span></label>
+        <label class="choice explain"><input type="radio" name="r16" value="uitleg"> <span>? Ik wil verduidelijking</span></label>
+        <label class="choice talk"><input type="radio" name="r16" value="praten"> <span>💬 Ik wil hierover praten</span></label>
+      </div>
+      <label class="note-label">Mijn vraag of opmerking
+        <textarea data-note="16" placeholder="Alleen invullen als je iets wilt vragen, bespreken of onthouden…"></textarea>
+      </label>
+    </article>
+    
+  </section>
+
+  <section class="summary">
+    <h2>Mijn samenvatting</h2>
+    <p>Gebruik dit overzicht om te zien wat duidelijk is en waar je nog vragen over hebt.</p>
+    <div class="summary-grid">
+      <div class="stat"><strong id="sDone">0</strong><span>beantwoord</span></div>
+      <div class="stat"><strong id="sOk">0</strong><span>begrijp ik</span></div>
+      <div class="stat"><strong id="sExplain">0</strong><span>verduidelijking</span></div>
+      <div class="stat"><strong id="sTalk">0</strong><span>bespreken</span></div>
+    </div>
+
+    <div class="teacher-box">
+      <strong>Een fout kan gebeuren — je keuze daarna telt.</strong><br>
+      Een incident is iets anders dan een patroon. We kijken eerst wat er speelt. Daarna verwachten we dat je eerlijk naar je eigen aandeel kijkt en meedenkt over wat je een volgende keer anders kunt doen.
+    </div>
+
+    <div class="teacher-box">
+      <strong>Wat je van mij mag verwachten:</strong><br>
+      duidelijkheid over wat ik van je verwacht • uitleg waarom iets belangrijk is • eerst proberen te begrijpen wat er speelt • gedrag aanspreken zonder iemand af te schrijven • hulp bij het vinden van een oplossing • steeds meer verantwoordelijkheid bij jou leggen.
+    </div>
+
+    <div class="student-fields">
+      <label>Naam student<input type="text" id="studentName" placeholder="Naam"></label>
+      <label>Mijn eigen beroepsdoel<input type="text" id="studentGoal" placeholder="Waar wil ik in groeien?"></label>
+    </div>
+
+    <div class="actions">
+      <button class="primary" id="printBtn">Opslaan als PDF</button>
+      <button class="secondary" id="resetBtn">Alles wissen</button>
+    </div>
+    <p class="form-message" id="formMessage" role="status" aria-live="polite"></p>
+  </section>
+</main>
+
+<footer>Je hoeft niet overal meteen mee eens te zijn. Wel verwachten we dat je probeert te begrijpen waarom een afspraak bestaat, vragen stelt en professioneel in gesprek gaat.</footer>
+
+<script>
+"use strict";
+const ACADEMY_HOME='../../../../index.html';
+const total=16;
+function update(){
+  const checked=[...document.querySelectorAll('input[type=radio]:checked')];
+  const done=checked.length;
+  const count=v=>checked.filter(x=>x.value===v).length;
+  document.getElementById('progressText').textContent=`${done} / ${total}`;
+  document.getElementById('progressBar').style.width=`${(done/total)*100}%`;
+  document.getElementById('sDone').textContent=done;
+  document.getElementById('sOk').textContent=count('begrijp');
+  document.getElementById('sExplain').textContent=count('uitleg');
+  document.getElementById('sTalk').textContent=count('praten');
+}
+document.addEventListener('change',update);
+
+document.querySelectorAll('.filter').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.filter').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const f=btn.dataset.filter;
+    document.querySelectorAll('.rule-card').forEach(card=>{
+      card.style.display=(f==='all'||card.dataset.category===f)?'flex':'none';
+    });
+  });
+});
+
+document.getElementById('academyBack').addEventListener('click',()=>{
+  if(document.referrer.includes('/index.html')&&window.history.length>1){
+    window.history.back();
+  }else{
+    window.location.href=ACADEMY_HOME;
+  }
+});
+
+document.getElementById('printBtn').addEventListener('click',()=>{
+  const checked=[...document.querySelectorAll('input[type=radio]:checked')];
+  const name=document.getElementById('studentName');
+  const goal=document.getElementById('studentGoal');
+  const message=document.getElementById('formMessage');
+  message.classList.remove('success');
+  if(checked.length<total){
+    message.textContent=`Beantwoord eerst alle afspraken. Je hebt er nu ${checked.length} van de ${total} ingevuld.`;
+    const firstMissing=[...document.querySelectorAll('.rule-card')].find(card=>!card.querySelector('input[type=radio]:checked'));
+    firstMissing?.querySelector('input[type=radio]')?.focus();
+    return;
+  }
+  if(!name.value.trim()){
+    message.textContent='Vul eerst je naam in.';
+    name.focus();
+    return;
+  }
+  if(!goal.value.trim()){
+    message.textContent='Vul eerst je eigen beroepsdoel in.';
+    goal.focus();
+    return;
+  }
+  message.textContent='Kies in het afdrukvenster “Opslaan als PDF” en mail het PDF-bestand daarna naar je docent.';
+  message.classList.add('success');
+  window.print();
+});
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  if(!confirm('Alles wissen en opnieuw beginnen?')) return;
+  document.querySelectorAll('input[type=radio],input[type=checkbox]').forEach(x=>x.checked=false);
+  document.querySelectorAll('textarea,input[type=text]').forEach(x=>x.value='');
+  update();
+});
+update();
+</script>
+</body>
+</html>
