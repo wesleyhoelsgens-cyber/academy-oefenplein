@@ -187,6 +187,22 @@ const academyData = {
                                     beschikbaar: true
                                 }
                             ]
+                        },
+                        {
+                            id: "foodsafari",
+                            naam: "Foodsafari",
+                            modules: [
+                                {
+                                    id: "foodsafari-kompas-v3-2",
+                                    titel: "Foodsafari Kompas",
+                                    type: "Voorbereidings- en bezoekkompas",
+                                    duur: "30–60 minuten per week",
+                                    beschrijving: "Bereid je Foodsafari iedere week 30–60 minuten voor en werk na ieder bezoek zelf je verslag bij.",
+                                    bestand: "modules/bol-allround-food-expert/leerjaar-1/periode-1/foodsafari/foodsafari-kompas-v3-2.html",
+                                    actieLabel: "Open Kompas",
+                                    beschikbaar: true
+                                }
+                            ]
                         }
                     ]
                 }
@@ -234,6 +250,22 @@ const academyData = {
                                     duur: "60–90 minuten",
                                     beschrijving: "Oefen hospitality-vaktaal, begrippen, flashcards, praktijksituaties en gemengde examenvragen.",
                                     bestand: "modules/hospitality/leerjaar-1/periode-1/gastvrijheid-verlenen/3414a-gastvrijheid-verlenen-oefenapp.html",
+                                    beschikbaar: true
+                                }
+                            ]
+                        },
+                        {
+                            id: "gastvrijheid-in-actie",
+                            naam: "Gastvrijheid in Actie",
+                            modules: [
+                                {
+                                    id: "gastvrijheid-in-actie-fase-1",
+                                    titel: "Gastvrijheid in Actie – Jaarproject Fase 1",
+                                    type: "Jaarproject – Fase 1",
+                                    duur: "Wekelijks bijwerken",
+                                    beschrijving: "Werk dit jaarproject iedere week bij en verzamel informatie, observaties, interviews, foto’s en ander bewijs op je werk of leerbedrijf.",
+                                    bestand: "modules/hospitality/leerjaar-1/periode-1/gastvrijheid-in-actie/gastvrijheid-in-actie-fase-1.html",
+                                    actieLabel: "Bekijk Fase 1",
                                     beschikbaar: true
                                 }
                             ]

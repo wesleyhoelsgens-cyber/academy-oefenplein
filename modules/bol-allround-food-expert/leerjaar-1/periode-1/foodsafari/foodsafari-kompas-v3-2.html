@@ -1,0 +1,893 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Bereid je Foodsafari voor, onderzoek foodbedrijven gericht en werk na ieder bezoek zelf je verslag bij.">
+<meta name="author" content="Academy Oefenplein">
+<meta name="academy:module-id" content="foodsafari-kompas-v3-2">
+<meta name="academy:type" content="voorbereidings-en-bezoekkompas">
+<meta name="academy:duration" content="30–60 minuten voorbereiding per week">
+<meta name="academy:education" content="bol-allround-food-expert">
+<meta name="academy:year" content="1">
+<meta name="academy:period" content="1">
+<meta name="academy:theme" content="Foodsafari">
+<meta name="academy:difficulty" content="basis">
+<meta name="academy:version" content="3.2.0">
+<meta name="academy:factory-version" content="1.0.0">
+<meta name="academy:last-updated" content="2026-08-30">
+<title>Foodsafari Kompas v3.2 – Academy Oefenplein</title>
+<style>
+:root{--bg:#f5f7f2;--card:#fff;--ink:#17231b;--muted:#617066;--line:#dce4dc;--green:#176b45;--green2:#e6f3eb;--blue:#e8f1fb;--orange:#fff1dc;--purple:#f1eafa;--red:#fdeaea;--shadow:0 10px 28px rgba(30,50,35,.08)}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5}
+.academy-nav{background:#0b4f4a;color:#fff;padding:10px 20px}.academy-nav-inner{max-width:1180px;margin:auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}.academy-nav button,.academy-nav a{min-height:44px;display:inline-flex;align-items:center;color:#fff;font:inherit;font-weight:700}.academy-nav button{background:transparent;border:1px solid rgba(255,255,255,.7);border-radius:9px;padding:9px 12px;cursor:pointer}.academy-nav ol{display:flex;gap:8px;flex-wrap:wrap;list-style:none;margin:0;padding:0}.academy-nav li:not(:last-child)::after{content:"/";margin-left:8px;opacity:.7}.academy-nav :focus-visible{outline:3px solid #facc15;outline-offset:3px}
+button,input{font:inherit}.app{max-width:1180px;margin:auto;padding:0 22px 90px}
+.top{position:sticky;top:0;z-index:20;background:rgba(245,247,242,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.topin{max-width:1180px;margin:auto;padding:12px 22px;display:flex;align-items:center;gap:18px}.brand{font-weight:900;letter-spacing:-.03em;white-space:nowrap}.brand b{color:var(--green)}
+.nav{display:flex;gap:6px;margin-left:auto}.nav button,.ghost{border:0;background:transparent;border-radius:12px;padding:9px 12px;cursor:pointer;color:#46564b}.nav button.active,.nav button:hover{background:#e9eee9;color:var(--ink)}
+.search{position:relative;max-width:1180px;margin:18px auto 0}.search input{width:100%;border:1px solid var(--line);border-radius:16px;background:#fff;padding:14px 16px 14px 44px;outline:none;box-shadow:0 4px 15px rgba(20,40,25,.04)}.search:before{content:"🔍";position:absolute;left:15px;top:13px}
+.searchresults{display:none;position:absolute;left:0;right:0;top:54px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);z-index:30;max-height:340px;overflow:auto}.searchresults.show{display:block}.sr{padding:12px 15px;border-bottom:1px solid #edf1ed;cursor:pointer}.sr:last-child{border:0}.sr:hover{background:#f6f8f5}.sr small{color:var(--muted)}
+.view{display:none}.view.active{display:block}.hero{margin:28px 0 22px;background:linear-gradient(135deg,#173c2a,#22744d);color:#fff;border-radius:28px;padding:34px;box-shadow:var(--shadow)}.eyebrow{font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;opacity:.8}.hero h1{font-size:clamp(2rem,5vw,4rem);line-height:1.02;margin:8px 0 12px;letter-spacing:-.05em}.hero p{max-width:700px;font-size:1.08rem;color:#e7f3eb}
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:24px}.step{background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.18);border-radius:16px;padding:12px}.step b{display:block}
+h2{font-size:1.65rem;letter-spacing:-.03em;margin:30px 0 6px} .lead{color:var(--muted);margin-top:0}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:0 4px 14px rgba(30,50,35,.035)}.branch{cursor:pointer;transition:.18s}.branch:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:#c9d8cc}.branch .ico{font-size:1.7rem}.tag{display:inline-block;font-size:.74rem;font-weight:800;color:var(--green);background:var(--green2);padding:4px 8px;border-radius:999px;margin:8px 0}.branch h3{margin:4px 0 5px}.branch p{color:var(--muted);margin:0;font-size:.93rem}.flexnote{margin:18px 0;background:#eef3ed;border:1px dashed #bfcfc1;border-radius:18px;padding:16px}
+.pills{display:flex;gap:7px;flex-wrap:wrap}.pill{font-size:.78rem;padding:5px 8px;border-radius:999px;font-weight:700}.keten{background:var(--green2)}.log{background:var(--blue)}.value{background:var(--orange)}.trace{background:var(--purple)}.safe{background:var(--red)}
+.detailhead{margin-top:24px}.back{border:0;background:#e8eee9;border-radius:12px;padding:9px 12px;cursor:pointer}.detailhero{margin-top:12px;background:#fff;border:1px solid var(--line);border-radius:24px;padding:24px}.detailhero h1{margin:6px 0}.lookitem{border-top:1px solid #edf1ed;padding:14px 0}.lookitem:first-child{border-top:0}.lookrow{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.helpbtn,.morebtn{border:1px solid #d4ded5;background:#f7faf7;border-radius:10px;padding:6px 9px;cursor:pointer;font-size:.82rem;white-space:nowrap}.helpbtn:hover,.morebtn:hover{background:#edf4ef}.helper{display:none;margin-top:10px;background:#f7faf7;border-left:4px solid var(--green);padding:13px 14px;border-radius:0 12px 12px 0;color:#415047}.helper.open{display:block}
+
+.stillstuck{margin-top:12px;padding:10px 12px;border-radius:10px;background:#fff;border:1px dashed #c7d5ca;font-size:.88rem}
+
+
+
+.week1shell{margin-top:18px}
+.week1hero{background:linear-gradient(135deg,#173c2a,#2d7b55);color:#fff;border-radius:24px;padding:24px}
+.week1hero h1{margin:5px 0 8px}.week1hero p{color:#e9f3ec}
+.week1nav{position:sticky;top:72px;z-index:18;display:flex;gap:8px;overflow-x:auto;padding:10px 0 11px;background:rgba(245,247,242,.96);backdrop-filter:blur(10px)}
+.week1nav button{flex:0 0 auto;border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 11px;cursor:pointer;font-size:.8rem}
+.week1nav button.active{background:var(--green);border-color:var(--green);color:#fff;font-weight:800}
+.week1panel{display:none}.week1panel.active{display:block}
+.week1stage{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px;margin-top:12px}
+.week1stage h2{margin-top:0}
+.week1missiongrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.week1missionitem{background:#f5f8f4;border-radius:14px;padding:12px}
+.week1question{border-top:1px solid #edf1ed;padding:14px 0}.week1question:first-child{border-top:0}
+.week1compare{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.week1compare .side{background:#f7faf7;border-radius:16px;padding:14px}
+.week1choose{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.week1choose span{background:#f1f5f1;border:1px solid #dbe4dc;border-radius:999px;padding:6px 9px;font-size:.82rem}
+.teacherpick{background:#fff8e8;border:1px solid #efdcae;border-radius:16px;padding:14px;margin-top:12px}
+.week1next{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+.week1next button{border:0;border-radius:12px;padding:10px 14px;cursor:pointer;font-weight:800}
+.week1next .prev{background:#e9efea;color:var(--ink)}.week1next .next{background:var(--green);color:#fff}
+@media(max-width:820px){.week1nav{top:58px}.week1missiongrid,.week1compare{grid-template-columns:1fr}}
+
+.appintro{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px;margin:18px 0}
+.appintro h3{margin:0 0 8px}
+.usegrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.useitem{background:#f5f8f4;border-radius:14px;padding:12px}
+.finishbtn{width:100%;margin-top:16px;border:0;background:var(--green);color:#fff;border-radius:14px;padding:14px 16px;font-weight:900;cursor:pointer;box-shadow:0 6px 16px rgba(23,107,69,.18)}
+.finishbtn:hover{filter:brightness(.96)}
+.deliverhero{background:linear-gradient(135deg,#173c2a,#22744d);color:#fff;border-radius:24px;padding:24px;margin-top:14px}
+.deliverhero h1{margin:4px 0 8px}.deliverhero p{color:#e6f2ea}
+.checkblock{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;margin-top:14px}
+.checkblock h3{margin-top:0}
+.tasklist{list-style:none;padding:0;margin:0}.tasklist li{position:relative;padding:9px 0 9px 32px;border-top:1px solid #edf1ed}.tasklist li:first-child{border-top:0}.tasklist li:before{content:"☐";position:absolute;left:2px;top:8px;font-size:1.2rem}
+.sourcebadge{display:inline-block;background:#eef3ef;color:#526159;border-radius:999px;padding:5px 9px;font-size:.75rem;font-weight:700}
+@media(max-width:820px){.usegrid{grid-template-columns:1fr}}
+
+.evidencebranchgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.evidencebranch{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;cursor:pointer;transition:.18s}
+.evidencebranch:hover{transform:translateY(-1px);box-shadow:0 8px 18px rgba(30,50,35,.06)}
+.evidencebranch b{display:block;margin-bottom:4px}
+.evdetail{display:none;margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px}
+.evdetail.open{display:block}
+.evexample{margin-top:10px;border-radius:12px;padding:12px;background:#f7faf7;border-left:4px solid var(--green)}
+.evweak{background:#fff5f5;border-left-color:#d34b4b}
+.evbetter{background:#fff9ec;border-left-color:#d9a12e}
+.evstrong{background:#f3faf5;border-left-color:#2c8b57}
+.evsteps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
+.evstep{background:#eef3ef;border-radius:14px;padding:12px}
+@media(max-width:820px){
+ .evidencebranchgrid{grid-template-columns:1fr 1fr}
+ .evsteps{grid-template-columns:1fr 1fr}
+}
+@media(max-width:520px){
+ .evidencebranchgrid{grid-template-columns:1fr}
+ .evsteps{grid-template-columns:1fr}
+}
+
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:7px 0 12px}.chips span{background:#fff;border:1px solid #dbe4dc;border-radius:999px;padding:4px 7px;font-size:.8rem}.example{margin-top:10px;background:#fff;border:1px solid #e1e8e2;border-radius:10px;padding:10px}
+.twocol{display:grid;grid-template-columns:1.2fr .8fr;gap:14px;margin-top:14px}.evidence{background:#fff8e8}.deepbox{margin-top:16px;background:#edf4fb;border:1px solid #cfdeec;border-radius:18px;padding:16px}.deepcontent{display:none;margin-top:14px}.deepcontent.open{display:block}.deepgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.deepitem{border-radius:15px;padding:14px;background:#fff}.deepitem h4{margin:0 0 5px}.deepitem p{margin:0;color:#56635a;font-size:.92rem}
+.chain{display:grid;grid-template-columns:repeat(7,minmax(125px,1fr));gap:8px;padding:8px 0 14px;align-items:stretch}
+.node{position:relative;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 12px;cursor:pointer;min-height:126px;display:flex;flex-direction:column;justify-content:flex-start;text-align:left;color:var(--ink);font:inherit;width:100%;-webkit-appearance:none;appearance:none}
+.node.active{border:2px solid var(--green);background:#f4faf6;box-shadow:0 7px 18px rgba(30,50,35,.08)}
+.node:hover{border-color:#aac4b1;box-shadow:0 7px 18px rgba(30,50,35,.07)}
+.node:active{transform:scale(.99)}
+.node:not(:last-child)::after{content:"→";position:absolute;right:-14px;top:47%;transform:translateY(-50%);z-index:3;color:#7b8b80;font-size:1.25rem;font-weight:800;background:var(--bg);padding:0 2px}
+.node .node-title{font-weight:900;line-height:1.15;margin-bottom:7px}
+.node .node-sub{font-size:.76rem;color:var(--muted);line-height:1.3}
+.chaininfo{min-height:160px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px}
+.callout{border-radius:18px;padding:16px;margin:14px 0;background:#fff}.formula{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.formula b{background:#eef3ef;border-radius:12px;padding:9px 11px}.muted{color:var(--muted)}
+.bottom{display:none}
+
+.breadcrumbbar{display:none;margin:14px 0 2px;align-items:center;gap:8px;flex-wrap:wrap;font-size:.86rem;color:var(--muted)}
+.breadcrumbbar.show{display:flex}
+.breadcrumbbar button{border:0;background:transparent;padding:0;color:var(--green);cursor:pointer;font-weight:700}
+.breadcrumbbar button:hover{text-decoration:underline}
+.breadcrumbbar .sep{color:#9aa79d}
+.backrow{display:flex;align-items:center;gap:10px;margin-top:24px}
+.backrow .backlabel{color:var(--muted);font-size:.88rem}
+
+
+.chainintro{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px;margin:12px 0 16px}
+.chainintro b{color:var(--green)}
+.chainlegend{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.chainlegend span{background:#f1f5f1;border:1px solid #dbe4dc;border-radius:999px;padding:5px 8px;font-size:.78rem}
+.companylist{margin:8px 0 0;padding-left:18px;color:#4d5b51}
+.flowline{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.flowline div{background:#f6f8f5;border-radius:12px;padding:10px}
+
+.chainsticky{display:none}
+@media(max-width:820px){
+ .chainsticky.show{
+   display:flex;
+   position:fixed;
+   left:0;right:0;
+   bottom:69px;
+   z-index:35;
+   background:rgba(247,249,246,.98);
+   border-top:1px solid var(--line);
+   border-bottom:1px solid var(--line);
+   padding:7px 8px;
+   gap:7px;
+   overflow-x:auto;
+   -webkit-overflow-scrolling:touch;
+   box-shadow:0 -6px 18px rgba(30,50,35,.06);
+ }
+ .chainsticky button{
+   flex:0 0 auto;
+   border:1px solid #d6e0d8;
+   background:#fff;
+   border-radius:999px;
+   padding:7px 10px;
+   font-size:.76rem;
+   color:var(--ink);
+   white-space:nowrap;
+   cursor:pointer;
+ }
+ .chainsticky button.active{
+   background:#eaf5ee;
+   border-color:#8fb39b;
+   color:var(--green);
+   font-weight:800;
+ }
+ .app.chain-mode{padding-bottom:145px}
+}
+
+@media(max-width:1000px){
+ .chain{grid-template-columns:repeat(3,1fr)}
+ .node:not(:last-child)::after{display:none}
+}
+@media(max-width:820px){
+ .chain{grid-template-columns:1fr;gap:9px}
+ .node{min-height:auto;padding:14px 16px}
+ .node:not(:last-child)::after{content:"↓";display:block;right:auto;left:50%;top:auto;bottom:-18px;transform:translateX(-50%);background:var(--bg);padding:0 4px}
+ .flowline{grid-template-columns:1fr}
+}
+
+@media(max-width:820px){.app{padding:0 15px 95px}.topin{padding:10px 15px}.nav{display:none}.grid,.twocol,.deepgrid{grid-template-columns:1fr}.steps{grid-template-columns:1fr 1fr}.hero{padding:24px;border-radius:22px}.bottom{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:40;background:rgba(255,255,255,.96);border-top:1px solid var(--line);padding:7px 5px calc(7px + env(safe-area-inset-bottom));justify-content:space-around}.bottom button{border:0;background:transparent;font-size:.68rem;color:#58675d;min-width:58px}.bottom button span{display:block;font-size:1.25rem}.bottom button.active{color:var(--green);font-weight:800}.search{margin-top:10px}.searchresults{top:52px}}
+@media(max-width:500px){.steps{grid-template-columns:1fr}.hero h1{font-size:2.3rem}}
+</style>
+</head>
+<body>
+<header class="academy-nav">
+<div class="academy-nav-inner">
+<button id="academyBack" type="button">← Terug</button>
+<a href="../../../../../index.html" aria-label="Naar Academy Home">Academy Oefenplein</a>
+<nav aria-label="Modulelocatie"><ol>
+<li><a href="../../../../../index.html#/bol-allround-food-expert">Allround Food Expert</a></li>
+<li><a href="../../../../../index.html#/bol-allround-food-expert/leerjaar-1">Leerjaar 1</a></li>
+<li><a href="../../../../../index.html#/bol-allround-food-expert/leerjaar-1/periode-1">Periode 1</a></li>
+</ol></nav>
+</div>
+</header>
+<header class="top"><div class="topin"><div class="brand">FOODSAFARI <b>KOMPAS</b> <small>v3.2</small></div>
+<nav class="nav">
+<button data-view="home" class="active">Safari</button><button data-view="branches">Branches</button><button data-view="chain">Foodketen</button><button data-view="lens">Kijkbril</button><button data-view="evidence">Bewijs</button>
+</nav></div></header>
+
+<main class="app">
+<div class="search"><input id="search" placeholder="Zoek bijvoorbeeld: doelgroep, HACCP, restaurant, traceability…"><div id="searchresults" class="searchresults"></div></div>
+<div id="breadcrumb" class="breadcrumbbar"></div>
+
+<section id="home" class="view active">
+<div class="hero"><div class="eyebrow">Jouw route door de wereld van food</div><h1>Ontdek hoe foodbedrijven écht werken.</h1>
+<p>Je bezoekt verschillende foodbedrijven. Je kijkt gericht, stelt vragen, verzamelt bewijs en werkt na ieder bezoek je Foodsafari-opdracht uit.</p>
+<div class="steps"><div class="step"><b>👀 KIJK</b>Wat gebeurt hier?</div><div class="step"><b>❓ VRAAG</b>Waarom werkt het zo?</div><div class="step"><b>📸 BEWIJS</b>Toon wat je ontdekt.</div><div class="step"><b>🧠 VERKLAAR</b>Wat betekent het?</div><div class="step"><b>✍️ WERK UIT</b>Maak je verslag af.</div></div></div>
+
+<div class="appintro">
+<h3>🧭 Waarvoor gebruik je dit Kompas?</h3>
+<p>Deze app helpt je om je <b>voor te bereiden</b>, tijdens een bezoek <b>gericht onderzoek te doen</b> en later iets <b>terug te zoeken</b>. Je hoeft dus niet alles van tevoren te lezen of overal op te klikken.</p>
+<div class="usegrid">
+<div class="useitem"><b>🎒 Vooraf</b><br><span class="muted">Bekijk waar je naartoe gaat en waar je op kunt letten.</span></div>
+<div class="useitem"><b>👀 Tijdens</b><br><span class="muted">Gebruik kijkvragen, uitleg en bewijstips als je ze nodig hebt.</span></div>
+<div class="useitem"><b>✍️ Na afloop</b><br><span class="muted">Ga naar <b>Wat moet ik opleveren?</b> en werk jouw onderdeel meteen uit.</span></div>
+</div>
+<p style="margin-bottom:0"><b>Belangrijk:</b> dit Kompas helpt je onderzoeken. <b>Je verslag in de ELO is wat je uiteindelijk oplevert.</b></p>
+</div>
+
+<h2>Jouw Foodsafari</h2><p class="lead">Week 1–3 staan vast. Daarna bepaalt de praktijk de route. Uiteindelijk ontdek je alle branches.</p>
+<div id="routeGrid" class="grid"></div>
+<div class="flexnote"><b>🔀 Vanaf hier kan de volgorde veranderen.</b><br>Gebruik de branchekaarten als een bingokaart: klik op de branche die je gaat bezoeken. <b>BEZOCHT ≠ KLAAR</b> — werk je onderzoek en bewijs kort na het bezoek uit.</div>
+<div id="flexGrid" class="grid"></div>
+</section>
+
+
+<section id="week1shell" class="view">
+<div class="backrow"><button class="back" onclick="goBack()">← Terug</button><span class="backlabel">naar Foodsafari</span></div>
+<div class="week1shell">
+  <div class="week1hero">
+    <div class="eyebrow">Week 1 · Centrum Eindhoven</div>
+    <h1>🏙️ Leer kijken naar foodbedrijven</h1>
+    <p>Je brengt eerst de foodwereld van Centrum Eindhoven in kaart. Daarna leer je bij twee vaste voorbeeldbedrijven hoe je verder kijkt dan alleen het product. Vervolgens pas je diezelfde kijkwijze zelf toe.</p>
+  </div>
+  <div class="week1nav" id="week1Nav">
+    <button data-w1="mission" class="active">1 · Missie</button>
+    <button data-w1="starbucks">2 · Starbucks</button>
+    <button data-w1="koek">3 · Koekemannetje</button>
+    <button data-w1="compare">4 · Vergelijk</button>
+    <button data-w1="own">5 · Zelf kiezen</button>
+    <button data-w1="deliver">✓ · Opleveren</button>
+  </div>
+  <div id="w1-mission" class="week1panel active"><div class="week1stage">
+    <h2>1. Jouw missie</h2><p>Ontdek hoe verschillend foodbedrijven kunnen zijn, zelfs als ze vlak bij elkaar liggen.</p>
+    <div class="week1missiongrid">
+      <div class="week1missionitem"><b>🔎 Inventariseer</b><br>Zoek minimaal <b>15 verschillende foodbedrijven</b> in Centrum Eindhoven.</div>
+      <div class="week1missionitem"><b>⭐ Verplicht</b><br>Onderzoek <b>Starbucks</b> en <b>Het Koekemannetje</b> als voorbeeldbedrijven.</div>
+      <div class="week1missionitem"><b>🧭 Daarna zelf</b><br>Kies nog <b>3 bedrijven</b> die duidelijk van elkaar verschillen.</div>
+    </div>
+    <div class="callout"><b>Belangrijk</b><br><span class="muted">Je hoeft niet alle 15 bedrijven te bezoeken. De lijst laat zien hoe breed de foodwereld in het centrum is. Je doet het echte onderzoek bij 5 bedrijven: 2 vaste + 3 eigen keuzes.</span></div>
+    <div class="teacherpick"><b>💡 Waar letten we deze week vooral op?</b><br>bedrijfstype · product · doelgroep · locatie · marketing · waarde · beleving · organisatie</div>
+    <div class="week1next"><span></span><button class="next" onclick="showWeek1Step('starbucks')">Start met Starbucks →</button></div>
+  </div></div>
+
+  <div id="w1-starbucks" class="week1panel"><div class="week1stage">
+    <h2>2. ☕ Starbucks — leer kijken naar een formule</h2>
+    <p>Starbucks gebruiken we als voorbeeld. Kijk niet alleen naar koffie, maar naar hoe een herkenbare formule is opgebouwd.</p>
+    <div class="week1question"><b>👀 Herkenbaarheid</b><br><span class="muted">Wat maakt dat je direct weet: dit is Starbucks?</span><div class="helper open">Kijk bijvoorbeeld naar logo, kleurgebruik, inrichting, menuborden, bekers, kleding, muziek en manier van bestellen.</div></div>
+    <div class="week1question"><b>👤 Doelgroep</b><br><span class="muted">Wie zie je hier en hoe gebruikt die klant de zaak?</span><div class="helper open">Denk aan to-go, winkelend publiek, studenten, toeristen, mensen die blijven zitten of werken. Kijk naar zitplekken, stopcontacten, verpakkingen en snelheid.</div></div>
+    <div class="week1question"><b>🥤 Product & verkoop</b><br><span class="muted">Verkoopt Starbucks alleen koffie?</span><div class="helper open">Kijk naar maten, extra's, snacks, seizoensproducten, combiverkoop en manieren waarop de klant wordt verleid om meer te bestellen.</div></div>
+    <div class="week1question"><b>💰 Waarde</b><br><span class="muted">Waar betaalt de klant behalve voor het drankje nog meer voor?</span><div class="helper open">Denk aan merk, gemak, voorspelbaarheid, locatie, sfeer, personalisatie en snelheid.</div></div>
+    <div class="week1question"><b>⚙️ Achter de schermen</b><br><span class="muted">Wat moet goed georganiseerd zijn om veel verschillende bestellingen snel te maken?</span><div class="helper open">Denk aan voorraad, koeling, werkvolgorde, apparatuur, taakverdeling, schoonmaak en standaardwerkwijzen.</div></div>
+    <div class="callout evidence"><b>📸 Bewijstip</b><br>Zoek 1–2 foto's die echt iets laten zien over formule, doelgroep, verkoop of organisatie. Leg erbij uit <b>wat je ziet en waarom dit belangrijk is</b>.</div>
+    <div class="week1next"><button class="prev" onclick="showWeek1Step('mission')">← Missie</button><button class="next" onclick="showWeek1Step('koek')">Naar Koekemannetje →</button></div>
+  </div></div>
+
+  <div id="w1-koek" class="week1panel"><div class="week1stage">
+    <h2>3. 🍪 Het Koekemannetje — leer verklaren waarom een concept werkt</h2>
+    <p>Hier draait het om een relatief simpel kernproduct met veel aandacht voor merk, winkelbeleving en presentatie. Probeer te ontdekken waar de aantrekkingskracht vandaan komt.</p>
+    <div class="week1question"><b>👀 Wat gebeurt hier?</b><br><span class="muted">Kijk naar product, winkel, presentatie, verpakking, personeel en eventuele drukte of rijvorming.</span></div>
+    <div class="week1question"><b>🧠 Waarom werkt dit?</b><br><span class="muted">Waarom zouden mensen speciaal hier naartoe komen of willen wachten?</span><div class="helper open">Denk aan schaarste, hype, geur, zichtbaarheid, verpakking, mond-tot-mondreclame, social media en het gevoel dat je 'iets bijzonders' koopt.</div></div>
+    <div class="week1question"><b>💰 Waar ontstaat extra waarde?</b><br><span class="muted">Wat maakt dat een eenvoudig product meer waarde krijgt?</span><div class="helper open">Denk aan presentatie, merknaam, verhaal, verpakking, winkelervaring, service en exclusiviteit.</div></div>
+    <div class="week1question"><b>📣 Hoe wordt het een merk?</b><br><span class="muted">Welke keuzes zorgen dat je de zaak onthoudt?</span><div class="helper open">Kijk naar naam, kleuren, verpakkingen, interieur, productpresentatie, zichtbaarheid en herkenbare stijl.</div></div>
+    <div class="teacherpick"><b>🔥 Grote onderzoeksvraag</b><br>Verkoopt Het Koekemannetje vooral koekjes — of verkoopt het een <b>beleving rond koekjes</b>? Onderbouw je antwoord met wat je ziet.</div>
+    <div class="week1next"><button class="prev" onclick="showWeek1Step('starbucks')">← Starbucks</button><button class="next" onclick="showWeek1Step('compare')">Vergelijk de twee →</button></div>
+  </div></div>
+
+  <div id="w1-compare" class="week1panel"><div class="week1stage">
+    <h2>4. ⚖️ Vergelijk Starbucks en Het Koekemannetje</h2>
+    <p>Beide liggen dicht bij elkaar, maar bouwen op een andere manier waarde en aantrekkingskracht op.</p>
+    <div class="week1compare">
+      <div class="side"><b>☕ Starbucks</b><br><span class="muted">Herkenbare formule · breed drankassortiment · internationale merkbeleving · veel standaardisatie.</span></div>
+      <div class="side"><b>🍪 Het Koekemannetje</b><br><span class="muted">Sterke focus op één productgroep · opvallende presentatie · beleving · merk/hype rond een eenvoudig product.</span></div>
+    </div>
+    <div class="card" style="margin-top:12px"><b>Vergelijk op 5 punten</b><ul><li>Wie is de doelgroep?</li><li>Waar wordt vooral waarde toegevoegd?</li><li>Hoe proberen ze op te vallen?</li><li>Hoe ziet marketing er in de winkel uit?</li><li>Wat moet achter de schermen goed georganiseerd zijn?</li></ul></div>
+    <div class="callout"><b>💬 Sterk antwoord</b><br><span class="muted">Niet alleen: “Starbucks is groter.” Maar bijvoorbeeld: “Starbucks gebruikt een herkenbare internationale formule, terwijl Het Koekemannetje juist sterk inzet op één product en opvallende beleving. Beide proberen daardoor herkenbaar en aantrekkelijk te zijn, maar op een andere manier.”</span></div>
+    <div class="week1next"><button class="prev" onclick="showWeek1Step('koek')">← Koekemannetje</button><button class="next" onclick="showWeek1Step('own')">Nu zelf onderzoeken →</button></div>
+  </div></div>
+
+  <div id="w1-own" class="week1panel"><div class="week1stage">
+    <h2>5. 🔎 Nu jij — kies nog 3 bedrijven</h2><p>Kies bedrijven die <b>duidelijk van elkaar verschillen</b>. Zo ontdek je meer van de foodwereld.</p>
+    <div class="week1choose"><span>🍽️ restaurant</span><span>☕ koffie/lunch</span><span>🍦 ijssalon</span><span>🌯 fastservice</span><span>🛒 supermarkt / city / to-go</span><span>🥐 bakker/speciaalzaak</span><span>🍺 terras</span><span>🥡 to-go</span><span>🌍 internationaal concept</span></div>
+    <div class="callout"><b>Regel</b><br><span class="muted">Kies liefst niet drie bedrijven uit dezelfde categorie. Bijvoorbeeld: supermarkt + ijssalon + zelfstandig restaurant geeft meer om te vergelijken.</span></div>
+    <div class="card"><h3>Gebruik dezelfde kijkbril</h3><p><b>WAT?</b> Wat voor bedrijf en product?<br><b>VOOR WIE?</b> Wie is de doelgroep en waaraan zie je dat?<br><b>HOE?</b> Hoe werken presentatie, service en organisatie?<br><b>WAAROM?</b> Waarom zou het bedrijf deze keuzes maken?<br><b>WAARDE?</b> Waar betaalt de klant behalve voor het product nog meer voor?<br><b>LOCATIE?</b> Waarom past deze plek bij dit bedrijf?</p></div>
+    <div class="callout evidence"><b>📸 Bewijs nodig?</b><br>Gebruik de Bewijs-pagina als je twijfelt welke foto's iets echt aantonen. Maak liever een paar sterke foto's met uitleg dan veel losse foto's.</div>
+    <div class="week1next"><button class="prev" onclick="showWeek1Step('compare')">← Vergelijk</button><button class="next" onclick="showWeek1Step('deliver')">Wat moet ik opleveren? →</button></div>
+  </div></div>
+
+  <div id="w1-deliver" class="week1panel"><div class="week1stage">
+    <h2>6. ✅ Wat moet er in je verslag?</h2><p>Gebruik dit als eindcheck. De officiële opdracht in de ELO blijft leidend.</p>
+    <ul class="tasklist"><li>Ik heb minimaal 15 verschillende foodbedrijven in Centrum Eindhoven geïnventariseerd.</li><li>Ik heb Starbucks onderzocht.</li><li>Ik heb Het Koekemannetje onderzocht.</li><li>Ik heb nog 3 duidelijk verschillende bedrijven zelf gekozen en onderzocht.</li><li>Ik kan per onderzocht bedrijf uitleggen: type bedrijf, productgroep, doelgroep, locatie en vindbaarheid.</li><li>Ik heb bewijs verzameld en mijn foto's uitgelegd.</li><li>Ik heb per onderzocht bedrijf minimaal 1 TOP en 1 TIP met uitleg.</li><li>Ik heb Starbucks en Het Koekemannetje kort met elkaar vergeleken.</li></ul>
+    <div class="teacherpick"><b>📌 Niet vergeten</b><br>Het Kompas helpt je kijken en onderzoeken. Je uiteindelijke uitwerking hoort in je Foodsafari-verslag in de ELO.</div>
+    <button type="button" class="finishbtn" onclick="openDeliverable('orientation')">Open de officiële Week 1-checklist →</button>
+    <div class="week1next"><button class="prev" onclick="showWeek1Step('own')">← Zelf kiezen</button><span></span></div>
+  </div></div>
+</div>
+</section>
+
+<section id="branches" class="view"><h2>Alle branches</h2><p class="lead">Snel naar de branche die jij vandaag nodig hebt.</p><div id="allGrid" class="grid"></div></section>
+
+<section id="chain" class="view">
+<h2>🔗 De foodketen & bedrijfskolom</h2>
+<p class="lead">Hier zie je hoe een voedingsproduct van oorsprong naar gast of consument beweegt. Iedere stap noemen we een <b>schakel</b>. Alle opeenvolgende schakels samen vormen de <b>bedrijfskolom</b>.</p>
+
+<div class="chainintro">
+<b>Zo lees je deze pagina</b><br>
+<span class="muted"><b>Schakel</b> = één stap of type bedrijf in de keten. <b>Bedrijfskolom</b> = alle schakels van producent tot consument.</span>
+<div class="chainlegend">
+<span>📦 product stroomt vooruit →</span>
+<span>🔎 informatie moet terug te vinden zijn ↔</span>
+<span>💰 iedere schakel kan waarde toevoegen</span>
+</div>
+</div>
+
+<div class="chain" id="chainNodes"></div>
+<div id="chainInfo" class="chaininfo">
+<b>Klik op een schakel.</b>
+<p class="muted">Je ziet voorbeelden van bedrijven, waar producten vandaan komen, waar ze naartoe gaan, welke waarde wordt toegevoegd en welke logistiek erbij hoort.</p>
+</div>
+
+<div class="callout"><b>Belangrijk: de werkelijkheid is niet altijd één rechte lijn.</b><br>
+<span class="muted">Een boer kan bijvoorbeeld rechtstreeks leveren aan een restaurant, boerderijwinkel of consument. Een producent kan ook meerdere groothandels of distributiecentra gebruiken.</span></div>
+
+<div class="deepbox"><b>🔗 Vier lijnen door de hele bedrijfskolom</b><p class="muted">Open dit alleen als je verder wilt kijken.</p><button class="morebtn" onclick="toggleId('chainDeep')">Ontdek de verbinding →</button>
+<div id="chainDeep" class="deepcontent"><div class="deepgrid">
+<div class="deepitem"><h4>🚚 Logistiek</h4><p>Hoe komt het juiste product op het juiste moment, op de juiste plaats en in de juiste conditie?</p></div>
+<div class="deepitem"><h4>💰 Waardevermeerdering</h4><p>Waarde is niet alleen een hogere prijs. Ook verwerking, kwaliteit, houdbaarheid, gemak, beschikbaarheid, vakmanschap, service en beleving voegen waarde toe.</p></div>
+<div class="deepitem"><h4>🔎 Traceability / traceerbaarheid</h4><p>Kun je terugvinden waar grondstof of product vandaan komt, bij welke partij of batch het hoort en waar het naartoe is gegaan?</p></div>
+<div class="deepitem"><h4>🛡️ HACCP & voedselveiligheid</h4><p>Waar kan voedsel onveilig worden en welke beheersmaatregelen zijn nodig? Denk aan temperatuur, hygiëne, opslag, kruisbesmetting en houdbaarheid.</p></div>
+</div></div></div>
+</section>
+
+<section id="lens" class="view"><h2>👀 De Foodsafari-kijkbril</h2><p class="lead">Gebruik deze vragen als je even niet weet waar je moet kijken.</p>
+<div class="grid">
+<div class="card"><b>WAT?</b><p>Wat maakt, verkoopt of organiseert dit bedrijf?</p></div><div class="card"><b>VOOR WIE?</b><p>Wie zijn de klanten of gasten en hoe zie je dat?</p><button class="helpbtn" onclick="toggleId('lensTarget')">💡 Hulp bij doelgroep</button><div id="lensTarget" class="helper"></div></div>
+<div class="card"><b>HOE?</b><p>Hoe zijn mensen, werk, producten en processen georganiseerd?</p></div><div class="card"><b>WAAROM?</b><p>Waarom zou het bedrijf deze keuzes maken?</p></div><div class="card"><b>WAAR IN DE KETEN?</b><p>Waar komen producten vandaan en waar gaan ze daarna heen?</p></div><div class="card"><b>WAT LEER IK HIER?</b><p>Welke kennis of werkwijze kun je ook in andere foodbedrijven gebruiken?</p></div>
+</div><div class="callout"><b>❤️ Niet alleen: “Zou ik hier willen werken?”</b><br><span class="muted">Ook een bedrijf dat niet bij jou past kan je veel leren over handel, marketing, logistiek, processen, kwaliteit, management of gastvrijheid.</span></div></section>
+
+<section id="evidence" class="view">
+<div id="evidenceBackRow" class="backrow" style="display:none">
+<button type="button" class="back" id="evidenceBackBtn">← Terug</button>
+<span class="backlabel" id="evidenceBackLabel">naar de branche</span>
+</div>
+<h2>📸 Bewijs verzamelen</h2>
+<p class="lead">Een foto is pas bewijs als jij kunt uitleggen wat hij laat zien en waarom hij bij jouw onderzoek hoort.</p>
+
+<div class="card">
+<h3>Van foto naar bewijs</h3>
+<div class="evsteps">
+<div class="evstep"><b>1. 👀 WAT ZIE IK?</b><br>Beschrijf alleen wat echt op de foto staat.</div>
+<div class="evstep"><b>2. 💬 WAAROM DEZE FOTO?</b><br>Wat wil je hiermee laten zien?</div>
+<div class="evstep"><b>3. 🔗 WAAR HOORT DIT BIJ?</b><br>Doelgroep, assortiment, logistiek, kwaliteit, vakmanschap, enzovoort.</div>
+<div class="evstep"><b>4. 🧠 WAT ONTDEK IK?</b><br>Wat betekent dit volgens jou?</div>
+</div>
+
+<div class="callout" style="margin-bottom:0">
+<b>Handige zinnen voor je verslag</b><br>
+<span class="muted">
+“Op deze foto zie je…”<br>
+“Deze foto heb ik gemaakt omdat…”<br>
+“Dit hoort bij…”<br>
+“Hieruit ontdek ik dat…”
+</span>
+</div>
+</div>
+
+<div class="twocol">
+<div class="card">
+<b>❌ Zwak</b>
+<p>“Foto van een machine.”</p>
+</div>
+<div class="card">
+<b>🟠 Beter</b>
+<p>“Op deze foto zie je een verpakkingsmachine.”</p>
+</div>
+</div>
+
+<div class="card" style="margin-top:14px">
+<b>✅ Sterk</b>
+<p>“Op deze foto zie je een verpakkingsmachine die producten automatisch verpakt. Ik heb deze foto gemaakt omdat hij laat zien hoe mens en machine samenwerken. De machine zorgt voor snelheid en steeds dezelfde verpakking. De medewerker controleert of het proces goed verloopt.”</p>
+</div>
+
+<div class="card" style="margin-top:14px">
+<b>👀 Observatie ≠ verklaring</b>
+<p><b>Observatie:</b> wat heb je echt gezien of gehoord?<br>
+<b>Verklaring:</b> wat denk je dat dit betekent — en waarop baseer je dat?</p>
+</div>
+
+<h2 style="margin-top:28px">📂 Bewijs per branche</h2>
+<p class="lead">Kies de branche die je bezoekt. Dan zie je voorbeelden van foto's en hoe je een sterk antwoord kunt formuleren.</p>
+<div id="evidenceBranchGrid" class="evidencebranchgrid"></div>
+<div id="evidenceBranchDetail" class="evdetail"></div>
+
+<div class="callout"><b>📌 Belangrijk</b><br><span class="muted">Maak niet zoveel mogelijk foto's. Zoek liever een paar foto's die echt iets aantonen. Vraag toestemming als dat nodig is.</span></div>
+</section>
+
+
+<section id="deliverable" class="view">
+<div class="backrow"><button class="back" onclick="goBack()">← Terug</button><span class="backlabel">naar je onderzoek</span></div>
+<div id="deliverableContent"></div>
+</section>
+
+<section id="detail" class="view"><div class="backrow"><button class="back" onclick="goBack()">← Terug</button><span class="backlabel">naar waar je vandaan kwam</span></div><div id="detailContent"></div></section>
+</main>
+
+<div id="chainSticky" class="chainsticky" aria-label="Bedrijfskolom snelnavigatie"></div>
+<nav class="bottom"><button data-view="home" class="active"><span>🏠</span>Safari</button><button data-view="branches"><span>🧭</span>Branches</button><button data-view="chain"><span>🔗</span>Keten</button><button data-view="lens"><span>👀</span>Kijkbril</button><button data-view="evidence"><span>📸</span>Bewijs</button></nav>
+
+<script>
+const MODULE_OVERVIEW_FALLBACK="../../../../../index.html#/bol-allround-food-expert/leerjaar-1/periode-1";
+document.getElementById("academyBack").addEventListener("click",()=>{
+ if(document.referrer.includes("/index.html")&&window.history.length>1){window.history.back()}else{window.location.href=MODULE_OVERVIEW_FALLBACK}
+});
+const DATA = {"orientation": {"icon": "🏙️", "title": "Foodwereld Eindhoven", "tag": "Week 1 · Oriëntatie", "intro": "Ontdek hoe breed de foodwereld is. Kijk naar verschillende soorten bedrijven, hun klanten, producten, locatie en concept.", "look": [["Bedrijfstype", "Wat voor foodbedrijf is dit en wat doet het?"], ["Doelgroep", "Voor welke klanten lijkt dit bedrijf bedoeld?"], ["Concept", "Wat maakt dit bedrijf herkenbaar of anders?"], ["Locatie", "Waarom zou deze plek handig zijn voor dit bedrijf?"], ["Product & presentatie", "Wat wordt verkocht en hoe wordt het aantrekkelijk gemaakt?"]], "evidence": "Kies foto's die aantonen wat voor bedrijf het is, voor wie het werkt en wat kenmerkend is. Leg altijd uit wat de foto bewijst.", "learn": ["oriënteren in de foodwereld", "doelgroepen herkennen", "concepten vergelijken", "gericht observeren"], "deep": "Zie hoe verschillende bedrijven ieder een andere plek in de foodketen innemen en hoe logistiek overal terugkomt."}, "fresh": {"icon": "🥩", "title": "Versspeciaalzaken", "tag": "Week 2 · Van bron tot klant", "intro": "Versspecialisten onderscheiden zich met productkennis, kwaliteit, vakmanschap, herkomst, persoonlijk advies en toegevoegde waarde.", "look": [["Herkomst", "Waar komen grondstoffen of producten vandaan?"], ["Vakmanschap", "Welke handelingen, bereidingen of kennis zie je terug?"], ["Productkennis", "Hoe wordt informatie of advies aan de klant gegeven?"], ["Kwaliteit", "Waaraan probeert het bedrijf kwaliteit zichtbaar te maken?"], ["Duurzaamheid", "Welke keuzes rond herkomst, verspilling, verpakking of productie vallen op?"]], "evidence": "Zoek bijvoorbeeld een foto waarop vakmanschap, herkomst, presentatie of een duurzaam product echt zichtbaar is.", "learn": ["vakmanschap", "productkennis", "kwaliteit beoordelen", "advies", "ondernemerschap", "duurzaamheid"], "deep": "Volg een versproduct van producent naar specialist en klant. Kijk waar waarde wordt toegevoegd en hoe versheid en voedselveiligheid worden bewaakt."}, "retail": {"icon": "🛒", "title": "Supermarkt & Retail", "tag": "Week 3 · Terschelling", "intro": "Onderzoek hoe een supermarkt assortiment, prijs, presentatie, promotie en organisatie afstemt op zijn klanten — en wat een eilandlocatie daarin verandert.", "look": [["Doelgroep", "Voor wie lijkt de winkel vooral ingericht en waaraan zie je dat?"], ["Winkelindeling", "Hoe worden routing, vers, acties en impulsproducten gebruikt?"], ["Assortiment", "Welke keuzes zie je in breedte, merken, lokaal, gemak en seizoen?"], ["Prijsstrategie", "Wat zie je aan huismerk, A-merk, voordeel, acties en verpakkingsgrootte?"], ["Promotie & verleiding", "Waar probeert de winkel extra verkoop te stimuleren?"], ["Duurzaamheid & communicatie", "Welke keurmerken, verhalen of keuzes worden zichtbaar gemaakt?"]], "evidence": "Een sterke foto toont bijvoorbeeld een doelgroepkeuze, lokale presentatie, actieplek, routing of assortimentskeuze. Beschrijf daarna waarom dit betekenis heeft.", "learn": ["retail", "marketing", "assortiment", "prijsstrategie", "klantgedrag", "organisatie"], "deep": "Ontdek achter de winkel de bevoorrading, voorraad, seizoenspiek, koelketen, traceability en voedselveiligheid. Vergelijk ook wat eilandlogistiek anders maakt."}, "foodservice": {"icon": "🍽️", "title": "Foodservice / Restaurants & Hotels", "tag": "Flexibele route", "intro": "Foodservice is breed: restaurants, hotels, lunchrooms, cafés, catering, bedrijfsrestaurants, bezorgconcepten en andere bedrijven die eten en drinken voor directe consumptie aanbieden.", "look": [["Concept", "Wat belooft dit bedrijf aan de gast?"], ["Doelgroep", "Welke gasten probeert het bedrijf aan te spreken?"], ["Menu & assortiment", "Hoe passen aanbod, porties en keuzes bij het concept?"], ["Prijs & waarde", "Wat krijgt de gast voor de prijs?"], ["Gastbeleving", "Wat gebeurt er vóór, tijdens en na het eet- of drinkmoment?"], ["Verkoop", "Hoe worden bijverkoop, presentatie en communicatie ingezet?"]], "evidence": "Maak geen 'mooie restaurantfoto' zonder functie. Zoek bewijs voor concept, doelgroep, gastbeleving, verkoop of werkwijze.", "learn": ["gastvrijheid", "conceptontwikkeling", "verkoop", "menu-opbouw", "service", "organisatie"], "deep": "Kijk achter de gastbeleving: inkoop, voorraad, mise-en-place, koelketen, HACCP, verspilling en de logistiek die nodig is vóórdat een gerecht bij de gast komt."}, "market": {"icon": "🧺", "title": "Foodmarkt / Ambulante handel", "tag": "Flexibele route", "intro": "Op een foodmarkt komen ondernemerschap, product, presentatie, prijs en direct klantcontact heel zichtbaar samen.", "look": [["Presentatie", "Hoe trekt de kraam aandacht en hoe liggen producten erbij?"], ["Doelgroep", "Wie koopt hier en hoe wordt die klant aangesproken?"], ["Assortiment", "Welke keuzes en specialisaties vallen op?"], ["Prijs", "Hoe wordt prijs zichtbaar gemaakt en gebruikt in de verkoop?"], ["Persoonlijke verkoop", "Welke rol spelen advies, proeven, verhaal en contact?"], ["Kwaliteit", "Hoe wordt versheid of kwaliteit zichtbaar en bewaakt?"]], "evidence": "Fotografeer met toestemming iets dat de verkoopstrategie of doelgroep echt laat zien en leg uit wat je eruit afleidt.", "learn": ["ondernemerschap", "persoonlijke verkoop", "presentatie", "prijs", "klantcontact", "productkennis"], "deep": "Onderzoek hoe een tijdelijke verkoopplek toch voorraad, transport, temperatuur, traceability en voedselveiligheid moet organiseren."}, "wholesale": {"icon": "📦", "title": "Groothandel", "tag": "Flexibele route", "intro": "Een groothandel verkoopt vooral aan ondernemers. Assortiment, beschikbaarheid, advies, voorraad en betrouwbare levering zijn daarom cruciaal.", "look": [["Zakelijke klant", "Welke ondernemers kopen hier en wat hebben zij nodig?"], ["Assortiment", "Hoe breed of gespecialiseerd is het aanbod?"], ["Service & advies", "Hoe helpt de groothandel ondernemers bij hun keuze?"], ["Voorraad", "Hoe wordt gezorgd dat grote aantallen producten beschikbaar zijn?"], ["Afdelingen", "Welke productgroepen, services of specialistische zones zie je?"], ["Ketenpositie", "Van wie koopt de groothandel en aan wie levert hij?"]], "evidence": "Zoek bewijs van ondersteuning voor ondernemers: logistieke oplossingen, informatie, adviespunten, assortiment of speciale diensten.", "learn": ["B2B-handel", "voorraad", "assortiment", "advies", "logistiek", "foodketen"], "deep": "Hier wordt de koppeling met logistiek sterk: orderstromen, voorraadbeheer, opslagcondities, traceability en uitlevering aan zakelijke klanten."}, "distribution": {"icon": "🚚", "title": "Distributie & Logistiek", "tag": "Flexibele route", "intro": "Hier draait het om het juiste product, op het juiste moment, op de juiste plaats en in de juiste conditie.", "look": [["Goederenstroom", "Hoe bewegen producten van ontvangst naar opslag en verzending?"], ["Opslag", "Waarom liggen producten waar ze liggen?"], ["Doorlooptijd", "Hoe snel moet een product door het proces?"], ["Planning", "Hoe worden mensen, orders, routes en tijd op elkaar afgestemd?"], ["Voedselveiligheid", "Hoe worden temperatuur, houdbaarheid en conditie gecontroleerd?"], ["Mens & technologie", "Welke taken doen medewerkers en welke worden ondersteund door systemen of machines?"]], "evidence": "Zoek een observatie die laat zien hoe goederen foutloos, snel en veilig bewegen. Leg uit welke stap in de goederenstroom je ziet.", "learn": ["goederenstromen", "planning", "voorraad", "doorlooptijd", "kwaliteit", "technologie"], "deep": "Verdiep je in traceability, HACCP, temperatuurbeheersing, voorraadmethoden en hoe informatie samen met het product door de keten beweegt."}, "industry": {"icon": "🏭", "title": "Voedingsindustrie", "tag": "Flexibele route", "intro": "De voedingsindustrie maakt op grotere schaal producten met vaste processen, herhaalbare kwaliteit en strakke beheersing van veiligheid.", "look": [["Productieproces", "Welke stappen veranderen grondstoffen in een eindproduct?"], ["Mens & machine", "Wat doen medewerkers en wat doet technologie?"], ["Kwaliteit", "Hoe probeert men product nummer 10.000 net zo goed te maken als nummer 1?"], ["Hygiëne & veiligheid", "Welke maatregelen en controles zie je?"], ["Schaal & logistiek", "Hoe komen grondstoffen binnen en eindproducten weer weg?"], ["Verpakking & positionering", "Hoe wordt het product beschermd, herkenbaar en verkoopbaar gemaakt?"]], "evidence": "Sterk bewijs laat een processtap, kwaliteitsmaatregel, logistieke beweging of mens-machine samenwerking zien — voor zover fotograferen is toegestaan.", "learn": ["procestechnologie", "kwaliteit", "voedselveiligheid", "automatisering", "schaal", "logistiek"], "deep": "Volg grondstof, batch en eindproduct. Ontdek waar waarde wordt toegevoegd en waarom traceability en HACCP bij grote volumes essentieel zijn."}, "reflection": {"icon": "🏁", "title": "Foodketen & Eindreflectie", "tag": "Eindbestemming", "intro": "Breng je bezoeken samen. Vergelijk branches, verbind ze in de foodketen en leg uit wat jij over de wereld van food hebt ontdekt.", "look": [["Vergelijken", "Welke bedrijven of branches verschillen het meest en waarom?"], ["Foodketen", "Hoe zijn bezochte bedrijven met elkaar verbonden?"], ["Leren", "Welke twee inzichten neem je mee over de foodwereld?"], ["Voorbeeld", "Waar heb je die inzichten concreet gezien?"], ["Beroepsbeeld", "Welke werkzaamheden of omgevingen spreken je wel of niet aan?"]], "evidence": "Gebruik concrete voorbeelden uit meerdere bezoeken. Een goede reflectie zegt niet alleen wat je vond, maar waarop je dat baseert.", "learn": ["verbanden leggen", "reflecteren", "branches vergelijken", "beroepsbeeld", "foodketen begrijpen"], "deep": "Bekijk de hele keten nog één keer door de bril van logistiek, waardecreatie, traceability en voedselveiligheid."}};
+const HELP = {"Doelgroep": "<b>Wat is een doelgroep?</b><br>De groep klanten of gasten waarop een bedrijf zich vooral richt.<br><br>\n<b>Denk bijvoorbeeld aan:</b><br>\n<span class=\"chips\"><span>gezinnen</span><span>jongeren</span><span>ouderen</span><span>toeristen</span><span>buurtbewoners</span><span>studenten</span><span>zakelijke klanten</span><span>prijsbewuste klanten</span><span>gemakszoekers</span><span>luxe- of kwaliteitszoekers</span><span>duurzame / gezonde kopers</span></span>\n<br><b>Waaraan kun je het herkennen?</b><br>Assortiment, prijs, verpakkingsgrootte, acties, locatie, sfeer, openingstijden, communicatie en service.\n<div class=\"example\"><b>Voorbeeld:</b> bij de ingang staan veel lokale eilandproducten. Dat kan erop wijzen dat toeristen belangrijk zijn: de winkel maakt souvenirs en lokale smaken extra zichtbaar.</div>", "Vakmanschap": "<b>Waar kun je vakmanschap aan herkennen?</b><br>Denk aan eigen bereiding, snijden of portioneren, receptuur, afwerking, productkennis, advies, presentatie en het kunnen uitleggen waarom iets op een bepaalde manier wordt gemaakt.", "Gastbeleving": "<b>Waar kun je gastbeleving aan herkennen?</b><br>Begroeting, wachttijd, inrichting, muziek, geur, aanspreekvorm, bestelproces, presentatie, service, oplossen van problemen en afscheid.", "Prijsstrategie": "<b>Prijs is meer dan een getal.</b><br>Kijk naar huismerk versus A-merk, budget versus premium, aanbiedingen, voordeelverpakkingen, portiegrootte en de plek waar producten worden gepresenteerd.", "Promotie & verleiding": "<b>Hoe probeert een bedrijf extra verkoop te krijgen?</b><br>Denk aan actie-eilanden, kopstellingen, kassaproducten, opvallende presentatie, combideals, seizoensproducten, geur, proeven, routing en suggestieve verkoop.", "Assortiment": "<b>Wat vertelt het assortiment?</b><br>Let op breedte, specialisatie, merken, lokaal aanbod, gemak, seizoen, dieetwensen, verpakkingsgrootte en prijsniveau. Vraag jezelf af: waarom ligt juist dít hier?", "Concept": "<b>Concept = de herkenbare belofte van het bedrijf.</b><br>Wat wil het bedrijf zijn voor zijn klant of gast? Kijk naar aanbod, sfeer, prijsniveau, service, communicatie en inrichting: passen die bij elkaar?", "Logistiek": "<b>Logistiek zie je overal.</b><br>Kijk hoe producten binnenkomen, worden opgeslagen, aangevuld, verwerkt en weer verdergaan. Let op voorraad, tijd, temperatuur, routes en planning."};
+const SPECIFIC_HELP = {"Bedrijfstype": "<b>Waar kun je op letten?</b><br>Kijk wat het bedrijf maakt of verkoopt. Is het vooral een winkel, productiebedrijf, horecabedrijf, speciaalzaak of logistiek bedrijf?<br><br><b>Zoek naar:</b> producten, inrichting, keuken/productie/magazijn, soort klanten en manier van verkopen.<div class='example'><b>Voorbeeld:</b> veel persoonlijk advies en een toonbank wijzen eerder op een versspeciaalzaak dan op een supermarkt.</div>", "Locatie": "<b>Waarom zit dit bedrijf juist hier?</b><br>Kijk naar bereikbaarheid, parkeren, drukte, toeristen, buurtbewoners, concurrenten en bevoorrading.<div class='example'><b>Voorbeeld:</b> een lunchroom bij een station richt zich waarschijnlijk sterk op snelheid en gemak.</div>", "Product & presentatie": "<b>Wat vertelt de presentatie?</b><br>Kijk naar plaats, kleur, hoogte, verpakking, verlichting, geur en hoeveel ruimte een product krijgt.<br><br><b>Vraag:</b> waarom staat dit product juist hier en wat probeert het bedrijf dat jij ziet of koopt?", "Herkomst": "<b>Hoe herken je herkomst?</b><br>Zoek etiketten, streeknamen, keurmerken, leveranciersinformatie en verhalen van medewerkers. Let op lokaal/internationaal, eigen productie, seizoen en traceerbare oorsprong.", "Productkennis": "<b>Waar zie je productkennis?</b><br>Kan een medewerker uitleg geven over smaak, bereiding, bewaren, herkomst, allergenen, combinaties en gebruik? Sterke productkennis betekent dat iemand ook kan uitleggen <i>waarom</i> iets bij jouw vraag past.", "Kwaliteit": "<b>Hoe kun je kwaliteit herkennen?</b><br>Kijk naar versheid, temperatuur, verpakking, uiterlijk, constante maat of portie, hygiëne en controles.<br><br><b>In productie:</b> vaste recepturen, meetmomenten, monsters, machine-instellingen en eindcontrole.<div class='example'><b>Voorbeeld:</b> ieder product hetzelfde gewicht? Dan is er waarschijnlijk een vaste werkwijze en controle.</div>", "Duurzaamheid": "<b>Waar kun je duurzaamheid aan zien?</b><br>Denk aan minder verpakking, lokale inkoop, seizoen, energiebesparing, afvalscheiding, derving voorkomen en keurmerken.<br><br><b>Let op:</b> alleen een groen bordje is nog geen bewijs. Zoek wat het bedrijf echt doet.", "Winkelindeling": "<b>Loop bewust door de winkel.</b><br>Kijk naar ingang, versafdeling, looproute, kassa, kopstellingen en actieplekken. Wat zie je als eerste? Waar staan impulsaankopen? Welke route wordt uitgelokt?", "Duurzaamheid & communicatie": "<b>Wat zegt het bedrijf en wat doet het?</b><br>Kijk naar keurmerken, labels, posters en verhalen over lokaal, gezond of duurzaam. Zoek daarna of je die boodschap ook terugziet in assortiment, verpakking of werkwijze.", "Menu & assortiment": "<b>Kijk verder dan alleen de menukaart.</b><br>Let op aantal keuzes, prijsniveau, vegetarisch/vegan, kindergerechten, seizoen, portiegrootte en snelheid. Dit vertelt iets over doelgroep, concept én keukenorganisatie.", "Prijs & waarde": "<b>Prijs is wat de gast betaalt; waarde is wat hij ervoor terugkrijgt.</b><br>Kijk naar kwaliteit, portie, service, snelheid, sfeer, locatie, presentatie en gemak.<div class='example'><b>Voorbeeld:</b> een café met bediening en uitzicht verkoopt naast koffie ook beleving.</div>", "Verkoop": "<b>Hoe stimuleert het bedrijf extra verkoop?</b><br>Let op suggesties van medewerkers, combideals, drankarrangementen, grotere porties, desserts, acties en zichtbare topproducten.", "Presentatie": "<b>Waar kijk je naar?</b><br>Kleur, hoogte, netheid, hoeveelheid, prijskaartjes, verpakking en hoe makkelijk je iets ziet of pakt. Wat wil de verkoper aantrekkelijk of betrouwbaar laten lijken?", "Persoonlijke verkoop": "<b>Let op het gesprek.</b><br>Stelt de verkoper vragen? Geeft die advies? Laat die proeven? Vertelt die een verhaal? Past het advies zich aan de klant aan?", "Zakelijke klant": "<b>Een zakelijke klant koopt anders dan een consument.</b><br>Denk aan restaurants, hotels, cateraars en winkels. Zij letten sterk op prijs per hoeveelheid, constante kwaliteit, beschikbaarheid, levering en verpakkingsgrootte.", "Service & advies": "<b>Welke hulp krijgt de klant behalve het product?</b><br>Denk aan advies, bestellen, bezorgen, recepten, technische informatie, maatwerk, retouren of speciale services.", "Voorraad": "<b>Voorraad = wat beschikbaar is voordat het verkocht of gebruikt wordt.</b><br>Kijk waar het ligt, hoeveel er ligt en hoe snel het beweegt.<br><br>Te weinig = misverkoop. Te veel = geld vast + meer kans op derving.", "Afdelingen": "<b>Waarom zijn afdelingen gescheiden?</b><br>Vaak vanwege productsoort, temperatuur, hygiëne, snelheid of specialisme. Zoek bijvoorbeeld vers, diepvries, non-food, orderverzameling of advies.", "Ketenpositie": "<b>Tussen wie zit dit bedrijf?</b><br>Van wie koopt het in? Aan wie verkoopt het door? Daarmee bepaal je de plek in de bedrijfskolom.", "Goederenstroom": "<b>Volg het product.</b><br>Waar komt het binnen? Waar wordt het gecontroleerd? Waar wordt het opgeslagen? Wie verplaatst het? Waar gaat het daarna heen?<br><br>Denk aan: ontvangst → opslag → orderpicken → controle → verzending.", "Opslag": "<b>Waarom ligt iets juist daar?</b><br>Kijk naar temperatuur, productgroep, omloopsnelheid, hygiëne, veiligheid en bereikbaarheid.", "Doorlooptijd": "<b>Doorlooptijd = tijd van begin tot eind.</b><br>Kijk waar wachten ontstaat, waar snelheid nodig is en welke stap veel tijd kost.<div class='example'><b>Voorbeeld:</b> gekoeld product dat lang op een laadperron staat kan een kwaliteitsrisico opleveren.</div>", "Planning": "<b>Wat moet op elkaar worden afgestemd?</b><br>Mensen, voorraad, bestellingen, routes, machines, levertijden en piekmomenten.<br><br><b>Vraag:</b> wat gebeurt er als één levering twee uur te laat komt?", "Voedselveiligheid": "<b>Waar kan het product onveilig worden?</b><br>Kijk naar temperatuur, schoonmaak, persoonlijke hygiëne, kruisbesmetting, houdbaarheid en ontvangstcontrole.<br><br><b>HACCP-denken:</b> risico herkennen → beheersen → controleren.", "Mens & technologie": "<b>Kijk welke taak door wie of wat wordt gedaan.</b><br>Mensen beoordelen, sturen bij, lossen storingen op en controleren kwaliteit. Technologie helpt met snelheid, wegen, sorteren, verpakken, meten en registreren.<br><br><b>Je kunt zien:</b> transportbanden, scanners, weegsystemen, sorteermachines, verpakkingsmachines en meetapparatuur.", "Mens & machine": "<b>Kijk welke taak door mens of machine wordt uitgevoerd.</b><br>Machines zorgen vaak voor snelheid, herhaling en nauwkeurigheid. Mensen beoordelen, stellen bij, lossen storingen op, reinigen en bewaken kwaliteit.<div class='example'><b>Voorbeeld:</b> een machine doseert 250 gram; een medewerker controleert verpakking en product.</div>", "Productieproces": "<b>Zie het proces als stappen.</b><br>grondstof → voorbereiding → bewerking → controle → verpakking → opslag → verzending.<br><br><b>Vraag:</b> op welk moment verandert de grondstof echt in het eindproduct?", "Hygiëne & veiligheid": "<b>Waar zie je beheersing?</b><br>Denk aan handen wassen, bedrijfskleding, zones, schoonmaak, temperatuur, allergenen en registraties. Niet alles is zichtbaar: vraag welke controles achter de schermen plaatsvinden.", "Schaal & logistiek": "<b>Grote schaal verandert de organisatie.</b><br>Kijk naar pallets, silo’s, tanks, productielijnen, opslag en transportbewegingen.<br><br><b>Vraag:</b> hoe zorg je dat duizenden producten op tijd grondstoffen krijgen én weer worden afgevoerd?", "Verpakking & positionering": "<b>Verpakking doet meer dan er mooi uitzien.</b><br>Ze beschermt, verlengt soms houdbaarheid, geeft informatie, helpt transport en verkoopt het product. Kijk naar materiaal, formaat, etiket, merk, doelgroep en stapelbaarheid.", "Vergelijken": "<b>Vergelijk niet alleen wat anders is, maar ook waarom.</b><br>Kies twee bedrijven en vergelijk bijvoorbeeld doelgroep, assortiment, prijs, logistiek, service of werkwijze.<br><br>Sterk antwoord = verschil + bewijs + mogelijke reden.", "Foodketen": "<b>Leg de verbinding tussen bedrijven.</b><br>Vraag steeds: wie levert aan dit bedrijf en aan wie levert dit bedrijf weer? Zo bouw je de bedrijfskolom stap voor stap op.", "Leren": "<b>Maak het concreet.</b><br>Schrijf niet alleen ‘ik heb veel geleerd’. Benoem wat je nu begrijpt wat je vóór het bezoek nog niet wist en waar je dat hebt gezien.", "Voorbeeld": "<b>Een voorbeeld maakt je antwoord geloofwaardig.</b><br>Gebruik een concrete observatie, foto, uitspraak van een medewerker of situatie uit het bezoek en leg uit waarom die jouw conclusie ondersteunt.", "Beroepsbeeld": "<b>Past dit werk bij jou?</b><br>Kijk naar tempo, klantcontact, werktijden, techniek, verantwoordelijkheid, fysiek werk, teamwork en zelfstandigheid. Je hoeft iets niet leuk te vinden om er wel iets van te leren."}
+const DELIVERABLE_DATA = {"orientation": {"icon": "🏙️", "title": "Week 1 · Foodwereld Eindhoven", "source": "Foodsafari 1: Oriëntatie op de omgeving", "before": ["Maak individueel een lijst met minstens 15 verschillende foodbedrijven in jouw stad/wijk.", "Kies verschillende soorten bedrijven."], "do": ["Bezoek in groepjes minimaal 3 verschillende bedrijven."], "report": ["Naam van elk bedrijf.", "Wat voor type bedrijf het is.", "Waarom je dit bedrijf hebt gekozen.", "Welke productgroep centraal staat.", "Wat de doelgroep is én waaraan je dat ziet.", "Waarom het bedrijf op deze locatie zit.", "Hoe klanten het bedrijf weten te vinden.", "Minimaal 1 TOP en 1 TIP per bedrijf, met uitleg waarom dit belangrijk is."], "check": "Je bent klaar als je lijst met 15 bedrijven compleet is én je 3 bezochte bedrijven volledig hebt uitgewerkt."}, "fresh": {"icon": "🥩", "title": "Week 2 · Versspeciaalzaken", "source": "Foodsafari 3: Versspeciaalzaken", "before": ["Bekijk tijdens het bezoek bewust het assortiment, vakmanschap, herkomst en productkennis.", "Vraag toestemming voordat je foto’s maakt."], "do": ["Verzamel de 5 verschillende soorten bewijsfoto’s uit de opdracht."], "report": ["Foto van een product dat typerend is voor de zaak + motiveer waarom.", "Foto van de presentatie van een product + leg uit wat dit zegt over vakmanschap.", "Foto waarop het verhaal van een product zichtbaar wordt + beschrijf het verhaal.", "Foto van een product dat je nieuwsgierig maakt of verrast + motiveer waarom.", "Foto van een duurzaam product + leg uit waarom dit duurzaam is.", "Leg uit of jij hier wel of niet stage zou willen lopen en waarom."], "check": "Controleer of iedere foto een andere vraag beantwoordt en of bij iedere foto jouw eigen uitleg staat."}, "retail": {"icon": "🛒", "title": "Week 3 · Supermarkt & Retail", "source": "Foodsafari 2: Supermarkten", "before": ["Bezoek minimaal 2 supermarkten.", "Stel je voor en vraag toestemming als je foto’s wilt maken."], "do": ["Onderzoek beide supermarkten aan de hand van dezelfde 5 aspecten, zodat je kunt vergelijken."], "report": ["Winkelindeling: binnenkomst, impulsaankopen, looproutes en verspleinen.", "Assortimentskeuzes: breed/diep assortiment, producten op ooghoogte en wat die keuzes zeggen.", "Prijsstrategie: vergelijk 4 producten — huismerk/budgetmerk tegenover A-merk — noteer prijzen en wat je opvalt.", "Promotie & verleiding: opvallende promoties en welke klant ze proberen te trekken.", "Duurzaamheid & communicatie: keurmerken, verhalen, gezond/duurzaam/gemak en hoe dit wordt gecommuniceerd.", "Leg uit of jij wel of niet bij een supermarkt stage zou willen lopen en waarom."], "check": "Je bent klaar als je voor beide supermarkten alle 5 aspecten hebt ingevuld en de prijsvergelijking compleet is."}, "foodservice": {"icon": "🍽️", "title": "Foodservice / Restaurants & Hotels", "source": "Foodsafari 4: Foodservice bedrijven", "before": ["Stel je voor en vraag toestemming voordat je foto’s maakt.", "Kijk niet alleen naar wat verkocht wordt, maar vooral waarom het bedrijf deze keuzes maakt."], "do": ["Onderzoek concept, doelgroep, menu/assortiment, prijs & waarde en gastbeleving.", "Maak 5 gerichte foto’s die iets uitleggen over het bedrijf."], "report": ["Concept: soort bedrijf, belofte aan de gast en waaraan je dit ziet.", "Doelgroep: voor wie is het bedrijf bedoeld en waaraan zie je dat? Denk aan prijs, menu, porties, sfeer en aanspreken.", "Assortiment & menustructuur: kenmerkende producten, overzichtelijk/uitgebreid menu, combinaties en upselling.", "5 foto’s. Beschrijf per foto in 2–3 zinnen wat je ziet en wat dit laat zien over doelgroep, werkwijze of positionering.", "Prijs & waarde: noteer de prijs van 5 producten, wat je opvalt en hoe dit past bij doelgroep en concept.", "Communicatie & gastbeleving: hoe word je aangesproken, wat straalt het bedrijf uit en past dit bij de doelgroep?", "Voeg een foto van folder, menukaart of website toe en leg uit of deze bij de doelgroep past.", "Leg uit of jij hier wel of niet stage zou willen lopen en waarom."], "check": "Controleer vooral je 5 foto’s: elke foto moet iets uitleggen, niet alleen mooi zijn."}, "market": {"icon": "🧺", "title": "Foodmarkt / Ambulante handel", "source": "Foodsafari 5: Foodmarkten", "before": ["Kies vooraf 3 verschillende AGF-producten.", "Bedenk per product waarop je wilt letten, bijvoorbeeld prijs, presentatie of doelgroep."], "do": ["Bezoek 3 verschillende kramen die één of meer van jouw gekozen producten verkopen.", "Stel je voor en vraag toestemming voor foto’s."], "report": ["Per kraam minimaal 1 foto die laat zien hoe het product wordt verkocht.", "Beschrijf per foto in 2–3 zinnen wat je ziet en wat dit zegt over verkoopstrategie en/of doelgroep.", "Voor product 1: prijs en kwaliteit bij kraam 1, 2 en 3.", "Voor product 2: prijs en kwaliteit bij kraam 1, 2 en 3.", "Voor product 3: prijs en kwaliteit bij kraam 1, 2 en 3.", "Licht je oordeel over kwaliteit telkens toe.", "Leg uit of jij wel of niet bij een foodmarkt stage zou willen lopen en waarom."], "check": "Je bent klaar als 3 producten × 3 kramen zijn vergeleken én iedere kraam minimaal één uitgelegde foto heeft."}, "wholesale": {"icon": "📦", "title": "Groothandel", "source": "Foodsafari 6: Groothandel", "before": ["Maak vooraf een schema van de bedrijven die je tijdens eerdere Foodsafari’s hebt bezocht."], "do": ["Vul tijdens het bezoek per eerder bezocht bedrijf in welke producten dat bedrijf bij deze groothandel zou kunnen kopen.", "Observeer assortiment, specialisatie, service en advies."], "report": ["Schema: eerder bezocht bedrijf → welke producten zou dit bedrijf bij de groothandel kopen?", "Assortiment & specialisatie: breed/gespecialiseerd, horeca/retail/foodservice/combinatie, opvallende productgroepen.", "Service & advies: ontvangst, vakkennis en manieren waarop advies wordt gegeven.", "2 of 3 foto’s die laten zien hoe de groothandel ondernemers ondersteunt.", "Per foto 2–3 zinnen: wat zie je en wat zegt dit over de rol van de groothandel in de foodketen?", "Wat is het belangrijkste verschil tussen deze groothandel en eerder bezochte bedrijven? Waaruit blijkt dat?", "Leg uit of jij hier wel of niet stage zou willen lopen en waarom."], "check": "Controleer of je schema, vragen én 2–3 bewijsfoto’s met uitleg compleet zijn."}, "distribution": {"icon": "🚚", "title": "Distributie & Logistiek", "source": "Foodsafari 7: Distributiecentra", "before": ["Bereid minimaal 1 open vraag voor die je tijdens het bezoek wilt stellen."], "do": ["Noteer ook het antwoord op jouw eigen open vraag.", "Observeer goederenstromen, opslag, planning, voedselveiligheid, medewerkers en technologie."], "report": ["Jouw open vraag + het antwoord.", "Goederenstromen: waar komen producten binnen, waar gaan ze naartoe, wat is doorlooptijd en welk product heeft de kortste doorlooptijd?", "Opslag & indeling: hoe is het magazijn ingericht en waarom liggen producten op bepaalde plekken?", "Planning & snelheid: hoe wordt tijd bewaakt en wat gebeurt er bij vertraging?", "Voedselveiligheid & controle: welke controles zie je en hoe worden temperatuur, THT/TGT, kwaliteit en veiligheid bewaakt?", "Mens & technologie: wat doen medewerkers en wat wordt ondersteund door systemen of automatisering?", "Communicatie: welke middelen zie je, bijvoorbeeld tekst, pictogrammen of verschillende talen, en waarom worden die gebruikt?", "Leg uit of jij hier wel of niet stage zou willen lopen en waarom."], "check": "Je hoeft niet ieder detail te hebben gezien, maar je verslag moet alle onderdelen behandelen met wat je hebt gezien, gehoord of gevraagd."}, "industry": {"icon": "🏭", "title": "Voedingsindustrie", "source": "Foodsafari 8: Voedingsindustrie", "before": ["Let extra goed op de veiligheids- en hygiëneregels van het bedrijf."], "do": ["Observeer het bedrijf aan de hand van 5 vaste onderwerpen."], "report": ["Productieproces: welke grote stappen doorloopt het product en in welke volgorde?", "Voedselveiligheid & hygiëne: welke maatregelen zie je en welke controles worden uitgevoerd?", "Mens & machine: wat doen medewerkers en wat gebeurt automatisch?", "Logistiek & schaal: hoe worden producten opgeslagen en hoe verlaten ze het bedrijf via verpakking/transport?", "Marketing & positionering: richt het bedrijf zich op consumenten of andere bedrijven en waaraan zie je dat?", "Leg uit of jij wel of niet in de voedingsindustrie stage zou willen lopen en waarom."], "check": "Je bent klaar als alle 5 onderwerpen duidelijk in je verslag terugkomen en je je antwoorden baseert op het bezoek."}, "reflection": {"icon": "🏁", "title": "Eindreflectie", "source": "Reflectie Foodsafari", "before": ["Doe dit nadat je alle Foodsafari’s hebt afgerond."], "do": ["Schrijf een persoonlijke én inhoudelijke reflectie van ongeveer ½ tot 1 A4."], "report": ["Terugblik: hoe heb je de Foodsafari ervaren? Wat was verrassend, lastig of interessant? Gebruik minimaal 1 concreet voorbeeld.", "Vergelijking: welk type bedrijf sprak je het meest aan en waarom? Noem minimaal 2 kenmerken. Welk type bedrijf het minst en wat zegt dat over jou?", "Foodbranche: noem 2 dingen die je hebt geleerd over hoe de foodketen werkt en leg uit waar je dit tijdens de bezoeken hebt gezien.", "Jouw toekomst: in welk soort foodbedrijf zou je later willen werken of stage lopen? Welke werkzaamheden/werkomgeving passen bij jou?", "Leg uit hoe de Foodsafari jou heeft geholpen om een beter beroepsbeeld te krijgen."], "check": "Plaats deze reflectie als laatste onderdeel in je Foodsafari-verslag."}};
+const EVIDENCE_DATA = {"orientation": {"icon": "🏙️", "title": "Week 1 · Foodwereld Eindhoven", "photos": ["een foto die duidelijk laat zien wat voor soort foodbedrijf het is", "een opvallend product of presentatie", "iets waaruit je kunt afleiden voor welke doelgroep het bedrijf werkt"], "example": "Op deze foto zie je een kleine lunchzaak vlak bij het station met veel kant-en-klare broodjes en koffie to go. Ik heb deze foto gemaakt omdat dit iets zegt over de doelgroep. Ik denk dat het bedrijf zich vooral richt op mensen die weinig tijd hebben en onderweg zijn."}, "fresh": {"icon": "🥩", "title": "Week 2 · Versspeciaalzaken", "photos": ["een product waarbij vakmanschap zichtbaar is", "herkomstinformatie of een lokaal product", "een presentatie waarmee kwaliteit of specialisme wordt benadrukt"], "example": "Op deze foto zie je huisgemaakte worsten in de toonbank. Ik heb deze foto gemaakt omdat je hier vakmanschap ziet. De slager maakt deze producten zelf en kan uitleggen welke grondstoffen en kruiden worden gebruikt. Hierdoor krijgt het product extra waarde."}, "retail": {"icon": "🛒", "title": "Week 3 · Supermarkt & Retail", "photos": ["een actieplek, kopstelling of opvallende presentatie", "een product of schap dat iets zegt over de doelgroep", "een lokaal, duurzaam of seizoensproduct", "iets uit de winkelindeling of routing"], "example": "Op deze foto zie je bij de ingang meerdere lokale Terschellinger producten. Ik heb deze foto gemaakt omdat dit iets zegt over de doelgroep en marketing. Ik denk dat toeristen een belangrijke doelgroep zijn en dat de winkel lokale producten extra zichtbaar maakt omdat bezoekers graag iets van het eiland meenemen."}, "foodservice": {"icon": "🍽️", "title": "Foodservice / Restaurants & Hotels", "photos": ["de menukaart of een deel daarvan", "een element van de inrichting dat bij het concept past", "een gerecht of presentatie die iets zegt over prijs en beleving", "een voorbeeld van service, verkoop of gastbeleving"], "example": "Op deze foto zie je een klein menu met vooral snelle lunchgerechten. Ik heb deze foto gemaakt omdat dit iets zegt over het concept en de doelgroep. Het aanbod is overzichtelijk en snel te bereiden. Daardoor denk ik dat het bedrijf zich richt op gasten die snel willen eten."}, "market": {"icon": "🧺", "title": "Foodmarkt / Ambulante handel", "photos": ["een kraam met duidelijke productpresentatie", "een prijsbord of actie", "een situatie waarin persoonlijk advies of verkoop zichtbaar is"], "example": "Op deze foto zie je dat de aardbeien vooraan hoog zijn opgestapeld met een groot prijsbord. Ik heb deze foto gemaakt omdat dit iets zegt over verkoop en presentatie. De verkoper probeert het product extra te laten opvallen en een impulsaankoop uit te lokken."}, "wholesale": {"icon": "📦", "title": "Groothandel", "photos": ["grote verpakkingen of assortiment voor zakelijke klanten", "voorraad of orderverzameling", "een servicepunt, adviesfunctie of speciale afdeling"], "example": "Op deze foto zie je dozen met grote horecaverpakkingen. Ik heb deze foto gemaakt omdat dit iets zegt over de doelgroep. De groothandel verkoopt vooral aan bedrijven die grotere hoeveelheden nodig hebben dan een gewone consument."}, "distribution": {"icon": "🚚", "title": "Distributie & Logistiek", "photos": ["ontvangst, opslag of orderverzameling", "koel- of vriesopslag", "een transport- of goederenstroom", "technologie zoals scanners of sorteersystemen"], "example": "Op deze foto zie je gekoelde producten in een aparte opslagruimte. Ik heb deze foto gemaakt omdat dit iets zegt over voedselveiligheid en logistiek. De producten moeten koud blijven zodat kwaliteit en veiligheid tijdens opslag en transport behouden blijven."}, "industry": {"icon": "🏭", "title": "Voedingsindustrie", "photos": ["een stap in het productieproces", "een machine en de rol van een medewerker", "een kwaliteitscontrole", "verpakking of opslag van eindproducten"], "example": "Op deze foto zie je een medewerker die producten controleert nadat ze uit de verpakkingsmachine komen. Ik heb deze foto gemaakt omdat dit laat zien hoe mens en machine samenwerken. De machine werkt snel en steeds hetzelfde, terwijl de medewerker controleert of het product en de verpakking goed zijn."}};
+const fixed = ["orientation","fresh","retail"], flex = ["foodservice","market","wholesale","distribution","industry"], all=[...fixed,...flex,"reflection"];
+
+function card(k){
+ const b=DATA[k];
+ const attr = k==="orientation" ? 'data-week1="open"' : `data-branch="${k}"`;
+ return `<article class="card branch" role="button" tabindex="0" ${attr}><div class="ico">${b.icon}</div><span class="tag">${b.tag}</span><h3>${b.title}</h3><p>${b.intro}</p></article>`;
+}
+const routeGridEl=document.getElementById("routeGrid");
+const flexGridEl=document.getElementById("flexGrid");
+const allGridEl=document.getElementById("allGrid");
+const detailContentEl=document.getElementById("detailContent");
+
+routeGridEl.innerHTML=fixed.map(card).join("");
+flexGridEl.innerHTML=flex.map(card).join("")+card("reflection");
+allGridEl.innerHTML=all.map(card).join("");
+
+let currentState={view:"home",label:"Safari"};
+let navHistory=[];
+
+const VIEW_LABELS={
+ home:"Safari",
+ branches:"Branches",
+ chain:"Foodketen",
+ lens:"Kijkbril",
+ evidence:"Bewijs",
+ deliverable:"Wat moet ik opleveren?",
+ week1shell:"Week 1 · Centrum Eindhoven"
+};
+
+function renderBreadcrumb(){
+ const bc=document.getElementById("breadcrumb");
+ if(currentState.view==="home"){bc.classList.remove("show");bc.innerHTML="";return;}
+ let items=[{view:"home",label:"Safari"}];
+
+ if(currentState.view==="week1shell"){
+   items.push({view:"week1shell",label:"Week 1 · Centrum Eindhoven",current:true});
+ // For branch details, keep the route compact but clear.
+ } else if(currentState.view==="detail"){
+   const origin = currentState.origin || "branches";
+   if(origin==="branches") items.push({view:"branches",label:"Branches"});
+   items.push({view:"detail",label:currentState.label,current:true});
+ } else if(currentState.view==="deliverable" && currentState.deliverable){
+   items.push({view:"branches",label:"Branches"});
+   items.push({view:"deliverable",label:"Wat moet ik opleveren?",current:true});
+ } else if(currentState.view==="evidence" && currentState.evidenceBranch && evidenceReturnState){
+   items.push({view:"branches",label:"Branches"});
+   items.push({view:"evidence",label:"Bewijs",current:true});
+ } else {
+   items.push({view:currentState.view,label:VIEW_LABELS[currentState.view]||currentState.label,current:true});
+ }
+
+ bc.innerHTML=items.map((it,i)=>{
+   const sep=i?'<span class="sep">›</span>':'';
+   if(it.current) return `${sep}<span>${it.label}</span>`;
+   return `${sep}<button onclick="navigateTo('${it.view}')">${it.label}</button>`;
+ }).join("");
+ bc.classList.add("show");
+}
+
+function setView(state, push=true){
+ if(push && (currentState.view!==state.view || currentState.branch!==state.branch)){
+   navHistory.push({...currentState});
+ }
+ currentState={...state};
+ document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
+ const targetView=document.getElementById(state.view);
+ if(!targetView){ console.warn("Onbekende view:",state.view); return; }
+ targetView.classList.add("active");
+ document.querySelectorAll("[data-view]").forEach(b=>b.classList.toggle("active",b.dataset.view===state.view));
+ const chainMode = state.view==="chain" || (state.view==="detail" && state.origin==="chain");
+ document.getElementById("chainSticky").classList.toggle("show",chainMode);
+ document.querySelector(".app").classList.toggle("chain-mode",chainMode);
+ renderBreadcrumb();
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function navigateTo(id){
+ if(id==="evidence"){
+   evidenceReturnState=null;
+   const backRow=document.getElementById("evidenceBackRow");
+   if(backRow) backRow.style.display="none";
+ }
+ setView({view:id,label:VIEW_LABELS[id]||id}, true);
+}
+
+function showView(id){ navigateTo(id); }
+
+function goBack(){
+ if(navHistory.length){
+   const prev=navHistory.pop();
+   setView(prev,false);
+   if(prev.view==="detail" && prev.branch){
+     renderBranch(prev.branch,false,prev.origin);
+   }
+ } else {
+   setView({view:"home",label:"Safari"},false);
+ }
+}
+
+document.querySelectorAll("[data-view]").forEach(b=>b.onclick=()=>navigateTo(b.dataset.view));
+function toggleId(id){document.getElementById(id).classList.toggle("open")}
+
+function helperFor(label){
+ if(typeof SPECIFIC_HELP!=="undefined" && SPECIFIC_HELP[label]) return SPECIFIC_HELP[label];
+ if(HELP[label]) return HELP[label];
+ const low=label.toLowerCase();
+ if(low.includes("doelgroep")||low.includes("klant")) return HELP["Doelgroep"];
+ if(low.includes("vakmanschap")) return HELP["Vakmanschap"];
+ if(low.includes("gastbeleving")) return HELP["Gastbeleving"];
+ if(low.includes("prijs")) return HELP["Prijsstrategie"];
+ if(low.includes("promot")) return HELP["Promotie & verleiding"];
+ if(low.includes("assortiment")||low.includes("menu")) return HELP["Assortiment"];
+ if(low.includes("concept")) return HELP["Concept"];
+ if(low.includes("logist")||low.includes("goederen")||low.includes("voorraad")) return HELP["Logistiek"];
+ return `<b>Waar kun je beginnen?</b><br>
+1. Kijk wat je concreet ziet.<br>
+2. Benoem één detail dat opvalt.<br>
+3. Vraag waarom het bedrijf dit zo organiseert.<br>
+4. Zoek bewijs voor je antwoord.<br><br>
+<div class="example"><b>Kom je er nog niet uit?</b><br>Stel dan een gerichte vraag aan een medewerker of aan je docent. Bijvoorbeeld: <i>“Ik zie dit, maar ik snap nog niet waarom het bedrijf hiervoor kiest. Kunt u dat uitleggen?”</i></div>`;
+}
+
+let currentWeek1Step="mission";
+function openWeek1Shell(step="mission"){
+ setView({view:"week1shell",label:"Week 1 · Centrum Eindhoven"},true);
+ showWeek1Step(step,false);
+}
+function showWeek1Step(step,scroll=true){
+ currentWeek1Step=step;
+ document.querySelectorAll(".week1panel").forEach(p=>p.classList.remove("active"));
+ document.querySelectorAll("#week1Nav [data-w1]").forEach(b=>b.classList.toggle("active",b.dataset.w1===step));
+ const panel=document.getElementById("w1-"+step);
+ if(panel) panel.classList.add("active");
+ if(scroll){const shell=document.querySelector(".week1shell"); if(shell) shell.scrollIntoView({behavior:"smooth",block:"start"});}
+}
+document.addEventListener("click",(e)=>{
+ const step=e.target.closest("[data-w1]"); if(step){showWeek1Step(step.dataset.w1); return;}
+ const open=e.target.closest("[data-week1]"); if(open){openWeek1Shell("mission"); return;}
+});
+document.addEventListener("keydown",(e)=>{
+ const open=e.target.closest && e.target.closest("[data-week1]");
+ if(open && (e.key==="Enter" || e.key===" ")){e.preventDefault(); openWeek1Shell("mission");}
+});
+
+function renderBranch(k,push=true,origin=null){
+ const b=DATA[k];
+ const actualOrigin=origin || currentState.view || "branches";
+ let looks=b.look.map((x,i)=>`<div class="lookitem"><div class="lookrow"><div><b>${x[0]}</b><br><span class="muted">${x[1]}</span></div><button type="button" class="helpbtn" data-toggle-help="h${i}">💡 Meer uitleg</button></div><div id="h${i}" class="helper">${helperFor(x[0])}<div class="stillstuck"><b>❓ Nog steeds niet duidelijk?</b><br>Vraag een medewerker of je docent. Vertel eerst wat je al hebt gezien, dan krijg je een beter antwoord.</div></div></div>`).join("");
+ detailContentEl.innerHTML=`<div class="detailhero"><div class="eyebrow">${b.tag}</div><h1>${b.icon} ${b.title}</h1><p>${b.intro}</p><div class="pills"><span class="pill keten">🔗 Foodketen</span><span class="pill log">🚚 Logistiek</span><span class="pill value">💰 Waarde</span><span class="pill trace">🔎 Traceability</span><span class="pill safe">🛡️ HACCP</span></div></div>
+ <div class="twocol"><div class="card"><h3>👀 Kijk hiernaar</h3>${looks}</div><div><div class="card evidence"><h3>📸 Hoe verzamel ik bewijs?</h3><p>${b.evidence}</p><button type="button" class="morebtn" data-evidence-for="${k}">📸 Bewijsfoto-hulp voor deze branche →</button></div>
+ <div class="card" style="margin-top:14px"><h3>🎓 Wat kun je hier leren?</h3><div class="chips">${b.learn.map(x=>`<span>${x}</span>`).join("")}</div></div></div></div>
+ <div class="deepbox"><b>🔗 Nieuwsgierig? Ontdek de verbinding met logistiek</b><p class="muted">${b.deep}</p><button type="button" class="morebtn" data-toggle-help="deep">Ontdek meer →</button><div id="deep" class="deepcontent"><div class="deepgrid">
+ <div class="deepitem"><h4>🚚 Logistiek</h4><p>Hoe komen producten binnen, waar worden ze opgeslagen en hoe gaan ze verder? Kijk naar voorraad, tijd, temperatuur, planning en goederenstromen.</p></div>
+ <div class="deepitem"><h4>💰 Waardevermeerdering</h4><p>Welke extra waarde ontstaat hier? Denk aan verwerking, beschikbaarheid, kwaliteit, gemak, advies, service of beleving.</p></div>
+ <div class="deepitem"><h4>🔎 Traceability</h4><p>Hoe kan het bedrijf aantonen waar een product of grondstof vandaan komt en waar het naartoe is gegaan?</p></div>
+ <div class="deepitem"><h4>🛡️ HACCP</h4><p>Welke voedselveiligheidsrisico's zijn hier belangrijk en hoe worden die beheerst?</p></div></div></div></div>
+ <button type="button" class="finishbtn" data-deliverable-for="${k}">✅ Ik heb genoeg informatie verzameld — wat moet ik nu doen?</button>
+ <div class="callout"><b>🔎 Jouw onderzoek</b><br><span class="muted">De officiële opdracht in de ELO blijft leidend. Gebruik dit Kompas om beter te kijken, vragen te stellen en sterk bewijs te verzamelen.</span></div>
+ <div class="callout"><b>❤️ Past dit bij mij?</b><br><span class="muted">Wat spreekt je aan of juist niet? En belangrijker: wat kun je van deze branche leren, ook als je hier later niet wilt werken?</span></div>`;
+ setView({view:"detail",label:b.title,branch:k,origin:actualOrigin},push);
+}
+function openBranch(k){ renderBranch(k,true,currentState.view); }
+
+// Robust interaction handler for dynamically generated branch content.
+// This avoids browser-specific problems with inline onclick handlers in local HTML files.
+document.addEventListener("click",(e)=>{
+ const branch=e.target.closest("[data-branch]");
+ if(branch){ openBranch(branch.dataset.branch); return; }
+
+ const toggle=e.target.closest("[data-toggle-help]");
+ if(toggle){
+   e.preventDefault();
+   e.stopPropagation();
+   const target=document.getElementById(toggle.dataset.toggleHelp);
+   if(target) target.classList.toggle("open");
+   return;
+ }
+
+ const deliver=e.target.closest("[data-deliverable-for]");
+ if(deliver){
+   e.preventDefault();
+   e.stopPropagation();
+   openDeliverable(deliver.dataset.deliverableFor);
+   return;
+ }
+
+ const evidenceFor=e.target.closest("[data-evidence-for]");
+ if(evidenceFor){
+   e.preventDefault();
+   e.stopPropagation();
+   openEvidenceForBranch(evidenceFor.dataset.evidenceFor);
+   return;
+ }
+
+ const go=e.target.closest("[data-go-view]");
+ if(go){ navigateTo(go.dataset.goView); return; }
+});
+
+document.addEventListener("keydown",(e)=>{
+ const branch=e.target.closest && e.target.closest("[data-branch]");
+ if(branch && (e.key==="Enter" || e.key===" ")){
+   e.preventDefault();
+   openBranch(branch.dataset.branch);
+ }
+});
+
+
+function openDeliverable(k){
+ const d=DELIVERABLE_DATA[k];
+ if(!d) return;
+ const box=document.getElementById("deliverableContent");
+ box.innerHTML=`
+ <div class="deliverhero">
+   <span class="sourcebadge">${d.source}</span>
+   <h1>${d.icon} ${d.title}</h1>
+   <p>Je hebt onderzocht en informatie verzameld. Gebruik deze pagina nu als checklist voor wat er in jouw Foodsafari-verslag moet komen.</p>
+ </div>
+
+ <div class="checkblock">
+   <h3>1. Vooraf / voorbereiding</h3>
+   <ul class="tasklist">${d.before.map(x=>`<li>${x}</li>`).join("")}</ul>
+ </div>
+
+ <div class="checkblock">
+   <h3>2. Tijdens het bezoek</h3>
+   <ul class="tasklist">${d.do.map(x=>`<li>${x}</li>`).join("")}</ul>
+ </div>
+
+ <div class="checkblock">
+   <h3>3. Dit moet in je verslag</h3>
+   <ul class="tasklist">${d.report.map(x=>`<li>${x}</li>`).join("")}</ul>
+ </div>
+
+ <div class="callout evidence"><b>✅ Wanneer ben ik klaar?</b><br>${d.check}</div>
+ <div class="callout"><b>📌 Nog één keer:</b><br><span class="muted">De officiële opdracht en het verslagformat in de ELO blijven leidend. Deze checklist helpt je om te controleren of je niets vergeet.</span></div>`;
+ setView({view:"deliverable",label:"Wat moet ik opleveren?",deliverable:k},true);
+}
+
+const chainData=[
+{
+ icon:"🌱", title:"1. Producent / primaire sector", sub:"Hier begint het product",
+ examples:["boer / akkerbouwer","veehouder","tuinder","visser","kweker"],
+ from:"Natuur, land, water, dieren of teelt.",
+ to:"Voedingsindustrie, groothandel, retail, foodservice of soms direct de consument.",
+ logistics:"Oogst of productie plannen, versheid behouden, verzamelen, koelen en afvoeren.",
+ value:"Grondstoffen en primaire voedingsproducten worden beschikbaar gemaakt.",
+ trace:"Herkomst, perceel, dier, vangst, partij of leverancier moet herkenbaar blijven."
+},
+{
+ icon:"🏭", title:"2. Voedingsindustrie / verwerking", sub:"Van grondstof naar product",
+ examples:["slachterij","zuivelfabriek","bakkerij / broodfabriek","groente- of vleesverwerker","maaltijdproducent"],
+ from:"Producenten en grondstofleveranciers.",
+ to:"Distributiecentra, groothandels, retail en foodservice.",
+ logistics:"Grondstoffen ontvangen, intern verplaatsen, plannen, verpakken en eindproduct opslaan.",
+ value:"Verwerking, smaak, houdbaarheid, veiligheid, gemak en verpakking voegen waarde toe.",
+ trace:"Partij- en batchgegevens verbinden grondstoffen met het uiteindelijke product."
+},
+{
+ icon:"🚚", title:"3. Distributie & logistiek", sub:"Producten laten bewegen",
+ examples:["distributiecentrum","transporteur","koel- en vriesopslag","orderverzameling"],
+ from:"Producenten, fabrieken en leveranciers.",
+ to:"Groothandel, winkels, restaurants, hotels en andere afnemers.",
+ logistics:"Ontvangst, opslag, orderpicken, routeplanning, temperatuurbeheersing en transport.",
+ value:"Beschikbaarheid, snelheid, betrouwbaarheid en de juiste conditie voegen waarde toe.",
+ trace:"Je moet kunnen achterhalen welke partij wanneer is ontvangen, opgeslagen en uitgeleverd."
+},
+{
+ icon:"📦", title:"4. Groothandel", sub:"Schakel voor zakelijke klanten",
+ examples:["horecagroothandel","AGF-groothandel","vleesgroothandel","foodservicegroothandel"],
+ from:"Producenten, fabrikanten en importeurs.",
+ to:"Restaurants, hotels, cateraars, speciaalzaken, winkels en andere bedrijven.",
+ logistics:"Grote voorraad beheren, orders verzamelen, koeling bewaken en betrouwbaar uitleveren.",
+ value:"Assortiment, voorraad, advies, kleinere bestelhoeveelheden en service voegen waarde toe.",
+ trace:"Leverancier, partij en zakelijke afnemer moeten aan elkaar gekoppeld kunnen worden."
+},
+{
+ icon:"🛒", title:"5. Retail / vers / markt", sub:"Verkoop aan de consument",
+ examples:["supermarkt","slagerij / traiteur","bakker","groentewinkel","foodmarkt / marktkraam"],
+ from:"Groothandel, industrie, producenten en distributie.",
+ to:"Consument; soms ook kleine zakelijke klanten.",
+ logistics:"Bestellen, ontvangst, voorraad, koeling, aanvullen, FIFO/FEFO en derving beheersen.",
+ value:"Selectie, presentatie, advies, bereikbaarheid, gemak en service voegen waarde toe.",
+ trace:"Bij problemen moet duidelijk zijn van welke leverancier of partij het product kwam."
+},
+{
+ icon:"🍽️", title:"6. Foodservice / restaurants & hotels", sub:"Van product naar gastbeleving",
+ examples:["restaurant","hotel","lunchroom / café","catering","bedrijfsrestaurant","fastservice / bezorgconcept"],
+ from:"Groothandel, producent, retail of gespecialiseerde leveranciers.",
+ to:"Gast / consument.",
+ logistics:"Inkopen, ontvangen, opslaan, mise-en-place, produceren en op tijd serveren.",
+ value:"Bereiding, vakmanschap, service, gastvrijheid, snelheid en beleving voegen waarde toe.",
+ trace:"Ingrediënten en leveranciers moeten terug te vinden zijn, zeker bij voedselveiligheidsproblemen."
+},
+{
+ icon:"👤", title:"7. Gast / consument", sub:"Hier eindigt de commerciële keten",
+ examples:["huishouden","toerist","restaurantgast","hotelgast","zakelijke gebruiker"],
+ from:"Retail, foodservice of soms rechtstreeks van producent.",
+ to:"Consumptie; afval- en retourstromen kunnen daarna weer een nieuwe keten vormen.",
+ logistics:"Beschikbaarheid, tijd, locatie, bezorging en gebruiksgemak bepalen mede de keuze.",
+ value:"De consument bepaalt uiteindelijk welke kwaliteit, prijs, service en beleving waarde hebben.",
+ trace:"Bij een recall moet informatie de keten terug kunnen volgen richting leverancier of producent."
+}
+];
+const chainNodesEl=document.getElementById("chainNodes");
+const chainInfoEl=document.getElementById("chainInfo");
+
+chainNodesEl.innerHTML=chainData.map((n,i)=>`
+<button type="button" class="node" data-chain-index="${i}" aria-label="Open schakel ${n.title}">
+  <div class="node-title">${n.icon} ${n.title}</div>
+  <div class="node-sub">${n.sub}</div>
+</button>`).join("");
+
+function chainShow(i, shouldScroll=true){
+ const n=chainData[i];
+ chainNodesEl.querySelectorAll(".node").forEach((el,idx)=>el.classList.toggle("active",idx===i));
+ chainInfoEl.innerHTML=`
+ <h3>${n.icon} ${n.title}</h3>
+ <div class="flowline">
+   <div><b>⬅️ Waar komt het vandaan?</b><br>${n.from}</div>
+   <div><b>➡️ Waar gaat het naartoe?</b><br>${n.to}</div>
+ </div>
+ <p><b>🏢 Voorbeelden van bedrijven:</b></p>
+ <ul class="companylist">${n.examples.map(x=>`<li>${x}</li>`).join("")}</ul>
+ <p><b>🚚 Logistiek:</b> ${n.logistics}</p>
+ <p><b>💰 Waardevermeerdering:</b> ${n.value}</p>
+ <p><b>🔎 Traceability:</b> ${n.trace}</p>`;
+ if(shouldScroll && window.innerWidth<=820){
+   setTimeout(()=>chainInfoEl.scrollIntoView({behavior:"smooth",block:"start"}),50);
+ }
+}
+
+chainNodesEl.addEventListener("click",(e)=>{
+ const btn=e.target.closest("[data-chain-index]");
+ if(!btn) return;
+ chainShow(Number(btn.dataset.chainIndex),true);
+});
+
+// Sticky horizontal navigator for the bedrijfskolom on mobile.
+const chainStickyEl=document.getElementById("chainSticky");
+chainStickyEl.innerHTML=chainData.map((n,i)=>`
+<button type="button" data-sticky-chain="${i}" aria-label="Ga naar ${n.title}">
+ ${n.icon} ${i+1}
+</button>`).join("");
+
+function setStickyActive(i){
+ chainStickyEl.querySelectorAll("[data-sticky-chain]").forEach((el,idx)=>el.classList.toggle("active",idx===i));
+}
+
+chainStickyEl.addEventListener("click",(e)=>{
+ const btn=e.target.closest("[data-sticky-chain]");
+ if(!btn) return;
+ const i=Number(btn.dataset.stickyChain);
+ if(currentState.view!=="chain"){
+   setView({view:"chain",label:"Foodketen"},true);
+ }
+ chainShow(i,true);
+ setStickyActive(i);
+});
+
+const originalChainShow=chainShow;
+chainShow=function(i,shouldScroll=true){
+ originalChainShow(i,shouldScroll);
+ setStickyActive(i);
+};
+
+// Keyboard / touch friendly default: no schakel selected until the student chooses one.
+
+
+document.getElementById("lensTarget").innerHTML=HELP["Doelgroep"];
+
+
+const evidenceBranchGridEl=document.getElementById("evidenceBranchGrid");
+const evidenceBranchDetailEl=document.getElementById("evidenceBranchDetail");
+
+
+let evidenceReturnState=null;
+
+function openEvidenceForBranch(k){
+ const branch=DATA[k];
+ evidenceReturnState={...currentState};
+
+ // Navigate without losing the exact branch we came from.
+ setView({view:"evidence",label:"Bewijs",evidenceBranch:k},true);
+
+ const backRow=document.getElementById("evidenceBackRow");
+ const backLabel=document.getElementById("evidenceBackLabel");
+ if(backRow) backRow.style.display="flex";
+ if(backLabel) backLabel.textContent=`naar ${branch ? branch.title : "de branche"}`;
+
+ // Open the matching evidence card immediately.
+ setTimeout(()=>openEvidenceBranch(k,false),30);
+}
+
+function closeEvidenceToBranch(){
+ if(evidenceReturnState){
+   const prev={...evidenceReturnState};
+   evidenceReturnState=null;
+
+   // Remove the duplicate history entry created when entering evidence.
+   if(navHistory.length) navHistory.pop();
+
+   if(prev.view==="detail" && prev.branch){
+     renderBranch(prev.branch,false,prev.origin);
+   } else {
+     setView(prev,false);
+   }
+ } else {
+   goBack();
+ }
+}
+
+const evidenceBackBtnEl=document.getElementById("evidenceBackBtn");
+if(evidenceBackBtnEl) evidenceBackBtnEl.addEventListener("click",closeEvidenceToBranch);
+
+function renderEvidenceBranches(){
+ if(!evidenceBranchGridEl) return;
+ const order=["orientation","fresh","retail","foodservice","market","wholesale","distribution","industry"];
+ evidenceBranchGridEl.innerHTML=order.map(k=>{
+   const e=EVIDENCE_DATA[k];
+   return `<button type="button" class="evidencebranch" data-evidence-branch="${k}">
+     <b>${e.icon} ${e.title}</b>
+     <span class="muted">Bekijk voorbeelden →</span>
+   </button>`;
+ }).join("");
+}
+
+function openEvidenceBranch(k,shouldScroll=true){
+ const e=EVIDENCE_DATA[k];
+ if(!e || !evidenceBranchDetailEl) return;
+ evidenceBranchDetailEl.innerHTML=`
+   <h3>${e.icon} ${e.title}</h3>
+   <p><b>📷 Welke foto's kunnen sterk bewijs zijn?</b></p>
+   <ul>${e.photos.map(x=>`<li>${x}</li>`).join("")}</ul>
+   <div class="evexample evstrong"><b>✅ Voorbeeld van een sterke beschrijving</b><br>${e.example}</div>
+   <div class="evexample"><b>💬 Formuleer je antwoord zo:</b><br>
+   1. Op deze foto zie je…<br>
+   2. Ik heb deze foto gemaakt omdat…<br>
+   3. Dit hoort bij…<br>
+   4. Hieruit ontdek ik dat…</div>
+   <div class="stillstuck"><b>❓ Kom je er nog niet uit?</b><br>Vraag een medewerker of je docent. Vertel eerst wat je al ziet en waar je over twijfelt.</div>`;
+ evidenceBranchDetailEl.classList.add("open");
+ if(shouldScroll && window.innerWidth<=820) setTimeout(()=>evidenceBranchDetailEl.scrollIntoView({behavior:"smooth",block:"start"}),60);
+}
+
+document.addEventListener("click",(e)=>{
+ const ev=e.target.closest("[data-evidence-branch]");
+ if(ev){ openEvidenceBranch(ev.dataset.evidenceBranch); }
+});
+
+renderEvidenceBranches();
+
+
+const searchIndex=[];
+all.forEach(k=>{const b=DATA[k];searchIndex.push({label:`${b.icon} ${b.title}`,sub:b.tag,action:()=>k==="orientation"?openWeek1Shell("mission"):openBranch(k),text:(b.title+" "+b.intro+" "+b.look.flat().join(" ")+" "+b.learn.join(" ")+" "+b.deep).toLowerCase()})});
+[
+ ["HACCP & voedselveiligheid","Verdieping · foodketen & logistiek","haccp voedselveiligheid hygiëne temperatuur kruisbesmetting tht tgt",()=>{showView("chain");setTimeout(()=>{document.getElementById("chainDeep").classList.add("open")},50)}],
+ ["Traceability / traceerbaarheid","Verdieping · foodketen & logistiek","traceability traceerbaarheid herkomst batch leverancier bestemming",()=>{showView("chain");setTimeout(()=>{document.getElementById("chainDeep").classList.add("open")},50)}],
+ ["Doelgroep","Kijkhulp · klanten herkennen","doelgroep gezinnen jongeren ouderen toeristen buurtbewoners studenten zakelijk prijsbewust gemak luxe kwaliteit",()=>showView("lens")],
+ ["Bewijs verzamelen","Foodsafari-hulp · foto's en observaties","bewijs foto observatie conclusie verklaring",()=>showView("evidence")],
+ ["Waardevermeerdering","Verdieping · foodketen","waarde waardevermeerdering service gemak kwaliteit beleving verwerking",()=>{showView("chain");setTimeout(()=>{document.getElementById("chainDeep").classList.add("open")},50)}]
+].forEach(x=>searchIndex.push({label:x[0],sub:x[1],text:x[2],action:x[3]}));
+
+const s=document.getElementById("search"), sr=document.getElementById("searchresults");
+s.addEventListener("input",()=>{const q=s.value.trim().toLowerCase();if(!q){sr.classList.remove("show");return}const hits=searchIndex.filter(x=>x.text.includes(q)||x.label.toLowerCase().includes(q)).slice(0,8);sr.innerHTML=hits.length?hits.map((x,i)=>`<div class="sr" data-i="${i}"><b>${x.label}</b><br><small>${x.sub}</small></div>`).join(""):`<div class="sr"><span class="muted">Geen resultaat. Probeer een ander woord.</span></div>`;sr.classList.add("show");sr.querySelectorAll("[data-i]").forEach(el=>el.onclick=()=>{hits[+el.dataset.i].action();s.value="";sr.classList.remove("show")})});
+document.addEventListener("click",e=>{if(!e.target.closest(".search"))sr.classList.remove("show")});
+renderBreadcrumb();
+</script>
+</body></html>
