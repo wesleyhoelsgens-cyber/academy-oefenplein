@@ -289,6 +289,22 @@ const academyData = {
                                     beschikbaar: true
                                 }
                             ]
+                        },
+                        {
+                            id: "les-3-safety-scan",
+                            naam: "Les 3 – Safety Scan",
+                            modules: [
+                                {
+                                    id: "hospitality-les-3-safety-scan",
+                                    titel: "Les 3 – Hospitality Safety Scan",
+                                    type: "Interactieve veldonderzoeksopdracht",
+                                    duur: "Veldonderzoek en lespresentatie",
+                                    beschrijving: "Voer bij een bedrijf een Safety Scan uit, verzamel observaties en bewijs en verwerk de belangrijkste Safety Case in een pitch en presentatie in de les.",
+                                    bestand: "modules/hospitality/leerjaar-1/periode-1/les-3-safety-scan/hospitality-les-3-safety-scan.html",
+                                    actieLabel: "Start Safety Scan",
+                                    beschikbaar: true
+                                }
+                            ]
                         }
                     ]
                 },

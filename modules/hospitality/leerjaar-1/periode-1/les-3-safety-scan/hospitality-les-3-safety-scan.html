@@ -1,0 +1,657 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Interactieve veldonderzoeksopdracht: voer een Hospitality Safety Scan uit en bereid een pitch en presentatie voor.">
+<meta name="author" content="Academy Oefenplein">
+<meta name="academy:module-id" content="hospitality-les-3-safety-scan">
+<meta name="academy:type" content="interactieve-veldonderzoeksopdracht">
+<meta name="academy:duration" content="Veldonderzoek en lespresentatie">
+<meta name="academy:education" content="hospitality">
+<meta name="academy:year" content="1">
+<meta name="academy:period" content="1">
+<meta name="academy:theme" content="Les 3 – Safety Scan">
+<meta name="academy:version" content="4.0">
+<meta name="academy:last-updated" content="2026-09-05">
+<title>Les 3 – Hospitality Safety Scan – Academy Oefenplein</title>
+<style>
+:root{
+  --bg:#f4f1ea; --card:#ffffff; --ink:#202525; --muted:#6e7473;
+  --accent:#b94f3c; --accent2:#315d5b; --line:#d8d4ca; --soft:#ece7dc;
+  --good:#e8f2ec; --warn:#fff1d7; --risk:#f8ded8;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+body{padding-bottom:88px}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+.top{
+  position:sticky;top:0;z-index:30;background:rgba(244,241,234,.97);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line)
+}
+.topin{padding:12px 14px 10px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.brand{font-weight:900;font-size:15px}.brand span{color:var(--accent)}
+.iconbtn{border:1px solid var(--line);background:#fff;border-radius:12px;padding:9px 11px;font-weight:800}
+.progresswrap{padding:0 14px 12px}
+.progress{height:8px;border-radius:999px;background:#ddd7ca;overflow:hidden}
+.progress>div{height:100%;width:0;background:var(--accent);transition:.25s}
+.steptext{font-size:12px;color:var(--muted);font-weight:800;margin-top:6px}
+main{padding:14px;max-width:720px;margin:auto}
+.screen{display:none}.screen.active{display:block}
+.hero{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:0 10px 28px rgba(35,40,38,.08)}
+.kicker{font-size:12px;font-weight:900;letter-spacing:.11em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:34px;line-height:1;margin:9px 0 12px}
+h2{font-size:27px;line-height:1.05;margin:8px 0 10px}
+h3{margin:0 0 8px}
+p{line-height:1.45}
+.lead{font-size:17px;color:#404746}
+.notice{background:var(--accent2);color:#fff;border-radius:16px;padding:15px;margin-top:14px}
+.notice b{display:block;margin-bottom:4px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin-top:12px}
+.field{margin-top:14px}
+label{display:block;font-size:13px;font-weight:900;margin-bottom:7px}
+input[type=text],textarea,select{
+  width:100%;border:1px solid #cbc5ba;border-radius:13px;background:#fff;padding:12px 13px;color:var(--ink)
+}
+textarea{min-height:92px;resize:vertical}
+.choicegrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.choice{border:1px solid var(--line);background:#fff;border-radius:13px;padding:11px 7px;text-align:center;font-weight:850;font-size:13px}
+.choice.active.good{background:var(--good);border-color:#8eb69a}
+.choice.active.warn{background:var(--warn);border-color:#e0b65a}
+.choice.active.risk{background:var(--risk);border-color:#d78f83}
+.lenshead{display:flex;gap:12px;align-items:flex-start}
+.lensicon{font-size:34px;line-height:1}
+.tipbtn{border:1px solid var(--line);background:var(--soft);border-radius:12px;padding:9px 11px;font-weight:850;margin-top:10px}
+.tips{display:none;margin-top:10px;background:#f8f6f1;border-radius:14px;padding:13px;line-height:1.45}
+.tips.show{display:block}
+.tips ul{padding-left:19px;margin:7px 0 0}
+.primary{
+  width:100%;border:0;border-radius:16px;background:var(--accent);color:white;
+  padding:15px 17px;font-weight:900;font-size:17px;margin-top:16px
+}
+.secondary{background:var(--accent2)}
+.ghost{background:white;color:var(--ink);border:1px solid var(--line)}
+.bottomnav{
+  position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(255,255,255,.97);
+  border-top:1px solid var(--line);padding:10px 12px calc(10px + env(safe-area-inset-bottom));
+  display:flex;gap:9px
+}
+.bottomnav button{flex:1;border-radius:13px;padding:12px 8px;font-weight:900;border:1px solid var(--line);background:#fff}
+.bottomnav .next{background:var(--accent);color:#fff;border-color:var(--accent)}
+.harvest{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:14px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:15px;padding:13px}
+.stat b{display:block;font-size:22px;margin-bottom:2px}
+.casebox{background:#fff;border:2px solid var(--accent);border-radius:18px;padding:16px;margin-top:14px}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mini{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff}
+.small{font-size:12px;color:var(--muted)}
+.tag{display:inline-block;border-radius:999px;background:var(--soft);padding:5px 8px;font-size:11px;font-weight:850;margin:2px}
+.rules{padding-left:20px;line-height:1.5}
+.hidden{display:none!important}
+@media(min-width:700px){
+ body{background:#e9e5dd}
+ main{padding-top:24px}
+ .hero,.card{box-shadow:0 8px 24px rgba(35,40,38,.05)}
+}
+
+@media print{
+  body{background:#fff;padding:0}
+  .top,.bottomnav,.no-print{display:none!important}
+  main{max-width:none;padding:0}
+  .screen{display:block!important}
+  .hero,.card,.casebox,.stat,.mini{box-shadow:none!important;break-inside:avoid}
+  .portfolio-print{display:block!important}
+  .portfolio-print .hero{border:0;padding:0}
+  .portfolio-print h1{font-size:28px}
+  .portfolio-section{break-inside:avoid;margin-bottom:18px}
+  .portfolio-table{width:100%;border-collapse:collapse;font-size:11px}
+  .portfolio-table th,.portfolio-table td{border:1px solid #bbb;padding:7px;vertical-align:top;text-align:left}
+  .portfolio-table th{background:#eee}
+}
+.portfolio-print{display:none}
+.portfolio-section{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px;margin-top:14px}
+.portfolio-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:10px}
+.portfolio-table th,.portfolio-table td{border:1px solid var(--line);padding:8px;vertical-align:top;text-align:left}
+.portfolio-table th{background:var(--soft)}
+.portfolio-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px}
+
+
+.dashboard-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.route-card{width:100%;text-align:left;border:1px solid var(--line);background:#fff;border-radius:18px;padding:16px;min-height:126px}
+.route-card b{display:block;font-size:18px;margin-bottom:5px}
+.route-card .route-icon{font-size:28px;display:block;margin-bottom:8px}
+.route-card .small{line-height:1.35}
+.route-card.done{background:var(--good)}
+.route-card.special{background:#fff8f3;border-color:#e3b4a8}
+.route-card.full{grid-column:1/-1}
+.route-status{display:inline-block;margin-top:9px;border-radius:999px;background:var(--soft);padding:5px 8px;font-size:11px;font-weight:850}
+.route-status.done{background:#dcecdf}
+.dashboard-note{margin-top:14px;background:var(--soft);border-radius:15px;padding:13px;line-height:1.45}
+@media(max-width:390px){.dashboard-grid{grid-template-columns:1fr}}
+.academy-nav{background:#123f3b;color:#fff;padding:9px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}.academy-nav a{color:#fff;text-decoration:none;padding:7px 10px;border:1px solid #ffffff66;border-radius:10px;font-weight:850}.academy-nav span{font-size:13px}.academy-nav-note{width:100%;font-size:12px;margin:0;color:#fff}
+
+</style>
+</head>
+<body>
+<nav class="academy-nav no-print" aria-label="Academy navigatie"><a href="../../../../../index.html#/hospitality/leerjaar-1/periode-1">← Terug naar periode 1</a><span>Academy Oefenplein › Hospitality › Leerjaar 1 › Periode 1 › Les 3</span><p class="academy-nav-note">Voer de Safety Scan uit tijdens het veldonderzoek en gebruik de resultaten voor je pitch en presentatie in de les.</p></nav>
+<header class="top">
+  <div class="topin">
+    <div class="brand">HOSPITALITY <span>SAFETY SCAN</span></div>
+    <div style="display:flex;gap:7px">
+      <button class="iconbtn" onclick="goHome()">⌂ Home</button>
+      <button class="iconbtn" onclick="resetAll()">↺ Reset</button>
+    </div>
+  </div>
+  <div class="progresswrap">
+    <div class="progress"><div id="bar"></div></div>
+    <div class="steptext" id="stepText">Stap 1 van 15</div>
+  </div>
+</header>
+
+<main id="app"></main>
+
+<div class="bottomnav">
+  <button id="backBtn" onclick="prev()">← Terug</button>
+  <button class="next" id="nextBtn" onclick="next()">Verder →</button>
+</div>
+
+<script>
+const lenses = [
+ {id:"hygiene",icon:"🧼",title:"Hygiëne",q:"Wat zie je op het gebied van schoon en verzorgd werken?",
+  tips:["Vieze of kleverige tafels","Gebruikt servies dat lang blijft staan","Vuile vloer of rommel","Volle afvalbakken","Vieze menukaarten, balie of counter","Toilet dat zichtbaar niet schoon/verzorgd is","Schoonmaakmaterialen die onhandig of onveilig staan"]},
+ {id:"food",icon:"🍽️",title:"Voedselveiligheid",q:"Zie je iets waardoor eten of drinken mogelijk minder veilig kan zijn?",
+  tips:["Onbeschermd eten","Schoon en gebruikt servies door elkaar","Producten die onnodig lang lijken te staan","Medewerkers die eten direct met handen aanraken","Buffet of vitrine die netjes beschermd is","Allergeneninformatie die zichtbaar of makkelijk beschikbaar is","Dranken of voedsel op een onlogische/onveilige plek"]},
+ {id:"safety",icon:"⚠️",title:"Veiligheid",q:"Zie je iets waar een gast of medewerker zich aan kan bezeren?",
+  tips:["Natte of gladde vloer","Losliggende mat","Kapotte stoel, deur, klink of tegel","Kabels of spullen in gangpaden","Drukke of geblokkeerde looproute","Nooduitgang of doorgang die niet vrij lijkt","Hete dranken onhandig geplaatst","Obstakels bij entree, trap of terras"]},
+ {id:"professional",icon:"👀",title:"Professioneel handelen",q:"Wat zie je medewerkers zelf opmerken en oplossen?",
+  tips:["Wordt een vieze tafel snel gezien?","Ruimt iemand een obstakel direct op?","Waarschuwt personeel voor een gevaar?","Wordt een tafel eerst schoongemaakt voor nieuwe gasten?","Houdt personeel looproutes vrij?","Wordt rommel zichtbaar gecontroleerd?","Reageert personeel rustig en professioneel?"]},
+ {id:"guest",icon:"❤️",title:"Gastgevoel",q:"Wat doet de omgeving met jouw gevoel als gast?",
+  tips:["Geeft de zaak vertrouwen?","Oogt het verzorgd en onder controle?","Voelt de entree veilig?","Is er rust of juist chaos?","Moet jij als gast zelf een probleem aanwijzen?","Zou jij hier zonder twijfel eten of drinken?","Wat maakt dat je je welkom of juist minder welkom voelt?"]}
+];
+
+let state = JSON.parse(localStorage.getItem("hs_mobile_state")||"null") || {
+  business:{1:{name:"",type:""},2:{name:"",type:""}},
+  scans:{1:{},2:{}},
+  businessCount:2,
+  own:{name:"Mijn leerbedrijf",type:"Eigen bedrijf"},
+  ownScans:{},
+  bestCase:{business:1,lens:"",text:""},
+  compare:{winner:"",why:""},
+  step:0,
+  mode:"field"
+};
+if(!state.businessCount) state.businessCount = Math.max(2,Object.keys(state.business||{}).length);
+if(!state.own) state.own={name:"Mijn leerbedrijf",type:"Eigen bedrijf"};
+if(!state.ownScans) state.ownScans={};
+const businesses=()=>Array.from({length:state.businessCount},(_,i)=>i+1);
+
+function save(){localStorage.setItem("hs_mobile_state",JSON.stringify(state))}
+function scanData(b,id){
+ if(b==="own"){
+   if(!state.ownScans[id]) state.ownScans[id]={rating:"",note:"",guest:""};
+   return state.ownScans[id];
+ }
+ if(!state.scans[b]) state.scans[b]={};
+ if(!state.scans[b][id]) state.scans[b][id]={rating:"",note:"",guest:""};
+ return state.scans[b][id];
+}
+
+let screens=[];
+function rebuildScreens(){
+screens=[];
+
+screens.push({
+ title:"Hoofdscherm", key:"home", render:()=>renderDashboard()
+});
+
+screens.push({
+ title:"Start", key:"start", render:()=>`
+ <section class="hero">
+  <div class="kicker">Veldonderzoek Eindhoven</div>
+  <h1>Kijk als professional.</h1>
+  <p class="lead">Je bezoekt twee hospitalitybedrijven en onderzoekt wat je als gast kunt waarnemen op het gebied van hygiëne, voedselveiligheid, veiligheid, professioneel handelen en gastgevoel.</p>
+  <div class="notice"><b>Je bent geen inspecteur.</b>Noteer alleen wat je echt ziet. Schrijf: <b>“Wij zagen…”</b> en <b>“Dit zou mogelijk…”</b></div>
+  <div class="card">
+   <h3>Jullie vijf kijkbrillen</h3>
+   <p>🧼 Hygiëne<br>🍽️ Voedselveiligheid<br>⚠️ Veiligheid<br>👀 Professioneel handelen<br>❤️ Gastgevoel</p>
+  </div>
+  <div class="card">
+   <h3>Spelregels buiten</h3>
+   <ul class="rules"><li>Observeer als gewone gast.</li><li>Ga niet achter de schermen.</li><li>Beschuldig geen bedrijf.</li><li>Fotografeer geen herkenbare gasten of medewerkers zonder toestemming.</li></ul>
+  </div>
+ </section>`});
+
+for(const b of businesses()){
+ screens.push({
+   title:`Bedrijf ${b}`, key:`business-${b}`, render:()=>`
+   <section class="hero">
+    <div class="kicker">Bedrijf ${b}</div>
+    <h2>Waar zijn jullie?</h2>
+    <p class="lead">Vul alleen in wat nodig is om jullie onderzoek later te kunnen vergelijken.</p>
+    <div class="field"><label>Naam of korte omschrijving</label>
+      <input type="text" value="${esc(state.business[b].name)}" oninput="state.business[${b}].name=this.value;save()" placeholder="Bijv. koffiebar in centrum">
+    </div>
+    <div class="field"><label>Type bedrijf</label>
+      <select onchange="state.business[${b}].type=this.value;save()">
+       ${["","Koffiebar","Lunchroom","Fastservice","Restaurant","Bakkerij","Hotel","Food to go","Anders"].map(x=>`<option ${state.business[b].type===x?'selected':''}>${x}</option>`).join("")}
+      </select>
+    </div>
+    <div class="notice"><b>Begin met kijken.</b>Probeer niet meteen te oordelen. Eerst waarnemen, daarna nadenken over het mogelijke risico.</div>
+   </section>`});
+ for(const lens of lenses){
+   screens.push({
+    title:`Bedrijf ${b} · ${lens.title}`,
+    key:`business-${b}-${lens.id}`,
+    render:()=>renderLens(b,lens)
+   });
+ }
+}
+
+screens.push({
+ title:"Vergelijken", key:"compare", render:()=>`
+ <section class="hero">
+  <div class="kicker">Onderzoeksresultaten</div>
+  <h2>Leg beide zaken naast elkaar.</h2>
+  <p class="lead">Welke zaak gaf jullie als gast het meeste vertrouwen?</p>
+  <div class="compare">
+   ${businesses().map(b=>`<button class="choice ${String(state.compare.winner)===String(b)?'active good':''}" onclick="state.compare.winner='${b}';save();render()">Bedrijf ${b}<br><span class="small">${esc(state.business[b].name||"nog geen naam")}</span></button>`).join("")}
+  </div>
+  <div class="field"><label>Waarom?</label><textarea oninput="state.compare.why=this.value;save()" placeholder="Waardoor gaf deze zaak meer vertrouwen?">${esc(state.compare.why)}</textarea></div>
+  <div class="card"><h3>Kies jullie sterkste case</h3><p>Welke observatie laat het beste zien waarom hygiëne of veiligheid invloed heeft op gastvrijheid?</p>
+  ${renderCaseChooser()}</div>
+ </section>`});
+
+screens.push({
+ title:"Samenvatting", key:"summary", render:()=>renderSummary()
+});
+screens.push({
+ title:"Eigen bedrijf", key:"own-start", render:()=>`
+ <section class="hero">
+  <div class="kicker">Transfer naar je leerbedrijf</div>
+  <h2>Scan je eigen bedrijf.</h2>
+  <p class="lead">Gebruik dezelfde vijf kijkbrillen, maar nu op je eigen werkplek.</p>
+  <div class="field"><label>Naam leerbedrijf</label>
+   <input type="text" value="${esc(state.own.name)}" oninput="state.own.name=this.value;save()" placeholder="Naam van mijn leerbedrijf">
+  </div>
+  <div class="notice"><b>Kijk met een nieuwe blik.</b>Wat valt je nu op dat je vóór deze les misschien gewoon vond?</div>
+ </section>`});
+for(const lens of lenses){
+ screens.push({title:`Eigen bedrijf · ${lens.title}`, key:`own-${lens.id}`, render:()=>renderLens("own",lens)});
+}
+screens.push({title:"Eigen bedrijf · afronden", key:"own-summary", render:()=>renderOwnSummary()});
+screens.push({title:"Portfolio-overzicht", key:"portfolio", render:()=>renderPortfolio()});
+}
+
+
+function businessProgress(b){
+ let filled=0;
+ for(const l of lenses){
+  const d=scanData(b,l.id);
+  if(d.rating || d.note.trim() || d.guest.trim()) filled++;
+ }
+ return filled;
+}
+function ownProgress(){
+ let filled=0;
+ for(const l of lenses){
+  const d=scanData("own",l.id);
+  if(d.rating || d.note.trim() || d.guest.trim()) filled++;
+ }
+ return filled;
+}
+function statusText(n){
+ return n>=5 ? "✓ Afgerond" : n>0 ? `${n}/5 ingevuld` : "Nog starten";
+}
+function renderDashboard(){
+ const cards = businesses().map(b=>{
+  const p=businessProgress(b);
+  const name=state.business[b]?.name || `Bedrijf ${b}`;
+  return `<button class="route-card ${p>=5?'done':''}" onclick="gotoBusiness(${b})">
+    <span class="route-icon">🏢</span>
+    <b>Bedrijf ${b}</b>
+    <span class="small">${esc(name)}</span>
+    <span class="route-status ${p>=5?'done':''}">${statusText(p)}</span>
+  </button>`;
+ }).join("");
+ const op=ownProgress();
+ return `<section class="hero">
+  <div class="kicker">Mijn route</div>
+  <h1>Kies waar je verdergaat.</h1>
+  <p class="lead">Je hoeft de app niet in een vaste volgorde te doorlopen. Open het onderdeel dat je nu nodig hebt.</p>
+
+  <div class="dashboard-grid">
+    <button class="route-card special full" onclick="gotoKey('start')">
+      <span class="route-icon">🧭</span>
+      <b>Uitleg & spelregels</b>
+      <span class="small">Bekijk de vijf kijkbrillen en de afspraken voor het veldonderzoek.</span>
+    </button>
+
+    ${cards}
+
+    <button class="route-card ${op>=5?'done':''}" onclick="gotoKey('own-start')">
+      <span class="route-icon">🏠</span>
+      <b>Mijn eigen bedrijf</b>
+      <span class="small">${esc(state.own.name || "Mijn leerbedrijf")}</span>
+      <span class="route-status ${op>=5?'done':''}">${statusText(op)}</span>
+    </button>
+
+    <button class="route-card" onclick="addBusiness()">
+      <span class="route-icon">➕</span>
+      <b>Extra bedrijf toevoegen</b>
+      <span class="small">Voeg bedrijf ${state.businessCount+1} toe en start meteen een nieuwe scan.</span>
+    </button>
+
+    <button class="route-card full" onclick="gotoKey('compare')">
+      <span class="route-icon">⚖️</span>
+      <b>Bedrijven vergelijken</b>
+      <span class="small">Kies welk bedrijf het meeste vertrouwen geeft en selecteer jullie belangrijkste Safety Case.</span>
+    </button>
+
+    <button class="route-card full special" onclick="gotoKey('portfolio')">
+      <span class="route-icon">📄</span>
+      <b>Portfolio-overzicht</b>
+      <span class="small">Bekijk alle gegevens bij elkaar, kopieer ze of print het overzicht als PDF.</span>
+    </button>
+  </div>
+
+  <div class="dashboard-note"><b>Tip:</b> gebruik <b>⌂ Home</b> bovenaan om vanuit iedere scan terug te keren naar dit overzicht.</div>
+ </section>`;
+}
+function gotoKey(key){
+ rebuildScreens();
+ const i=screens.findIndex(x=>x.key===key);
+ if(i>=0){state.step=i;save();render();}
+}
+function gotoBusiness(b){
+ gotoKey(`business-${b}`);
+}
+function goHome(){
+ gotoKey("home");
+}
+
+function renderLens(b,lens){
+ const d=scanData(b,lens.id);
+ const isOwn=b==="own";
+ const bArg=isOwn ? "'own'" : b;
+ return `<section class="hero">
+  <div class="kicker">${isOwn ? "Mijn eigen bedrijf" : "Bedrijf "+b} · kijkbril</div>
+  <div class="lenshead"><div class="lensicon">${lens.icon}</div><div><h2>${lens.title}</h2><p class="lead">${lens.q}</p></div></div>
+  <button class="tipbtn" onclick="document.getElementById('tips').classList.toggle('show')">💡 Waar kan ik op letten?</button>
+  <div class="tips" id="tips"><b>Voorbeelden — je hoeft ze niet allemaal te vinden.</b><ul>${lens.tips.map(t=>`<li>${t}</li>`).join("")}</ul></div>
+  <div class="card">
+   <label>Hoe beoordeel je wat je ziet?</label>
+   <div class="choicegrid">
+    ${choiceBtn(b,lens.id,"goed","👍 Goed")}
+    ${choiceBtn(b,lens.id,"aandacht","👀 Aandacht")}
+    ${choiceBtn(b,lens.id,"risico","⚠️ Mogelijk risico")}
+   </div>
+   <div class="field"><label>Wat zien jullie?</label>
+    <textarea oninput="scanData(${bArg},'${lens.id}').note=this.value;save()" placeholder="Schrijf concreet: Wij zagen…">${esc(d.note)}</textarea>
+   </div>
+   <div class="field"><label>Wat merkt de gast hiervan?</label>
+    <textarea oninput="scanData(${bArg},'${lens.id}').guest=this.value;save()" placeholder="Bijv. dit geeft vertrouwen / dit zorgt voor twijfel…">${esc(d.guest)}</textarea>
+   </div>
+  </div>
+ </section>`;
+}
+
+function choiceBtn(b,id,val,label){
+ const d=scanData(b,id); 
+ const cls=val==="goed"?"good":val==="aandacht"?"warn":"risk";
+ const bArg=b==="own" ? "'own'" : b;
+ return `<button class="choice ${d.rating===val?'active '+cls:''}" onclick="scanData(${bArg},'${id}').rating='${val}';save();render()">${label}</button>`;
+}
+
+function renderCaseChooser(){
+ let opts=[];
+ for(const b of businesses()) for(const lens of lenses){
+   const d=scanData(b,lens.id);
+   if(d.note.trim()) opts.push({b,lens,d});
+ }
+ if(!opts.length) return `<p class="small">Vul eerst observaties in bij de twee bedrijven.</p>`;
+ return opts.map((o,i)=>`
+   <button class="card" style="width:100%;text-align:left;${state.bestCase.business===o.b&&state.bestCase.lens===o.lens.id?'border:2px solid var(--accent)':''}"
+   onclick="state.bestCase={business:${o.b},lens:'${o.lens.id}',text:${JSON.stringify(o.d.note)}};save();render()">
+   <b>${o.lens.icon} Bedrijf ${o.b} · ${o.lens.title}</b><br><span class="small">${esc(o.d.note)}</span>
+   </button>`).join("");
+}
+
+
+
+function openPortfolio(){
+ rebuildScreens();
+ state.step=screens.findIndex(x=>x.key==="portfolio");
+ save(); render();
+}
+function ratingLabel(r){
+ return r==="goed"?"👍 Goed":r==="aandacht"?"👀 Aandacht":r==="risico"?"⚠️ Mogelijk risico":"—";
+}
+function portfolioRowsForBusiness(b){
+ return lenses.map(l=>{
+  const d=scanData(b,l.id);
+  return `<tr><td><b>${l.icon} ${l.title}</b></td><td>${ratingLabel(d.rating)}</td><td>${esc(d.note||"—")}</td><td>${esc(d.guest||"—")}</td></tr>`;
+ }).join("");
+}
+function renderPortfolio(){
+ const winner = state.compare.winner ? (state.business[state.compare.winner]?.name || "Bedrijf "+state.compare.winner) : "Nog niet gekozen";
+ const bestLens = lenses.find(l=>l.id===state.bestCase.lens);
+ return `<section class="hero">
+  <div class="kicker">Portfolio-output</div>
+  <h2>Mijn Hospitality Safety Onderzoek</h2>
+  <p class="lead">Hier staat alle informatie uit jullie scans bij elkaar. Je kunt dit kopiëren, printen of als PDF bewaren en later in je portfolio verwerken.</p>
+
+  ${businesses().map(b=>`
+   <div class="portfolio-section">
+    <h3>Bedrijf ${b}: ${esc(state.business[b].name||"Naam niet ingevuld")}</h3>
+    <p class="small">${esc(state.business[b].type||"Type niet ingevuld")}</p>
+    <table class="portfolio-table">
+     <thead><tr><th>Kijkbril</th><th>Beoordeling</th><th>Wat zagen wij?</th><th>Wat merkt de gast?</th></tr></thead>
+     <tbody>${portfolioRowsForBusiness(b)}</tbody>
+    </table>
+   </div>`).join("")}
+
+  <div class="portfolio-section">
+   <h3>Vergelijking</h3>
+   <p><b>Meeste vertrouwen:</b> ${esc(winner)}</p>
+   <p><b>Waarom:</b> ${esc(state.compare.why||"—")}</p>
+  </div>
+
+  <div class="portfolio-section">
+   <h3>Belangrijkste Safety Case</h3>
+   <p><b>${bestLens ? bestLens.icon+" "+bestLens.title : "Nog niet gekozen"}</b></p>
+   <p>${esc(state.bestCase.text||"—")}</p>
+  </div>
+
+  <div class="portfolio-section">
+   <h3>Eigen leerbedrijf</h3>
+   <p><b>${esc(state.own.name||"Mijn leerbedrijf")}</b></p>
+   <table class="portfolio-table">
+    <thead><tr><th>Kijkbril</th><th>Beoordeling</th><th>Wat zag ik?</th><th>Wat merkt de gast?</th></tr></thead>
+    <tbody>${lenses.map(l=>{const d=scanData("own",l.id);return `<tr><td><b>${l.icon} ${l.title}</b></td><td>${ratingLabel(d.rating)}</td><td>${esc(d.note||"—")}</td><td>${esc(d.guest||"—")}</td></tr>`}).join("")}</tbody>
+   </table>
+  </div>
+
+  <div class="notice"><b>Portfolio-tip</b>Voeg in je portfolio vooral jullie belangrijkste observatie, vergelijking en verbeteridee toe. Schrijf erbij wat jij nu anders ziet dan vóór deze les.</div>
+
+  <div class="portfolio-actions no-print">
+   <button class="primary secondary" onclick="copyPortfolio()">📋 Kopieer alles</button>
+   <button class="primary" onclick="printPortfolio()">🖨️ Print / bewaar als PDF</button>
+  </div>
+ </section>
+ <div class="portfolio-print">${renderPortfolioPrint()}</div>`;
+}
+
+function renderPortfolioPrint(){
+ const winner = state.compare.winner ? (state.business[state.compare.winner]?.name || "Bedrijf "+state.compare.winner) : "Nog niet gekozen";
+ const bestLens = lenses.find(l=>l.id===state.bestCase.lens);
+ return `<section class="hero">
+   <h1>Hospitality Safety Onderzoek</h1>
+   <p><b>Veldonderzoek en eigen leerbedrijf</b></p>
+   ${businesses().map(b=>`
+    <div class="portfolio-section"><h3>Bedrijf ${b}: ${esc(state.business[b].name||"Naam niet ingevuld")}</h3>
+    <p>${esc(state.business[b].type||"")}</p>
+    <table class="portfolio-table"><thead><tr><th>Kijkbril</th><th>Beoordeling</th><th>Observatie</th><th>Effect op gast</th></tr></thead><tbody>${portfolioRowsForBusiness(b)}</tbody></table></div>`).join("")}
+   <div class="portfolio-section"><h3>Vergelijking</h3><p><b>Meeste vertrouwen:</b> ${esc(winner)}</p><p><b>Waarom:</b> ${esc(state.compare.why||"—")}</p></div>
+   <div class="portfolio-section"><h3>Belangrijkste Safety Case</h3><p><b>${bestLens ? bestLens.icon+" "+bestLens.title : "Nog niet gekozen"}</b></p><p>${esc(state.bestCase.text||"—")}</p></div>
+   <div class="portfolio-section"><h3>Eigen leerbedrijf</h3><p><b>${esc(state.own.name||"Mijn leerbedrijf")}</b></p>
+   <table class="portfolio-table"><thead><tr><th>Kijkbril</th><th>Beoordeling</th><th>Observatie</th><th>Effect op gast</th></tr></thead><tbody>${lenses.map(l=>{const d=scanData("own",l.id);return `<tr><td><b>${l.icon} ${l.title}</b></td><td>${ratingLabel(d.rating)}</td><td>${esc(d.note||"—")}</td><td>${esc(d.guest||"—")}</td></tr>`}).join("")}</tbody></table></div>
+  </section>`;
+}
+function portfolioText(){
+ let t="HOSPITALITY SAFETY ONDERZOEK\\n\\n";
+ for(const b of businesses()){
+  t+=`BEDRIJF ${b}: ${state.business[b].name||"-"} (${state.business[b].type||"-"})\\n`;
+  for(const l of lenses){
+   const d=scanData(b,l.id);
+   t+=`${l.icon} ${l.title}\\nBeoordeling: ${ratingLabel(d.rating)}\\nObservatie: ${d.note||"-"}\\nEffect op gast: ${d.guest||"-"}\\n\\n`;
+  }
+ }
+ t+=`VERGELIJKING\\nMeeste vertrouwen: ${state.compare.winner ? state.business[state.compare.winner]?.name||"Bedrijf "+state.compare.winner : "-"}\\nWaarom: ${state.compare.why||"-"}\\n\\n`;
+ const bl=lenses.find(l=>l.id===state.bestCase.lens);
+ t+=`BELANGRIJKSTE SAFETY CASE\\n${bl?bl.title:"-"}\\n${state.bestCase.text||"-"}\\n\\n`;
+ t+=`EIGEN LEERBEDRIJF: ${state.own.name||"-"}\\n`;
+ for(const l of lenses){
+  const d=scanData("own",l.id);
+  t+=`${l.icon} ${l.title}\\nBeoordeling: ${ratingLabel(d.rating)}\\nObservatie: ${d.note||"-"}\\nEffect op gast: ${d.guest||"-"}\\n\\n`;
+ }
+ return t;
+}
+async function copyPortfolio(){
+ try{await navigator.clipboard.writeText(portfolioText());alert("Portfolio-overzicht gekopieerd.");}
+ catch(e){alert("Automatisch kopiëren lukt hier niet. Gebruik de printfunctie of selecteer de tekst handmatig.");}
+}
+function printPortfolio(){
+ window.print();
+}
+
+
+function renderOwnSummary(){
+ const counts={goed:0,aandacht:0,risico:0};
+ for(const l of lenses){
+  const r=scanData("own",l.id).rating;
+  if(counts[r]!==undefined) counts[r]++;
+ }
+ return `<section class="hero">
+  <div class="kicker">Mijn leerbedrijf</div>
+  <h2>Wat zie ik nu anders?</h2>
+  <p class="lead">Je hebt dezelfde professionele blik toegepast op ${esc(state.own.name||"je eigen bedrijf")}.</p>
+  <div class="harvest">
+   <div class="stat"><b>${counts.goed}</b>👍 sterke punten</div>
+   <div class="stat"><b>${counts.aandacht}</b>👀 aandachtspunten</div>
+   <div class="stat"><b>${counts.risico}</b>⚠️ mogelijke risico's</div>
+  </div>
+  <div class="card"><h3>Vraag nog één collega</h3>
+   <p><b>“Waar letten wij hier op om gasten en voedsel veilig te houden?”</b></p>
+   <p class="small">Noteer voor je les één voorbeeld dat jij zelf nog niet had gezien.</p>
+  </div>
+  <button class="primary ghost" onclick="state.mode='field';state.step=screens.findIndex(x=>x.key==='summary');save();render()">← Terug naar veldonderzoek</button>
+ </section>`;
+}
+
+function renderSummary(){
+ const counts={goed:0,aandacht:0,risico:0};
+ for(const b of businesses()) for(const l of lenses){
+   const r=scanData(b,l.id).rating;if(counts[r]!==undefined) counts[r]++;
+ }
+ const bcLens=lenses.find(x=>x.id===state.bestCase.lens);
+ return `<section class="hero">
+  <div class="kicker">Safety Harvest</div>
+  <h2>Jullie veldonderzoek is klaar.</h2>
+  <p class="lead">Gebruik deze samenvatting straks voor jullie 3-dia-pitch op school.</p>
+  <div class="harvest">
+   <div class="stat"><b>${counts.goed}</b>👍 sterke observaties</div>
+   <div class="stat"><b>${counts.aandacht}</b>👀 aandachtspunten</div>
+   <div class="stat"><b>${counts.risico}</b>⚠️ mogelijke risico's</div>
+   <div class="stat"><b>${state.compare.winner?1:0}</b>🏆 vergelijking</div>
+  </div>
+  <div class="card">
+   <h3>🏆 Meeste vertrouwen</h3>
+   <p><b>${state.compare.winner ? esc(state.business[state.compare.winner].name || "Bedrijf "+state.compare.winner) : "Nog niet gekozen"}</b></p>
+   <p>${esc(state.compare.why||"Nog geen toelichting.")}</p>
+  </div>
+  <div class="casebox">
+   <h3>⚠️ Jullie belangrijkste Safety Case</h3>
+   <p><b>${bcLens ? bcLens.icon+" "+bcLens.title+" · Bedrijf "+state.bestCase.business : "Nog niet gekozen"}</b></p>
+   <p>${esc(state.bestCase.text||"Kies bij vergelijken één sterke observatie.")}</p>
+  </div>
+  <div class="card"><h3>Voor jullie pitch</h3>
+   <p><b>Dia 1:</b> dit hebben wij gespot<br><b>Dia 2:</b> onze belangrijkste Safety Case<br><b>Dia 3:</b> ons oordeel</p>
+  </div>
+  <button class="primary secondary" onclick="copySummary()">📋 Kopieer samenvatting</button>
+  <button class="primary" onclick="openPortfolio()">📄 Portfolio-overzicht maken</button>
+  <button class="primary" onclick="addBusiness()">➕ Nog een bedrijf scannen</button>
+  <button class="primary ghost" onclick="startOwn()">🏠 Scan mijn eigen bedrijf</button>
+ </section>`;
+}
+
+
+function addBusiness(){
+ const b=state.businessCount+1;
+ state.businessCount=b;
+ state.business[b]={name:"",type:""};
+ state.scans[b]={};
+ rebuildScreens();
+ const i=screens.findIndex(x=>x.key===`business-${b}`);
+ state.step=i>=0?i:0;
+ save(); render();
+}
+function startOwn(){
+ state.mode="own";
+ rebuildScreens();
+ state.step=screens.findIndex(x=>x.key==="own-start");
+ save(); render();
+}
+
+function summaryText(){
+ let t=`HOSPITALITY SAFETY SCAN\n\n`;
+ for(const b of businesses()){
+  t+=`BEDRIJF ${b}: ${state.business[b].name||"-"} (${state.business[b].type||"-"})\n`;
+  for(const l of lenses){
+   const d=scanData(b,l.id);
+   t+=`${l.icon} ${l.title}: ${d.rating||"-"}\nWij zagen: ${d.note||"-"}\nGast merkt: ${d.guest||"-"}\n\n`;
+  }
+ }
+ t+=`MEESTE VERTROUWEN: ${state.compare.winner ? state.business[state.compare.winner].name||"Bedrijf "+state.compare.winner : "-"}\nWaarom: ${state.compare.why||"-"}\n\n`;
+ t+=`BESTE CASE: ${state.bestCase.text||"-"}`;
+ return t;
+}
+async function copySummary(){
+ try{await navigator.clipboard.writeText(summaryText());alert("Samenvatting gekopieerd.");}
+ catch(e){alert("Kopiëren lukt hier niet automatisch. Maak eventueel een screenshot van de samenvatting.");}
+}
+
+function esc(s=""){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]))}
+function render(){
+ const i=state.step;
+ document.getElementById("app").innerHTML=screens[i].render();
+ document.getElementById("bar").style.width=((i+1)/screens.length*100)+"%";
+ document.getElementById("stepText").textContent=`Stap ${i+1} van ${screens.length} · ${screens[i].title}`;
+ document.getElementById("backBtn").disabled=i===0;
+ document.getElementById("backBtn").style.opacity=i===0?".45":"1";
+ document.getElementById("nextBtn").textContent=i===screens.length-1?"Klaar ✓":"Verder →";
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+function next(){
+ if(state.step<screens.length-1){state.step++;save();render();}
+}
+function prev(){
+ if(state.step>0){state.step--;save();render();}
+}
+function resetAll(){
+ if(confirm("Alle ingevulde scans wissen en opnieuw beginnen?")){
+  localStorage.removeItem("hs_mobile_state");
+  location.reload();
+ }
+}
+if(!localStorage.getItem("hs_mobile_dashboard_v1")){
+ state.step=0;
+ localStorage.setItem("hs_mobile_dashboard_v1","1");
+ save();
+}
+rebuildScreens();
+if(state.step>=screens.length) state.step=0;
+render();
+</script>
+</body>
+</html>
