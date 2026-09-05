@@ -203,8 +203,12 @@ const academyData = {
                                     beschikbaar: true
                                 }
                             ]
-                        }
+                        },
+                        createStageZoekenThema()
                     ]
+                },
+                2: {
+                    themas: [createStageZoekenThema()]
                 }
             }, [
                 createEindtoetsOnderdeel(),
@@ -266,6 +270,22 @@ const academyData = {
                                     beschrijving: "Werk dit jaarproject iedere week bij en verzamel informatie, observaties, interviews, foto’s en ander bewijs op je werk of leerbedrijf.",
                                     bestand: "modules/hospitality/leerjaar-1/periode-1/gastvrijheid-in-actie/gastvrijheid-in-actie-fase-1.html",
                                     actieLabel: "Bekijk Fase 1",
+                                    beschikbaar: true
+                                }
+                            ]
+                        },
+                        {
+                            id: "les-2-gasttypen-guest-journey",
+                            naam: "Les 2 – Gasttypen en Guest Journey",
+                            modules: [
+                                {
+                                    id: "hospitality-les-2-gasttypen-guest-journey",
+                                    titel: "Les 2 – Gasttypen en Guest Journey",
+                                    type: "Interactieve hospitalityles",
+                                    duur: "45–60 minuten",
+                                    beschrijving: "Leer gasttypen en hun behoeften herkennen, ontdek de vijf fases van de Guest Journey en oefen hoe je op ieder moment passend en gastvrij handelt.",
+                                    bestand: "modules/hospitality/leerjaar-1/periode-1/les-2-gasttypen-guest-journey/hospitality-les-2-gasttypen-guest-journey.html",
+                                    actieLabel: "Start les 2",
                                     beschikbaar: true
                                 }
                             ]
@@ -345,6 +365,25 @@ function createLeerjaar(nummer, periodeNummers, periodeInhoud = {}, specialeOnde
             themas: periodeInhoud[periodeNummer]?.themas || []
         })),
         specialeOnderdelen
+    };
+}
+
+function createStageZoekenThema() {
+    return {
+        id: "stage-zoeken",
+        naam: "Stage zoeken",
+        modules: [
+            {
+                id: "svo-stage-navigator-v6-2",
+                titel: "SVO Stage Navigator",
+                type: "Interactieve stagezoekhulp",
+                duur: "Te gebruiken in periode 1 en 2",
+                beschrijving: "Een stap-voor-stap stagezoekhulp voor BOL leerjaar 1. Zoek leerbedrijven, bereid sollicitaties voor, regel je BPVO en bewaar je voortgang in de browser.",
+                bestand: "modules/bol-allround-food-expert/leerjaar-1/stage-zoeken/svo-stage-navigator-v6-2.html",
+                actieLabel: "Start stagezoekhulp",
+                beschikbaar: true
+            }
+        ]
     };
 }
 
