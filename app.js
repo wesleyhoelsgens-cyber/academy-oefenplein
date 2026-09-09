@@ -249,11 +249,12 @@ const academyData = {
                             modules: [
                                 {
                                     id: "3414a-gastvrijheid-verlenen-oefenapp",
-                                    titel: "Hospitality Vaktaal & Oefentraining",
-                                    type: "Vaktaal & examentraining",
-                                    duur: "60–90 minuten",
-                                    beschrijving: "Oefen hospitality-vaktaal, begrippen, flashcards, praktijksituaties en gemengde examenvragen.",
+                                    titel: "3414A – Hospitality Periodetrainer",
+                                    type: "Weektrainer en oefenexamen",
+                                    duur: "Alle weken van de hele periode",
+                                    beschrijving: "Oefen iedere week de bijbehorende begrippen, theorie, praktijksituaties, open vragen en weekcheck. Sluit de volledige periode af met een oefenexamen voor 3414A.",
                                     bestand: "modules/hospitality/leerjaar-1/periode-1/gastvrijheid-verlenen/3414a-gastvrijheid-verlenen-oefenapp.html",
+                                    actieLabel: "Start weektraining",
                                     beschikbaar: true
                                 }
                             ]
@@ -292,14 +293,14 @@ const academyData = {
                         },
                         {
                             id: "les-3-safety-scan",
-                            naam: "Les 3 – Safety Scan",
+                            naam: "Vanaf week 3 – Safety Scan",
                             modules: [
                                 {
                                     id: "hospitality-les-3-safety-scan",
-                                    titel: "Les 3 – Hospitality Safety Scan",
+                                    titel: "Vanaf week 3 – Hospitality Safety Scan",
                                     type: "Interactieve veldonderzoeksopdracht",
-                                    duur: "Veldonderzoek en lespresentatie",
-                                    beschrijving: "Voer bij een bedrijf een Safety Scan uit, verzamel observaties en bewijs en verwerk de belangrijkste Safety Case in een pitch en presentatie in de les.",
+                                    duur: "Behandeling in week 6",
+                                    beschrijving: "Start vanaf week 3. Zorg dat je vóór de behandeling in week 6 je eigen bedrijf en twee andere bedrijven hebt gescand. Doe dit veldwerk buiten de lessen; op school is geen tijd om hiervoor naar buiten te gaan. Gebruik je resultaten daarna voor de pitch en presentatie.",
                                     bestand: "modules/hospitality/leerjaar-1/periode-1/les-3-safety-scan/hospitality-les-3-safety-scan.html",
                                     actieLabel: "Start Safety Scan",
                                     beschikbaar: true
