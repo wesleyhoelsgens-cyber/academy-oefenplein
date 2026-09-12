@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<!-- V13.1 FINAL LOCK: afgeronde route kan niet terugvallen naar Bonus Quest -->
 <title>Safety Scan – Entree Niveau 1</title>
 <style>
 :root{
@@ -165,6 +166,7 @@ textarea{min-height:90px;resize:vertical}
   .report-summary{grid-template-columns:repeat(3,1fr)!important}
   h1,h2,h3,p{orphans:3;widows:3}
 }
+.primary.danger{background:#fff1f1;color:#9b1c1c;border:1px solid #e0a0a0}
 </style>
 </head>
 <body>
@@ -422,9 +424,9 @@ textarea{min-height:90px;resize:vertical}
 
 <section id="finalScreen" class="screen">
   <div class="hero">
-    <div class="kicker">Stap 8 • Eindresultaat</div>
+    <div class="kicker">Stap 9 • Eindresultaat</div>
     <h1>Jullie Safety Scan</h1>
-    <p class="lead">Onderzoek, Bonus Quest en presentatie zijn afgerond. Hier staat jullie eindresultaat.</p>
+    <p class="lead">✓ Safety Scan voltooid. Onderzoek, Bonus Quest, presentatie en Docent Kudos zijn afgerond. Hier staat jullie definitieve eindresultaat.</p>
     <p><b>Duo:</b> <span id="finalTeam"></span></p>
   </div>
 
@@ -452,12 +454,17 @@ textarea{min-height:90px;resize:vertical}
   </div>
 
   <div class="card no-print">
-    <h3>Wat willen jullie doen?</h3>
+    <h3>Jullie zijn klaar ✓</h3>
+    <p class="small">De score staat vast en de afgeronde route blijft bewaard. Vanuit dit scherm gaan jullie niet meer terug naar de Bonus Quest.</p>
     <button class="primary secondary" onclick="openReport()">📋 BEKIJK EINDRAPPORT</button>
-    <button class="primary secondary" onclick="openTeacherKudos()">🎓 DOCENT KUDOS</button>
     <button class="primary" onclick="openReport(true)">📄 EXPORT RAPPORT ALS PDF</button>
     <button class="primary ghost" onclick="copySummary()">📤 KOPIEER SAMENVATTING</button>
+  </div>
 
+  <div class="card no-print">
+    <h3>Wat nu?</h3>
+    <button class="primary secondary" onclick="extraGameInfo()">🎮 NOG EEN GAME TOEVOEGEN</button>
+    <button class="primary danger" onclick="beginReset()">🔄 HELEMAAL OPNIEUW BEGINNEN</button>
   </div>
 </section>
 
@@ -491,7 +498,8 @@ textarea{min-height:90px;resize:vertical}
   <div class="kudos-grid" id="teacherKudosGrid"></div>
 
   <div class="card">
-    <button class="primary secondary" onclick="openReview()">← TERUG NAAR OVERZICHT</button>
+    <div class="guidance"><strong>Klaar met beoordelen?</strong>Als de docent alle gewenste Kudos heeft toegekend, sluit je de opdracht hier definitief af. Daarna kan de app niet meer terugvallen naar Bonus Quest of eerdere stappen.</div>
+    <button class="primary" onclick="finishTeacherKudos()">🏁 KLAAR – NAAR EINDRESULTAAT →</button>
   </div>
 </section>
 
@@ -529,7 +537,7 @@ textarea{min-height:90px;resize:vertical}
   <div class="card no-print">
     <button class="primary secondary" onclick="window.print()">📄 PRINT / BEWAAR ALS PDF</button>
     <button class="primary ghost" onclick="copySummary()">📤 KOPIEER SAMENVATTING</button>
-    <button class="primary ghost" onclick="showScreen('finalScreen')">← Terug</button>
+    <button class="primary ghost" onclick="openFinal()">← TERUG NAAR EINDRESULTAAT</button>
   </div>
 </section>
 
@@ -554,11 +562,12 @@ textarea{min-height:90px;resize:vertical}
 <script>
 const risks = ["💧 Uitglijden","🪜 Vallen","🔪 Snijden","🔥 Verbranden","💥 Botsen","🦠 Ziek worden","🔥 Brand","❓ Iets anders"];
 let state = JSON.parse(localStorage.getItem("entree_safety_state")||"null") || {
-  team:"", scans:[], bestSafe:null, topRisk:null, improvement:"", quest:null, presentationCompleted:false, teacherKudos:{}
+  team:"", scans:[], bestSafe:null, topRisk:null, improvement:"", quest:null, presentationCompleted:false, finalCompleted:false, teacherKudos:{}
 };
 if(!("quest" in state)) state.quest=null;
 if(!state.teacherKudos) state.teacherKudos={};
 if(!("presentationCompleted" in state)) state.presentationCompleted=false;
+if(!("finalCompleted" in state)) state.finalCompleted=false;
 let draft = {rating:"",risk:"",photoData:"",photoSig:null,looksDuplicate:false};
 
 
@@ -589,7 +598,9 @@ function updateLaunch(){
   const resetBox=document.getElementById("resetBox");
   if(state.scans.length>0){
     box.style.display="block";
-    txt.textContent=`${state.team||"Dit team"} heeft ${state.scans.length} scan${state.scans.length===1?"":"s"} opgeslagen.`;
+    txt.textContent=state.finalCompleted
+      ? `${state.team||"Dit team"} heeft de Safety Scan afgerond. Open het eindresultaat.`
+      : `${state.team||"Dit team"} heeft ${state.scans.length} scan${state.scans.length===1?"":"s"} opgeslagen.`;
     if(resetBox) resetBox.style.display="block";
   } else {
     box.style.display="none";
@@ -605,7 +616,7 @@ function beginReset(){
   }
   const again=confirm("Weet je het zeker? Alle scans, foto's, Bonus Quest en Kudos worden verwijderd.");
   if(!again)return;
-  state={team:"",scans:[],bestSafe:null,topRisk:null,improvement:"",quest:null,presentationCompleted:false,teacherKudos:{}};
+  state={team:"",scans:[],bestSafe:null,topRisk:null,improvement:"",quest:null,presentationCompleted:false,finalCompleted:false,teacherKudos:{}};
   saveState();
   document.getElementById("teamInput").value="";
   document.getElementById("quickTeamInput").value="";
@@ -632,7 +643,7 @@ function resumeWork(){
 }
 function updateProgress(){
   const bar=document.getElementById("progressBar");
-  const phase = state.presentationCompleted ? 100 : (state.quest&&state.quest.completed ? 82 : state.improvement ? 68 : state.scans.length>=6 ? 50 : Math.min(45,(state.scans.length/6)*45));
+  const phase = state.finalCompleted ? 100 : (state.presentationCompleted ? 92 : (state.quest&&state.quest.completed ? 82 : state.improvement ? 68 : state.scans.length>=6 ? 50 : Math.min(45,(state.scans.length/6)*45)));
   if(bar) bar.style.width=phase+"%";
   const hs=document.getElementById("homeOutputStatus");
   if(hs){
@@ -640,7 +651,8 @@ function updateProgress(){
     else if(state.scans.length<6) hs.textContent=`Jullie hebben ${state.scans.length} scan${state.scans.length===1?"":"s"}. Nog ${6-state.scans.length} tot de controle.`;
     else if(!(state.quest&&state.quest.completed)) hs.textContent="Minimaal 6 scans bereikt. Ga verder met de begeleide afronding.";
     else if(!state.presentationCompleted) hs.textContent="Bonus Quest klaar. De volgende stap is de presentatie.";
-    else hs.textContent="Presentatie afgerond. Jullie eindresultaat is beschikbaar.";
+    else if(!state.finalCompleted) hs.textContent="Presentatie afgerond. De docent kan nu Kudos toekennen.";
+    else hs.textContent="Safety Scan afgerond. Open jullie eindresultaat.";
   }
   updateLaunch();
 }function startMission(){
@@ -709,6 +721,7 @@ function researchStatus(){
 }
 
 function continueWorkflow(){
+  if(state.finalCompleted){openFinal();return}
   const rs=researchStatus();
   if(!rs.complete){
     if(state.scans.length<6){newScan();return}
@@ -718,7 +731,7 @@ function continueWorkflow(){
   if(!(state.improvement||"").trim()){openImprovement();return}
   if(!(state.quest&&state.quest.completed)){startQuest();return}
   if(!state.presentationCompleted){startPresentation();return}
-  openFinal();
+  openTeacherKudos();
 }
 
 function openResearchCheck(){
@@ -898,18 +911,25 @@ function saveImprovementAndStartQuest(){
   const val=(ta?.value||"").trim();
   if(!val){if(msg){msg.innerHTML="⚠️ Schrijf eerst kort op <b>wat jullie zouden verbeteren</b> en waarom.";msg.classList.add("show");}ta?.focus();return}
   if(msg)msg.classList.remove("show");
-  state.improvement=val;state.quest=null;state.presentationCompleted=false;saveState();startQuest();
+  state.improvement=val;state.quest=null;state.presentationCompleted=false;state.finalCompleted=false;saveState();startQuest();
 }
 
 function openFinal(){
   if(!state.presentationCompleted){continueWorkflow();return}
+  if(!state.finalCompleted){openTeacherKudos();return}
   showScreen("finalScreen");
   document.getElementById("finalTeam").textContent=state.team||"—";
   const imp=document.getElementById("finalImprovement"); if(imp) imp.textContent=state.improvement||"—";
   renderFinalChoice("bestSafeBox",state.bestSafe,"Geen keuze opgeslagen.");
   renderFinalChoice("topRiskBox",state.topRisk,"Geen keuze opgeslagen.");
   renderKudos();
-}function renderFinalChoice(boxId,id,emptyText){
+}
+
+function extraGameInfo(){
+  alert("De Safety Scan is veilig afgerond en blijft bewaard. Een extra game kan later als aparte bonusronde worden toegevoegd zonder deze eindscore te wissen.");
+}
+
+function renderFinalChoice(boxId,id,emptyText){
   const box=document.getElementById(boxId), s=state.scans.find(x=>x.id===id);
   if(!s){box.innerHTML=`<p>${emptyText}</p>`;return}
   const url=s.photoData||"";
@@ -917,7 +937,7 @@ function openFinal(){
 }
 function hardReset(){
   if(!confirm("Alles wissen en opnieuw beginnen?"))return;
-  state={team:"",scans:[],bestSafe:null,topRisk:null,improvement:"",quest:null,presentationCompleted:false,teacherKudos:{}};
+  state={team:"",scans:[],bestSafe:null,topRisk:null,improvement:"",quest:null,presentationCompleted:false,finalCompleted:false,teacherKudos:{}};
   saveState();
   goHome();
 }
@@ -954,7 +974,7 @@ function startQuest(){
   setTimeout(()=>document.getElementById("questNextBtn")?.scrollIntoView({behavior:"smooth",block:"center"}),120);
 }function nextQuest(){if(questIndex<7){questIndex++;renderQuest()}else finishQuest()}
 function finishQuest(){
-  state.quest={score:questScore,total:800,completed:true};state.presentationCompleted=false;saveState();renderKudos();showScreen("questResultScreen");
+  state.quest={score:questScore,total:800,completed:true};state.presentationCompleted=false;state.finalCompleted=false;saveState();renderKudos();showScreen("questResultScreen");
   document.getElementById("questScoreBig").textContent=questScore+" / 800 bonuspunten";
   let n=questScore/100;
   document.getElementById("questResultText").innerHTML=`<h2>${n} van de 8 goed</h2><p>${n>=7?"Sterk gedaan. Jullie herkennen veiligheidssituaties goed.":n>=5?"Goed op weg. Jullie hebben de belangrijkste veiligheidskeuzes herkend.":"Geen probleem: jullie scans laten zien wat jullie in de praktijk hebben onderzocht."}</p>`;
@@ -997,6 +1017,7 @@ function renderKudos(){
   if(fl)fl.textContent=kudosLevel(k.total);
 }
 function openTeacherKudos(){
+  if(state.finalCompleted){openFinal();return}
   if(!state.presentationCompleted){continueWorkflow();return}
   if(state.scans.length<6){alert("Maak eerst minimaal 6 Safety Scans.");return}
   const req=requiredLocationChecks();
@@ -1033,6 +1054,14 @@ function toggleTeacherKudos(id){
   saveState();
   renderTeacherKudos();
   renderKudos();
+}
+
+function finishTeacherKudos(){
+  if(!state.presentationCompleted){continueWorkflow();return}
+  state.finalCompleted=true;
+  saveState();
+  renderKudos();
+  openFinal();
 }
 
 
@@ -1266,6 +1295,7 @@ function scanHtml(s, large=false){
 
 function openReport(printNow=false){
 
+  if(!state.finalCompleted){continueWorkflow();return}
   if(!state.presentationCompleted){continueWorkflow();return}
   if(state.scans.length<6){alert("Maak eerst minimaal 6 Safety Scans.");return}
   const req=requiredLocationChecks();
@@ -1334,9 +1364,9 @@ function startPresentation(){
 }function presentationNext(){
   const slides=presentationSlides();
   if(presentationIndex>=slides.length-1){
-    state.presentationCompleted=true;saveState();
+    state.presentationCompleted=true;state.finalCompleted=false;saveState();
     if(document.fullscreenElement&&document.exitFullscreen)document.exitFullscreen().catch(()=>{});
-    openFinal();return;
+    openTeacherKudos();return;
   }
   presentationIndex++;renderPresentation();
 }function presentationPrev(){
