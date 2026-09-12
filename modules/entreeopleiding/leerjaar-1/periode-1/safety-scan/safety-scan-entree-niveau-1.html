@@ -3,16 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="Safety Scan voor Entree niveau 1 met uitleg, praktijkonderzoek, Bonus Quest en nabespreking met presentatie.">
-<meta name="author" content="Academy Oefenplein">
-<meta name="academy:module-id" content="safety-scan-entree-niveau-1">
-<meta name="academy:type" content="interactieve-praktijkopdracht">
-<meta name="academy:duration" content="Ongeveer 1,5 uur">
-<meta name="academy:education" content="entreeopleiding">
-<meta name="academy:theme" content="Safety Scan">
-<meta name="academy:version" content="12.0">
-<meta name="academy:last-updated" content="2026-09-12">
-<title>Safety Scan – Entree niveau 1 – Academy Oefenplein</title>
+<title>Safety Scan – Entree Niveau 1</title>
 <style>
 :root{
   --bg:#f4f3ef; --card:#fff; --ink:#202524; --muted:#6d7472; --line:#d9d8d2;
@@ -97,7 +88,7 @@ textarea{min-height:90px;resize:vertical}
 @media(max-width:560px){.report-summary{grid-template-columns:repeat(2,1fr)}.report-grid{grid-template-columns:1fr}.presentation-card h1{font-size:30px}.presentation-card p{font-size:18px}}
 @media print{
   #reportScreen{display:block!important}
-  #finalScreen,#presentationScreen,#homeScreen,#scanScreen,#reviewScreen{display:none!important}
+  #finalScreen,#presentationScreen,#homeScreen,#scanScreen,#reviewScreen,#researchCheckScreen,#findingsIntroScreen,#improvementScreen,#questScreen,#questResultScreen,#teacherKudosScreen{display:none!important}
   .report-grid{grid-template-columns:1fr 1fr}
   .report-item img{height:150px}
 }
@@ -150,11 +141,33 @@ textarea{min-height:90px;resize:vertical}
 .help-panel h3{margin:0 0 8px}
 .help-panel ul{margin:8px 0 0 18px;padding:0}
 .help-panel li{margin:6px 0}
-.academy-nav{background:#123f3b;color:#fff;padding:9px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;overflow:hidden}.academy-nav a{color:#fff;text-decoration:none;padding:7px 10px;border:1px solid #ffffff66;border-radius:10px;font-weight:850}.academy-nav span{width:100%;font-size:13px;overflow-wrap:anywhere}.academy-nav-note{width:100%;font-size:12px;margin:0;color:#fff;overflow-wrap:anywhere}
+
+.workflow-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:10px 0 14px}
+.workflow-step{border:1px solid var(--line);background:#fff;border-radius:12px;padding:8px 6px;text-align:center;font-size:11px;font-weight:850;color:var(--muted)}
+.workflow-step.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.workflow-step.done{background:var(--good);color:var(--ink);border-color:#8bbb98}
+.scan-number{font-size:24px;font-weight:950;margin-top:5px}
+.route-check{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line)}
+.route-check:last-child{border-bottom:0}.route-check .mark{font-size:22px;line-height:1}.route-check b{display:block}
+.guidance{background:#eef6ff;border:1px solid #b9d4ef;border-radius:16px;padding:14px;margin:12px 0}
+.guidance strong{display:block;margin-bottom:5px}
+.quest-next-sticky{position:sticky;bottom:12px;z-index:15;background:rgba(244,243,239,.96);padding:8px 0 4px}
+.quest-mode header .top button{display:none}
+@media(max-width:560px){.workflow-strip{grid-template-columns:repeat(5,minmax(0,1fr))}.workflow-step{font-size:9px;padding:7px 3px}}
+@media print{
+  @page{size:A4;margin:12mm}
+  body{padding:0!important;background:#fff!important}
+  #reportScreen{display:block!important}
+  .report-grid{display:block!important}
+  .report-item,.finalBox,.hero,.card{break-inside:avoid-page!important;page-break-inside:avoid!important}
+  .report-item{margin:0 0 10mm!important;padding:8mm!important;border:1px solid #bbb!important}
+  .report-item img,.finalPhoto,#reportBest img,#reportRisk img{width:100%!important;height:auto!important;max-height:95mm!important;object-fit:contain!important;display:block!important;margin:4mm auto!important}
+  .report-summary{grid-template-columns:repeat(3,1fr)!important}
+  h1,h2,h3,p{orphans:3;widows:3}
+}
 </style>
 </head>
 <body>
-<nav class="academy-nav no-print" aria-label="Academy navigatie"><a href="../../../../../index.html#/entreeopleiding">← Terug naar Entreeopleiding</a><span>Academy Oefenplein › Entreeopleiding (niveau 1) › Safety Scan</span><p class="academy-nav-note">Doorlooptijd: ongeveer 1,5 uur. Dit is inclusief uitleg, Safety Scan, Bonus Quest en nabespreking met presentatie en extra punten.</p></nav>
 <header>
   <div class="top">
     <div class="brand">SAFETY <span>SCAN</span> • ENTREE</div>
@@ -228,35 +241,20 @@ textarea{min-height:90px;resize:vertical}
 
   <div class="card">
     <div class="kicker">Zo werkt de opdracht</div>
-    <h2>Van Safety Scan naar presentatie</h2>
-    <p class="lead">Vandaag gaan jullie niet alleen rondkijken. Jullie doen een klein <b>veiligheidsonderzoek</b> en presenteren aan het einde wat jullie hebben ontdekt.</p>
-
-    <div class="route">
-      <div class="route-step"><div class="num">1</div><b>Start</b><span>Werk in duo's</span></div>
-      <div class="route-step"><div class="num">2</div><b>Onderzoek</b><span>Start buiten en ga veilig op pad</span></div>
-      <div class="route-step"><div class="num">3</div><b>Scan</b><span>Maak 6–8 vondsten</span></div>
-      <div class="route-step"><div class="num">4</div><b>Beoordeel</b><span>Groen, oranje of rood</span></div>
-      <div class="route-step"><div class="num">5</div><b>Leg uit</b><span>Wat zie je en waarom?</span></div>
-      <div class="route-step"><div class="num">6</div><b>Kies</b><span>Beste + belangrijkste</span></div>
-      <div class="route-step"><div class="num">7</div><b>Verbeter</b><span>Wat zouden jullie doen?</span></div>
-      <div class="route-step"><div class="num">8</div><b>Bonus Quest</b><span>Verdien extra Kudos</span></div><div class="route-step"><div class="num">9</div><b>Presenteer</b><span>Laat resultaat zien</span></div>
+    <h2>Jullie vaste Safety Scan-route</h2>
+    <p class="lead">De app loodst jullie stap voor stap door de opdracht. Je kunt niet zomaar naar het einde springen.</p>
+    <div class="big-route">
+      <div class="big-step"><div class="icon">⭐</div><div><b>1. Start buiten – verplicht</b><span>Scan 1 is altijd onderaan de trap. Kijk naar het hele aanzicht van de school door de ogen van een gast: uitstraling, netheid, hygiëne en veiligheid.</span></div></div>
+      <div class="big-step"><div class="icon">🔎</div><div><b>2. Ga daarna zelf op onderzoek</b><span>Na de buitenscan bepalen jullie zelf de route door school. Gebruik bij een ruimte alleen de knop <b>Help – waar moet ik op letten?</b> als je extra hulp nodig hebt.</span></div></div>
+      <div class="big-step"><div class="icon">📸</div><div><b>3. Maak minimaal 6 Safety Scans</b><span>De app laat steeds zien met welke scan jullie bezig zijn. Zoek minimaal één groen voorbeeld en minimaal één oranje/rode situatie.</span></div></div>
+      <div class="big-step"><div class="icon">🚪</div><div><b>4. Controleer de verplichte punten</b><span>De nooduitgangen in het restaurant moeten sowieso gecontroleerd zijn. De app controleert dit vóór jullie verder mogen.</span></div></div>
+      <div class="big-step"><div class="icon">🏆</div><div><b>5. Kies jullie belangrijkste vondsten</b><span>Kies één <b>beste veilige voorbeeld</b> en één <b>belangrijkste risico</b>. De app legt eerst uit wat daarmee bedoeld wordt.</span></div></div>
+      <div class="big-step"><div class="icon">💡</div><div><b>6. Bedenk een verbetering</b><span>Wat zouden jullie als eerste veranderen? Leg kort uit waarom dat veiliger of beter is.</span></div></div>
+      <div class="big-step"><div class="icon">⭐</div><div><b>7. Speel de Bonus Quest</b><span>Beantwoord 8 korte vragen. Tijdens de quiz zie je alleen de quiz en steeds één duidelijke knop voor de volgende vraag.</span></div></div>
+      <div class="big-step"><div class="icon">🎤</div><div><b>8. Presenteer</b><span>Laat jullie beste voorbeeld, belangrijkste risico en verbetering zien. Daarna pas volgt het eindresultaat.</span></div></div>
+      <div class="big-step"><div class="icon">📋</div><div><b>9. Eindresultaat</b><span>Pas op het einde komen Kudos, rapport, PDF en afsluiting in beeld.</span></div></div>
     </div>
-
-    <details>
-      <summary style="cursor:pointer;font-weight:950;padding:10px 0">Bekijk de hele route stap voor stap</summary>
-      <div class="big-route">
-        <div class="big-step"><div class="icon">👥</div><div><b>1. Vorm een duo</b><span>Vul jullie namen in en lees samen de spelregels.</span></div></div>
-        <div class="big-step"><div class="icon">🚶</div><div><b>2. Start buiten en ga op onderzoek</b><span>Controleer keukens, praktijkruimtes, opslag en looproutes waar jullie mogen komen.</span></div></div>
-        <div class="big-step"><div class="icon">📸</div><div><b>3. Maak 6–8 Safety Scans</b><span>Maak een foto van de situatie. Geen herkenbare personen op de foto.</span></div></div>
-        <div class="big-step"><div class="icon">🚦</div><div><b>4. Beoordeel iedere vondst</b><span>🟢 goed & veilig · 🟠 kan beter · 🔴 onveilig.</span></div></div>
-        <div class="big-step"><div class="icon">⚠️</div><div><b>5. Denk na over het risico</b><span>Wat kan er gebeuren? Leg in eenvoudige woorden uit wat jullie zien.</span></div></div>
-        <div class="big-step"><div class="icon">🏆</div><div><b>6. Bekijk jullie overzicht</b><span>Kies het beste veilige voorbeeld en het belangrijkste risico.</span></div></div>
-        <div class="big-step"><div class="icon">💡</div><div><b>7. Bedenk een verbetering</b><span>Wat zouden jullie veranderen om de situatie veiliger of beter te maken?</span></div></div>
-        <div class="big-step"><div class="icon">⭐</div><div><b>8. Speel de Bonus Quest</b><span>Beantwoord 8 keuzevragen. Goede antwoorden leveren extra Kudos op.</span></div></div><div class="big-step"><div class="icon">🖥️</div><div><b>9. Lever op en presenteer</b><span>Laat jullie resultaten op het digibord zien of maak een rapport/PDF voor de docent.</span></div></div>
-      </div>
-    </details>
-
-    <div class="notice"><b>Jullie einddoel:</b> kunnen laten zien wat veilig werken is, een risico herkennen én uitleggen hoe het beter kan.</div>
+    <div class="notice"><b>Onthoud:</b> Eerst onderzoeken → vondsten kiezen → verbeteren → Bonus Quest → presenteren → dan pas afsluiten.</div>
   </div>
 
   <div class="card">
@@ -288,21 +286,20 @@ textarea{min-height:90px;resize:vertical}
   </div>
 
   <div class="card">
-    <div class="kicker">Eindproduct</div>
-    <h2>Jullie overzicht & rapport</h2>
-    <p class="lead">Hier komen alle gemaakte scans samen. Je kunt altijd terugkijken. Vanaf 6 scans kun je ook presenteren en exporteren.</p>
-    <button class="primary secondary" onclick="openReview()">📋 OPEN OVERZICHT VAN SCANS</button>
-    <button class="primary ghost" id="homeReportBtn" onclick="openReport()">📄 OPEN EINDRAPPORT</button>
-    <button class="primary ghost" id="homePresentBtn" onclick="startPresentation()">🖥️ PRESENTATIE MODUS</button>
-    <p class="small" id="homeOutputStatus">Nog 6 scans nodig voor Bonus Quest, rapport en presentatie.</p>
+    <div class="kicker">Jullie voortgang</div>
+    <h2>Werk stap voor stap</h2>
+    <p class="lead" id="homeOutputStatus">Start met scan 1 buiten. Daarna leidt de app jullie verder.</p>
+    <div class="guidance"><strong>Waarom staan hier geen eindknoppen?</strong>Rapport, PDF en presentatie worden pas zichtbaar op het moment dat jullie eraan toe zijn.</div>
   </div>
 </section>
 
 <section id="scanScreen" class="screen">
   <div class="hero">
-    <div class="kicker">Nieuwe vondst</div>
-    <h2>Wat zien jullie?</h2>
-    <div class="counter" id="scanCounter">0 scans opgeslagen</div>
+    <div class="kicker">Onderzoeksfase</div>
+    <div class="scan-number" id="scanTitle">SCAN 1 VAN MINIMAAL 6</div>
+    <h2 id="scanQuestion">Wat zien jullie?</h2>
+    <div class="counter" id="scanCounter">Nog geen scans opgeslagen</div>
+    <div id="scanRouteStatus" class="guidance"></div>
   </div>
 
   <div class="card">
@@ -358,56 +355,76 @@ textarea{min-height:90px;resize:vertical}
 
     <div id="validationMessage" class="validation-msg"></div>
 <div id="saveMessage" class="hidden" style="margin-top:12px;padding:12px;border-radius:12px;background:#dff2e5;font-weight:900">✓ Scan opgeslagen. Ga door met de volgende.</div>
-<button type="button" class="primary" onclick="saveScan()">OPSLAAN + VOLGENDE SCAN</button>
+<button type="button" class="primary" id="saveScanBtn" onclick="saveScan()">OPSLAAN + VOLGENDE SCAN</button>
+<button type="button" class="primary secondary hidden" id="researchCheckBtn" onclick="openResearchCheck()">✅ ONDERZOEK CONTROLEREN →</button>
+  </div>
+</section>
+
+<section id="researchCheckScreen" class="screen">
+  <div class="hero">
+    <div class="kicker">Stap 3 • Onderzoek controleren</div>
+    <h1>Zijn jullie klaar met scannen?</h1>
+    <p class="lead">De app controleert eerst of de verplichte onderdelen van jullie onderzoek compleet zijn.</p>
+  </div>
+  <div class="card" id="researchChecklist"></div>
+  <div class="card" id="researchCheckActions"></div>
+</section>
+
+<section id="findingsIntroScreen" class="screen">
+  <div class="hero">
+    <div class="kicker">Stap 4 • Vondsten kiezen</div>
+    <h1>Kies wat jullie straks willen vertellen</h1>
+    <p class="lead">Jullie hebben verschillende situaties onderzocht. Nu kiezen jullie de twee vondsten die het belangrijkst zijn voor jullie presentatie.</p>
+  </div>
+  <div class="card">
+    <div class="guidance"><strong>🏆 Beste veilige voorbeeld</strong>Kies iets waarvan jullie vinden: <b>zo hoort het</b>. Een duidelijke groene situatie die veilig en professioneel is geregeld.</div>
+    <div class="guidance"><strong>⚠️ Belangrijkste risico</strong>Kies de oranje of rode situatie waar volgens jullie echt iets mee moet gebeuren. Denk ook aan: <b>wat kan er gebeuren als niemand dit oplost?</b></div>
+    <p class="lead">Op het volgende scherm kiezen jullie eerst het beste voorbeeld en daarna het belangrijkste risico.</p>
+    <button class="primary" onclick="openReview(true)">IK SNAP HET – KIES ONZE VONDSTEN →</button>
   </div>
 </section>
 
 <section id="reviewScreen" class="screen">
   <div class="hero">
-    <div class="kicker">Jullie overzicht</div>
-    <h1>Safety Scan Dashboard</h1>
-    <p class="lead">Hier staan alle vondsten van jullie duo.</p>
+    <div class="kicker">Stap 4 • Jullie vondsten</div>
+    <h1>Kies 2 hoofdvondsten</h1>
+    <p class="lead">Selecteer hieronder één groen voorbeeld en één belangrijk risico. Daarna gaan jullie de verbetering formuleren.</p>
     <div class="report-summary">
       <div class="stat"><b id="dashTotal">0</b><span>scans</span></div>
       <div class="stat"><b id="dashGreen">0</b><span>🟢 goed</span></div>
       <div class="stat"><b id="dashOrange">0</b><span>🟠 beter</span></div>
       <div class="stat"><b id="dashRed">0</b><span>🔴 onveilig</span></div>
     </div>
-    <p class="lead">Kies één <b>beste veilige voorbeeld</b> en één <b>belangrijkste risico</b>.</p>
   </div>
-  <div class="kudos-bar">
-    <div><b>Team Kudos</b><div class="small">Onderzoek + Bonus Quest + docentbonus</div></div>
-    <div class="kudos-number" id="reviewKudos">0 ⭐</div>
-  </div>
+  <div id="reviewWarnings"></div>
   <div id="scanList"></div>
   <div class="card">
-    <button class="primary secondary" onclick="newScan()">+ NOG EEN SCAN</button>
-    <button class="primary" id="finishBtn" onclick="openFinal()">NAAR DE AFSLUITING →</button>
-    <p class="small">De afsluiting is beschikbaar vanaf 6 scans.</p>
+    <div id="selectionStatus" class="guidance"></div>
+    <button class="primary" id="confirmFindingsBtn" onclick="openImprovement()">BEVESTIG KEUZES →</button>
+    <button class="primary ghost" onclick="newScan()">+ NOG EEN EXTRA SCAN</button>
   </div>
+</section>
 
-  <div id="reviewWarnings"></div>
-
-  <div class="card" id="outputPanel">
-    <div class="kicker">Opleveren & presenteren</div>
-    <h2>Maak van jullie scans een eindproduct</h2>
-    <p class="lead">Vanaf 6 scans kun je het rapport bekijken, presenteren op het digibord of exporteren als PDF.</p>
-    <button class="primary" id="reviewQuestBtn" onclick="startQuest()">⭐ START BONUS QUEST</button>
-    <button class="primary secondary" id="reviewReportBtn" onclick="openReport()">📋 BEKIJK EINDRAPPORT</button>
-    <button class="primary secondary" id="reviewPresentBtn" onclick="startPresentation()">🖥️ PRESENTATIE MODUS</button>
-    <button class="primary" id="reviewPdfBtn" onclick="openReport(true)">📄 EXPORT RAPPORT ALS PDF</button>
-    <button class="primary ghost" id="reviewShareBtn" onclick="copySummary()">📤 DEEL SAMENVATTING</button><button class="primary ghost" id="teacherKudosBtn" onclick="openTeacherKudos()">🎓 DOCENT KUDOS</button>
-    <div id="outputLockMsg" class="notice" style="margin-top:12px;background:#6d7472">
-      Maak eerst minimaal 6 scans om deze functies te gebruiken.
-    </div>
+<section id="improvementScreen" class="screen">
+  <div class="hero">
+    <div class="kicker">Stap 5 • Verbetering</div>
+    <h1>Wat zouden jullie verbeteren?</h1>
+    <p class="lead">Denk aan jullie belangrijkste risico. Wat zou een professional als eerste beter maken?</p>
+  </div>
+  <div class="card">
+    <div id="improvementChoicesPreview"></div>
+    <label>Onze verbetering</label>
+    <textarea id="improvementStep" placeholder="Wij zouden… Hierdoor wordt het veiliger omdat…"></textarea>
+    <div id="improvementMessage" class="validation-msg"></div>
+    <button class="primary" onclick="saveImprovementAndStartQuest()">OPSLAAN + START BONUS QUEST →</button>
   </div>
 </section>
 
 <section id="finalScreen" class="screen">
   <div class="hero">
-    <div class="kicker">Klassikale afsluiting</div>
+    <div class="kicker">Stap 8 • Eindresultaat</div>
     <h1>Jullie Safety Scan</h1>
-    <p class="lead">Laat in maximaal één minuut zien wat jullie hebben ontdekt.</p>
+    <p class="lead">Onderzoek, Bonus Quest en presentatie zijn afgerond. Hier staat jullie eindresultaat.</p>
     <p><b>Duo:</b> <span id="finalTeam"></span></p>
   </div>
 
@@ -421,11 +438,7 @@ textarea{min-height:90px;resize:vertical}
     <div id="topRiskBox">Nog niet gekozen.</div>
   </div>
 
-  <div class="card">
-    <h3>💡 Onze verbetering</h3>
-    <p class="small">Wat zouden jullie als eerste verbeteren?</p>
-    <textarea id="improvement" placeholder="Wij zouden…" oninput="state.improvement=this.value;saveState()"></textarea>
-  </div>
+  <div class="card"><h3>💡 Onze verbetering</h3><p id="finalImprovement">—</p></div>
 
   <div class="card">
     <div class="kicker">Team Safety Score</div>
@@ -441,15 +454,27 @@ textarea{min-height:90px;resize:vertical}
   <div class="card no-print">
     <h3>Wat willen jullie doen?</h3>
     <button class="primary secondary" onclick="openReport()">📋 BEKIJK EINDRAPPORT</button>
-    <button class="primary secondary" onclick="startPresentation()">🖥️ PRESENTATIE MODUS – DIGIBORD</button><button class="primary secondary" onclick="openTeacherKudos()">🎓 DOCENT KUDOS</button>
+    <button class="primary secondary" onclick="openTeacherKudos()">🎓 DOCENT KUDOS</button>
     <button class="primary" onclick="openReport(true)">📄 EXPORT RAPPORT ALS PDF</button>
     <button class="primary ghost" onclick="copySummary()">📤 KOPIEER SAMENVATTING</button>
-    <button class="primary ghost" onclick="showScreen('reviewScreen')">← Terug naar vondsten</button>
+
   </div>
 </section>
 
-<section id="questScreen" class="screen"><div class="hero"><div class="kicker">Bonus Quest</div><h1>⭐ Safety Challenge</h1><p class="lead">8 korte keuzevragen. Ieder goed antwoord = <b>100 bonuspunten</b>.</p><div id="questProgress" class="counter"></div></div><div id="questContent"></div></section>
-<section id="questResultScreen" class="screen"><div class="hero"><div class="kicker">Bonus Quest voltooid</div><h1>Jullie score</h1><div id="questScoreBig" style="font-size:44px;font-weight:950"></div></div><div class="card" id="questResultText"></div><div class="card"><button class="primary secondary" onclick="openReview()">📋 TERUG NAAR OVERZICHT</button><button class="primary" onclick="openFinal()">NAAR EINDRESULTAAT →</button></div></section>
+<section id="questScreen" class="screen">
+  <div class="hero">
+    <div class="kicker">Stap 6 • Bonus Quest</div>
+    <h1>⭐ Safety Challenge</h1>
+    <p class="lead">8 korte keuzevragen. Ieder goed antwoord = <b>100 bonuspunten</b>. Beantwoord één vraag tegelijk.</p>
+    <div id="questProgress" class="counter"></div>
+  </div>
+  <div id="questContent"></div>
+</section>
+<section id="questResultScreen" class="screen">
+  <div class="hero"><div class="kicker">Bonus Quest voltooid</div><h1>Jullie score</h1><div id="questScoreBig" style="font-size:44px;font-weight:950"></div></div>
+  <div class="card" id="questResultText"></div>
+  <div class="card"><div class="guidance"><strong>Volgende stap: presenteren</strong>Jullie gaan nu alleen jullie beste veilige voorbeeld, belangrijkste risico en verbetering laten zien.</div><button class="primary" onclick="startPresentation()">🎤 VERDER NAAR PRESENTATIE →</button></div>
+</section>
 <section id="teacherKudosScreen" class="screen">
   <div class="hero">
     <div class="kicker">Alleen bij de afsluiting</div>
@@ -497,7 +522,7 @@ textarea{min-height:90px;resize:vertical}
   </div>
 
   <div class="card">
-    <h2>Alle vondsten</h2>
+    <h2>Alle vondsten</h2><p class="small no-print">Voor PDF wordt iedere vondst als één geheel afgedrukt, zodat foto en tekst niet over twee pagina's worden gesplitst.</p>
     <div class="report-grid" id="reportGrid"></div>
   </div>
 
@@ -510,34 +535,30 @@ textarea{min-height:90px;resize:vertical}
 
 <section id="presentationScreen" class="screen">
   <div class="hero no-print">
-    <div class="kicker">Digibordmodus</div>
-    <h2>Presentatie</h2>
-    <p class="small">Gebruik de pijlen om door jullie drie hoofdpunten te gaan.</p>
+    <div class="kicker">Stap 7 • Presentatie</div>
+    <h2>Jullie presentatie</h2>
+    <p class="small">Vertel kort wat goed gaat, wat het belangrijkste risico is en wat jullie zouden verbeteren.</p>
   </div>
   <div class="presentation-wrap">
     <div class="presentation-card" id="presentationCard"></div>
   </div>
   <div class="presentation-nav no-print">
     <button onclick="presentationPrev()">← VORIGE</button>
-    <button onclick="showScreen('finalScreen')">STOP</button>
-    <button onclick="presentationNext()">VOLGENDE →</button>
+    <button id="presentationNextBtn" onclick="presentationNext()">VOLGENDE →</button>
   </div>
 </section>
 </main>
 
-<div class="bottom" id="bottomBar">
-  <button onclick="goHome()">⌂ Home</button>
-  <button onclick="openReview()">📋 Overzicht</button>
-  <button class="next" onclick="openReview()">Vondsten →</button>
-</div>
+<div class="bottom" id="bottomBar" style="display:none"></div>
 
 <script>
 const risks = ["💧 Uitglijden","🪜 Vallen","🔪 Snijden","🔥 Verbranden","💥 Botsen","🦠 Ziek worden","🔥 Brand","❓ Iets anders"];
 let state = JSON.parse(localStorage.getItem("entree_safety_state")||"null") || {
-  team:"", scans:[], bestSafe:null, topRisk:null, improvement:"", quest:null, teacherKudos:{}
+  team:"", scans:[], bestSafe:null, topRisk:null, improvement:"", quest:null, presentationCompleted:false, teacherKudos:{}
 };
 if(!("quest" in state)) state.quest=null;
 if(!state.teacherKudos) state.teacherKudos={};
+if(!("presentationCompleted" in state)) state.presentationCompleted=false;
 let draft = {rating:"",risk:"",photoData:"",photoSig:null,looksDuplicate:false};
 
 
@@ -555,12 +576,11 @@ function showScreen(id){
   const target=document.getElementById(id);
   if(!target) return;
   target.classList.add("active");
-  const hideBottom=["launchScreen","homeScreen","quickStartScreen"].includes(id);
-  document.getElementById("bottomBar").style.display=hideBottom?"none":"flex";
+  const bottom=document.getElementById("bottomBar"); if(bottom) bottom.style.display="none";
+  document.body.classList.toggle("quest-mode",id==="questScreen");
   window.scrollTo({top:0,behavior:"smooth"});
   updateProgress();
-}
-function goHome(){showScreen("launchScreen");updateLaunch();}
+}function goHome(){showScreen("launchScreen");updateLaunch();}
 function openExplanation(){showScreen("homeScreen");document.getElementById("teamInput").value=state.team||"";}
 function openQuickStart(){showScreen("quickStartScreen");document.getElementById("quickTeamInput").value=state.team||"";}
 function updateLaunch(){
@@ -585,7 +605,7 @@ function beginReset(){
   }
   const again=confirm("Weet je het zeker? Alle scans, foto's, Bonus Quest en Kudos worden verwijderd.");
   if(!again)return;
-  state={team:"",scans:[],bestSafe:null,topRisk:null,improvement:"",quest:null,teacherKudos:{}};
+  state={team:"",scans:[],bestSafe:null,topRisk:null,improvement:"",quest:null,presentationCompleted:false,teacherKudos:{}};
   saveState();
   document.getElementById("teamInput").value="";
   document.getElementById("quickTeamInput").value="";
@@ -595,10 +615,9 @@ function beginReset(){
 }
 
 function resumeWork(){
-  if(state.scans.length>0) openReview();
-  else openQuickStart();
-}
-function startQuickMission(){
+  if(!state.scans.length){openQuickStart();return}
+  continueWorkflow();
+}function startQuickMission(){
   const input=document.getElementById("quickTeamInput");
   const msg=document.getElementById("quickStartMessage");
   const name=input.value.trim();
@@ -612,26 +631,115 @@ function startQuickMission(){
   state.team=name; saveState(); newScan();
 }
 function updateProgress(){
-  document.getElementById("progressBar").style.width=Math.min(100,(state.scans.length/6)*100)+"%";
-  const ready=state.scans.length>=6;
-  const left=Math.max(0,6-state.scans.length);
+  const bar=document.getElementById("progressBar");
+  const phase = state.presentationCompleted ? 100 : (state.quest&&state.quest.completed ? 82 : state.improvement ? 68 : state.scans.length>=6 ? 50 : Math.min(45,(state.scans.length/6)*45));
+  if(bar) bar.style.width=phase+"%";
   const hs=document.getElementById("homeOutputStatus");
-  if(hs) hs.textContent=ready?"✓ Bonus Quest, rapport en presentatie zijn beschikbaar.":`Nog ${left} scan${left===1?"":"s"} nodig voor Bonus Quest, rapport en presentatie.`;
+  if(hs){
+    if(!state.scans.length) hs.textContent="Start met scan 1 buiten. Daarna leidt de app jullie verder.";
+    else if(state.scans.length<6) hs.textContent=`Jullie hebben ${state.scans.length} scan${state.scans.length===1?"":"s"}. Nog ${6-state.scans.length} tot de controle.`;
+    else if(!(state.quest&&state.quest.completed)) hs.textContent="Minimaal 6 scans bereikt. Ga verder met de begeleide afronding.";
+    else if(!state.presentationCompleted) hs.textContent="Bonus Quest klaar. De volgende stap is de presentatie.";
+    else hs.textContent="Presentatie afgerond. Jullie eindresultaat is beschikbaar.";
+  }
   updateLaunch();
-  ["homeReportBtn","homePresentBtn"].forEach(id=>{
-    const b=document.getElementById(id);
-    if(b){b.disabled=!ready;b.style.opacity=ready?"1":".45";}
-  });
-}
-function startMission(){
+}function startMission(){
   const input=document.getElementById("teamInput");
   const name=input.value.trim();
   if(!name){alert("Vul eerst de namen van jullie duo in.");input.focus();return}
   state.team=name;saveState();newScan();
 }
-function newScan(){resetDraft();showScreen("scanScreen");document.getElementById("scanCounter").textContent=`${state.scans.length} scans opgeslagen`;}
-function resetDraft(){draft={rating:"",risk:"",photoData:"",photoSig:null,looksDuplicate:false};document.getElementById("zone").value="";document.getElementById("note").value="";document.getElementById("photoInput").value="";document.getElementById("preview").src="";document.getElementById("preview").classList.add("hidden");const sm=document.getElementById("saveMessage"); if(sm) sm.classList.add("hidden");
-  const dw=document.getElementById("duplicateWarning"); if(dw) dw.classList.add("hidden");document.querySelectorAll(".choice").forEach(b=>b.classList.remove("active"));document.querySelectorAll(".riskbtn").forEach(b=>b.classList.remove("active"));}
+function newScan(){
+  resetDraft();
+  showScreen("scanScreen");
+  prepareScanScreen();
+}function resetDraft(){
+  draft={rating:"",risk:"",photoData:"",photoSig:null,looksDuplicate:false};
+  const zone=document.getElementById("zone"); if(zone){zone.disabled=false;zone.value="";}
+  document.getElementById("note").value="";
+  document.getElementById("photoInput").value="";
+  document.getElementById("preview").src="";
+  document.getElementById("preview").classList.add("hidden");
+  const sm=document.getElementById("saveMessage"); if(sm) sm.classList.add("hidden");
+  const dw=document.getElementById("duplicateWarning"); if(dw) dw.classList.add("hidden");
+  const hp=document.getElementById("locationHelp"); if(hp) hp.classList.remove("show");
+  document.querySelectorAll(".choice").forEach(b=>b.classList.remove("active"));
+  document.querySelectorAll(".riskbtn").forEach(b=>b.classList.remove("active"));
+}
+function prepareScanScreen(){
+  const nextNo=state.scans.length+1;
+  const title=document.getElementById("scanTitle");
+  const counter=document.getElementById("scanCounter");
+  const route=document.getElementById("scanRouteStatus");
+  const zone=document.getElementById("zone");
+  const researchBtn=document.getElementById("researchCheckBtn");
+  if(title) title.textContent=`SCAN ${nextNo} VAN MINIMAAL 6${nextNo===1?" • VERPLICHT STARTPUNT":""}`;
+  if(counter) counter.textContent=state.scans.length ? `${state.scans.length} scan${state.scans.length===1?"":"s"} opgeslagen` : "Nog geen scans opgeslagen";
+  if(zone){
+    zone.disabled=false;
+    if(nextNo===1 || !requiredLocationChecks().outside){
+      zone.value="Start buiten – aanzicht school & trap";
+      zone.disabled=true;
+      updateLocationHelp();
+    }
+  }
+  const req=requiredLocationChecks();
+  if(route){
+    route.innerHTML = nextNo===1
+      ? `<strong>⭐ Verplichte start</strong> Begin onderaan de trap. Kijk naar de hele school door de ogen van een gast. Na deze scan mogen jullie zelf de route bepalen.`
+      : `<strong>Jullie route is nu vrij.</strong> Buitenstart ${req.outside?"✓":"nog doen"} · Nooduitgangen restaurant ${req.emergency?"✓":"nog doen"}. Zoek minimaal één groen én één oranje/rood voorbeeld.`;
+  }
+  if(researchBtn) researchBtn.classList.toggle("hidden",state.scans.length<6);
+  const saveBtn=document.getElementById("saveScanBtn");
+  if(saveBtn){saveBtn.classList.remove("hidden");saveBtn.textContent=state.scans.length>=5?"OPSLAAN →":"OPSLAAN + VOLGENDE SCAN";}
+}
+
+function researchStatus(){
+  const req=requiredLocationChecks();
+  const hasGreen=state.scans.some(s=>s.rating==="good");
+  const hasRisk=state.scans.some(s=>s.rating==="warn"||s.rating==="risk");
+  return {
+    enough:state.scans.length>=6,
+    outside:req.outside,
+    emergency:req.emergency,
+    green:hasGreen,
+    risk:hasRisk,
+    complete:state.scans.length>=6 && req.outside && req.emergency && hasGreen && hasRisk
+  };
+}
+
+function continueWorkflow(){
+  const rs=researchStatus();
+  if(!rs.complete){
+    if(state.scans.length<6){newScan();return}
+    openResearchCheck();return;
+  }
+  if(!state.bestSafe || !state.topRisk){showScreen("findingsIntroScreen");return}
+  if(!(state.improvement||"").trim()){openImprovement();return}
+  if(!(state.quest&&state.quest.completed)){startQuest();return}
+  if(!state.presentationCompleted){startPresentation();return}
+  openFinal();
+}
+
+function openResearchCheck(){
+  showScreen("researchCheckScreen");
+  const rs=researchStatus();
+  const rows=[
+    [rs.enough,`Minimaal 6 scans (${state.scans.length} gemaakt)`],
+    [rs.outside,"Verplichte start buiten – aanzicht school & trap"],
+    [rs.emergency,"Nooduitgangen restaurant gecontroleerd"],
+    [rs.green,"Minimaal één groen, veilig voorbeeld"],
+    [rs.risk,"Minimaal één oranje of rood risico"]
+  ];
+  document.getElementById("researchChecklist").innerHTML=`<h2>Controlelijst</h2>${rows.map(([ok,txt])=>`<div class="route-check"><div class="mark">${ok?"✅":"⬜"}</div><div><b>${txt}</b><span class="small">${ok?"Klaar":"Nog doen"}</span></div></div>`).join("")}`;
+  const actions=document.getElementById("researchCheckActions");
+  if(rs.complete){
+    actions.innerHTML=`<div class="notice"><b>✓ Onderzoek compleet.</b> Jullie mogen nu de belangrijkste vondsten kiezen.</div><button class="primary" onclick="showScreen('findingsIntroScreen')">VERDER NAAR VONDSTEN →</button><button class="primary ghost" onclick="newScan()">+ NOG EEN EXTRA SCAN</button>`;
+  }else{
+    actions.innerHTML=`<div class="warning-card"><b>Nog niet klaar</b><p>Maak eerst de ontbrekende onderdelen af. Daarna komen jullie automatisch weer hier terug.</p></div><button class="primary" onclick="newScan()">← TERUG NAAR SCANNEN</button>`;
+  }
+}
+
 function setRating(r){draft.rating=r;document.querySelectorAll(".choice").forEach(b=>b.classList.toggle("active",b.dataset.rating===r));document.getElementById("riskArea").classList.toggle("hidden",r==="good");document.getElementById("noteLabel").textContent=r==="good"?"4. Waarom is dit goed en veilig?":"5. Leg kort uit";document.getElementById("note").placeholder=r==="good"?"Dit is goed omdat…":"Ik zie… / Het risico is… / Beter is…";}
 function setRisk(r){draft.risk=r;document.querySelectorAll(".riskbtn").forEach(b=>b.classList.toggle("active",b.dataset.risk===r));}
 function buildRiskButtons(){document.getElementById("riskButtons").innerHTML=risks.map(r=>`<button class="riskbtn" data-risk="${esc(r)}" onclick="setRisk('${r.replace(/'/g,"\\'")}')">${r}</button>`).join("");}
@@ -714,7 +822,9 @@ function saveScan(){
   clearValidation();
   const zone=document.getElementById("zone").value;
   const note=document.getElementById("note").value.trim();
-
+  if(state.scans.length===0 && zone!=="Start buiten – aanzicht school & trap"){
+    showMissing("Scan 1 moet altijd de <b>verplichte buitenscan</b> zijn.",document.getElementById("zone"));return;
+  }
   if(!zone){showMissing("Kies eerst <b>waar jullie zijn</b>.",document.getElementById("zone"));return}
   if(!draft.photoData){showMissing("Maak eerst <b>een foto van de situatie</b>.",document.querySelector(".photoBox"));return}
   if(!draft.rating){showMissing("Kies bij stap 3: <b>groen, oranje of rood</b>.",document.querySelector(".choices"));return}
@@ -724,88 +834,47 @@ function saveScan(){
     const ok=confirm("Deze foto lijkt sterk op een eerdere scan. Onderzoeken jullie echt een andere situatie? Kies OK om toch op te slaan, of Annuleren om een andere foto te maken.");
     if(!ok)return;
   }
-
-  state.scans.push({
-    id:"s_"+Date.now(),
-    zone:zone,
-    rating:draft.rating,
-    risk:draft.rating==="good"?"":draft.risk,
-    note:note,
-    photoData:draft.photoData,
-    photoSig:draft.photoSig
-  });
-
+  const scanNo=state.scans.length+1;
+  state.scans.push({id:"s_"+Date.now(),zone,rating:draft.rating,risk:draft.rating==="good"?"":draft.risk,note,photoData:draft.photoData,photoSig:draft.photoSig});
   saveState();
-  resetDraft();
-  clearValidation();
-  document.getElementById("scanCounter").textContent=`${state.scans.length} scans opgeslagen`;
-  const sm=document.getElementById("saveMessage");
-  if(sm){
-    sm.textContent=`✓ Scan ${state.scans.length} opgeslagen. Ga door met de volgende.`;
-    sm.classList.remove("hidden");
-    setTimeout(()=>sm.classList.add("hidden"),2600);
+  resetDraft();clearValidation();
+  if(state.scans.length>=6){
+    prepareScanScreen();
+    const sm=document.getElementById("saveMessage");
+    if(sm){sm.innerHTML=`✓ Scan ${scanNo} opgeslagen. <b>Jullie hebben het minimum bereikt.</b> Controleer nu eerst of het onderzoek compleet is.`;sm.classList.remove("hidden");}
+    const saveBtn=document.getElementById("saveScanBtn"); if(saveBtn) saveBtn.classList.add("hidden");
+    const rc=document.getElementById("researchCheckBtn"); if(rc){rc.classList.remove("hidden");rc.scrollIntoView({behavior:"smooth",block:"center"});}
+  }else{
+    prepareScanScreen();
+    const sm=document.getElementById("saveMessage");
+    if(sm){sm.textContent=`✓ Scan ${scanNo} opgeslagen. Jullie zijn klaar voor scan ${state.scans.length+1}.`;sm.classList.remove("hidden");setTimeout(()=>sm.classList.add("hidden"),2200);}
+    window.scrollTo({top:0,behavior:"smooth"});
   }
-  window.scrollTo({top:0,behavior:"smooth"});
-}
-function openReview(){showScreen("reviewScreen");renderReview();}
-function renderReview(){
+}function openReview(fromIntro=false){
+  const rs=researchStatus();
+  if(!rs.complete){openResearchCheck();return}
+  showScreen("reviewScreen");renderReview();
+}function renderReview(){
   const c=counts();
-  renderKudos();
-
-  const warnings=[];
-  const required=requiredLocationChecks();
-  if(state.scans.length>=1 && !required.outside) warnings.push("⭐ Verplicht: maak een scan buiten, onderaan de trap, van het aanzicht van de school.");
-  if(state.scans.length>=6 && !required.emergency) warnings.push("🚪 Controleer nog de nooduitgangen in het restaurant.");
-  const hasGreen=state.scans.some(s=>s.rating==="good");
-  const hasRisk=state.scans.some(s=>s.rating==="warn"||s.rating==="risk");
-  if(state.scans.length>=6 && !hasGreen) warnings.push("🟢 Jullie hebben nog geen goed & veilig voorbeeld. Zoek ook wat wél goed geregeld is.");
-  if(state.scans.length>=6 && !hasRisk) warnings.push("⚠️ Jullie hebben nog geen oranje of rode vondst. Zoek minimaal één situatie die beter of veiliger kan.");
-  if(state.scans.length>=6 && !state.bestSafe) warnings.push("🏆 Kies nog jullie beste veilige voorbeeld.");
-  if(state.scans.length>=6 && !state.topRisk) warnings.push("🔴 Kies nog jullie belangrijkste risico.");
-
-  const rw=document.getElementById("reviewWarnings");
-  if(rw){
-    rw.innerHTML=warnings.length
-      ? `<div class="warning-card"><b>Nog even afronden</b><ul>${warnings.map(x=>`<li>${x}</li>`).join("")}</ul></div>`
-      : (state.scans.length>=6?`<div class="notice"><b>✓ Klaar voor de eindfase.</b> Jullie hebben groen én risico onderzocht en de belangrijkste voorbeelden gekozen.</div>`:"");
-  }
-  const dt=document.getElementById("dashTotal"), dg=document.getElementById("dashGreen"),
-        doo=document.getElementById("dashOrange"), dr=document.getElementById("dashRed");
-  if(dt) dt.textContent=c.total;
-  if(dg) dg.textContent=c.green;
-  if(doo) doo.textContent=c.orange;
-  if(dr) dr.textContent=c.red;
-  const zones=new Set(state.scans.map(s=>s.zone));
-  if(state.scans.length>=4 && zones.size<2 && rw){
-    rw.innerHTML += `<div class="warning-card"><b>🔎 Zoek breder</b><p>Jullie scans komen bijna allemaal uit dezelfde plek. Kijk ook in een andere ruimte of looproute.</p></div>`;
-  }
+  const ids={dashTotal:c.total,dashGreen:c.green,dashOrange:c.orange,dashRed:c.red};
+  Object.entries(ids).forEach(([id,v])=>{const e=document.getElementById(id);if(e)e.textContent=v});
   const list=document.getElementById("scanList");
-  if(!state.scans.length){list.innerHTML='<div class="card">Nog geen scans opgeslagen.</div>';return}
   list.innerHTML="";
-  for(let i=0;i<state.scans.length;i++){
-    const s=state.scans[i], url=s.photoData||"";
+  state.scans.forEach((s,i)=>{
+    const url=s.photoData||"";
     const label=s.rating==="good"?"🟢 Goed & veilig":s.rating==="warn"?"🟠 Kan beter":"🔴 Onveilig";
     const div=document.createElement("div");div.className="scanCard";
-    div.innerHTML=`<div class="scanHead">${url?`<img class="thumb" src="${url}">`:`<div class="thumb"></div>`}<div class="scanMeta"><b>${i+1}. ${esc(s.zone)}</b><div><span class="pill ${s.rating}">${label}</span>${s.risk?`<span class="pill">${esc(s.risk)}</span>`:""}</div><p>${esc(s.note)}</p></div></div>
-      <div class="actions">
-      ${s.rating==="good"?`<button class="${state.bestSafe===s.id?"selected":""}" onclick="chooseBest('${s.id}')">🏆 Beste voorbeeld</button>`:""}
-      ${s.rating!=="good"?`<button class="${state.topRisk===s.id?"selected":""}" onclick="chooseRisk('${s.id}')">⚠️ Belangrijkste risico</button>`:""}
-      <button onclick="removeScan('${s.id}')">Verwijder</button></div>`;
+    div.innerHTML=`<div class="scanHead">${url?`<img class="thumb" src="${url}">`:`<div class="thumb"></div>`}<div class="scanMeta"><b>Scan ${i+1} • ${esc(s.zone)}</b><div><span class="pill ${s.rating}">${label}</span>${s.risk?`<span class="pill">${esc(s.risk)}</span>`:""}</div><p>${esc(s.note)}</p></div></div><div class="actions">${s.rating==="good"?`<button class="${state.bestSafe===s.id?"selected":""}" onclick="chooseBest('${s.id}')">🏆 ${state.bestSafe===s.id?"GEKOZEN":"Kies als beste voorbeeld"}</button>`:""}${s.rating!=="good"?`<button class="${state.topRisk===s.id?"selected":""}" onclick="chooseRisk('${s.id}')">⚠️ ${state.topRisk===s.id?"GEKOZEN":"Kies als belangrijkste risico"}</button>`:""}</div>`;
     list.appendChild(div);
-  }
-  const ready=state.scans.length>=6;
-  const finish=document.getElementById("finishBtn");
-  finish.disabled=!ready;
-  finish.style.opacity=ready?"1":".45";
-
-  ["reviewQuestBtn","reviewReportBtn","reviewPresentBtn","reviewPdfBtn","reviewShareBtn","teacherKudosBtn"].forEach(id=>{
-    const b=document.getElementById(id);
-    if(b){b.disabled=!ready;b.style.opacity=ready?"1":".45";}
   });
-  const lock=document.getElementById("outputLockMsg");
-  if(lock) lock.style.display=ready?"none":"block";
-}
-function chooseBest(id){state.bestSafe=id;saveState();renderReview()}
+  const status=document.getElementById("selectionStatus");
+  const btn=document.getElementById("confirmFindingsBtn");
+  const best=!!state.bestSafe, risk=!!state.topRisk;
+  if(status) status.innerHTML=`<strong>Jullie keuzes</strong>${best?"✅":"⬜"} Beste veilige voorbeeld &nbsp; ${risk?"✅":"⬜"} Belangrijkste risico`;
+  if(btn){btn.disabled=!(best&&risk);btn.style.opacity=(best&&risk)?"1":".45";}
+  const rw=document.getElementById("reviewWarnings");
+  if(rw) rw.innerHTML=(!best||!risk)?`<div class="warning-card"><b>Nog kiezen</b><p>Kies eerst één groen voorbeeld én één oranje/rode situatie.</p></div>`:`<div class="notice"><b>✓ Keuzes compleet.</b> Ga verder naar jullie verbetering.</div>`;
+}function chooseBest(id){state.bestSafe=id;saveState();renderReview()}
 function chooseRisk(id){state.topRisk=id;saveState();renderReview()}
 function removeScan(id){
   const s=state.scans.find(x=>x.id===id); if(!s)return;
@@ -816,26 +885,31 @@ function removeScan(id){
   saveState();
   renderReview();
 }
+function openImprovement(){
+  if(!state.bestSafe || !state.topRisk){showScreen("findingsIntroScreen");return}
+  showScreen("improvementScreen");
+  const best=state.scans.find(s=>s.id===state.bestSafe), risk=state.scans.find(s=>s.id===state.topRisk);
+  const box=document.getElementById("improvementChoicesPreview");
+  if(box) box.innerHTML=`<div class="guidance"><strong>🏆 Beste veilige voorbeeld</strong>${best?esc(best.zone):"—"}</div><div class="guidance"><strong>⚠️ Belangrijkste risico</strong>${risk?esc(risk.zone)+" – "+esc(risk.note):"—"}</div>`;
+  const ta=document.getElementById("improvementStep"); if(ta) ta.value=state.improvement||"";
+}
+function saveImprovementAndStartQuest(){
+  const ta=document.getElementById("improvementStep"), msg=document.getElementById("improvementMessage");
+  const val=(ta?.value||"").trim();
+  if(!val){if(msg){msg.innerHTML="⚠️ Schrijf eerst kort op <b>wat jullie zouden verbeteren</b> en waarom.";msg.classList.add("show");}ta?.focus();return}
+  if(msg)msg.classList.remove("show");
+  state.improvement=val;state.quest=null;state.presentationCompleted=false;saveState();startQuest();
+}
+
 function openFinal(){
-
-  if(state.scans.length<6){alert("Maak eerst minimaal 6 Safety Scans.");return}
-  const req=requiredLocationChecks();
-  if(!req.outside){alert("Start eerst buiten: maak een scan van het aanzicht van de school en de trap.");openReview();return}
-  if(!req.emergency){alert("Controleer eerst de nooduitgangen in het restaurant.");openReview();return}
-  if(!state.scans.some(s=>s.rating==="good")){alert("Zoek eerst minimaal één groen voorbeeld: iets dat goed en veilig geregeld is.");openReview();return}
-  if(!state.scans.some(s=>s.rating==="warn"||s.rating==="risk")){alert("Zoek eerst minimaal één situatie die beter kan of onveilig is.");openReview();return}
-  if(!state.bestSafe){alert("Kies in het overzicht eerst jullie beste veilige voorbeeld.");openReview();return}
-  if(!state.topRisk){alert("Kies in het overzicht eerst jullie belangrijkste risico.");openReview();return}
-
-  if(state.scans.length<6){alert("Maak eerst minimaal 6 scans.");return}
+  if(!state.presentationCompleted){continueWorkflow();return}
   showScreen("finalScreen");
   document.getElementById("finalTeam").textContent=state.team||"—";
-  document.getElementById("improvement").value=state.improvement||"";
-  renderFinalChoice("bestSafeBox",state.bestSafe,"Kies bij jullie vondsten eerst een groen voorbeeld als beste veilige voorbeeld.");
-  renderFinalChoice("topRiskBox",state.topRisk,"Kies bij jullie vondsten eerst een oranje of rood voorbeeld als belangrijkste risico.");
+  const imp=document.getElementById("finalImprovement"); if(imp) imp.textContent=state.improvement||"—";
+  renderFinalChoice("bestSafeBox",state.bestSafe,"Geen keuze opgeslagen.");
+  renderFinalChoice("topRiskBox",state.topRisk,"Geen keuze opgeslagen.");
   renderKudos();
-}
-function renderFinalChoice(boxId,id,emptyText){
+}function renderFinalChoice(boxId,id,emptyText){
   const box=document.getElementById(boxId), s=state.scans.find(x=>x.id===id);
   if(!s){box.innerHTML=`<p>${emptyText}</p>`;return}
   const url=s.photoData||"";
@@ -843,7 +917,7 @@ function renderFinalChoice(boxId,id,emptyText){
 }
 function hardReset(){
   if(!confirm("Alles wissen en opnieuw beginnen?"))return;
-  state={team:"",scans:[],bestSafe:null,topRisk:null,improvement:"",quest:null,teacherKudos:{}};
+  state={team:"",scans:[],bestSafe:null,topRisk:null,improvement:"",quest:null,presentationCompleted:false,teacherKudos:{}};
   saveState();
   goHome();
 }
@@ -859,15 +933,32 @@ const questQuestions=[
 {q:"Wat hoort bij professioneel handelen na het vinden van een risico?",a:["Herkennen, melden en uitleggen hoe het beter kan","Geheim houden","Alles altijd zelf oplossen"],c:0,w:"Een professional herkent risico's, meldt ze en denkt mee over verbetering."}
 ];
 let questIndex=0,questScore=0,questAnswered=false;
-function startQuest(){if(state.scans.length<6){alert("Maak eerst minimaal 6 Safety Scans.");return}
-  const req=requiredLocationChecks();
-  if(!req.outside){alert("Start eerst buiten: maak een scan van het aanzicht van de school en de trap.");openReview();return}
-  if(!req.emergency){alert("Controleer eerst de nooduitgangen in het restaurant.");openReview();return}questIndex=0;questScore=0;showScreen("questScreen");renderQuest()}
-function renderQuest(){let q=questQuestions[questIndex];document.getElementById("questProgress").textContent=`Vraag ${questIndex+1} van 8 • ${questScore} punten`;document.getElementById("questContent").innerHTML=`<div class="card"><h2>${q.q}</h2>${q.a.map((x,i)=>`<button class="quest-option" onclick="answerQuest(${i})">${String.fromCharCode(65+i)}. ${x}</button>`).join("")}<div id="questFeedback"></div></div>`;questAnswered=false}
-function answerQuest(i){if(questAnswered)return;questAnswered=true;let q=questQuestions[questIndex],bs=[...document.querySelectorAll(".quest-option")];bs.forEach((b,j)=>{b.disabled=true;if(j===q.c)b.classList.add("correct");if(j===i&&i!==q.c)b.classList.add("wrong")});let ok=i===q.c;if(ok)questScore+=100;document.getElementById("questFeedback").innerHTML=`<div class="quest-feedback"><b>${ok?"✓ Goed! +100 punten":"Nog niet goed. +0 punten"}</b><br>${q.w}</div><button class="primary" onclick="nextQuest()">${questIndex===7?"BEKIJK RESULTAAT →":"VOLGENDE VRAAG →"}</button>`}
-function nextQuest(){if(questIndex<7){questIndex++;renderQuest()}else finishQuest()}
-function finishQuest(){state.quest={score:questScore,total:800,completed:true};saveState();renderKudos();showScreen("questResultScreen");document.getElementById("questScoreBig").textContent=questScore+" / 800 bonuspunten";let n=questScore/100;document.getElementById("questResultText").innerHTML=`<h2>${n} van de 8 goed</h2><p>${n>=7?"Sterk gedaan. Jullie herkennen veiligheidssituaties goed.":n>=5?"Goed op weg. Bekijk jullie scans nog eens goed.":"Kijk nog eens naar: wat zie ik, wat kan er gebeuren en wat moet ik doen?"}</p>`}
-let presentationIndex=0;
+function startQuest(){
+  const rs=researchStatus();
+  if(!rs.complete){openResearchCheck();return}
+  if(!state.bestSafe||!state.topRisk){showScreen("findingsIntroScreen");return}
+  if(!(state.improvement||"").trim()){openImprovement();return}
+  questIndex=0;questScore=0;showScreen("questScreen");renderQuest();
+}function renderQuest(){
+  let q=questQuestions[questIndex];
+  document.getElementById("questProgress").textContent=`Vraag ${questIndex+1} van 8 • ${questScore} punten`;
+  document.getElementById("questContent").innerHTML=`<div class="card"><h2>${q.q}</h2>${q.a.map((x,i)=>`<button class="quest-option" onclick="answerQuest(${i})">${String.fromCharCode(65+i)}. ${x}</button>`).join("")}<div id="questFeedback"></div></div>`;
+  questAnswered=false;window.scrollTo({top:0,behavior:"smooth"});
+}function answerQuest(i){
+  if(questAnswered)return;questAnswered=true;
+  let q=questQuestions[questIndex],bs=[...document.querySelectorAll(".quest-option")];
+  bs.forEach((b,j)=>{b.disabled=true;if(j===q.c)b.classList.add("correct");if(j===i&&i!==q.c)b.classList.add("wrong")});
+  let ok=i===q.c;if(ok)questScore+=100;
+  const fb=document.getElementById("questFeedback");
+  fb.innerHTML=`<div class="quest-feedback"><b>${ok?"✓ Goed! +100 punten":"Nog niet goed. +0 punten"}</b><br>${q.w}</div><div class="quest-next-sticky"><button id="questNextBtn" class="primary" onclick="nextQuest()">${questIndex===7?"QUIZ AFRONDEN →":"VOLGENDE VRAAG →"}</button></div>`;
+  setTimeout(()=>document.getElementById("questNextBtn")?.scrollIntoView({behavior:"smooth",block:"center"}),120);
+}function nextQuest(){if(questIndex<7){questIndex++;renderQuest()}else finishQuest()}
+function finishQuest(){
+  state.quest={score:questScore,total:800,completed:true};state.presentationCompleted=false;saveState();renderKudos();showScreen("questResultScreen");
+  document.getElementById("questScoreBig").textContent=questScore+" / 800 bonuspunten";
+  let n=questScore/100;
+  document.getElementById("questResultText").innerHTML=`<h2>${n} van de 8 goed</h2><p>${n>=7?"Sterk gedaan. Jullie herkennen veiligheidssituaties goed.":n>=5?"Goed op weg. Jullie hebben de belangrijkste veiligheidskeuzes herkend.":"Geen probleem: jullie scans laten zien wat jullie in de praktijk hebben onderzocht."}</p>`;
+}let presentationIndex=0;
 
 
 const teacherKudosOptions=[
@@ -906,6 +997,7 @@ function renderKudos(){
   if(fl)fl.textContent=kudosLevel(k.total);
 }
 function openTeacherKudos(){
+  if(!state.presentationCompleted){continueWorkflow();return}
   if(state.scans.length<6){alert("Maak eerst minimaal 6 Safety Scans.");return}
   const req=requiredLocationChecks();
   if(!req.outside){alert("Start eerst buiten: maak een scan van het aanzicht van de school en de trap.");openReview();return}
@@ -1174,6 +1266,7 @@ function scanHtml(s, large=false){
 
 function openReport(printNow=false){
 
+  if(!state.presentationCompleted){continueWorkflow();return}
   if(state.scans.length<6){alert("Maak eerst minimaal 6 Safety Scans.");return}
   const req=requiredLocationChecks();
   if(!req.outside){alert("Start eerst buiten: maak een scan van het aanzicht van de school en de trap.");openReview();return}
@@ -1208,16 +1301,9 @@ function openReport(printNow=false){
 
 
 function ensureImprovement(){
-  if(!(state.improvement||"").trim()){
-    alert("Vul bij de afsluiting eerst jullie verbetering in: wat zouden jullie als eerste veranderen?");
-    showScreen("finalScreen");
-    setTimeout(()=>document.getElementById("improvement")?.focus(),100);
-    return false;
-  }
+  if(!(state.improvement||"").trim()){openImprovement();return false}
   return true;
-}
-
-function presentationSlides(){
+}function presentationSlides(){
   const best=state.scans.find(x=>x.id===state.bestSafe);
   const risk=state.scans.find(x=>x.id===state.topRisk);
   return [
@@ -1237,37 +1323,23 @@ function presentationSlides(){
 }
 
 function startPresentation(){
-
-  if(state.scans.length<6){alert("Maak eerst minimaal 6 Safety Scans.");return}
-  const req=requiredLocationChecks();
-  if(!req.outside){alert("Start eerst buiten: maak een scan van het aanzicht van de school en de trap.");openReview();return}
-  if(!req.emergency){alert("Controleer eerst de nooduitgangen in het restaurant.");openReview();return}
-  if(!state.scans.some(s=>s.rating==="good")){alert("Zoek eerst minimaal één groen voorbeeld: iets dat goed en veilig geregeld is.");openReview();return}
-  if(!state.scans.some(s=>s.rating==="warn"||s.rating==="risk")){alert("Zoek eerst minimaal één situatie die beter kan of onveilig is.");openReview();return}
-  if(!state.bestSafe){alert("Kies in het overzicht eerst jullie beste veilige voorbeeld.");openReview();return}
-  if(!state.topRisk){alert("Kies in het overzicht eerst jullie belangrijkste risico.");openReview();return}
-
-  if(!ensureImprovement())return;
-  presentationIndex=0;
-  showScreen("presentationScreen");
-  renderPresentation();
-  if(document.documentElement.requestFullscreen){
-    document.documentElement.requestFullscreen().catch(()=>{});
-  }
-}
-
-function renderPresentation(){
-  const slides=presentationSlides();
-  const s=slides[presentationIndex];
+  if(!(state.quest&&state.quest.completed)){startQuest();return}
+  if(!state.bestSafe||!state.topRisk||!(state.improvement||"").trim()){continueWorkflow();return}
+  presentationIndex=0;showScreen("presentationScreen");renderPresentation();
+  if(document.documentElement.requestFullscreen){document.documentElement.requestFullscreen().catch(()=>{});}
+}function renderPresentation(){
+  const slides=presentationSlides();const s=slides[presentationIndex];
   document.getElementById("presentationCard").innerHTML=`<div class="kicker">Dia ${presentationIndex+1} van ${slides.length}</div><h1>${s.title}</h1>${s.body}`;
-}
-
-function presentationNext(){
+  const btn=document.getElementById("presentationNextBtn"); if(btn) btn.textContent=presentationIndex===slides.length-1?"PRESENTATIE KLAAR →":"VOLGENDE →";
+}function presentationNext(){
   const slides=presentationSlides();
-  presentationIndex=Math.min(slides.length-1,presentationIndex+1);
-  renderPresentation();
-}
-function presentationPrev(){
+  if(presentationIndex>=slides.length-1){
+    state.presentationCompleted=true;saveState();
+    if(document.fullscreenElement&&document.exitFullscreen)document.exitFullscreen().catch(()=>{});
+    openFinal();return;
+  }
+  presentationIndex++;renderPresentation();
+}function presentationPrev(){
   presentationIndex=Math.max(0,presentationIndex-1);
   renderPresentation();
 }
