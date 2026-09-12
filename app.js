@@ -331,7 +331,7 @@ const academyData = {
             }, [createEindtoetsOnderdeel()]),
             createLeerjaar(2, [5, 6], {}, [createEindexamenOnderdeel()])
         ]),
-        createOpleiding("entreeopleiding", "Entreeopleiding (niveau 1)", [], [], [
+        createOpleiding("entreeopleiding", "Entreeopleiding", [], [], [
             {
                 id: "safety-scan",
                 naam: "Safety Scan",
@@ -348,7 +348,7 @@ const academyData = {
                     }
                 ]
             }
-        ]),
+        ], { subtitel: "Niveau 1" }),
         createOpleiding("burgerschap", "Burgerschap", [
             createLeerjaar(1, [1, 2, 3, 4]),
             createLeerjaar(2, [1, 2, 3, 4])
@@ -465,8 +465,8 @@ function createWarmeBereidingstechniekenOnderdeel() {
     };
 }
 
-function createOpleiding(id, naam, leerjaren, onderdelen = [], themas = []) {
-    return { id, naam, leerjaren, onderdelen, themas };
+function createOpleiding(id, naam, leerjaren, onderdelen = [], themas = [], weergave = {}) {
+    return { id, naam, leerjaren, onderdelen, themas, ...weergave };
 }
 
 const app = document.getElementById("app");
@@ -505,7 +505,12 @@ function renderCards(items, parentRoute) {
         <section class="card-grid" aria-label="Keuzemogelijkheden">
             ${items.map(item => `
                 <a class="navigation-card" href="${routeTo([...parentRoute, item.id])}">
-                    <span>${item.naam}</span>
+                    ${item.subtitel ? `
+                        <span class="navigation-card-title">
+                            <strong>${item.naam}</strong>
+                            <small>${item.subtitel}</small>
+                        </span>
+                    ` : `<span>${item.naam}</span>`}
                 </a>
             `).join("")}
         </section>

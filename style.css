@@ -341,6 +341,7 @@ main {
 .navigation-card[href="#/traiteur"]::before,
 .navigation-card[href="#/bol-allround-food-expert"]::before,
 .navigation-card[href="#/hospitality"]::before,
+.navigation-card[href="#/entreeopleiding"]::before,
 .navigation-card[href="#/burgerschap"]::before,
 .navigation-card[href="#/rekenen"]::before,
 .navigation-card[href="#/nederlands"]::before {
@@ -364,6 +365,30 @@ main {
 
 .navigation-card[href="#/hospitality"]::before {
     mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 18h16M5 18a7 7 0 0 1 14 0M12 8V5M9 5h6'/%3E%3C/svg%3E");
+}
+
+.navigation-card[href="#/entreeopleiding"]::before {
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 21h16M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16M10 12h4'/%3E%3Cpath d='m12 9 3 3-3 3'/%3E%3C/svg%3E");
+}
+
+.navigation-card-title {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.navigation-card-title strong {
+    color: var(--color-heading);
+    font-size: 1.2rem;
+    line-height: 1.25;
+}
+
+.navigation-card-title small {
+    color: var(--color-text-muted);
+    font-size: 0.86rem;
+    font-weight: 650;
+    letter-spacing: 0.02em;
 }
 
 .navigation-card[href="#/burgerschap"]::before {
@@ -659,6 +684,7 @@ main {
     .navigation-card[href="#/traiteur"]::before,
     .navigation-card[href="#/bol-allround-food-expert"]::before,
     .navigation-card[href="#/hospitality"]::before,
+    .navigation-card[href="#/entreeopleiding"]::before,
     .navigation-card[href="#/burgerschap"]::before,
     .navigation-card[href="#/rekenen"]::before,
     .navigation-card[href="#/nederlands"]::before {
