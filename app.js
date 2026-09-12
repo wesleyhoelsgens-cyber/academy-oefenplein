@@ -331,6 +331,24 @@ const academyData = {
             }, [createEindtoetsOnderdeel()]),
             createLeerjaar(2, [5, 6], {}, [createEindexamenOnderdeel()])
         ]),
+        createOpleiding("entreeopleiding", "Entreeopleiding (niveau 1)", [], [], [
+            {
+                id: "safety-scan",
+                naam: "Safety Scan",
+                modules: [
+                    {
+                        id: "safety-scan-entree-niveau-1",
+                        titel: "Safety Scan – Entree niveau 1",
+                        type: "Interactieve praktijkopdracht",
+                        duur: "Ongeveer 1,5 uur",
+                        beschrijving: "Doorloop de uitleg en voer de Safety Scan uit. Rond daarna de Bonus Quest af en bespreek en presenteer de resultaten; tijdens de nabespreking zijn extra punten te verdienen.",
+                        bestand: "modules/entreeopleiding/leerjaar-1/periode-1/safety-scan/safety-scan-entree-niveau-1.html",
+                        actieLabel: "Start Safety Scan",
+                        beschikbaar: true
+                    }
+                ]
+            }
+        ]),
         createOpleiding("burgerschap", "Burgerschap", [
             createLeerjaar(1, [1, 2, 3, 4]),
             createLeerjaar(2, [1, 2, 3, 4])
@@ -447,8 +465,8 @@ function createWarmeBereidingstechniekenOnderdeel() {
     };
 }
 
-function createOpleiding(id, naam, leerjaren, onderdelen = []) {
-    return { id, naam, leerjaren, onderdelen };
+function createOpleiding(id, naam, leerjaren, onderdelen = [], themas = []) {
+    return { id, naam, leerjaren, onderdelen, themas };
 }
 
 const app = document.getElementById("app");
@@ -495,6 +513,8 @@ function renderCards(items, parentRoute) {
 }
 
 function renderOpleidingOverview(opleiding) {
+    if (opleiding.themas.length) return renderModuleOverview(opleiding.themas);
+
     const overzichtLabel = opleiding.leerjaren.length
         ? "Leerjaren en onderdelen"
         : "Onderdelen";
@@ -696,10 +716,13 @@ function render() {
     if (!leerjaarIdOfRouteType) {
         const hasLeerjaren = opleiding.leerjaren.length > 0;
         const hasOnderdelen = opleiding.onderdelen.length > 0;
-        const pageTitle = hasLeerjaren
+        const hasThemas = opleiding.themas.length > 0;
+        const pageTitle = hasThemas
+            ? opleiding.naam
+            : hasLeerjaren
             ? (hasOnderdelen ? "Kies je leerjaar of onderdeel" : "Kies je leerjaar")
             : (hasOnderdelen ? "Kies een onderdeel" : opleiding.naam);
-        const overview = hasLeerjaren || hasOnderdelen
+        const overview = hasLeerjaren || hasOnderdelen || hasThemas
             ? renderOpleidingOverview(opleiding)
             : renderOpleidingEmptyState();
 

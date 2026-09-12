@@ -1,0 +1,1325 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Safety Scan voor Entree niveau 1 met uitleg, praktijkonderzoek, Bonus Quest en nabespreking met presentatie.">
+<meta name="author" content="Academy Oefenplein">
+<meta name="academy:module-id" content="safety-scan-entree-niveau-1">
+<meta name="academy:type" content="interactieve-praktijkopdracht">
+<meta name="academy:duration" content="Ongeveer 1,5 uur">
+<meta name="academy:education" content="entreeopleiding">
+<meta name="academy:theme" content="Safety Scan">
+<meta name="academy:version" content="12.0">
+<meta name="academy:last-updated" content="2026-09-12">
+<title>Safety Scan – Entree niveau 1 – Academy Oefenplein</title>
+<style>
+:root{
+  --bg:#f4f3ef; --card:#fff; --ink:#202524; --muted:#6d7472; --line:#d9d8d2;
+  --accent:#315d5b; --accent2:#b85b43; --good:#dff2e5; --warn:#fff0c9; --risk:#f7d8d2; --soft:#ebe9e2;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+body{padding-bottom:88px}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+header{position:sticky;top:0;z-index:20;background:rgba(244,243,239,.96);backdrop-filter:blur(9px);border-bottom:1px solid var(--line)}
+.top{max-width:760px;margin:auto;padding:11px 14px;display:flex;gap:10px;align-items:center;justify-content:space-between}
+.brand{font-weight:950;letter-spacing:.02em}.brand span{color:var(--accent2)}
+.top button{border:1px solid var(--line);background:#fff;border-radius:12px;padding:9px 11px;font-weight:850}
+.progress{height:7px;background:#dddcd6}.progress div{height:100%;background:var(--accent);width:0;transition:.25s}
+main{max-width:760px;margin:auto;padding:14px}
+.screen{display:none}.screen.active{display:block}
+.hero,.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;margin-bottom:12px;box-shadow:0 8px 24px rgba(35,40,38,.05)}
+.kicker{font-size:12px;font-weight:950;letter-spacing:.10em;text-transform:uppercase;color:var(--accent2)}
+h1{font-size:34px;line-height:1.02;margin:8px 0 12px} h2{font-size:26px;margin:5px 0 10px} h3{margin:0 0 8px}
+p{line-height:1.48}.lead{font-size:17px;color:#424948}
+.notice{background:var(--accent);color:white;border-radius:16px;padding:14px;margin-top:12px;line-height:1.45}
+.rules{padding-left:20px;line-height:1.55}
+.missiongrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mission{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px}
+.mission b{display:block;margin-bottom:5px}
+label{display:block;font-size:13px;font-weight:900;margin:13px 0 7px}
+input[type=text],textarea,select{width:100%;border:1px solid #cfcfc8;border-radius:13px;padding:12px;background:#fff}
+textarea{min-height:90px;resize:vertical}
+.photoBox{border:2px dashed #c8c8c1;border-radius:16px;padding:14px;text-align:center;background:#faf9f6}
+.photoBox img{width:100%;max-height:280px;object-fit:cover;border-radius:12px;margin-top:10px}
+.photoBox input{width:100%}
+.choices{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.choice{border:1px solid var(--line);background:#fff;border-radius:14px;padding:13px 7px;font-weight:900;text-align:center}
+.choice.good.active{background:var(--good);border-color:#8bbb98}
+.choice.warn.active{background:var(--warn);border-color:#dfb755}
+.choice.risk.active{background:var(--risk);border-color:#d28a80}
+.riskgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.riskbtn{border:1px solid var(--line);background:#fff;border-radius:13px;padding:11px;text-align:left;font-weight:800}
+.riskbtn.active{background:var(--soft);border-color:#999}
+.primary{width:100%;border:0;background:var(--accent2);color:#fff;border-radius:15px;padding:15px;font-size:17px;font-weight:950;margin-top:14px}
+.secondary{background:var(--accent)}
+.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.bottom{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.97);border-top:1px solid var(--line);padding:10px 12px calc(10px + env(safe-area-inset-bottom));display:flex;gap:9px;z-index:30}
+.bottom button{flex:1;border-radius:13px;padding:12px;font-weight:900;border:1px solid var(--line);background:#fff}
+.bottom .next{background:var(--accent2);color:white;border-color:var(--accent2)}
+.scanCard{background:#fff;border:1px solid var(--line);border-radius:18px;padding:13px;margin-bottom:10px}
+.scanHead{display:flex;gap:12px;align-items:flex-start}
+.thumb{width:92px;height:92px;object-fit:cover;border-radius:12px;background:var(--soft);flex:0 0 auto}
+.scanMeta{flex:1}
+.pill{display:inline-block;border-radius:999px;padding:5px 8px;font-size:11px;font-weight:900;margin:2px 3px 2px 0;background:var(--soft)}
+.pill.good{background:var(--good)} .pill.warn{background:var(--warn)} .pill.risk{background:var(--risk)}
+.small{font-size:12px;color:var(--muted)}
+.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.actions button{border:1px solid var(--line);background:#fff;border-radius:11px;padding:8px 10px;font-weight:800}
+.actions .selected{background:var(--accent);color:#fff;border-color:var(--accent)}
+.counter{font-weight:900;font-size:14px;color:var(--accent)}
+.finalBox{border:2px solid var(--accent);border-radius:18px;padding:15px;background:#fff;margin-top:12px}
+.finalPhoto{width:100%;max-height:320px;object-fit:cover;border-radius:14px;margin-top:8px;background:var(--soft)}
+.hidden{display:none!important}
+@media(max-width:420px){.missiongrid,.riskgrid{grid-template-columns:1fr}.choices{grid-template-columns:1fr}.scanHead{align-items:center}.thumb{width:78px;height:78px}}
+@media print{header,.bottom,.no-print{display:none!important}body{padding:0;background:#fff}main{max-width:none}.screen{display:none!important}#finalScreen{display:block!important}.hero,.card,.finalBox{box-shadow:none}}
+
+.field-error{border:2px solid #c94832!important;background:#fff6f3!important}
+.validation-msg{display:none;margin:12px 0 4px;padding:12px 14px;border-radius:13px;background:#f7d8d2;border:1px solid #d28a80;font-weight:850;line-height:1.4}
+.validation-msg.show{display:block}
+
+.report-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+.stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;text-align:center}
+.stat b{display:block;font-size:25px}
+.report-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.report-item{background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px;break-inside:avoid}
+.report-item img{width:100%;height:180px;object-fit:cover;border-radius:12px;background:var(--soft)}
+.report-item h3{margin:9px 0 4px}
+.presentation-wrap{min-height:72vh;display:flex;align-items:center;justify-content:center}
+.presentation-card{width:100%;background:#fff;border:1px solid var(--line);border-radius:24px;padding:24px;text-align:center}
+.presentation-card img{width:100%;max-height:52vh;object-fit:contain;border-radius:16px;background:var(--soft);margin:12px 0}
+.presentation-card h1{font-size:42px}
+.presentation-card p{font-size:22px}
+.presentation-nav{display:flex;gap:10px;margin-top:14px}
+.presentation-nav button{flex:1;border:0;border-radius:14px;padding:14px;font-weight:950}
+@media(max-width:560px){.report-summary{grid-template-columns:repeat(2,1fr)}.report-grid{grid-template-columns:1fr}.presentation-card h1{font-size:30px}.presentation-card p{font-size:18px}}
+@media print{
+  #reportScreen{display:block!important}
+  #finalScreen,#presentationScreen,#homeScreen,#scanScreen,#reviewScreen{display:none!important}
+  .report-grid{grid-template-columns:1fr 1fr}
+  .report-item img{height:150px}
+}
+
+.route{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0}
+.route-step{background:#fff;border:1px solid var(--line);border-radius:15px;padding:12px;text-align:center}
+.route-step .num{display:inline-flex;width:30px;height:30px;border-radius:50%;align-items:center;justify-content:center;background:var(--accent);color:#fff;font-weight:950;margin-bottom:7px}
+.route-step b{display:block;font-size:14px}
+.route-step span{display:block;font-size:12px;color:var(--muted);margin-top:4px}
+.big-route{display:grid;gap:10px;margin-top:12px}
+.big-step{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px}
+.big-step .icon{font-size:28px;width:42px;text-align:center;flex:0 0 auto}
+.big-step b{display:block;margin-bottom:3px}
+@media(max-width:560px){.route{grid-template-columns:repeat(2,1fr)}}
+.quest-option{width:100%;text-align:left;border:1px solid var(--line);background:#fff;border-radius:13px;padding:13px;margin:6px 0;font-weight:800}.quest-option.correct{background:var(--good)}.quest-option.wrong{background:var(--risk)}.quest-feedback{margin-top:10px;padding:12px;border-radius:12px;background:var(--soft);line-height:1.4}
+
+.launch{min-height:76vh;display:flex;align-items:center;justify-content:center}
+.launch-card{width:100%;max-width:720px;background:#fff;border:1px solid var(--line);border-radius:26px;padding:24px;box-shadow:0 16px 42px rgba(30,35,33,.08)}
+.launch-card h1{font-size:46px;margin-bottom:8px}
+.launch-actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+.launch-choice{border:1px solid var(--line);border-radius:18px;background:#fff;padding:20px;text-align:left;min-height:150px}
+.launch-choice:hover{border-color:var(--accent)}
+.launch-choice .emoji{font-size:32px;display:block;margin-bottom:8px}
+.launch-choice b{font-size:20px;display:block;margin-bottom:6px}
+.launch-choice span{color:var(--muted);line-height:1.35}
+.resume-box{margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+.kudos-bar{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;background:#fff0c9;border:1px solid #dfb755;border-radius:16px;padding:13px 15px;margin-bottom:12px}
+.kudos-number{font-size:28px;font-weight:950}
+.kudos-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kudos-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px}
+.kudos-card.awarded{background:#fff0c9;border-color:#dfb755}
+.kudos-card button{width:100%;border:1px solid var(--line);border-radius:12px;padding:10px;font-weight:900;background:#fff;margin-top:8px}
+.score-breakdown{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.score-part{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;text-align:center}
+.score-part b{display:block;font-size:22px}
+.guardrail{background:#f7efe3;border:1px solid #dfc8a7;border-radius:14px;padding:12px;margin-top:10px}
+@media(max-width:560px){
+  .launch-actions,.kudos-grid,.score-breakdown{grid-template-columns:1fr}
+  .launch-card h1{font-size:36px}
+}
+
+.warning-card{background:#fff7e6;border:1px solid #e0b95d;border-radius:16px;padding:14px;margin:12px 0}
+.danger-zone{background:#fff;border:1px solid #d9a39b;border-radius:16px;padding:14px;margin-top:14px}
+.danger-zone button{background:#fff;color:#9b2c20;border:1px solid #d9a39b}
+.duplicate-warning{background:#f7efe3;border:1px solid #dfc8a7;border-radius:12px;padding:10px 12px;margin-top:10px;font-weight:800}
+
+.help-toggle{width:100%;border:1px solid var(--line);background:#f8fafb;border-radius:14px;padding:12px 14px;font-weight:900;text-align:left;margin:10px 0}
+.help-panel{display:none;background:#eef6ff;border:1px solid #b9d4ef;border-radius:14px;padding:14px;margin:8px 0 14px}
+.help-panel.show{display:block}
+.help-panel h3{margin:0 0 8px}
+.help-panel ul{margin:8px 0 0 18px;padding:0}
+.help-panel li{margin:6px 0}
+.academy-nav{background:#123f3b;color:#fff;padding:9px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;overflow:hidden}.academy-nav a{color:#fff;text-decoration:none;padding:7px 10px;border:1px solid #ffffff66;border-radius:10px;font-weight:850}.academy-nav span{width:100%;font-size:13px;overflow-wrap:anywhere}.academy-nav-note{width:100%;font-size:12px;margin:0;color:#fff;overflow-wrap:anywhere}
+</style>
+</head>
+<body>
+<nav class="academy-nav no-print" aria-label="Academy navigatie"><a href="../../../../../index.html#/entreeopleiding">← Terug naar Entreeopleiding</a><span>Academy Oefenplein › Entreeopleiding (niveau 1) › Safety Scan</span><p class="academy-nav-note">Doorlooptijd: ongeveer 1,5 uur. Dit is inclusief uitleg, Safety Scan, Bonus Quest en nabespreking met presentatie en extra punten.</p></nav>
+<header>
+  <div class="top">
+    <div class="brand">SAFETY <span>SCAN</span> • ENTREE</div>
+    <button onclick="goHome()">⌂ Home</button>
+  </div>
+  <div class="progress"><div id="progressBar"></div></div>
+</header>
+
+<main>
+<section id="launchScreen" class="screen active">
+  <div class="launch">
+    <div class="launch-card">
+      <div class="kicker">Safety Scan • Entree Niveau 1</div>
+      <h1>Klaar om te scannen?</h1>
+      <p class="lead">Kies wat jullie nodig hebben. Eerste keer? Bekijk de uitleg. Ken je de opdracht al? Dan kun je meteen starten.</p>
+
+      <div class="launch-actions">
+        <button class="launch-choice" onclick="openExplanation()">
+          <span class="emoji">📖</span>
+          <b>Ik wil uitleg</b>
+          <span>Bekijk de opdracht, spelregels en de hele route.</span>
+        </button>
+        <button class="launch-choice" onclick="openQuickStart()">
+          <span class="emoji">🚀</span>
+          <b>Ik wil meteen starten</b>
+          <span>Sla de uitleg over en begin direct met scannen.</span>
+        </button>
+      </div>
+
+      <div class="resume-box" id="resumeBox" style="display:none">
+        <button class="primary secondary" onclick="resumeWork()">↩ VERDER MET MIJN VORIGE SAFETY SCAN</button>
+        <p class="small" id="resumeText"></p>
+      </div>
+
+      <div class="danger-zone" id="resetBox" style="display:none">
+        <b>Nieuwe groep of helemaal opnieuw?</b>
+        <p class="small">Gebruik dit alleen als jullie zeker weten dat de huidige scans niet meer nodig zijn.</p>
+        <button class="primary ghost" onclick="beginReset()">🗑 NIEUWE GROEP / ALLES WISSEN</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="quickStartScreen" class="screen">
+  <div class="hero">
+    <div class="kicker">Direct starten</div>
+    <h1>Wie zijn jullie?</h1>
+    <p class="lead">Vul jullie namen in en ga meteen op pad.</p>
+    <div class="guardrail"><b>Drie regels die altijd gelden:</b><br>
+      1. Geen herkenbare personen fotograferen.<br>
+      2. Gevaar niet aanraken of zelf repareren.<br>
+      3. Direct gevaar? Stop en waarschuw de docent.
+    </div>
+  </div>
+  <div class="card">
+    <label>Namen duo</label>
+    <input id="quickTeamInput" type="text" placeholder="Bijv. Sam & Lina">
+    <div id="quickStartMessage" class="validation-msg"></div>
+    <button class="primary" onclick="startQuickMission()">START SAFETY SCAN →</button>
+    <button class="primary ghost" onclick="showScreen('launchScreen')">← Terug</button>
+  </div>
+</section>
+
+<section id="homeScreen" class="screen">
+  <div class="hero">
+    <div class="kicker">Niveau 1 • Schoolonderzoek</div>
+    <h1>Zoek veilig. Kijk scherp.</h1>
+    <p class="lead">Jullie controleren de keukens en praktijkruimtes van school. Zoek wat <b>goed en veilig</b> is én wat <b>beter kan</b>.</p>
+    <div class="notice"><b>Belangrijk:</b> Zie je direct gevaar? Niet aanraken of zelf oplossen. Waarschuw meteen de docent.</div>
+  </div>
+
+  <div class="card">
+    <div class="kicker">Zo werkt de opdracht</div>
+    <h2>Van Safety Scan naar presentatie</h2>
+    <p class="lead">Vandaag gaan jullie niet alleen rondkijken. Jullie doen een klein <b>veiligheidsonderzoek</b> en presenteren aan het einde wat jullie hebben ontdekt.</p>
+
+    <div class="route">
+      <div class="route-step"><div class="num">1</div><b>Start</b><span>Werk in duo's</span></div>
+      <div class="route-step"><div class="num">2</div><b>Onderzoek</b><span>Start buiten en ga veilig op pad</span></div>
+      <div class="route-step"><div class="num">3</div><b>Scan</b><span>Maak 6–8 vondsten</span></div>
+      <div class="route-step"><div class="num">4</div><b>Beoordeel</b><span>Groen, oranje of rood</span></div>
+      <div class="route-step"><div class="num">5</div><b>Leg uit</b><span>Wat zie je en waarom?</span></div>
+      <div class="route-step"><div class="num">6</div><b>Kies</b><span>Beste + belangrijkste</span></div>
+      <div class="route-step"><div class="num">7</div><b>Verbeter</b><span>Wat zouden jullie doen?</span></div>
+      <div class="route-step"><div class="num">8</div><b>Bonus Quest</b><span>Verdien extra Kudos</span></div><div class="route-step"><div class="num">9</div><b>Presenteer</b><span>Laat resultaat zien</span></div>
+    </div>
+
+    <details>
+      <summary style="cursor:pointer;font-weight:950;padding:10px 0">Bekijk de hele route stap voor stap</summary>
+      <div class="big-route">
+        <div class="big-step"><div class="icon">👥</div><div><b>1. Vorm een duo</b><span>Vul jullie namen in en lees samen de spelregels.</span></div></div>
+        <div class="big-step"><div class="icon">🚶</div><div><b>2. Start buiten en ga op onderzoek</b><span>Controleer keukens, praktijkruimtes, opslag en looproutes waar jullie mogen komen.</span></div></div>
+        <div class="big-step"><div class="icon">📸</div><div><b>3. Maak 6–8 Safety Scans</b><span>Maak een foto van de situatie. Geen herkenbare personen op de foto.</span></div></div>
+        <div class="big-step"><div class="icon">🚦</div><div><b>4. Beoordeel iedere vondst</b><span>🟢 goed & veilig · 🟠 kan beter · 🔴 onveilig.</span></div></div>
+        <div class="big-step"><div class="icon">⚠️</div><div><b>5. Denk na over het risico</b><span>Wat kan er gebeuren? Leg in eenvoudige woorden uit wat jullie zien.</span></div></div>
+        <div class="big-step"><div class="icon">🏆</div><div><b>6. Bekijk jullie overzicht</b><span>Kies het beste veilige voorbeeld en het belangrijkste risico.</span></div></div>
+        <div class="big-step"><div class="icon">💡</div><div><b>7. Bedenk een verbetering</b><span>Wat zouden jullie veranderen om de situatie veiliger of beter te maken?</span></div></div>
+        <div class="big-step"><div class="icon">⭐</div><div><b>8. Speel de Bonus Quest</b><span>Beantwoord 8 keuzevragen. Goede antwoorden leveren extra Kudos op.</span></div></div><div class="big-step"><div class="icon">🖥️</div><div><b>9. Lever op en presenteer</b><span>Laat jullie resultaten op het digibord zien of maak een rapport/PDF voor de docent.</span></div></div>
+      </div>
+    </details>
+
+    <div class="notice"><b>Jullie einddoel:</b> kunnen laten zien wat veilig werken is, een risico herkennen én uitleggen hoe het beter kan.</div>
+  </div>
+
+  <div class="card">
+    <h3>Jullie missie</h3>
+    <div class="missiongrid">
+      <div class="mission"><b>📸 6–8 scans</b><span class="small">Maak foto's van situaties, niet van personen.</span></div>
+      <div class="mission"><b>🟢 Zoek wat goed gaat</b><span class="small">Veilig werken herkennen is net zo belangrijk.</span></div>
+      <div class="mission"><b>🟠 Zoek wat beter kan</b><span class="small">Leg kort uit waarom.</span></div>
+      <div class="mission"><b>🔴 Zie je gevaar?</b><span class="small">Foto als dat veilig kan, daarna docent waarschuwen.</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Spelregels</h3>
+    <ul class="rules">
+      <li>Werk in duo's.</li>
+      <li>Blijf alleen in ruimtes waar jullie mogen komen.</li>
+      <li>Fotografeer <b>geen herkenbare personen</b>.</li>
+      <li>Raak gevaarlijke spullen of situaties niet aan.</li>
+      <li>Verplaats niets alleen voor een betere foto.</li>
+      <li>Bij direct gevaar: stop en meld het aan de docent.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <label>Namen duo</label>
+    <input id="teamInput" type="text" placeholder="Bijv. Sam & Lina">
+    <button class="primary" onclick="startMission()">IK SNAP DE OPDRACHT – START →</button>
+  </div>
+
+  <div class="card">
+    <div class="kicker">Eindproduct</div>
+    <h2>Jullie overzicht & rapport</h2>
+    <p class="lead">Hier komen alle gemaakte scans samen. Je kunt altijd terugkijken. Vanaf 6 scans kun je ook presenteren en exporteren.</p>
+    <button class="primary secondary" onclick="openReview()">📋 OPEN OVERZICHT VAN SCANS</button>
+    <button class="primary ghost" id="homeReportBtn" onclick="openReport()">📄 OPEN EINDRAPPORT</button>
+    <button class="primary ghost" id="homePresentBtn" onclick="startPresentation()">🖥️ PRESENTATIE MODUS</button>
+    <p class="small" id="homeOutputStatus">Nog 6 scans nodig voor Bonus Quest, rapport en presentatie.</p>
+  </div>
+</section>
+
+<section id="scanScreen" class="screen">
+  <div class="hero">
+    <div class="kicker">Nieuwe vondst</div>
+    <h2>Wat zien jullie?</h2>
+    <div class="counter" id="scanCounter">0 scans opgeslagen</div>
+  </div>
+
+  <div class="card">
+    <label>1. Waar zijn jullie?</label>
+    <select id="zone" onchange="updateLocationHelp()">
+      <option value="">Kies een plek...</option>
+      <option value="Start buiten – aanzicht school & trap">⭐ START HIER – Buiten: aanzicht school & trap</option>
+      <option value="Entree – ronde cirkel & ingangsdeur">Entree – ronde cirkel & ingangsdeur</option>
+      <option value="Gang / looproute">Gang / looproute</option>
+      <option value="Open Leercentrum – bank & kas">Open Leercentrum – bank & kas</option>
+      <option value="Deur richting kelder">Deur richting kelder</option>
+      <option value="Kleedruimte">Kleedruimte</option>
+      <option value="Afwasruimte">Afwasruimte</option>
+      <option value="Praktijkrestaurant">Restaurant / praktijkrestaurant</option>
+      <option value="Nooduitgangen restaurant">Nooduitgangen restaurant – controleer ze allemaal</option>
+      <option value="Open keuken">Open keuken</option>
+      <option value="Slagerij werkruimte">Slagerij – werkruimte</option>
+      <option value="Slagerijvoorraadhok">Slagerijvoorraadhok</option>
+      <option value="Koelcel">Koelcel</option>
+      <option value="Diepvries">Diepvries</option>
+      <option value="Magazijn / opslag">Magazijn / opslag</option>
+      <option value="Andere plek">Andere plek</option>
+</select>
+    <button type="button" class="help-toggle" onclick="toggleLocationHelp()">💡 Help – waar moet ik op letten?</button>
+    <div id="locationHelp" class="help-panel">
+      <h3 id="locationHelpTitle">Waar let je op?</h3>
+      <div id="locationHelpBody">Kies eerst een locatie.</div>
+    </div>
+
+
+    <label>2. Maak een foto</label>
+    <div class="photoBox">
+      <div>📸 Fotografeer alleen de situatie</div>
+      <input id="photoInput" type="file" accept="image/*" capture="environment" onchange="handlePhoto(event)">
+      <img id="preview" class="hidden" alt="Voorbeeldfoto">
+    </div>
+    <div id="duplicateWarning" class="duplicate-warning hidden">⚠️ Deze foto lijkt sterk op een eerdere scan. Zoek liever een andere situatie, tenzij jullie bewust iets anders onderzoeken.</div>
+
+    <label>3. Wat vinden jullie?</label>
+    <div class="choices">
+      <button class="choice good" data-rating="good" onclick="setRating('good')">🟢<br>Goed & veilig</button>
+      <button class="choice warn" data-rating="warn" onclick="setRating('warn')">🟠<br>Kan beter</button>
+      <button class="choice risk" data-rating="risk" onclick="setRating('risk')">🔴<br>Onveilig</button>
+    </div>
+
+    <div id="riskArea">
+      <label>4. Wat kan er gebeuren?</label>
+      <div class="riskgrid" id="riskButtons"></div>
+    </div>
+
+    <label id="noteLabel">5. Leg kort uit</label>
+    <textarea id="note" placeholder="Ik zie… / Dit is goed omdat… / Beter is…"></textarea>
+
+    <div id="validationMessage" class="validation-msg"></div>
+<div id="saveMessage" class="hidden" style="margin-top:12px;padding:12px;border-radius:12px;background:#dff2e5;font-weight:900">✓ Scan opgeslagen. Ga door met de volgende.</div>
+<button type="button" class="primary" onclick="saveScan()">OPSLAAN + VOLGENDE SCAN</button>
+  </div>
+</section>
+
+<section id="reviewScreen" class="screen">
+  <div class="hero">
+    <div class="kicker">Jullie overzicht</div>
+    <h1>Safety Scan Dashboard</h1>
+    <p class="lead">Hier staan alle vondsten van jullie duo.</p>
+    <div class="report-summary">
+      <div class="stat"><b id="dashTotal">0</b><span>scans</span></div>
+      <div class="stat"><b id="dashGreen">0</b><span>🟢 goed</span></div>
+      <div class="stat"><b id="dashOrange">0</b><span>🟠 beter</span></div>
+      <div class="stat"><b id="dashRed">0</b><span>🔴 onveilig</span></div>
+    </div>
+    <p class="lead">Kies één <b>beste veilige voorbeeld</b> en één <b>belangrijkste risico</b>.</p>
+  </div>
+  <div class="kudos-bar">
+    <div><b>Team Kudos</b><div class="small">Onderzoek + Bonus Quest + docentbonus</div></div>
+    <div class="kudos-number" id="reviewKudos">0 ⭐</div>
+  </div>
+  <div id="scanList"></div>
+  <div class="card">
+    <button class="primary secondary" onclick="newScan()">+ NOG EEN SCAN</button>
+    <button class="primary" id="finishBtn" onclick="openFinal()">NAAR DE AFSLUITING →</button>
+    <p class="small">De afsluiting is beschikbaar vanaf 6 scans.</p>
+  </div>
+
+  <div id="reviewWarnings"></div>
+
+  <div class="card" id="outputPanel">
+    <div class="kicker">Opleveren & presenteren</div>
+    <h2>Maak van jullie scans een eindproduct</h2>
+    <p class="lead">Vanaf 6 scans kun je het rapport bekijken, presenteren op het digibord of exporteren als PDF.</p>
+    <button class="primary" id="reviewQuestBtn" onclick="startQuest()">⭐ START BONUS QUEST</button>
+    <button class="primary secondary" id="reviewReportBtn" onclick="openReport()">📋 BEKIJK EINDRAPPORT</button>
+    <button class="primary secondary" id="reviewPresentBtn" onclick="startPresentation()">🖥️ PRESENTATIE MODUS</button>
+    <button class="primary" id="reviewPdfBtn" onclick="openReport(true)">📄 EXPORT RAPPORT ALS PDF</button>
+    <button class="primary ghost" id="reviewShareBtn" onclick="copySummary()">📤 DEEL SAMENVATTING</button><button class="primary ghost" id="teacherKudosBtn" onclick="openTeacherKudos()">🎓 DOCENT KUDOS</button>
+    <div id="outputLockMsg" class="notice" style="margin-top:12px;background:#6d7472">
+      Maak eerst minimaal 6 scans om deze functies te gebruiken.
+    </div>
+  </div>
+</section>
+
+<section id="finalScreen" class="screen">
+  <div class="hero">
+    <div class="kicker">Klassikale afsluiting</div>
+    <h1>Jullie Safety Scan</h1>
+    <p class="lead">Laat in maximaal één minuut zien wat jullie hebben ontdekt.</p>
+    <p><b>Duo:</b> <span id="finalTeam"></span></p>
+  </div>
+
+  <div class="finalBox">
+    <h3>🏆 Beste veilige voorbeeld</h3>
+    <div id="bestSafeBox">Nog niet gekozen.</div>
+  </div>
+
+  <div class="finalBox">
+    <h3>⚠️ Belangrijkste risico</h3>
+    <div id="topRiskBox">Nog niet gekozen.</div>
+  </div>
+
+  <div class="card">
+    <h3>💡 Onze verbetering</h3>
+    <p class="small">Wat zouden jullie als eerste verbeteren?</p>
+    <textarea id="improvement" placeholder="Wij zouden…" oninput="state.improvement=this.value;saveState()"></textarea>
+  </div>
+
+  <div class="card">
+    <div class="kicker">Team Safety Score</div>
+    <h2><span id="finalKudosTotal">0</span> Kudos ⭐</h2>
+    <div class="score-breakdown">
+      <div class="score-part"><b id="finalScanKudos">0</b><span>onderzoek</span></div>
+      <div class="score-part"><b id="finalQuestKudos">0</b><span>Bonus Quest</span></div>
+      <div class="score-part"><b id="finalTeacherKudos">0</b><span>docent</span></div>
+      <div class="score-part"><b id="finalLevel">Starter</b><span>status</span></div>
+    </div>
+  </div>
+
+  <div class="card no-print">
+    <h3>Wat willen jullie doen?</h3>
+    <button class="primary secondary" onclick="openReport()">📋 BEKIJK EINDRAPPORT</button>
+    <button class="primary secondary" onclick="startPresentation()">🖥️ PRESENTATIE MODUS – DIGIBORD</button><button class="primary secondary" onclick="openTeacherKudos()">🎓 DOCENT KUDOS</button>
+    <button class="primary" onclick="openReport(true)">📄 EXPORT RAPPORT ALS PDF</button>
+    <button class="primary ghost" onclick="copySummary()">📤 KOPIEER SAMENVATTING</button>
+    <button class="primary ghost" onclick="showScreen('reviewScreen')">← Terug naar vondsten</button>
+  </div>
+</section>
+
+<section id="questScreen" class="screen"><div class="hero"><div class="kicker">Bonus Quest</div><h1>⭐ Safety Challenge</h1><p class="lead">8 korte keuzevragen. Ieder goed antwoord = <b>100 bonuspunten</b>.</p><div id="questProgress" class="counter"></div></div><div id="questContent"></div></section>
+<section id="questResultScreen" class="screen"><div class="hero"><div class="kicker">Bonus Quest voltooid</div><h1>Jullie score</h1><div id="questScoreBig" style="font-size:44px;font-weight:950"></div></div><div class="card" id="questResultText"></div><div class="card"><button class="primary secondary" onclick="openReview()">📋 TERUG NAAR OVERZICHT</button><button class="primary" onclick="openFinal()">NAAR EINDRESULTAAT →</button></div></section>
+<section id="teacherKudosScreen" class="screen">
+  <div class="hero">
+    <div class="kicker">Alleen bij de afsluiting</div>
+    <h1>🎓 Docent Kudos</h1>
+    <p class="lead">De docent kan extra Kudos geven voor kwaliteit. Niet omdat iets gevaarlijk is, maar omdat jullie het <b>goed zagen, goed uitlegden of goed oplosten</b>.</p>
+    <div class="notice"><b>Let op:</b> dit is een klassikale bonus. Laat de docent bepalen welke Kudos jullie krijgen.</div>
+  </div>
+
+  <div class="kudos-bar">
+    <div><b>Docentbonus</b><div class="small">Klik nogmaals om een bonus terug te draaien.</div></div>
+    <div class="kudos-number" id="teacherKudosTotal">0 ⭐</div>
+  </div>
+
+  <div class="kudos-grid" id="teacherKudosGrid"></div>
+
+  <div class="card">
+    <button class="primary secondary" onclick="openReview()">← TERUG NAAR OVERZICHT</button>
+  </div>
+</section>
+
+<section id="reportScreen" class="screen">
+  <div class="hero">
+    <div class="kicker">Safety Scan Rapport</div>
+    <h1>Veiligheidscheck van school</h1>
+    <p class="lead"><b>Duo:</b> <span id="reportTeam"></span></p>
+    <div class="report-summary">
+      <div class="stat"><b id="statTotal">0</b><span>scans</span></div>
+      <div class="stat"><b id="statGreen">0</b><span>🟢 groen</span></div>
+      <div class="stat"><b id="statOrange">0</b><span>🟠 oranje</span></div>
+      <div class="stat"><b id="statRed">0</b><span>🔴 rood</span></div><div class="stat"><b id="statBonus">0</b><span>⭐ bonus</span></div>
+    </div>
+  </div>
+
+  <div class="finalBox">
+    <h3>🏆 Beste veilige voorbeeld</h3>
+    <div id="reportBest"></div>
+  </div>
+  <div class="finalBox">
+    <h3>⚠️ Belangrijkste risico</h3>
+    <div id="reportRisk"></div>
+  </div>
+  <div class="finalBox">
+    <h3>💡 Onze verbetering</h3>
+    <p id="reportImprovement">—</p>
+  </div>
+
+  <div class="card">
+    <h2>Alle vondsten</h2>
+    <div class="report-grid" id="reportGrid"></div>
+  </div>
+
+  <div class="card no-print">
+    <button class="primary secondary" onclick="window.print()">📄 PRINT / BEWAAR ALS PDF</button>
+    <button class="primary ghost" onclick="copySummary()">📤 KOPIEER SAMENVATTING</button>
+    <button class="primary ghost" onclick="showScreen('finalScreen')">← Terug</button>
+  </div>
+</section>
+
+<section id="presentationScreen" class="screen">
+  <div class="hero no-print">
+    <div class="kicker">Digibordmodus</div>
+    <h2>Presentatie</h2>
+    <p class="small">Gebruik de pijlen om door jullie drie hoofdpunten te gaan.</p>
+  </div>
+  <div class="presentation-wrap">
+    <div class="presentation-card" id="presentationCard"></div>
+  </div>
+  <div class="presentation-nav no-print">
+    <button onclick="presentationPrev()">← VORIGE</button>
+    <button onclick="showScreen('finalScreen')">STOP</button>
+    <button onclick="presentationNext()">VOLGENDE →</button>
+  </div>
+</section>
+</main>
+
+<div class="bottom" id="bottomBar">
+  <button onclick="goHome()">⌂ Home</button>
+  <button onclick="openReview()">📋 Overzicht</button>
+  <button class="next" onclick="openReview()">Vondsten →</button>
+</div>
+
+<script>
+const risks = ["💧 Uitglijden","🪜 Vallen","🔪 Snijden","🔥 Verbranden","💥 Botsen","🦠 Ziek worden","🔥 Brand","❓ Iets anders"];
+let state = JSON.parse(localStorage.getItem("entree_safety_state")||"null") || {
+  team:"", scans:[], bestSafe:null, topRisk:null, improvement:"", quest:null, teacherKudos:{}
+};
+if(!("quest" in state)) state.quest=null;
+if(!state.teacherKudos) state.teacherKudos={};
+let draft = {rating:"",risk:"",photoData:"",photoSig:null,looksDuplicate:false};
+
+
+function saveState(){
+  try{
+    localStorage.setItem("entree_safety_state",JSON.stringify(state));
+  }catch(e){
+    console.warn("Opslaan in localStorage lukte niet:", e);
+  }
+  updateProgress();
+}
+function esc(s){return String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));}
+function showScreen(id){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  const target=document.getElementById(id);
+  if(!target) return;
+  target.classList.add("active");
+  const hideBottom=["launchScreen","homeScreen","quickStartScreen"].includes(id);
+  document.getElementById("bottomBar").style.display=hideBottom?"none":"flex";
+  window.scrollTo({top:0,behavior:"smooth"});
+  updateProgress();
+}
+function goHome(){showScreen("launchScreen");updateLaunch();}
+function openExplanation(){showScreen("homeScreen");document.getElementById("teamInput").value=state.team||"";}
+function openQuickStart(){showScreen("quickStartScreen");document.getElementById("quickTeamInput").value=state.team||"";}
+function updateLaunch(){
+  const box=document.getElementById("resumeBox"), txt=document.getElementById("resumeText");
+  if(!box)return;
+  const resetBox=document.getElementById("resetBox");
+  if(state.scans.length>0){
+    box.style.display="block";
+    txt.textContent=`${state.team||"Dit team"} heeft ${state.scans.length} scan${state.scans.length===1?"":"s"} opgeslagen.`;
+    if(resetBox) resetBox.style.display="block";
+  } else {
+    box.style.display="none";
+    if(resetBox) resetBox.style.display="none";
+  }
+}
+
+function beginReset(){
+  const check=prompt('Typ WISSEN om alle scans, punten en antwoorden te verwijderen.');
+  if(check!=="WISSEN"){
+    alert("Niets verwijderd. Typ precies WISSEN als je echt opnieuw wilt beginnen.");
+    return;
+  }
+  const again=confirm("Weet je het zeker? Alle scans, foto's, Bonus Quest en Kudos worden verwijderd.");
+  if(!again)return;
+  state={team:"",scans:[],bestSafe:null,topRisk:null,improvement:"",quest:null,teacherKudos:{}};
+  saveState();
+  document.getElementById("teamInput").value="";
+  document.getElementById("quickTeamInput").value="";
+  updateLaunch();
+  alert("Alles is gewist. Een nieuwe groep kan beginnen.");
+  showScreen("launchScreen");
+}
+
+function resumeWork(){
+  if(state.scans.length>0) openReview();
+  else openQuickStart();
+}
+function startQuickMission(){
+  const input=document.getElementById("quickTeamInput");
+  const msg=document.getElementById("quickStartMessage");
+  const name=input.value.trim();
+  if(!name){
+    msg.innerHTML="⚠️ Vul eerst de <b>namen van jullie duo</b> in.";
+    msg.classList.add("show");
+    input.classList.add("field-error");
+    return;
+  }
+  msg.classList.remove("show"); input.classList.remove("field-error");
+  state.team=name; saveState(); newScan();
+}
+function updateProgress(){
+  document.getElementById("progressBar").style.width=Math.min(100,(state.scans.length/6)*100)+"%";
+  const ready=state.scans.length>=6;
+  const left=Math.max(0,6-state.scans.length);
+  const hs=document.getElementById("homeOutputStatus");
+  if(hs) hs.textContent=ready?"✓ Bonus Quest, rapport en presentatie zijn beschikbaar.":`Nog ${left} scan${left===1?"":"s"} nodig voor Bonus Quest, rapport en presentatie.`;
+  updateLaunch();
+  ["homeReportBtn","homePresentBtn"].forEach(id=>{
+    const b=document.getElementById(id);
+    if(b){b.disabled=!ready;b.style.opacity=ready?"1":".45";}
+  });
+}
+function startMission(){
+  const input=document.getElementById("teamInput");
+  const name=input.value.trim();
+  if(!name){alert("Vul eerst de namen van jullie duo in.");input.focus();return}
+  state.team=name;saveState();newScan();
+}
+function newScan(){resetDraft();showScreen("scanScreen");document.getElementById("scanCounter").textContent=`${state.scans.length} scans opgeslagen`;}
+function resetDraft(){draft={rating:"",risk:"",photoData:"",photoSig:null,looksDuplicate:false};document.getElementById("zone").value="";document.getElementById("note").value="";document.getElementById("photoInput").value="";document.getElementById("preview").src="";document.getElementById("preview").classList.add("hidden");const sm=document.getElementById("saveMessage"); if(sm) sm.classList.add("hidden");
+  const dw=document.getElementById("duplicateWarning"); if(dw) dw.classList.add("hidden");document.querySelectorAll(".choice").forEach(b=>b.classList.remove("active"));document.querySelectorAll(".riskbtn").forEach(b=>b.classList.remove("active"));}
+function setRating(r){draft.rating=r;document.querySelectorAll(".choice").forEach(b=>b.classList.toggle("active",b.dataset.rating===r));document.getElementById("riskArea").classList.toggle("hidden",r==="good");document.getElementById("noteLabel").textContent=r==="good"?"4. Waarom is dit goed en veilig?":"5. Leg kort uit";document.getElementById("note").placeholder=r==="good"?"Dit is goed omdat…":"Ik zie… / Het risico is… / Beter is…";}
+function setRisk(r){draft.risk=r;document.querySelectorAll(".riskbtn").forEach(b=>b.classList.toggle("active",b.dataset.risk===r));}
+function buildRiskButtons(){document.getElementById("riskButtons").innerHTML=risks.map(r=>`<button class="riskbtn" data-risk="${esc(r)}" onclick="setRisk('${r.replace(/'/g,"\\'")}')">${r}</button>`).join("");}
+
+function imageSignature(dataUrl){
+  return new Promise((resolve,reject)=>{
+    const img=new Image();
+    img.onload=()=>{
+      const c=document.createElement("canvas");
+      c.width=24;c.height=24;
+      const ctx=c.getContext("2d");
+      ctx.drawImage(img,0,0,24,24);
+      const d=ctx.getImageData(0,0,24,24).data;
+      let r=0,g=0,b=0,n=0;
+      for(let i=0;i<d.length;i+=16){r+=d[i];g+=d[i+1];b+=d[i+2];n++}
+      resolve([Math.round(r/n),Math.round(g/n),Math.round(b/n)]);
+    };
+    img.onerror=reject;
+    img.src=dataUrl;
+  });
+}
+function signatureDistance(a,b){
+  if(!a||!b)return 999;
+  return Math.sqrt((a[0]-b[0])**2+(a[1]-b[1])**2+(a[2]-b[2])**2);
+}
+async function checkDuplicatePhoto(dataUrl){
+  const sig=await imageSignature(dataUrl);
+  draft.photoSig=sig;
+  const similar=state.scans.some(s=>s.photoSig && signatureDistance(sig,s.photoSig)<18);
+  const box=document.getElementById("duplicateWarning");
+  if(box) box.classList.toggle("hidden",!similar);
+  draft.looksDuplicate=similar;
+}
+
+function handlePhoto(e){
+  const file=e.target.files && e.target.files[0];
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload=function(){
+    const img=new Image();
+    img.onload=function(){
+      const max=900;
+      let w=img.width,h=img.height;
+      if(w>h && w>max){h=Math.round(h*max/w);w=max}
+      else if(h>=w && h>max){w=Math.round(w*max/h);h=max}
+      const c=document.createElement("canvas");
+      c.width=w;c.height=h;
+      c.getContext("2d").drawImage(img,0,0,w,h);
+      draft.photoData=c.toDataURL("image/jpeg",0.68);
+      checkDuplicatePhoto(draft.photoData);
+      const preview=document.getElementById("preview");
+      preview.src=draft.photoData;
+      preview.classList.remove("hidden");
+    };
+    img.onerror=function(){
+      alert("Deze foto kon niet worden gelezen. Probeer opnieuw.");
+    };
+    img.src=reader.result;
+  };
+  reader.onerror=function(){ alert("De foto kon niet worden geopend. Probeer opnieuw."); };
+  reader.readAsDataURL(file);
+}
+function clearValidation(){
+  const vm=document.getElementById("validationMessage");
+  if(vm){vm.classList.remove("show");vm.innerHTML="";}
+  document.getElementById("zone").classList.remove("field-error");
+  document.getElementById("note").classList.remove("field-error");
+  document.querySelector(".photoBox").classList.remove("field-error");
+  document.querySelector(".choices").classList.remove("field-error");
+  document.getElementById("riskButtons").classList.remove("field-error");
+}
+function showMissing(message, element){
+  const vm=document.getElementById("validationMessage");
+  vm.innerHTML="⚠️ <b>Nog niet compleet:</b> "+message;
+  vm.classList.add("show");
+  if(element) element.classList.add("field-error");
+  if(element) element.scrollIntoView({behavior:"smooth",block:"center"});
+}
+function saveScan(){
+  clearValidation();
+  const zone=document.getElementById("zone").value;
+  const note=document.getElementById("note").value.trim();
+
+  if(!zone){showMissing("Kies eerst <b>waar jullie zijn</b>.",document.getElementById("zone"));return}
+  if(!draft.photoData){showMissing("Maak eerst <b>een foto van de situatie</b>.",document.querySelector(".photoBox"));return}
+  if(!draft.rating){showMissing("Kies bij stap 3: <b>groen, oranje of rood</b>.",document.querySelector(".choices"));return}
+  if(draft.rating!=="good" && !draft.risk){showMissing("Kies bij stap 4 <b>wat er kan gebeuren</b>.",document.getElementById("riskButtons"));return}
+  if(!note){showMissing(draft.rating==="good"?"Leg kort uit <b>waarom dit goed en veilig is</b>.":"Leg kort uit <b>wat jullie zien en wat beter kan</b>.",document.getElementById("note"));return}
+  if(draft.looksDuplicate){
+    const ok=confirm("Deze foto lijkt sterk op een eerdere scan. Onderzoeken jullie echt een andere situatie? Kies OK om toch op te slaan, of Annuleren om een andere foto te maken.");
+    if(!ok)return;
+  }
+
+  state.scans.push({
+    id:"s_"+Date.now(),
+    zone:zone,
+    rating:draft.rating,
+    risk:draft.rating==="good"?"":draft.risk,
+    note:note,
+    photoData:draft.photoData,
+    photoSig:draft.photoSig
+  });
+
+  saveState();
+  resetDraft();
+  clearValidation();
+  document.getElementById("scanCounter").textContent=`${state.scans.length} scans opgeslagen`;
+  const sm=document.getElementById("saveMessage");
+  if(sm){
+    sm.textContent=`✓ Scan ${state.scans.length} opgeslagen. Ga door met de volgende.`;
+    sm.classList.remove("hidden");
+    setTimeout(()=>sm.classList.add("hidden"),2600);
+  }
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function openReview(){showScreen("reviewScreen");renderReview();}
+function renderReview(){
+  const c=counts();
+  renderKudos();
+
+  const warnings=[];
+  const required=requiredLocationChecks();
+  if(state.scans.length>=1 && !required.outside) warnings.push("⭐ Verplicht: maak een scan buiten, onderaan de trap, van het aanzicht van de school.");
+  if(state.scans.length>=6 && !required.emergency) warnings.push("🚪 Controleer nog de nooduitgangen in het restaurant.");
+  const hasGreen=state.scans.some(s=>s.rating==="good");
+  const hasRisk=state.scans.some(s=>s.rating==="warn"||s.rating==="risk");
+  if(state.scans.length>=6 && !hasGreen) warnings.push("🟢 Jullie hebben nog geen goed & veilig voorbeeld. Zoek ook wat wél goed geregeld is.");
+  if(state.scans.length>=6 && !hasRisk) warnings.push("⚠️ Jullie hebben nog geen oranje of rode vondst. Zoek minimaal één situatie die beter of veiliger kan.");
+  if(state.scans.length>=6 && !state.bestSafe) warnings.push("🏆 Kies nog jullie beste veilige voorbeeld.");
+  if(state.scans.length>=6 && !state.topRisk) warnings.push("🔴 Kies nog jullie belangrijkste risico.");
+
+  const rw=document.getElementById("reviewWarnings");
+  if(rw){
+    rw.innerHTML=warnings.length
+      ? `<div class="warning-card"><b>Nog even afronden</b><ul>${warnings.map(x=>`<li>${x}</li>`).join("")}</ul></div>`
+      : (state.scans.length>=6?`<div class="notice"><b>✓ Klaar voor de eindfase.</b> Jullie hebben groen én risico onderzocht en de belangrijkste voorbeelden gekozen.</div>`:"");
+  }
+  const dt=document.getElementById("dashTotal"), dg=document.getElementById("dashGreen"),
+        doo=document.getElementById("dashOrange"), dr=document.getElementById("dashRed");
+  if(dt) dt.textContent=c.total;
+  if(dg) dg.textContent=c.green;
+  if(doo) doo.textContent=c.orange;
+  if(dr) dr.textContent=c.red;
+  const zones=new Set(state.scans.map(s=>s.zone));
+  if(state.scans.length>=4 && zones.size<2 && rw){
+    rw.innerHTML += `<div class="warning-card"><b>🔎 Zoek breder</b><p>Jullie scans komen bijna allemaal uit dezelfde plek. Kijk ook in een andere ruimte of looproute.</p></div>`;
+  }
+  const list=document.getElementById("scanList");
+  if(!state.scans.length){list.innerHTML='<div class="card">Nog geen scans opgeslagen.</div>';return}
+  list.innerHTML="";
+  for(let i=0;i<state.scans.length;i++){
+    const s=state.scans[i], url=s.photoData||"";
+    const label=s.rating==="good"?"🟢 Goed & veilig":s.rating==="warn"?"🟠 Kan beter":"🔴 Onveilig";
+    const div=document.createElement("div");div.className="scanCard";
+    div.innerHTML=`<div class="scanHead">${url?`<img class="thumb" src="${url}">`:`<div class="thumb"></div>`}<div class="scanMeta"><b>${i+1}. ${esc(s.zone)}</b><div><span class="pill ${s.rating}">${label}</span>${s.risk?`<span class="pill">${esc(s.risk)}</span>`:""}</div><p>${esc(s.note)}</p></div></div>
+      <div class="actions">
+      ${s.rating==="good"?`<button class="${state.bestSafe===s.id?"selected":""}" onclick="chooseBest('${s.id}')">🏆 Beste voorbeeld</button>`:""}
+      ${s.rating!=="good"?`<button class="${state.topRisk===s.id?"selected":""}" onclick="chooseRisk('${s.id}')">⚠️ Belangrijkste risico</button>`:""}
+      <button onclick="removeScan('${s.id}')">Verwijder</button></div>`;
+    list.appendChild(div);
+  }
+  const ready=state.scans.length>=6;
+  const finish=document.getElementById("finishBtn");
+  finish.disabled=!ready;
+  finish.style.opacity=ready?"1":".45";
+
+  ["reviewQuestBtn","reviewReportBtn","reviewPresentBtn","reviewPdfBtn","reviewShareBtn","teacherKudosBtn"].forEach(id=>{
+    const b=document.getElementById(id);
+    if(b){b.disabled=!ready;b.style.opacity=ready?"1":".45";}
+  });
+  const lock=document.getElementById("outputLockMsg");
+  if(lock) lock.style.display=ready?"none":"block";
+}
+function chooseBest(id){state.bestSafe=id;saveState();renderReview()}
+function chooseRisk(id){state.topRisk=id;saveState();renderReview()}
+function removeScan(id){
+  const s=state.scans.find(x=>x.id===id); if(!s)return;
+  if(!confirm("Deze scan verwijderen?"))return;
+  state.scans=state.scans.filter(x=>x.id!==id);
+  if(state.bestSafe===id)state.bestSafe=null;
+  if(state.topRisk===id)state.topRisk=null;
+  saveState();
+  renderReview();
+}
+function openFinal(){
+
+  if(state.scans.length<6){alert("Maak eerst minimaal 6 Safety Scans.");return}
+  const req=requiredLocationChecks();
+  if(!req.outside){alert("Start eerst buiten: maak een scan van het aanzicht van de school en de trap.");openReview();return}
+  if(!req.emergency){alert("Controleer eerst de nooduitgangen in het restaurant.");openReview();return}
+  if(!state.scans.some(s=>s.rating==="good")){alert("Zoek eerst minimaal één groen voorbeeld: iets dat goed en veilig geregeld is.");openReview();return}
+  if(!state.scans.some(s=>s.rating==="warn"||s.rating==="risk")){alert("Zoek eerst minimaal één situatie die beter kan of onveilig is.");openReview();return}
+  if(!state.bestSafe){alert("Kies in het overzicht eerst jullie beste veilige voorbeeld.");openReview();return}
+  if(!state.topRisk){alert("Kies in het overzicht eerst jullie belangrijkste risico.");openReview();return}
+
+  if(state.scans.length<6){alert("Maak eerst minimaal 6 scans.");return}
+  showScreen("finalScreen");
+  document.getElementById("finalTeam").textContent=state.team||"—";
+  document.getElementById("improvement").value=state.improvement||"";
+  renderFinalChoice("bestSafeBox",state.bestSafe,"Kies bij jullie vondsten eerst een groen voorbeeld als beste veilige voorbeeld.");
+  renderFinalChoice("topRiskBox",state.topRisk,"Kies bij jullie vondsten eerst een oranje of rood voorbeeld als belangrijkste risico.");
+  renderKudos();
+}
+function renderFinalChoice(boxId,id,emptyText){
+  const box=document.getElementById(boxId), s=state.scans.find(x=>x.id===id);
+  if(!s){box.innerHTML=`<p>${emptyText}</p>`;return}
+  const url=s.photoData||"";
+  box.innerHTML=`<b>${esc(s.zone)}</b><p>${esc(s.note)}</p>${s.risk?`<p><span class="pill">${esc(s.risk)}</span></p>`:""}${url?`<img class="finalPhoto" src="${url}">`:""}`;
+}
+function hardReset(){
+  if(!confirm("Alles wissen en opnieuw beginnen?"))return;
+  state={team:"",scans:[],bestSafe:null,topRisk:null,improvement:"",quest:null,teacherKudos:{}};
+  saveState();
+  goHome();
+}
+
+const questQuestions=[
+{q:"Je ziet water op de vloer bij de afwas. Wat doe je het beste?",a:["Voorzichtig eromheen lopen","Waarschuwen en zorgen dat het volgens de afspraken veilig wordt gemaakt","Alleen een foto maken"],c:1,w:"Water op een looproute kan iemand laten uitglijden. Een professional meldt het en laat de situatie veilig aanpakken."},
+{q:"Een nooduitgang is gedeeltelijk geblokkeerd door dozen. Welke kleur past?",a:["🟢 Groen","🟠 Oranje","🔴 Rood"],c:2,w:"Een nooduitgang moet vrij blijven zodat iedereen bij nood snel weg kan."},
+{q:"Een mes ligt veilig opgeborgen op de juiste plek. Welke kleur past?",a:["🟢 Groen","🟠 Oranje","🔴 Rood"],c:0,w:"Goed en veilig werken moet je óók kunnen herkennen."},
+{q:"Je ontdekt een losse elektrische kabel. Wat doe je NIET?",a:["Docent waarschuwen","Zelf proberen te repareren","Afstand houden als het gevaarlijk lijkt"],c:1,w:"Een gevaarlijke elektrische situatie repareer je niet zelf. Je meldt hem."},
+{q:"Waarom fotografeer je geen herkenbare personen?",a:["Omdat een lege ruimte mooier is","Omdat je de situatie onderzoekt en rekening houdt met privacy","Omdat mensen foto's onscherp maken"],c:1,w:"Je onderzoekt de situatie, niet de persoon. Daarom houd je rekening met privacy."},
+{q:"Een zware doos staat hoog en instabiel. Wat is het belangrijkste risico?",a:["De doos kan vallen","De doos wordt vies","De doos neemt ruimte in"],c:0,w:"Een zware instabiele doos kan vallen en iemand verwonden."},
+{q:"Wat is de beste uitleg bij een groene scan?",a:["Hier is niks","Dit is goed omdat de looproute vrij is en niemand kan struikelen","Groen omdat wij dat vinden"],c:1,w:"Je legt uit wat je ziet én waarom dat veilig is."},
+{q:"Wat hoort bij professioneel handelen na het vinden van een risico?",a:["Herkennen, melden en uitleggen hoe het beter kan","Geheim houden","Alles altijd zelf oplossen"],c:0,w:"Een professional herkent risico's, meldt ze en denkt mee over verbetering."}
+];
+let questIndex=0,questScore=0,questAnswered=false;
+function startQuest(){if(state.scans.length<6){alert("Maak eerst minimaal 6 Safety Scans.");return}
+  const req=requiredLocationChecks();
+  if(!req.outside){alert("Start eerst buiten: maak een scan van het aanzicht van de school en de trap.");openReview();return}
+  if(!req.emergency){alert("Controleer eerst de nooduitgangen in het restaurant.");openReview();return}questIndex=0;questScore=0;showScreen("questScreen");renderQuest()}
+function renderQuest(){let q=questQuestions[questIndex];document.getElementById("questProgress").textContent=`Vraag ${questIndex+1} van 8 • ${questScore} punten`;document.getElementById("questContent").innerHTML=`<div class="card"><h2>${q.q}</h2>${q.a.map((x,i)=>`<button class="quest-option" onclick="answerQuest(${i})">${String.fromCharCode(65+i)}. ${x}</button>`).join("")}<div id="questFeedback"></div></div>`;questAnswered=false}
+function answerQuest(i){if(questAnswered)return;questAnswered=true;let q=questQuestions[questIndex],bs=[...document.querySelectorAll(".quest-option")];bs.forEach((b,j)=>{b.disabled=true;if(j===q.c)b.classList.add("correct");if(j===i&&i!==q.c)b.classList.add("wrong")});let ok=i===q.c;if(ok)questScore+=100;document.getElementById("questFeedback").innerHTML=`<div class="quest-feedback"><b>${ok?"✓ Goed! +100 punten":"Nog niet goed. +0 punten"}</b><br>${q.w}</div><button class="primary" onclick="nextQuest()">${questIndex===7?"BEKIJK RESULTAAT →":"VOLGENDE VRAAG →"}</button>`}
+function nextQuest(){if(questIndex<7){questIndex++;renderQuest()}else finishQuest()}
+function finishQuest(){state.quest={score:questScore,total:800,completed:true};saveState();renderKudos();showScreen("questResultScreen");document.getElementById("questScoreBig").textContent=questScore+" / 800 bonuspunten";let n=questScore/100;document.getElementById("questResultText").innerHTML=`<h2>${n} van de 8 goed</h2><p>${n>=7?"Sterk gedaan. Jullie herkennen veiligheidssituaties goed.":n>=5?"Goed op weg. Bekijk jullie scans nog eens goed.":"Kijk nog eens naar: wat zie ik, wat kan er gebeuren en wat moet ik doen?"}</p>`}
+let presentationIndex=0;
+
+
+const teacherKudosOptions=[
+  {id:"spot", icon:"🏆", title:"Scherpste Safety Spot", points:250, text:"Een belangrijk of moeilijk zichtbaar risico goed ontdekt."},
+  {id:"solution", icon:"💡", title:"Beste oplossing", points:250, text:"Een haalbare en professionele verbetering bedacht."},
+  {id:"observation", icon:"👀", title:"Beste observatie", points:150, text:"Iets gezien waar anderen gemakkelijk overheen kijken."},
+  {id:"explanation", icon:"🗣️", title:"Sterkste uitleg", points:150, text:"Duidelijk uitgelegd wat het risico is en waarom."},
+  {id:"teamwork", icon:"🤝", title:"Safety Teamwork", points:150, text:"Goed samengewerkt en professioneel door school gegaan."}
+];
+
+function kudosParts(){
+  const scans=Math.min(state.scans.length,8)*25 + (state.scans.length>=6?100:0);
+  const quest=(state.quest && state.quest.completed ? (state.quest.score||0)+100 : 0);
+  const teacher=teacherKudosOptions.reduce((sum,o)=>sum+(state.teacherKudos[o.id]?o.points:0),0);
+  return {scans,quest,teacher,total:scans+quest+teacher};
+}
+function kudosLevel(total){
+  if(total>=1300)return "Safety Expert";
+  if(total>=900)return "Safety Pro";
+  if(total>=500)return "Safety Spotter";
+  return "Safety Starter";
+}
+function renderKudos(){
+  const k=kudosParts();
+  const rk=document.getElementById("reviewKudos");
+  if(rk)rk.textContent=k.total+" ⭐";
+  const ft=document.getElementById("finalKudosTotal");
+  if(ft)ft.textContent=k.total;
+  const fs=document.getElementById("finalScanKudos");
+  if(fs)fs.textContent=k.scans;
+  const fq=document.getElementById("finalQuestKudos");
+  if(fq)fq.textContent=k.quest;
+  const fd=document.getElementById("finalTeacherKudos");
+  if(fd)fd.textContent=k.teacher;
+  const fl=document.getElementById("finalLevel");
+  if(fl)fl.textContent=kudosLevel(k.total);
+}
+function openTeacherKudos(){
+  if(state.scans.length<6){alert("Maak eerst minimaal 6 Safety Scans.");return}
+  const req=requiredLocationChecks();
+  if(!req.outside){alert("Start eerst buiten: maak een scan van het aanzicht van de school en de trap.");openReview();return}
+  if(!req.emergency){alert("Controleer eerst de nooduitgangen in het restaurant.");openReview();return}
+  showScreen("teacherKudosScreen");
+  renderTeacherKudos();
+}
+function renderTeacherKudos(){
+  const grid=document.getElementById("teacherKudosGrid");
+  if(!grid)return;
+  grid.innerHTML=teacherKudosOptions.map(o=>{
+    const on=!!state.teacherKudos[o.id];
+    return `<div class="kudos-card ${on?"awarded":""}">
+      <h3>${o.icon} ${o.title}</h3>
+      <p>${o.text}</p>
+      <b>+${o.points} Kudos</b>
+      <button onclick="toggleTeacherKudos('${o.id}')">${on?"✓ TOEGEKEND – TERUGDRAAIEN":"KUDOS TOEKENNEN"}</button>
+    </div>`;
+  }).join("");
+  const total=teacherKudosOptions.reduce((sum,o)=>sum+(state.teacherKudos[o.id]?o.points:0),0);
+  document.getElementById("teacherKudosTotal").textContent=total+" ⭐";
+}
+function toggleTeacherKudos(id){
+  const item=teacherKudosOptions.find(o=>o.id===id);
+  if(!item)return;
+  if(!state.teacherKudos[id]){
+    if(!confirm(`Docent: ${item.title} toekennen (+${item.points} Kudos)?`))return;
+    state.teacherKudos[id]=true;
+  }else{
+    if(!confirm(`Deze docentbonus terugdraaien?`))return;
+    delete state.teacherKudos[id];
+  }
+  saveState();
+  renderTeacherKudos();
+  renderKudos();
+}
+
+
+function requiredLocationChecks(){
+  const zones=state.scans.map(s=>s.zone);
+  return {
+    outside: zones.includes("Start buiten – aanzicht school & trap"),
+    emergency: zones.includes("Nooduitgangen restaurant")
+  };
+}
+
+const locationHelp = {
+  "Start buiten – aanzicht school & trap":{
+    title:"Buiten – aanzicht school & trap",
+    items:[
+      "Kijk door de ogen van een gast: wat is jullie eerste indruk?",
+      "Liggen er peuken, blikjes, verpakkingen of ander afval?",
+      "Is de trap schoon, droog en vrij van obstakels?",
+      "Zie je gladheid, losse delen of beschadigingen?",
+      "Is de verlichting en toegang netjes en veilig?",
+      "Kijk ook even van een afstand naar het totaalbeeld."
+    ]
+  },
+  "Entree – ronde cirkel & ingangsdeur":{
+    title:"Entree – ronde cirkel & ingangsdeur",
+    items:[
+      "Is de ingang schoon en uitnodigend?",
+      "Zijn deur en mat veilig en vrij toegankelijk?",
+      "Zie je afval, losse spullen of obstakels?",
+      "Is de doorgang breed genoeg en vrij?",
+      "Welke indruk krijgt een gast bij binnenkomst?"
+    ]
+  },
+  "Keuken":{
+    title:"Keuken",
+    items:[
+      "Zijn vloeren schoon, droog en vrij van obstakels?",
+      "Staan messen en apparaten veilig?",
+      "Zijn hete delen en werkplekken veilig ingericht?",
+      "Zie je risico op uitglijden, snijden of verbranden?",
+      "Is schoon en vuil goed van elkaar gescheiden?"
+    ]
+  },
+  "Open keuken":{
+    title:"Open keuken",
+    items:[
+      "Zijn werkplekken netjes en overzichtelijk?",
+      "Zijn vloeren droog en looproutes vrij?",
+      "Staan messen en apparatuur veilig?",
+      "Let op hitte, gas, elektriciteit en hete oppervlakken.",
+      "Is de ruimte schoon en professioneel voor gasten die meekijken?"
+    ]
+  },
+  "Afwasruimte":{
+    title:"Afwasruimte",
+    items:[
+      "Is de vloer droog en niet glad?",
+      "Zijn machines en chemicaliën veilig gebruikt en opgeborgen?",
+      "Staat de doorgang vrij?",
+      "Zijn schoon en vuil logisch gescheiden?",
+      "Zie je water, lekkage of struikelgevaar?"
+    ]
+  },
+  "Magazijn / opslag":{
+    title:"Magazijn / opslag",
+    items:[
+      "Staan dozen en materialen stabiel gestapeld?",
+      "Zijn zware spullen laag en veilig opgeslagen?",
+      "Zijn looppaden en deuren vrij?",
+      "Is de ruimte netjes en overzichtelijk?",
+      "Zie je beschadigde verpakkingen of brandgevaar?"
+    ]
+  },
+  "Praktijkrestaurant":{
+    title:"Restaurant / praktijkrestaurant",
+    items:[
+      "Zijn tafels, stoelen en looproutes veilig geplaatst?",
+      "Ligt er niets waar gasten over kunnen struikelen?",
+      "Is de ruimte schoon en gastvrij?",
+      "Zijn kabels en apparatuur veilig weggewerkt?",
+      "Kunnen gasten en medewerkers makkelijk door de ruimte bewegen?"
+    ]
+  },
+  "Nooduitgangen restaurant":{
+    title:"Nooduitgangen restaurant",
+    items:[
+      "Controleer alle nooduitgangen in het restaurant.",
+      "Is iedere uitgang vrij en bereikbaar?",
+      "Staat er niets voor de deur?",
+      "Is de uitgang duidelijk aangegeven?",
+      "Kan de deur goed worden geopend?",
+      "Zie je een probleem? Maak daar een Safety Scan van."
+    ]
+  },
+  "Deur richting kelder":{
+    title:"Deur richting kelder",
+    items:[
+      "Is de doorgang vrij?",
+      "Is de deur goed bereikbaar?",
+      "Is de verlichting voldoende?",
+      "Zie je struikel- of valgevaar?",
+      "Is duidelijk waar deze route naartoe gaat?"
+    ]
+  },
+  "Open Leercentrum – bank & kas":{
+    title:"Open Leercentrum – bank & kas",
+    items:[
+      "Is de ruimte netjes en overzichtelijk?",
+      "Zijn looproutes vrij?",
+      "Staan bank en kas veilig en stabiel?",
+      "Liggen er kabels of losse spullen?",
+      "Is dit een rustige, veilige en verzorgde plek voor studenten en bezoekers?"
+    ]
+  },
+  "Gang / looproute":{
+    title:"Gang / looproute",
+    items:[
+      "Is de doorgang vrij?",
+      "Zijn vloeren schoon en droog?",
+      "Staan er geen tassen, dozen of andere obstakels?",
+      "Is de verlichting in orde?",
+      "Zijn deuren en noodroutes goed bereikbaar?"
+    ]
+  },
+  "Kleedruimte":{
+    title:"Kleedruimte",
+    items:[
+      "Is de ruimte schoon en opgeruimd?",
+      "Liggen er geen spullen op de vloer?",
+      "Zijn kasten en banken veilig geplaatst?",
+      "Is er voldoende ventilatie?",
+      "Kunnen studenten zich hier veilig bewegen?"
+    ]
+  },
+  "Slagerij werkruimte":{
+    title:"Slagerij – werkruimte",
+    items:[
+      "Zijn machines, messen en gereedschappen veilig opgeborgen en gebruikt?",
+      "Is de vloer schoon en niet glad?",
+      "Zijn werkplekken netjes en overzichtelijk?",
+      "Worden persoonlijke beschermingsmiddelen goed gebruikt?",
+      "Zie je risico op snijden, uitglijden of beknelling?"
+    ]
+  },
+  "Slagerijvoorraadhok":{
+    title:"Slagerijvoorraadhok",
+    items:[
+      "Staat alles stabiel en veilig opgeslagen?",
+      "Zijn zware spullen laag geplaatst?",
+      "Zijn looppaden en deuren vrij?",
+      "Is de ruimte schoon en overzichtelijk?",
+      "Zijn verpakkingen en materialen in goede staat?"
+    ]
+  },
+  "Koelcel":{
+    title:"Koelcel",
+    items:[
+      "Is de vloer droog en niet glad?",
+      "Staat alles netjes en veilig opgeslagen?",
+      "Sluit de deur goed?",
+      "Zie je condens, vocht of ijsvorming?",
+      "Kijk ook omhoog: controleer het plafond op druppels of ijsvorming.",
+      "Zie je lekkage of gladheid? Maak daar een Safety Scan van."
+    ]
+  },
+  "Diepvries":{
+    title:"Diepvries",
+    items:[
+      "Is de vloer vrij van ijs en gladheid?",
+      "Sluit de deur goed?",
+      "Staat alles veilig en overzichtelijk opgeslagen?",
+      "Zie je ijsvorming op wanden, vloer of deur?",
+      "Kijk ook omhoog: controleer het plafond op ijsvorming of druppels.",
+      "Let op obstakels en een veilige doorgang."
+    ]
+  },
+  "Andere plek":{
+    title:"Andere plek",
+    items:[
+      "Kijk eerst goed rond voordat je iets beoordeelt.",
+      "Wat kan hier veilig of onveilig zijn?",
+      "Wat merkt een gast of medewerker hiervan?",
+      "Is de ruimte schoon, vrij en overzichtelijk?",
+      "Maak alleen een scan als je echt iets concreets ziet."
+    ]
+  }
+};
+
+function updateLocationHelp(){
+  const zone=document.getElementById("zone")?.value||"";
+  const data=locationHelp[zone];
+  const title=document.getElementById("locationHelpTitle");
+  const body=document.getElementById("locationHelpBody");
+  if(!title||!body)return;
+  if(!data){
+    title.textContent="Waar let je op?";
+    body.innerHTML="Kies eerst een locatie.";
+    return;
+  }
+  title.textContent=data.title;
+  body.innerHTML=`<p>Gebruik dit alleen als extra hulp. Kijk eerst zelf.</p><ul>${data.items.map(x=>`<li>${x}</li>`).join("")}</ul>`;
+}
+
+function toggleLocationHelp(){
+  const panel=document.getElementById("locationHelp");
+  if(!panel)return;
+  panel.classList.toggle("show");
+  updateLocationHelp();
+}
+function counts(){
+  return {
+    total: state.scans.length,
+    green: state.scans.filter(s=>s.rating==="good").length,
+    orange: state.scans.filter(s=>s.rating==="warn").length,
+    red: state.scans.filter(s=>s.rating==="risk").length
+  };
+}
+
+function scanLabel(s){
+  return s.rating==="good" ? "🟢 Goed & veilig" : s.rating==="warn" ? "🟠 Kan beter" : "🔴 Onveilig";
+}
+
+function scanHtml(s, large=false){
+  if(!s) return "<p>Niet gekozen.</p>";
+  return `
+    ${s.photoData?`<img class="${large?"finalPhoto":""}" style="${large?"":"width:100%;height:180px;object-fit:cover;border-radius:12px"}" src="${s.photoData}" alt="Scanfoto">`:""}
+    <h3>${esc(s.zone)}</h3>
+    <p><span class="pill ${s.rating}">${scanLabel(s)}</span>${s.risk?` <span class="pill">${esc(s.risk)}</span>`:""}</p>
+    <p>${esc(s.note)}</p>`;
+}
+
+function openReport(printNow=false){
+
+  if(state.scans.length<6){alert("Maak eerst minimaal 6 Safety Scans.");return}
+  const req=requiredLocationChecks();
+  if(!req.outside){alert("Start eerst buiten: maak een scan van het aanzicht van de school en de trap.");openReview();return}
+  if(!req.emergency){alert("Controleer eerst de nooduitgangen in het restaurant.");openReview();return}
+  if(!state.scans.some(s=>s.rating==="good")){alert("Zoek eerst minimaal één groen voorbeeld: iets dat goed en veilig geregeld is.");openReview();return}
+  if(!state.scans.some(s=>s.rating==="warn"||s.rating==="risk")){alert("Zoek eerst minimaal één situatie die beter kan of onveilig is.");openReview();return}
+  if(!state.bestSafe){alert("Kies in het overzicht eerst jullie beste veilige voorbeeld.");openReview();return}
+  if(!state.topRisk){alert("Kies in het overzicht eerst jullie belangrijkste risico.");openReview();return}
+
+  if(!ensureImprovement())return;
+  showScreen("reportScreen");
+  const c=counts();
+  document.getElementById("reportTeam").textContent=state.team||"—";
+  document.getElementById("statTotal").textContent=c.total;
+  document.getElementById("statGreen").textContent=c.green;
+  document.getElementById("statOrange").textContent=c.orange;
+  document.getElementById("statRed").textContent=c.red;
+  if(document.getElementById("statBonus")) document.getElementById("statBonus").textContent=(state.quest&&state.quest.completed?state.quest.score:0)||0;
+  if(document.getElementById("statKudosTotal")) document.getElementById("statKudosTotal").textContent=kudosParts().total;document.getElementById("statBonus").textContent=(state.quest&&state.quest.score)||0;
+  const best=state.scans.find(x=>x.id===state.bestSafe);
+  const risk=state.scans.find(x=>x.id===state.topRisk);
+  document.getElementById("reportBest").innerHTML=scanHtml(best,true);
+  document.getElementById("reportRisk").innerHTML=scanHtml(risk,true);
+  document.getElementById("reportImprovement").textContent=state.improvement||"Nog niet ingevuld.";
+  document.getElementById("reportGrid").innerHTML=state.scans.map((s,i)=>`
+    <div class="report-item">
+      <div class="small">Scan ${i+1}</div>
+      ${scanHtml(s,false)}
+    </div>`).join("");
+  if(printNow) setTimeout(()=>window.print(),250);
+}
+
+
+function ensureImprovement(){
+  if(!(state.improvement||"").trim()){
+    alert("Vul bij de afsluiting eerst jullie verbetering in: wat zouden jullie als eerste veranderen?");
+    showScreen("finalScreen");
+    setTimeout(()=>document.getElementById("improvement")?.focus(),100);
+    return false;
+  }
+  return true;
+}
+
+function presentationSlides(){
+  const best=state.scans.find(x=>x.id===state.bestSafe);
+  const risk=state.scans.find(x=>x.id===state.topRisk);
+  return [
+    {
+      title:"🏆 Dit gaat goed",
+      body:best?scanHtml(best,true):"<p>Geen veilig voorbeeld gekozen.</p>"
+    },
+    {
+      title:"⚠️ Dit is ons belangrijkste risico",
+      body:risk?scanHtml(risk,true):"<p>Geen belangrijkste risico gekozen.</p>"
+    },
+    {
+      title:"💡 Dit zouden wij verbeteren",
+      body:`<p>${esc(state.improvement||"Nog niet ingevuld.")}</p><p class="small">Duo: ${esc(state.team||"—")}</p>`
+    }
+  ];
+}
+
+function startPresentation(){
+
+  if(state.scans.length<6){alert("Maak eerst minimaal 6 Safety Scans.");return}
+  const req=requiredLocationChecks();
+  if(!req.outside){alert("Start eerst buiten: maak een scan van het aanzicht van de school en de trap.");openReview();return}
+  if(!req.emergency){alert("Controleer eerst de nooduitgangen in het restaurant.");openReview();return}
+  if(!state.scans.some(s=>s.rating==="good")){alert("Zoek eerst minimaal één groen voorbeeld: iets dat goed en veilig geregeld is.");openReview();return}
+  if(!state.scans.some(s=>s.rating==="warn"||s.rating==="risk")){alert("Zoek eerst minimaal één situatie die beter kan of onveilig is.");openReview();return}
+  if(!state.bestSafe){alert("Kies in het overzicht eerst jullie beste veilige voorbeeld.");openReview();return}
+  if(!state.topRisk){alert("Kies in het overzicht eerst jullie belangrijkste risico.");openReview();return}
+
+  if(!ensureImprovement())return;
+  presentationIndex=0;
+  showScreen("presentationScreen");
+  renderPresentation();
+  if(document.documentElement.requestFullscreen){
+    document.documentElement.requestFullscreen().catch(()=>{});
+  }
+}
+
+function renderPresentation(){
+  const slides=presentationSlides();
+  const s=slides[presentationIndex];
+  document.getElementById("presentationCard").innerHTML=`<div class="kicker">Dia ${presentationIndex+1} van ${slides.length}</div><h1>${s.title}</h1>${s.body}`;
+}
+
+function presentationNext(){
+  const slides=presentationSlides();
+  presentationIndex=Math.min(slides.length-1,presentationIndex+1);
+  renderPresentation();
+}
+function presentationPrev(){
+  presentationIndex=Math.max(0,presentationIndex-1);
+  renderPresentation();
+}
+
+function buildSummaryText(){
+  const c=counts();
+  const best=state.scans.find(x=>x.id===state.bestSafe);
+  const risk=state.scans.find(x=>x.id===state.topRisk);
+  let txt=`SAFETY SCAN – ENTREE\nDuo: ${state.team||"—"}\n\n`;
+  txt+=`Resultaat: ${c.total} scans | ${c.green} groen | ${c.orange} oranje | ${c.red} rood\n`;
+  const reqCheck=requiredLocationChecks();
+  txt+=`Vaste checks: Buitenstart ${reqCheck.outside?"✓":"–"} | Nooduitgangen restaurant ${reqCheck.emergency?"✓":"–"}\n`;
+  const kp=kudosParts();
+  txt+=`Team Kudos: ${kp.total} (${kudosLevel(kp.total)})\n`;
+  txt+=`Onderzoek ${kp.scans} | Bonus Quest ${kp.quest} | Docent ${kp.teacher}\n\n`;
+  txt+=`BESTE VEILIGE VOORBEELD\n${best?best.zone+" – "+best.note:"Niet gekozen"}\n\n`;
+  txt+=`BELANGRIJKSTE RISICO\n${risk?risk.zone+" – "+(risk.risk?risk.risk+" – ":"")+risk.note:"Niet gekozen"}\n\n`;
+  txt+=`ONZE VERBETERING\n${state.improvement||"Nog niet ingevuld."}\n\n`;
+  txt+="ALLE VONDSTEN\n";
+  state.scans.forEach((s,i)=>{
+    txt+=`${i+1}. ${s.zone} | ${scanLabel(s)}${s.risk?" | "+s.risk:""} | ${s.note}\n`;
+  });
+  return txt;
+}
+
+async function copySummary(){
+  const txt=buildSummaryText();
+  try{
+    if(navigator.share){
+      await navigator.share({title:"Safety Scan – Entree",text:txt});
+      return;
+    }
+  }catch(e){
+    if(e && e.name==="AbortError") return;
+  }
+  try{
+    await navigator.clipboard.writeText(txt);
+    alert("Samenvatting gekopieerd. Je kunt hem nu plakken in Teams, mail of de ELO.");
+  }catch(e){
+    const ta=document.createElement("textarea");
+    ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();
+    alert("Samenvatting gekopieerd.");
+  }
+}
+
+buildRiskButtons();
+updateProgress();
+document.getElementById("teamInput").value=state.team||"";
+document.getElementById("quickTeamInput").value=state.team||"";
+document.getElementById("bottomBar").style.display="none";
+updateLaunch();
+renderKudos();
+</script>
+</body>
+</html>
