@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mixology Handboek V4.1</title>
+<style>
+:root{
+  --bg:#0f1418; --panel:#171e24; --panel2:#202931; --text:#f4f6f7; --muted:#aeb9c2;
+  --line:#2f3b44; --accent:#e7b857; --accent2:#8fd3c7; --danger:#ff8f8f;
+  --good:#8fd3a8; --warn:#f2cf7a; --radius:18px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:linear-gradient(180deg,#0c1115,#121920);color:var(--text)}
+button,input,select{font:inherit}
+button{cursor:pointer}
+a{color:inherit}
+.app{max-width:1180px;margin:auto;min-height:100vh;padding-bottom:80px}
+.topbar{position:sticky;top:0;z-index:20;background:rgba(15,20,24,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.toprow{display:flex;gap:10px;align-items:center;padding:12px 16px}
+.brand{font-weight:800;letter-spacing:.3px;white-space:nowrap}
+.brand span{color:var(--accent)}
+.search{flex:1;position:relative}
+.search input{width:100%;background:#11181d;color:var(--text);border:1px solid var(--line);border-radius:14px;padding:11px 42px 11px 14px}
+.search button{position:absolute;right:6px;top:5px;border:0;background:transparent;color:var(--muted);font-size:20px}
+.iconbtn{border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:12px;padding:10px 12px}
+.navrow{display:flex;gap:8px;align-items:center;padding:0 16px 12px;overflow:auto}
+.backbtn{border:0;background:transparent;color:var(--accent);font-weight:700;padding:6px 0}
+.crumbs{display:flex;gap:6px;align-items:center;color:var(--muted);font-size:14px;white-space:nowrap}
+.crumbs button{border:0;background:transparent;color:var(--muted);padding:0}
+main{padding:22px 16px}
+.hero{background:radial-gradient(circle at 85% 20%,rgba(231,184,87,.16),transparent 34%),linear-gradient(135deg,#172128,#11171c);border:1px solid var(--line);border-radius:24px;padding:28px}
+.hero h1{font-size:clamp(30px,5vw,56px);line-height:1;margin:0 0 12px}
+.hero p{max-width:760px;color:var(--muted);font-size:18px}
+.pill{display:inline-block;border:1px solid #5a4b2b;background:#221c10;color:#f4d28f;border-radius:999px;padding:6px 10px;font-size:13px;font-weight:700;margin-bottom:12px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:20px}
+.card{background:linear-gradient(180deg,var(--panel),#141b20);border:1px solid var(--line);border-radius:var(--radius);padding:18px;min-height:150px;box-shadow:0 8px 24px rgba(0,0,0,.15)}
+.card.click{transition:.18s transform,.18s border-color}
+.card.click:hover{transform:translateY(-2px);border-color:#55646f}
+.card h3{margin:8px 0 8px;font-size:21px}
+.card p{color:var(--muted);margin:0;line-height:1.45}
+.emoji{font-size:32px}
+.section-title{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:6px 0 16px}
+.section-title h2{font-size:30px;margin:0}
+.section-title p{margin:0;color:var(--muted)}
+.list{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.item{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;position:relative}
+.item button.main{all:unset;cursor:pointer;display:block;width:100%}
+.item h3{margin:2px 0 8px}
+.meta{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:12px;border:1px solid var(--line);background:#11171b;border-radius:999px;padding:5px 8px;color:#c8d0d6}
+.fav{position:absolute;right:10px;top:10px;border:0;background:transparent;color:#d6d6d6;font-size:24px}
+.fav.on{color:var(--accent)}
+.detail-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}
+.detail-head h1{font-size:42px;margin:0 0 8px}
+.detail-sub{color:var(--muted);font-size:18px}
+.factgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0}
+.fact{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px}
+.fact b{display:block;color:var(--accent);font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.accordion{margin-top:18px}
+.acc{border:1px solid var(--line);border-radius:15px;background:var(--panel);margin-bottom:10px;overflow:hidden}
+.acc button{width:100%;display:flex;justify-content:space-between;align-items:center;background:transparent;border:0;color:var(--text);padding:15px 16px;font-weight:750;text-align:left}
+.acc .body{display:none;padding:0 16px 16px;color:#d6dde2;line-height:1.55}
+.acc.open .body{display:block}
+.acc.open button{color:var(--accent)}
+.recipe{width:100%;border-collapse:collapse;margin-top:8px}
+.recipe td,.recipe th{border-bottom:1px solid var(--line);padding:10px;text-align:left}
+.recipe th{color:var(--muted);font-size:13px}
+.flow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.step{border:1px solid #42515c;border-radius:999px;padding:7px 10px;background:#11181d;font-size:13px}
+.linkrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.linkbtn{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:12px;padding:10px 12px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.filters select{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:12px;padding:10px}
+.flavour-bars{display:grid;gap:10px;margin-top:12px}
+.barline{display:grid;grid-template-columns:120px 1fr 46px;align-items:center;gap:10px}
+.bar{height:10px;background:#26323a;border-radius:999px;overflow:hidden}
+.fill{height:100%;background:linear-gradient(90deg,var(--accent2),var(--accent))}
+.notice{border-left:4px solid var(--accent);background:#1b211f;padding:14px 16px;border-radius:12px;margin:14px 0;color:#dfe5e8}
+.problem{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.problem .item h3{font-size:20px}
+.search-results{display:grid;gap:10px}
+.result{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px}
+.empty{color:var(--muted);padding:24px 0}
+.small{font-size:13px;color:var(--muted)}
+footer{padding:30px 16px;color:var(--muted);font-size:13px;text-align:center}
+
+.top10-wrap{position:relative}
+.top10-wrap .item{padding-top:52px;min-height:150px}
+.rank-badge{
+  position:absolute;z-index:3;left:16px;top:12px;
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:44px;height:30px;padding:0 10px;
+  border:1px solid #5a4b2b;background:#221c10;color:#f4d28f;
+  border-radius:999px;font-size:13px;font-weight:800
+}
+.top10-wrap .fav{top:12px}
+.top10-wrap .item h3{margin-top:0;padding-right:34px}
+
+
+
+/* Practice Lab – assigned cocktail selector + walkthrough */
+.fan-wrap{
+  margin:22px auto 28px;
+  display:grid;
+  grid-template-columns:repeat(6,minmax(150px,1fr));
+  gap:12px;
+  align-items:stretch;
+}
+.fan-card{
+  position:relative;width:auto;min-height:285px;padding:18px 16px;
+  border-radius:22px;border:1px solid var(--line);
+  background:linear-gradient(180deg,#1a242a,#11181d);
+  box-shadow:0 12px 28px rgba(0,0,0,.22);
+  cursor:pointer;text-align:left;color:var(--text);
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+  touch-action:manipulation;
+}
+.fan-card:nth-child(1){transform:rotate(-3deg)}
+.fan-card:nth-child(2){transform:rotate(-2deg)}
+.fan-card:nth-child(3){transform:rotate(-1deg)}
+.fan-card:nth-child(4){transform:rotate(1deg)}
+.fan-card:nth-child(5){transform:rotate(2deg)}
+.fan-card:nth-child(6){transform:rotate(3deg)}
+.fan-card:hover,.fan-card:focus-visible{
+  z-index:5;transform:translateY(-8px) rotate(0deg);
+  border-color:#8a7440;box-shadow:0 18px 38px rgba(0,0,0,.35);
+  outline:none;
+}
+.fan-card h3{font-size:21px;margin:8px 0;line-height:1.1}
+.fan-card .glass{font-size:44px;line-height:1;margin-bottom:10px}
+.fan-card .mini{color:var(--muted);font-size:13px}
+.fan-card .tags{margin-top:12px}
+.assign-banner{border:1px solid #5d5031;background:#201c12;border-radius:16px;padding:14px 16px;margin:14px 0}
+.walk-hero{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:start}
+.walk-hero .bigglass{font-size:72px}
+.checklist{display:grid;gap:8px;margin-top:10px}
+.checkline{display:flex;gap:10px;align-items:flex-start;background:#12191e;border:1px solid var(--line);border-radius:12px;padding:10px}
+.checkline input{margin-top:3px;transform:scale(1.2)}
+.tastebuttons{display:flex;gap:8px;flex-wrap:wrap}
+.tastebuttons button{border:1px solid var(--line);background:#11181d;color:var(--text);border-radius:999px;padding:9px 12px}
+.tastebuttons button.on{background:#2b2618;border-color:#75643d;color:#f4d28f}
+.practice-done{border:1px solid #3f684e;background:#132219;border-radius:16px;padding:16px}
+.practice-photo{max-width:100%;max-height:330px;border-radius:14px;border:1px solid var(--line);margin-top:10px}
+.practice-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.signature-choice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.signature-choice{
+  border:1px solid var(--line);background:#11181d;color:var(--text);
+  border-radius:16px;padding:14px;text-align:left;cursor:pointer;touch-action:manipulation
+}
+.signature-choice:hover,.signature-choice:focus-visible{border-color:#8a7440;outline:none}
+.signature-choice.on{background:#282114;border-color:#9b7d36}
+.signature-choice b{display:block;font-size:17px;margin-bottom:5px}
+.signature-choice small{color:var(--muted)}
+@media(max-width:1180px){.fan-wrap{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:760px){
+ .fan-wrap{grid-template-columns:1fr 1fr;gap:10px}
+ .fan-card,.fan-card:nth-child(n){min-height:220px;transform:none!important}
+ .fan-card:hover,.fan-card:focus-visible{transform:none!important}
+ .fan-card .glass{font-size:36px}
+ .walk-hero{grid-template-columns:1fr}
+ .practice-summary,.signature-choice-grid{grid-template-columns:1fr}
+}
+@media(max-width:430px){.fan-wrap{grid-template-columns:1fr}.fan-card{min-height:190px}}
+/* Signature Serve walkthrough */
+.sig-shell{max-width:980px;margin:0 auto}
+.sig-progress{display:grid;grid-template-columns:repeat(8,1fr);gap:6px;margin:16px 0 22px}
+.sig-dot{height:8px;border-radius:999px;background:#26323a}
+.sig-dot.done{background:var(--accent)}
+.sig-dot.active{background:var(--accent2)}
+.sig-stephead{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;margin-bottom:14px}
+.sig-stephead h2{margin:0;font-size:30px}
+.sig-stepnum{color:var(--accent);font-weight:800;font-size:14px}
+.sig-card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px;margin:14px 0}
+.sig-card h3{margin:0 0 12px}
+.sig-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{display:grid;gap:7px}
+.field.full{grid-column:1/-1}
+.field label{font-weight:750}
+.field small{color:var(--muted)}
+.field input,.field textarea,.field select{
+  width:100%;background:#11181d;color:var(--text);border:1px solid var(--line);
+  border-radius:12px;padding:12px 13px;outline:none
+}
+.field textarea{min-height:92px;resize:vertical}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:#6c7d89}
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:6px}
+.chip{border:1px solid var(--line);background:#11181d;color:#dbe2e7;border-radius:999px;padding:7px 10px}
+.chip.on{background:#2b2618;border-color:#6e5b2f;color:#f4d28f}
+.tipbox{background:#141d21;border:1px dashed #45545e;border-radius:14px;padding:12px 14px;color:#c9d2d8;margin-top:10px}
+.sig-actions{display:flex;justify-content:space-between;gap:10px;margin-top:20px;position:sticky;bottom:10px;background:rgba(15,20,24,.92);backdrop-filter:blur(8px);padding:10px;border:1px solid var(--line);border-radius:16px}
+.primary{border:0;background:var(--accent);color:#16120a;font-weight:850;border-radius:12px;padding:12px 16px}
+.secondary{border:1px solid var(--line);background:var(--panel2);color:var(--text);font-weight:750;border-radius:12px;padding:12px 16px}
+.primary:disabled,.secondary:disabled{opacity:.45;cursor:not-allowed}
+.photo-box{border:1px dashed #54636d;border-radius:16px;padding:14px;text-align:center;background:#11181d}
+.photo-box img{max-width:100%;max-height:360px;border-radius:14px;margin-top:10px}
+.photo-box input{max-width:100%}
+.recipe-rows{display:grid;gap:8px}
+.recipe-row{display:grid;grid-template-columns:1.4fr .7fr .7fr 42px;gap:8px}
+.recipe-row input{width:100%;background:#11181d;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:10px}
+.remove-row{border:1px solid var(--line);background:#221719;color:#ffc4c4;border-radius:10px}
+.add-row{border:1px solid var(--line);background:#11181d;color:var(--text);border-radius:10px;padding:9px 11px}
+.score-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.score-grid .field{background:#12191e;border:1px solid var(--line);border-radius:12px;padding:10px}
+.review-block{border:1px solid var(--line);border-radius:14px;padding:14px;margin:10px 0;background:#141b20}
+.review-block h3{margin:0 0 8px}
+.review-photo{width:min(100%,480px);border-radius:16px;border:1px solid var(--line)}
+.req{color:#ffb7b7}
+.kpi{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.kpi .tag{font-size:13px}
+@media(max-width:720px){
+ .sig-grid,.score-grid{grid-template-columns:1fr}
+ .recipe-row{grid-template-columns:1fr 1fr}
+ .recipe-row .remove-row{grid-column:2}
+ .sig-actions{bottom:6px}
+}
+@media print{
+ body{background:white;color:#111}
+ .topbar,footer,.sig-actions,.no-print{display:none!important}
+ .app{max-width:none;padding:0}
+ main{padding:0}
+ .sig-shell{max-width:none}
+ .print-sheet{display:block!important;color:#111;background:white}
+ .review-block,.sig-card{break-inside:avoid;background:white;border:1px solid #bbb;color:#111}
+ .tag{border-color:#bbb;background:white;color:#111}
+ .review-photo{max-height:420px;object-fit:contain}
+}
+
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.list{grid-template-columns:repeat(2,1fr)}.factgrid{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.brand{display:none}.grid,.list,.problem,.factgrid{grid-template-columns:1fr}.hero{padding:20px}.detail-head h1{font-size:34px}.toprow{padding:10px}.navrow{padding:0 10px 10px}.barline{grid-template-columns:92px 1fr 40px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="toprow">
+      <div class="brand">MIXOLOGY <span>HANDBOEK</span></div>
+      <div class="search">
+        <input id="globalSearch" placeholder="Zoek op rum, limoen, shake, bitter..." aria-label="Zoeken">
+        <button onclick="runSearch()">⌕</button>
+      </div>
+      <button class="iconbtn" onclick="showFavorites()" title="Favorieten">★</button>
+      <button class="iconbtn" onclick="goHome()" title="Home">⌂</button>
+    </div>
+    <div class="navrow">
+      <button class="backbtn" onclick="goBack()">← TERUG</button>
+      <div id="crumbs" class="crumbs"></div>
+    </div>
+  </header>
+
+  <main id="view"></main>
+  <footer>Mixology Handboek V4.1 · mobiel Praktijklab + Signature keuzemenu · gegevens en favorieten blijven lokaal op dit apparaat</footer>
+</div>
+
+<script>
+const DB = {
+spirits:[
+{id:'whisky',name:'Whisky / Whiskey',icon:'🥃',short:'Graan · distillatie · houtrijping',facts:{Grondstof:'Granen',Proces:'Vergisten → distilleren → rijpen',Karakter:'Van licht en fruitig tot rijk, kruidig of rokerig'},sections:[
+['Hoe wordt whisky gemaakt?','Graan wordt verwerkt tot een vergistbare vloeistof, vergist, gedistilleerd en vervolgens gerijpt. Graansoort, distillatie, vat en rijping hebben veel invloed op het eindkarakter.'],
+['Whisky of whiskey?','Scotch schrijft meestal whisky. In Ierland en bij veel Amerikaanse producenten zie je vaak whiskey.'],
+['Ontdek Scotch','Belangrijke categorieën zijn Single Malt, Single Grain, Blended Malt, Blended Grain en Blended Scotch.'],
+['Wat doet het vat?','Hout kan kleur, vanille-, karamel-, kruidige, toast- en fruitige indrukken bijdragen. Niet iedere whisky smaakt hetzelfde.'],
+['Cocktails met whisky','Whisky Sour · Old Fashioned · Highball · Manhattan']
+],links:['whisky-sour','old-fashioned']},
+{id:'rum',name:'Rum',icon:'🏝️',short:'Suikerriet · van licht tot rijk en gerijpt',facts:{Grondstof:'Suikerrietproducten',Proces:'Vergisten → distilleren → eventueel rijpen',Karakter:'Licht, fruitig, kruidig of rijk afhankelijk van stijl'},sections:[
+['Waarvan wordt rum gemaakt?','Veel rum wordt gemaakt van melasse; sommige stijlen van vers suikerrietsap.'],
+['Rumstijlen','Witte/lichte rum, gerijpte/goudkleurige rum en donkere/rijke stijlen. Kleur alleen vertelt niet automatisch hoe oud of kwalitatief een rum is.'],
+['Waarom interessant in cocktails?','Rum kan zowel frisse citruscocktails als rijke tropische drankjes dragen.'],
+['Vergelijk cocktails','Daiquiri = rum + limoen + zoet. Mojito = dezelfde basis plus munt en bruis. Piña Colada = rum + ananas + kokos.']
+],links:['daiquiri','mojito','pina-colada']},
+{id:'vodka',name:'Vodka',icon:'❄️',short:'Relatief neutrale basis · laat toevoegingen spreken',facts:{Grondstof:'Diverse geschikte landbouwgrondstoffen',Proces:'Vergisten → distilleren → vaak sterk zuiveren',Karakter:'Doorgaans relatief neutraal'},sections:[
+['Waarvan wordt vodka gemaakt?','Vodka hoeft niet alleen uit graan of aardappel te komen. Verschillende grondstoffen kunnen worden gebruikt zolang ze voldoende vergistbare suikers opleveren.'],
+['Waarom goed voor mixologie?','Omdat vodka relatief neutraal kan zijn, komen limoen, gember, fruit, koffie of kruiden duidelijk naar voren.'],
+['Cocktailrichtingen','Vodka + gember + limoen → fris/pittig. Vodka + passievrucht + vanille → tropisch/aromatisch. Vodka + rood fruit + citrus → fruitig/fris.']
+],links:['moscow-mule','cosmopolitan','espresso-martini']},
+{id:'gin',name:'Gin',icon:'🌿',short:'Jeneverbes + botanicals · aromatisch',facts:{Basis:'Gedistilleerde alcohol',Smaakmakers:'Botanicals',Kernaroma:'Jeneverbes'},sections:[
+['Wat zijn botanicals?','Plantaardige smaakmakers zoals jeneverbes, korianderzaad, citrusschil, engelwortel, kruiden en specerijen.'],
+['Gin & Tonic ontleed','Gin brengt botanische aroma’s, tonic bitterheid en bruis, citrus/garnish aroma en frisheid, ijs temperatuur en verdunning.'],
+['Stijlen','Onder andere London Dry Gin en andere gedistilleerde ginstijlen.']
+],links:['gin-tonic','tom-collins','gimlet','negroni']},
+{id:'tequila',name:'Tequila & Agave',icon:'🌵',short:'Agave · karaktervol · blanco tot gerijpt',facts:{Grondstof:'Blue Weber agave voor tequila',Proces:'Koken → vergisten → distilleren → eventueel rijpen',Karakter:'Aards, plantaardig, citrusachtig, kruidig afhankelijk van stijl'},sections:[
+['Tequila is niet alle agave','Tequila is één specifieke categorie agavedistillaat. Mezcal is een andere categorie met eigen regels en stijlen.'],
+['Stijlen','Blanco · Reposado · Añejo. Rijping heeft invloed op kleur en smaak.'],
+['Agave is geen cactus','Agave lijkt erop, maar is botanisch geen cactus.'],
+['Cocktails','Margarita · Paloma · Tequila Sunrise']
+],links:['margarita','paloma','tequila-sunrise']},
+{id:'jenever',name:'Jenever',icon:'🇳🇱',short:'Nederlandse drankcultuur · graankarakter + jeneverbes',facts:{Basis:'Graandistillaat en/of neutrale alcohol afhankelijk van stijl',Aroma:'Jeneverbes',Stijlen:'Jonge · Oude · Graanjenever'},sections:[
+['Jong betekent niet jonger','Jong en oud verwijzen naar stijl/productcategorie en niet simpelweg naar de leeftijd van de drank.'],
+['Jenever versus gin','Jenever kan meer graankarakter hebben; gin draait sterker om botanicals waarbij jeneverbes bepalend is.'],
+['Waarom relevant?','Jenever is belangrijk in de Nederlandse drankgeschiedenis en helpt studenten verschillen tussen distillaatstijlen begrijpen.']
+],links:[]},
+{id:'liqueur',name:'Likeuren',icon:'🍊',short:'Alcohol + smaak + zoetheid',facts:{Basis:'Gedistilleerde drank/alcohol',Extra:'Smaakstoffen + zoetheid',Functie:'Smaak, aroma, zoet, soms kleur'},sections:[
+['Smaakfamilies','Citrus · fruit · koffie · kruiden · noten · room.'],
+['Wat doet likeur in een cocktail?','Je voegt niet alleen smaak toe, maar vaak ook zoetheid, alcohol, aroma, kleur en mondgevoel.'],
+['Curaçao','Curaçao is een citrus-/sinaasappellikeurfamilie. Moderne Blue Curaçao krijgt zijn blauwe kleur door toegevoegde kleurstof; de kleur is vooral visueel.']
+],links:['blue-lagoon']},
+{id:'brandy',name:'Brandy & Cognac',icon:'🍇',short:'Wijndistillaten · druif · rijping',facts:{Grondstof:'Wijn/druif',Proces:'Distillatie → vaak rijping',Relatie:'Cognac is een specifieke beschermde brandycategorie'},sections:[
+['Brandy','Algemene familie van gedistilleerde wijn of andere vergiste vruchtproducten, afhankelijk van categorie.'],
+['Cognac','Cognac is brandy uit de Cognac-regio die aan specifieke productieregels moet voldoen. Alle Cognac is brandy; niet alle brandy is Cognac.']
+],links:[]}
+],
+recipes:[
+{id:'daiquiri',name:'Daiquiri',base:'Rum',taste:'Fris / zuur',tech:'Shake',zero:false,ingredients:[['Witte rum','40 ml'],['Limoensap','25 ml'],['Suikersiroop','15 ml']],flow:['Afmeten','Shaker','IJs','Shake','Strain','Serveren'],why:'Rum geeft de basis, limoen brengt zuur en frisheid, suiker balanceert de zure indruk. Shaken koelt, mengt en verdunt.',links:['rum','lime']},
+{id:'mojito',name:'Mojito',base:'Rum',taste:'Fris / kruidig',tech:'Muddle + Build',zero:false,ingredients:[['Witte rum','40 ml'],['Limoensap','25 ml'],['Suikersiroop','15 ml'],['Munt','6–8 blaadjes'],['Bruiswater','± 60 ml']],flow:['Munt/limoen','Licht muddlen','Rum + zoet','IJs','Bruis','Kort roeren','Garneren'],why:'De basis lijkt op Daiquiri, maar munt voegt aroma toe en bruis maakt het lichter en sprankelender.',links:['rum','lime','mint']},
+{id:'cuba-libre',name:'Cuba Libre',base:'Rum',taste:'Zoet / fris',tech:'Build',zero:false,ingredients:[['Rum','40 ml'],['Cola','100–120 ml'],['Limoen','partje/sap']],flow:['IJs','Rum','Cola','Limoen','Kort roeren'],why:'Cola brengt zoetheid, karamelachtige tonen en bruis; limoen geeft fris contrast.',links:['rum','lime']},
+{id:'pina-colada',name:'Piña Colada',base:'Rum',taste:'Tropisch / romig',tech:'Shake / Blend',zero:false,ingredients:[['Rum','40 ml'],['Ananassap','60 ml'],['Kokoscrème','30 ml']],flow:['Afmeten','IJs','Shake/blend','Uitschenken','Garneren'],why:'Ananas en kokos versterken het tropische karakter; zuur/frisheid kan voorkomen dat het te zwaar wordt.',links:['rum','pineapple','coconut']},
+{id:'moscow-mule',name:'Moscow Mule',base:'Vodka',taste:'Fris / pittig',tech:'Build',zero:false,ingredients:[['Vodka','40 ml'],['Limoensap','20 ml'],['Ginger beer','± 100 ml']],flow:['IJs','Vodka','Limoen','Ginger beer','Kort roeren'],why:'Vodka laat gember en limoen spreken. Zuur/fris contrasteert met het pittige, warme gemberaroma.',links:['vodka','lime','ginger']},
+{id:'cosmopolitan',name:'Cosmopolitan',base:'Vodka',taste:'Fruitig / zuur',tech:'Shake',zero:false,ingredients:[['Vodka','40 ml'],['Citruslikeur','15 ml'],['Cranberrysap','30 ml'],['Limoensap','10 ml']],flow:['Afmeten','IJs','Shake','Strain','Garneren'],why:'Fruit, citrus, zuur en zoet worden in balans gebracht; de likeur voegt ook alcohol en aroma toe.',links:['vodka','liqueur','lime']},
+{id:'espresso-martini',name:'Espresso Martini',base:'Vodka',taste:'Koffie / bitterzoet',tech:'Shake',zero:false,ingredients:[['Vodka','40 ml'],['Espresso','30 ml'],['Koffielikeur','20 ml'],['Suikersiroop','optioneel']],flow:['Koelen','Afmeten','IJs','Hard shake','Strain'],why:'Koffiebitterheid, zoetheid en alcohol worden gecombineerd. Hard shaken helpt textuur en schuimvorming.',links:['vodka','liqueur']},
+{id:'gin-tonic',name:'Gin & Tonic',base:'Gin',taste:'Bitter / aromatisch',tech:'Build',zero:false,ingredients:[['Gin','40–50 ml'],['Tonic','100–150 ml'],['Citrus/garnish','naar stijl']],flow:['Glas','IJs','Gin','Tonic','Garneren'],why:'Botanicals, bitterheid, koolzuur, temperatuur en aroma werken samen. De garnish hoort functioneel te zijn.',links:['gin']},
+{id:'tom-collins',name:'Tom Collins',base:'Gin',taste:'Fris / zuur / bruis',tech:'Shake + Build',zero:false,ingredients:[['Gin','45 ml'],['Citroensap','30 ml'],['Suikersiroop','15 ml'],['Sodawater','± 60 ml']],flow:['Shake basis','Strain','IJs','Soda','Garneren'],why:'Een sour-structuur wordt verlengd met bruiswater, waardoor de drank lichter en verfrissender wordt.',links:['gin','lemon']},
+{id:'gimlet',name:'Gimlet',base:'Gin',taste:'Citrus / fris',tech:'Shake',zero:false,ingredients:[['Gin','50 ml'],['Limoen','25 ml'],['Zoet','10–15 ml']],flow:['Afmeten','IJs','Shake','Strain'],why:'Gin en limoen versterken fris-citrus; zoetheid houdt het zuur in balans.',links:['gin','lime']},
+{id:'negroni',name:'Negroni',base:'Gin',taste:'Bitter / zoet',tech:'Stir',zero:false,ingredients:[['Gin','30 ml'],['Bitter aperitief','30 ml'],['Zoete vermout','30 ml']],flow:['Mixglas','IJs','Stir','Strain','Garneren'],why:'Bitter, zoet en botanisch karakter staan bewust naast elkaar. Verdunning is cruciaal.',links:['gin']},
+{id:'whisky-sour',name:'Whisky Sour',base:'Whisky',taste:'Zuur / zoet',tech:'Shake',zero:false,ingredients:[['Whisky','45 ml'],['Citroensap','30 ml'],['Suikersiroop','15 ml']],flow:['Afmeten','IJs','Shake','Strain'],why:'Whisky geeft diepte; citroen brengt fris zuur; suiker balanceert. Een klassiek voorbeeld van sour-balans.',links:['whisky','lemon']},
+{id:'old-fashioned',name:'Old Fashioned',base:'Whisky',taste:'Krachtig / bitterzoet',tech:'Stir',zero:false,ingredients:[['Whisky','50 ml'],['Suiker/siroop','klein'],['Bitters','enkele dashes']],flow:['Glas','Ingrediënten','IJs','Stir','Zest'],why:'Weinig ingrediënten betekent dat verhouding, ijs en verdunning extra belangrijk zijn.',links:['whisky']},
+{id:'margarita',name:'Margarita',base:'Tequila',taste:'Zuur / citrus',tech:'Shake',zero:false,ingredients:[['Tequila','45 ml'],['Citruslikeur','20 ml'],['Limoensap','25 ml']],flow:['Afmeten','IJs','Shake','Strain'],why:'Agavekarakter, limoen en citruslikeur vormen een sterke zoet-zuur-citrusstructuur.',links:['tequila','lime','liqueur']},
+{id:'paloma',name:'Paloma',base:'Tequila',taste:'Fris / bitterfruitig',tech:'Build',zero:false,ingredients:[['Tequila','40 ml'],['Grapefruit','80–100 ml'],['Limoen','10 ml']],flow:['IJs','Tequila','Citrus','Grapefruit','Kort roeren'],why:'Grapefruit combineert zuur, fruitigheid en bitterheid; tequila geeft aardser karakter.',links:['tequila','grapefruit']},
+{id:'tequila-sunrise',name:'Tequila Sunrise',base:'Tequila',taste:'Fruitig / zoet',tech:'Build / Layer',zero:false,ingredients:[['Tequila','40 ml'],['Sinaasappelsap','90 ml'],['Grenadine','10 ml']],flow:['IJs','Tequila','Sinaasappel','Grenadine langzaam','Niet roeren'],why:'Kleurverloop beïnvloedt verwachting. Grenadine voegt zoetheid én visuele impact toe.',links:['tequila','orange']},
+{id:'blue-lagoon',name:'Blue Lagoon',base:'Vodka',taste:'Citrus / fris / zoet',tech:'Build',zero:false,ingredients:[['Vodka','30 ml'],['Blue Curaçao 0.0 siroop','20 ml'],['Citroen/limoen','15 ml'],['Bruiswater','± 80 ml']],flow:['IJs','Vodka','Blue siroop','Citrus','Bruis','Garneren'],why:'De opvallende kleur stuurt smaakverwachting. Citrus geeft frisheid; de blauwe siroop brengt kleur en sinaasappelachtige zoetheid.',links:['vodka','liqueur','lime']},
+{id:'virgin-mojito',name:'Virgin Mojito',base:'0.0',taste:'Fris / kruidig',tech:'Muddle + Build',zero:true,ingredients:[['Limoen','25 ml'],['Suikersiroop','15 ml'],['Munt','6–8 blaadjes'],['Bruiswater','100 ml']],flow:['Munt/limoen','Licht muddlen','Zoet','IJs','Bruis','Garneren'],why:'Een alcoholvrije variant waarin zuur, zoet, muntaroma en bruis de hele structuur dragen.',links:['lime','mint']},
+{id:'berry-smash',name:'Berry Smash 0.0',base:'0.0',taste:'Fruitig / fris',tech:'Muddle + Shake',zero:true,ingredients:[['Rood fruit','50 g'],['Limoen','20 ml'],['Suikersiroop','10–15 ml'],['Munt of basilicum','enkele blaadjes'],['Bruis','optioneel']],flow:['Fruit/kruid','Muddle','Citrus/zoet','IJs','Shake','Proef','Aanpassen'],why:'Fruit, zuur en kruiden geven veel ruimte voor testen en verbeteren. Ideaal als experimentcocktail.',links:['lime','mint','basil']},
+{id:'tropical-sunrise',name:'Tropical Sunrise 0.0',base:'0.0',taste:'Tropisch / zoet',tech:'Build / Layer',zero:true,ingredients:[['Sinaasappelsap','80 ml'],['Ananassap','50 ml'],['Grenadine','10 ml'],['Limoen','10 ml']],flow:['IJs','Sappen','Limoen','Grenadine langzaam','Niet roeren'],why:'Tropisch fruit wordt visueel versterkt door kleurverloop; limoen helpt voorkomen dat het te zoet wordt.',links:['pineapple','orange','lime']},
+{id:'ginger-citrus',name:'Ginger Citrus 0.0',base:'0.0',taste:'Fris / pittig',tech:'Build',zero:true,ingredients:[['Limoen/citroen','20 ml'],['Ginger beer','120 ml'],['Suikersiroop','optioneel'],['Munt','optioneel']],flow:['IJs','Citrus','Ginger beer','Proef','Garneren'],why:'Citrus en gember contrasteren: fris/zuur tegenover pittig/warm.',links:['ginger','lime']},
+{id:'sex-on-the-beach',name:'Sex on the Beach',base:'Vodka',taste:'Fruitig / zoet-fris',tech:'Build',zero:false,ingredients:[['Vodka','40 ml'],['Perziklikeur','20 ml'],['Sinaasappelsap','40 ml'],['Cranberrysap','40 ml']],flow:['Glas + ijs','Vodka','Perziklikeur','Sappen','Kort roeren','Garneren'],why:'Perzik en sinaasappel geven zoet en fruit; cranberry brengt fruitige frisheid en kleur. De neutrale vodka laat de toevoegingen spreken.',links:['vodka','orange','liqueur']},
+{id:'pornstar-martini',name:'Pornstar Martini',base:'Vodka',taste:'Tropisch / zoet-zuur / vanille',tech:'Shake',zero:false,ingredients:[['Vanillevodka of vodka','40 ml'],['Passievruchtlikeur','20 ml'],['Passievruchtpuree','30 ml'],['Limoensap','15 ml'],['Vanillesiroop','10 ml'],['Mousserende wijn','kleine serve ernaast']],flow:['Afmeten','Shaker + ijs','Hard shake','Fine strain','Passievrucht garnering','Bubbels apart'],why:'Passievrucht geeft intens tropisch fruit en zuur; vanille maakt het aroma ronder en zoeter; limoen bewaakt de frisheid. De bruisende serve geeft contrast en beleving.',links:['vodka','lime','liqueur']},
+{id:'amaretto-sour',name:'Amaretto Sour',base:'Likeur',taste:'Zoet / zuur / amandel',tech:'Shake',zero:false,ingredients:[['Amaretto','50 ml'],['Citroensap','25 ml'],['Suikersiroop','5–10 ml'],['Eiwit/aquafaba','optioneel']],flow:['Afmeten','Shake','IJs','Shake','Strain','Garneren'],why:'De uitgesproken zoete amandellikeur krijgt contrast en frisheid van citroen.',links:['liqueur','lemon']},
+{id:'long-island',name:'Long Island Iced Tea',base:'Mix spirits',taste:'Citrus / zoet / krachtig',tech:'Build',zero:false,ingredients:[['Vodka','15 ml'],['Gin','15 ml'],['Witte rum','15 ml'],['Tequila','15 ml'],['Citruslikeur','15 ml'],['Citroensap','25 ml'],['Suikersiroop','15 ml'],['Cola','top']],flow:['IJs','Spirits afmeten','Citrus + zoet','Kort roeren','Cola','Garneren'],why:'Meerdere spirits worden samengebracht met citrus, zoet en cola. Exact afmeten is hier extra belangrijk.',links:['vodka','gin','rum','tequila','liqueur','lemon']},
+{id:'caipirinha',name:'Caipirinha',base:'Cachaça',taste:'Fris / limoen / zoet',tech:'Muddle + Build',zero:false,ingredients:[['Cachaça','50 ml'],['Limoen','1 stuk in partjes'],['Suiker','2 tl']],flow:['Limoen + suiker','Muddle','IJs','Cachaça','Kort mengen'],why:'Limoen, suiker en suikerrietdistillaat vormen een directe zoet-zuurstructuur met veel citrusaroma.',links:['lime']},
+{id:'aperol-spritz',name:'Aperol Spritz-stijl',base:'Bitter aperitief',taste:'Bitterzoet / citrus / bruis',tech:'Build',zero:false,ingredients:[['Bitter aperitief','60 ml'],['Mousserende wijn','90 ml'],['Sodawater','30 ml'],['Sinaasappel','garnering']],flow:['Wijnglas + ijs','Mousserend','Aperitief','Soda','Sinaasappel'],why:'Bitterzoet aperitief, bruis en citrus geven een lichte aperitiefstructuur waarin bitterheid bewust onderdeel van de balans is.',links:['orange']},
+{id:'strawberry-daiquiri',name:'Strawberry Daiquiri',base:'Rum',taste:'Fruitig / fris / zoet-zuur',tech:'Shake / Blend',zero:false,ingredients:[['Witte rum','40 ml'],['Aardbei','60 g'],['Limoensap','20 ml'],['Suikersiroop','10–15 ml']],flow:['Ingrediënten','IJs','Shake/blend','Proef','Uitschenken','Garneren'],why:'De klassieke Daiquiri-structuur krijgt extra fruit en zoetheid van aardbei; limoen houdt de drank fris.',links:['rum','lime']}
+],
+ingredients:[
+{id:'lime',name:'Limoen',icon:'🍋',type:'Citrus',bars:{Zuur:5,Fris:5,Aroma:4},works:[['Munt','Versterkt frisheid en aroma'],['Gember','Contrasteert fris/zuur met pittig/warm'],['Passievrucht','Versterkt tropische frisheid'],['Kokos','Contrasteert met rijk en zoet']],warning:'Veel zuur + weinig zoet kan scherp worden. Te veel limoen kan andere aroma’s maskeren.',recipes:['daiquiri','mojito','moscow-mule','margarita']},
+{id:'lemon',name:'Citroen',icon:'🍋',type:'Citrus',bars:{Zuur:5,Fris:4,Aroma:3},works:[['Suiker','Balanceert zuur'],['Gember','Fris ↔ pittig'],['Whisky','Geeft fris contrast']],warning:'Te veel citroen kan een drank dun en scherp laten smaken.',recipes:['whisky-sour','tom-collins']},
+{id:'mint',name:'Munt',icon:'🌿',type:'Kruid',bars:{Aroma:5,Frisse_indruk:5},works:[['Limoen','Klassiek fris'],['Aardbei','Fruitig + fris'],['Komkommer','Groen + fris']],warning:'Te hard muddlen kan ongewenste plantaardige/bittere indrukken geven.',recipes:['mojito','virgin-mojito','berry-smash']},
+{id:'ginger',name:'Gember',icon:'🫚',type:'Specerij',bars:{Pittig:4,Aroma:4,Warm:3},works:[['Limoen','Fris ↔ pittig'],['Ananas','Tropisch ↔ pittig'],['Appel','Fruitig + kruidig']],warning:'Te veel gember kan andere aroma’s domineren.',recipes:['moscow-mule','ginger-citrus']},
+{id:'pineapple',name:'Ananas',icon:'🍍',type:'Fruit',bars:{Fruitig:5,Zoet:4,Zuur:2},works:[['Kokos','Tropisch en rijk'],['Munt','Tropisch + fris'],['Gember','Tropisch ↔ pittig']],warning:'Met veel kokos of siroop kan het snel zwaar/zoet worden.',recipes:['pina-colada','tropical-sunrise']},
+{id:'coconut',name:'Kokos',icon:'🥥',type:'Rijk/tropisch',bars:{Rijk:5,Zoet_associatie:4,Aroma:4},works:[['Ananas','Klassiek tropisch'],['Limoen','Zuur contrasteert met rijk/zoet']],warning:'Kan snel zwaar worden; fris zuur kan helpen balans te creëren.',recipes:['pina-colada']},
+{id:'grapefruit',name:'Grapefruit',icon:'🍊',type:'Citrus',bars:{Bitter:4,Zuur:3,Fris:4},works:[['Zoet','Balanceert bitter/zuur'],['Rozemarijn','Citrus + kruidig aroma'],['Tequila','Fris/bitterfruitig contrast']],warning:'Veel bitter + veel zuur kan hard overkomen.',recipes:['paloma']},
+{id:'orange',name:'Sinaasappel',icon:'🍊',type:'Citrus/fruit',bars:{Fruitig:4,Zoet:3,Aroma:4},works:[['Rozemarijn','Citrus + kruidig'],['Bitter','Fruitzoet ↔ bitter'],['Vanille','Rond en warm']],warning:'In combinatie met veel siroop kan de frisheid verdwijnen.',recipes:['tequila-sunrise','tropical-sunrise']},
+{id:'basil',name:'Basilicum',icon:'🌿',type:'Kruid',bars:{Aroma:5,Kruidig:4,Fris:3},works:[['Aardbei','Fruitig ↔ kruidig'],['Citroen','Fris + kruidig'],['Rood fruit','Aromatisch contrast']],warning:'Te veel basilicum kan snel dominant worden.',recipes:['berry-smash']}
+],
+techniques:[
+{id:'build',name:'Build',icon:'🥤',what:'Rechtstreeks opbouwen in het serveerglas.',when:'Longdrinks en drankjes met bruis.',why:'Snel, logisch en je behoudt koolzuur beter.',steps:['Glas klaar','IJs','Ingrediënten afmeten','Opbouwen','Bruis als laatste','Kort roeren','Garneren'],mistake:'Te agressief roeren waardoor koolzuur verdwijnt.',examples:['moscow-mule','gin-tonic','cuba-libre']},
+{id:'shake',name:'Shake',icon:'🧊',what:'Krachtig mengen met ijs.',when:'Cocktails met citrus, sap, siroop of wanneer sterke menging gewenst is.',why:'Mengen + koelen + verdunnen + soms textuur/lucht toevoegen.',steps:['Afmeten','Shaker','IJs','Sluiten','Krachtig shaken','Strain'],mistake:'Te weinig ijs of te lang wachten voor uitschenken.',examples:['daiquiri','margarita','whisky-sour']},
+{id:'stir',name:'Stir',icon:'🥄',what:'Rustig roeren met ijs.',when:'Heldere, spirit-forward cocktails.',why:'Koelen en gecontroleerd verdunnen zonder veel lucht.',steps:['Mixglas','Ingrediënten','IJs','Rustig roeren','Strain'],mistake:'Te lang roeren waardoor te veel verdunning ontstaat.',examples:['old-fashioned','negroni']},
+{id:'muddle',name:'Muddle',icon:'🌿',what:'Ingrediënten voorzichtig kneuzen.',when:'Kruiden, zacht fruit, citrus in bepaalde recepten.',why:'Aroma en sap vrijmaken.',steps:['Ingrediënten in glas','Voorzichtig drukken/kneuzen','Niet vermalen','Verder bouwen'],mistake:'Kruiden kapot stampen.',examples:['mojito','berry-smash']},
+{id:'layer',name:'Layering',icon:'🌅',what:'Ingrediënten zo schenken dat zichtbare lagen ontstaan.',when:'Drankjes waarbij presentatie en kleurverloop belangrijk zijn.',why:'Visuele gastbeleving en verwachting.',steps:['Dichtheid inschatten','Rustig schenken','Lepel indien nodig','Niet roeren'],mistake:'Te snel schenken zodat alles meteen mengt.',examples:['tequila-sunrise','tropical-sunrise']},
+{id:'strain',name:'Strain',icon:'🫗',what:'IJs en/of vaste bestanddelen tegenhouden bij uitschenken.',when:'Na shaken of stirren.',why:'Controle over textuur, ijs en presentatie.',steps:['Strainer plaatsen','Rustig uitschenken'],mistake:'Onnodig pulp of ijs meenemen.',examples:['daiquiri','margarita']},
+],
+problems:[
+{id:'too-sour',name:'Te zuur',icon:'😖',causes:['Te veel citrus','Te weinig zoet','Te weinig verdunning','Verhouding klopt niet'],fix:['Minder zuur','Klein beetje extra zoet','Gecontroleerd verdunnen','Recept opnieuw afmeten'],note:'Verander één ding tegelijk en proef opnieuw.'},
+{id:'too-sweet',name:'Te zoet',icon:'🍭',causes:['Te veel siroop','Zoet sap + extra suiker','Zoete likeur + extra zoet','Te weinig fris/zuur'],fix:['Minder zoete component','Kleine hoeveelheid citrus','Bitter/fris contrast waar passend','Verdunning beoordelen'],note:'Meer zuur is niet automatisch altijd de oplossing.'},
+{id:'flat',name:'Te vlak',icon:'😐',causes:['Mist zuur','Mist aroma','Te warm','Te veel verdunning','Geen contrast'],fix:['Citrus','Verse kruiden/zest','Beter koelen','Verhouding versterken','Aromatische garnish'],note:'Zoek eerst welk element ontbreekt.'},
+{id:'watery',name:'Te waterig',icon:'💧',causes:['Te lang shaken','Smeltend ijs','Te veel mixer','Te lang laten staan'],fix:['Vers koud ijs','Korter werken','Preciezer afmeten','Bruis pas laat toevoegen'],note:'IJs is een ingrediënt: het koelt én verdunt.'},
+{id:'bitter',name:'Te bitter',icon:'🌰',causes:['Te veel tonic/bitter','Zest te intens','Kruiden te hard gekneusd','Zuur + bitter te hard'],fix:['Klein beetje zoet','Minder bitter','Meer verdunning','Zachtere fruitcomponent'],note:'Bitter hoeft niet weg; het moet passen in de balans.'},
+{id:'weak-aroma',name:'Te weinig aroma',icon:'🌿',causes:['Slappe kruiden','Citrus niet vers','Te weinig aromatische component','Verkeerde garnish'],fix:['Verse munt/basilicum','Citruszest','Kruiden voorzichtig kneuzen','Garnish vlak voor serveren'],note:'Vraag: wat ruikt de gast vóór de eerste slok?'}
+],
+terms:[
+['Aroma','Geurcomponenten die sterk bijdragen aan smaakbeleving.'],
+['Balance','De verhouding tussen smaken en prikkels zodat niets ongewenst overheerst.'],
+['Botanicals','Plantaardige smaakmakers zoals jeneverbes, citrus, kruiden en specerijen.'],
+['Build','Cocktail rechtstreeks opbouwen in het serveerglas.'],
+['Dilution','Verdunning door water, vaak afkomstig van smeltend ijs.'],
+['Distillatie','Proces waarbij alcohol en aromatische componenten worden geconcentreerd.'],
+['Fermentatie','Gist zet suikers om in onder andere alcohol en koolzuur.'],
+['Garnish','Garnering met functie in geur, smaak, herkenning of presentatie.'],
+['Jigger','Maatbekertje voor exact afmeten.'],
+['Layering','Ingrediënten in zichtbare lagen schenken.'],
+['Likeur','Alcoholische drank met toegevoegde smaak en zoetheid.'],
+['Muddle','Voorzichtig kneuzen van ingrediënten.'],
+['Mixology','Bewust werken met smaak, aroma, techniek en presentatie bij drankbereiding.'],
+['Neat','Puur geserveerd, zonder ijs of mixer.'],
+['Rijping','Bewaren onder gecontroleerde omstandigheden, vaak op hout, waardoor smaak kan ontwikkelen.'],
+['Shake','Krachtig mengen met ijs.'],
+['Spirit','Algemene term voor gedistilleerde sterke drank.'],
+['Stir','Rustig roeren met ijs.'],
+['Strain','Zeven bij uitschenken.'],
+['Tonic','Bittere koolzuurhoudende mixer, traditioneel met kinine.']
+]
+};
+
+const categories=[
+{id:'spirits',icon:'🥃',name:'Drankenkompas',desc:'Van grondstof en productie naar stijl, smaak en cocktails.'},
+{id:'recipes',icon:'🍸',name:'Receptenbank',desc:'Cocktails en mocktails met techniek, stroomschema en smaaklogica.'},
+{id:'top10',icon:'🔥',name:'Horeca Top 10',desc:'Tien bekende cocktails die studenten in de horeca vaak tegenkomen.'},
+{id:'practiceLab',icon:'👨‍🍳',name:'Praktijklab',desc:'Kies jouw toegewezen cocktail, volg de walkthrough en bereid je voor op de gezamenlijke proeverij.'},
+{id:'signature',icon:'🏆',name:'The Signature Serve',desc:'Na de proeverij: ontwikkel je eigen serve stap voor stap en maak je portfolio-PDF.'},
+{id:'flavours',icon:'🍋',name:'Smaakkompas',desc:'Ingrediënten, aroma’s en combinaties die versterken of balanceren.'},
+{id:'problems',icon:'🧪',name:'Fix mijn drankje',desc:'Analyseer te zuur, te zoet, bitter, vlak of waterig.'},
+{id:'techniques',icon:'🔧',name:'Technieken',desc:'Build, shake, stir, muddle, layering en strain.'},
+{id:'terms',icon:'📖',name:'Begrippen',desc:'Vaktaal en kernbegrippen snel terugvinden.'}
+];
+
+let historyStack=[];
+let route={type:'home'};
+const $=s=>document.querySelector(s);
+const favKey='mixology_v1_favs';
+let favorites=JSON.parse(localStorage.getItem(favKey)||'[]');
+
+function saveFav(){localStorage.setItem(favKey,JSON.stringify(favorites))}
+function isFav(id){return favorites.includes(id)}
+function toggleFav(id){
+  favorites=isFav(id)?favorites.filter(x=>x!==id):[...favorites,id];
+  saveFav(); render();
+}
+function pushRoute(r){
+  historyStack.push(route);
+  route=r; render(); window.scrollTo({top:0,behavior:'smooth'});
+}
+function goBack(){
+  if(historyStack.length){route=historyStack.pop(); render(); window.scrollTo({top:0,behavior:'smooth'});}
+  else goHome();
+}
+function goHome(){historyStack=[];route={type:'home'};render();window.scrollTo({top:0,behavior:'smooth'})}
+
+function crumbs(items){
+  const el=$('#crumbs'); el.innerHTML='';
+  items.forEach((it,i)=>{
+    if(i) el.insertAdjacentHTML('beforeend','<span>›</span>');
+    const b=document.createElement('button'); b.textContent=it.label;
+    b.onclick=it.action; el.appendChild(b);
+  });
+}
+function home(){
+ crumbs([{label:'Home',action:goHome}]);
+ return `<section class="hero">
+  <div class="pill">NASLAGWERK VOOR HOSPITALITY & MIXOLOGIE</div>
+  <h1>Begrijp wat je schenkt.</h1>
+  <p>Zoek dranken, recepten, smaakcombinaties, technieken en oplossingen. Eerst de kern, verdieping pas achter een knop.</p>
+  <div class="grid">
+  ${categories.map(c=>`<div class="card click" onclick="pushRoute({type:'category',id:'${c.id}'})">
+    <div class="emoji">${c.icon}</div><h3>${c.name}</h3><p>${c.desc}</p>
+  </div>`).join('')}
+  </div>
+ </section>
+ <div class="section-title" style="margin-top:28px"><div><h2>Snel ontdekken</h2><p>Veelgebruikte ingangen</p></div></div>
+ <div class="list">
+  ${['daiquiri','mojito','moscow-mule'].map(id=>recipeCard(DB.recipes.find(x=>x.id===id))).join('')}
+ </div>`;
+}
+
+function recipeCard(r){
+ return `<div class="item">
+  <button class="fav ${isFav(r.id)?'on':''}" onclick="event.stopPropagation();toggleFav('${r.id}')">${isFav(r.id)?'★':'☆'}</button>
+  <button class="main" onclick="pushRoute({type:'recipe',id:'${r.id}'})"><h3>${r.name}</h3>
+  <div class="meta"><span class="tag">${r.base}</span><span class="tag">${r.taste}</span><span class="tag">${r.tech}</span>${r.zero?'<span class="tag">0.0</span>':''}</div></button>
+ </div>`;
+}
+function spiritCard(s){
+ return `<div class="item"><button class="main" onclick="pushRoute({type:'spirit',id:'${s.id}'})"><div class="emoji">${s.icon}</div><h3>${s.name}</h3><p>${s.short}</p></button></div>`;
+}
+function ingredientCard(x){
+ return `<div class="item"><button class="main" onclick="pushRoute({type:'ingredient',id:'${x.id}'})"><div class="emoji">${x.icon}</div><h3>${x.name}</h3><p>${x.type}</p></button></div>`;
+}
+
+function category(id){
+ const c=categories.find(x=>x.id===id);
+ crumbs([{label:'Home',action:goHome},{label:c.name,action:()=>{}}]);
+ if(id==='spirits') return `<div class="section-title"><div><h2>🥃 Drankenkompas</h2><p>Van grondstof naar toepassing.</p></div></div><div class="list">${DB.spirits.map(spiritCard).join('')}</div>`;
+ if(id==='recipes') return recipesView();
+ if(id==='top10') return top10View();
+ if(id==='practiceLab') return practiceLabView();
+ if(id==='signature') return signatureView();
+ if(id==='flavours') return `<div class="section-title"><div><h2>🍋 Smaakkompas</h2><p>Klik een ingrediënt en ontdek wat het doet.</p></div></div><div class="list">${DB.ingredients.map(ingredientCard).join('')}</div>`;
+ if(id==='problems') return `<div class="section-title"><div><h2>🧪 Fix mijn drankje</h2><p>Analyseer eerst, pas daarna aan.</p></div></div><div class="problem">${DB.problems.map(p=>`<div class="item click" onclick="pushRoute({type:'problem',id:'${p.id}'})"><div class="emoji">${p.icon}</div><h3>${p.name}</h3><p>${p.note}</p></div>`).join('')}</div>`;
+ if(id==='techniques') return `<div class="section-title"><div><h2>🔧 Technieken</h2><p>Wat, wanneer en waarom.</p></div></div><div class="list">${DB.techniques.map(t=>`<div class="item click" onclick="pushRoute({type:'technique',id:'${t.id}'})"><div class="emoji">${t.icon}</div><h3>${t.name}</h3><p>${t.what}</p></div>`).join('')}</div>`;
+ if(id==='terms') return termsView();
+}
+
+
+
+const practiceKey='mixology_practice_lab_v1';
+const practiceCocktails=[
+ {id:'daiquiri',name:'Daiquiri',icon:'🍸',base:'Witte rum',tech:'Shake',taste:'fris · zoetzuur',focus:'Zoet–zuurbalans en correct shaken',
+  ingredients:[['Witte rum','40 ml'],['Vers limoensap','25 ml'],['Suikersiroop','15 ml'],['IJs','voor shaken'],['Limoen','garnish']],
+  mise:['Jigger','Shaker','Strainer','IJs','Glas','Rum','Limoen','Suikersiroop'],
+  steps:['Koel het serveerglas.','Meet rum, limoensap en suikersiroop exact af in de shaker.','Vul de shaker ruim met ijs.','Shake krachtig tot de shaker goed koud is.','Strain in het gekoelde glas.','Werk schoon af met limoen en doe de eindcheck.'],
+  why:'Shaken mengt, koelt en verdunt. De kern van deze cocktail is de balans tussen zuur van limoen en zoet van siroop.'},
+ {id:'mojito',name:'Mojito',icon:'🌿',base:'Witte rum',tech:'Muddle + Build',taste:'fris · munt · limoen',focus:'Aroma, voorzichtig muddlen, bruis en ijs',
+  ingredients:[['Witte rum','40 ml'],['Vers limoensap','25 ml'],['Suikersiroop','15 ml'],['Munt','6–8 blaadjes'],['Bruiswater','±60 ml'],['IJs','glas vullen']],
+  mise:['Jigger','Barlepel','Muddler','Highballglas','IJs','Rum','Limoen','Munt','Suikersiroop','Bruiswater'],
+  steps:['Doe munt, limoensap en suikersiroop in het glas.','Druk de munt voorzichtig aan: aroma vrijmaken, niet kapot stampen.','Voeg rum toe.','Vul met ijs.','Top af met bruiswater.','Roer rustig van onder naar boven en garneer met munt.'],
+  why:'Munt levert vooral aroma. Limoen brengt fris zuur, suiker balanceert en bruiswater maakt de serve lichter en levendiger.'},
+ {id:'moscow',name:'Moscow Mule',icon:'🥃',base:'Vodka',tech:'Build',taste:'fris · gember · bruis',focus:'Build-techniek, gember, bruis en balans',
+  ingredients:[['Vodka','40 ml'],['Vers limoensap','20 ml'],['Ginger beer','±100 ml'],['IJs','glas vullen'],['Limoen','garnish']],
+  mise:['Jigger','Barlepel','Highball/mok','IJs','Vodka','Limoen','Ginger beer'],
+  steps:['Vul het glas met ijs.','Meet vodka en limoensap af en voeg toe.','Top af met ginger beer.','Roer kort en rustig zodat de bruis behouden blijft.','Garneer met limoen.','Controleer temperatuur, bruis en presentatie.'],
+  why:'Vodka is relatief neutraal. Daardoor staan limoen en pittig-aromatische gember centraal. Bruis zorgt voor frisheid en textuur.'},
+ {id:'blue',name:'Blue Lagoon',icon:'🔵',base:'Vodka',tech:'Build',taste:'citrus · fris · opvallend',focus:'Kleur, verwachting, citrus en presentatie',
+  ingredients:[['Vodka','30 ml'],['Blue Curaçao siroop 0.0','20 ml'],['Citroen- of limoensap','15 ml'],['Bruiswater','±80 ml'],['IJs','glas vullen']],
+  mise:['Jigger','Barlepel','Highballglas','IJs','Vodka','Blue Curaçao 0.0','Citroen/limoen','Bruiswater'],
+  steps:['Vul het glas met ijs.','Meet vodka, blauwe siroop en citrus af.','Voeg ze aan het glas toe.','Top af met bruiswater.','Roer rustig tot de kleur gelijkmatig is.','Werk zeer schoon af: bij deze serve is uiterlijk onderdeel van de beleving.'],
+  why:'De blauwe kleur stuurt de verwachting van de gast, terwijl citrus voor frisheid zorgt. De kleur is presentatie; de smaak moet nog steeds in balans zijn.'},
+ {id:'berry',name:'Berry Smash',icon:'🍓',base:'Vodka',tech:'Muddle + Shake',taste:'fruitig · fris · kruidig',focus:'Fruit, kruiden, proeven en bijsturen',
+  ingredients:[['Vodka','30 ml'],['Rood fruit','±50 g'],['Vers limoensap','20 ml'],['Suikersiroop','10–15 ml'],['Munt of basilicum','enkele blaadjes'],['IJs','voor shaken']],
+  mise:['Jigger','Muddler','Shaker','Strainer','IJs','Vodka','Rood fruit','Limoen','Suikersiroop','Munt/basilicum'],
+  steps:['Muddle het rode fruit voorzichtig met limoensap en siroop.','Voeg vodka en kruiden toe.','Vul de shaker met ijs.','Shake krachtig.','Strain in het gekozen glas.','Proef: is fruit, zuur en zoet in balans? Werk daarna netjes af.'],
+  why:'Fruit geeft zoetheid, zuur en aroma. Limoen houdt het fris en kruiden voegen een tweede aromalaag toe. Hier is proeven en bijsturen extra belangrijk.'},
+ {id:'tropical',name:'Tropical Passion',icon:'🥭',base:'Vodka',tech:'Shake',taste:'tropisch · fris · rond',focus:'Passievrucht, zuur, vanille en smaakbalans',
+  ingredients:[['Vodka','30 ml'],['Passievruchtpuree/-sap','30 ml'],['Ananassap','40 ml'],['Vers limoensap','15 ml'],['Vanillesiroop','10 ml'],['IJs','voor shaken']],
+  mise:['Jigger','Shaker','Strainer','IJs','Vodka','Passievrucht','Ananassap','Limoen','Vanillesiroop'],
+  steps:['Meet alle vloeibare ingrediënten exact af in de shaker.','Vul ruim met ijs.','Shake krachtig tot goed koud.','Strain in het gekozen glas.','Controleer of vanille het fruit niet overheerst.','Garneer passend en doe de eindcheck.'],
+  why:'Passievrucht en limoen geven frisheid, ananas versterkt het tropische karakter en vanille maakt het aroma ronder. Te veel vanille kan het fruit maskeren.'}
+];
+let practice=loadPractice();
+let practiceStage=practice.selected?1:0;
+function blankPractice(){return {selected:'',checks:{},taste:'',observation:'',learning:'',photo:'',done:false}}
+function loadPractice(){try{return {...blankPractice(),...JSON.parse(localStorage.getItem(practiceKey)||'{}')}}catch(e){return blankPractice()}}
+function savePractice(){localStorage.setItem(practiceKey,JSON.stringify(practice))}
+function pc(){return practiceCocktails.find(c=>c.id===practice.selected)}
+function selectPractice(id){
+ const c=practiceCocktails.find(x=>x.id===id);
+ if(!c)return;
+ if(confirm(`Is ${c.name} de cocktail die door je docent aan jou is toegewezen?`)){
+   practice=blankPractice();practice.selected=id;practiceStage=1;savePractice();render();window.scrollTo({top:0,behavior:'smooth'});
+ }
+}
+function practiceFan(){
+ return `<div class="fan-wrap">${practiceCocktails.map((c,i)=>`
+  <button type="button" class="fan-card" onclick="selectPractice('${c.id}')" aria-label="Selecteer ${c.name}">
+   <div class="glass">${c.icon}</div><div class="pill">COCKTAIL ${i+1}</div><h3>${c.name}</h3>
+   <div class="mini">${c.base} · ${c.tech}</div><div class="tags"><span class="tag">${c.taste}</span></div>
+   <p>${c.focus}</p><b>Selecteer →</b>
+  </button>`).join('')}</div>`;
+}
+function practiceCheck(k,v){practice.checks[k]=v;savePractice()}
+function practiceTaste(t){practice.taste=t;savePractice();render()}
+function practicePhoto(input){
+ const f=input.files&&input.files[0];if(!f)return;
+ const rd=new FileReader();rd.onload=e=>{const im=new Image();im.onload=()=>{
+  const max=1100,sc=Math.min(1,max/im.width,max/im.height),cv=document.createElement('canvas');
+  cv.width=Math.round(im.width*sc);cv.height=Math.round(im.height*sc);cv.getContext('2d').drawImage(im,0,0,cv.width,cv.height);
+  practice.photo=cv.toDataURL('image/jpeg',.76);savePractice();render();
+ };im.src=e.target.result};rd.readAsDataURL(f);
+}
+function practiceNext(){
+ const c=pc(); if(!c)return;
+ if(practiceStage===1){
+  if(c.mise.some((_,i)=>!practice.checks['m'+i]))return alert('Vink eerst je mise-en-place compleet af.');
+ } else if(practiceStage===2){
+  if(c.steps.some((_,i)=>!practice.checks['s'+i]))return alert('Doorloop en vink eerst alle bereidingsstappen af.');
+ } else if(practiceStage===3){
+  if(!practice.taste||!practice.observation.trim())return alert('Beoordeel eerst de smaak en noteer wat je proeft.');
+ } else if(practiceStage===4){
+  if(!practice.photo)return alert('Maak of upload eerst je bewijsfoto.');
+  if(!practice.learning.trim())return alert('Noteer eerst jouw belangrijkste leerpunt.');
+  practice.done=true;savePractice();
+ }
+ practiceStage=Math.min(5,practiceStage+1);render();window.scrollTo({top:0,behavior:'smooth'});
+}
+function practicePrev(){practiceStage=Math.max(1,practiceStage-1);render();window.scrollTo({top:0,behavior:'smooth'})}
+function changePractice(){
+ if(confirm('Andere cocktail selecteren? De voortgang van deze oefencocktail wordt dan gewist.')){
+  practice=blankPractice();practiceStage=0;savePractice();render();
+ }
+}
+function practiceWalk(){
+ const c=pc(); if(!c)return '';
+ const progress=`<div class="sig-progress">${[1,2,3,4,5].map(n=>`<div class="sig-dot ${n<practiceStage?'done':n===practiceStage?'active':''}"></div>`).join('')}</div>`;
+ let body='';
+ if(practiceStage===1)body=`<div class="sig-stephead"><div><div class="sig-stepnum">STAP 1 VAN 5</div><h2>Mise-en-place</h2></div></div>
+  <div class="sig-card"><p>Leg eerst alles klaar. Zo werk je straks rustig, schoon en professioneel.</p><div class="checklist">${c.mise.map((x,i)=>`<label class="checkline"><input type="checkbox" ${practice.checks['m'+i]?'checked':''} onchange="practiceCheck('m${i}',this.checked)"><span>${x}</span></label>`).join('')}</div></div>`;
+ if(practiceStage===2)body=`<div class="sig-stephead"><div><div class="sig-stepnum">STAP 2 VAN 5</div><h2>Maak ${c.name}</h2></div></div>
+  <div class="sig-card"><h3>Recept</h3><table class="recipe"><tr><th>Ingrediënt</th><th>Hoeveelheid</th></tr>${c.ingredients.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('')}</table></div>
+  <div class="sig-card"><h3>Walkthrough</h3><div class="checklist">${c.steps.map((x,i)=>`<label class="checkline"><input type="checkbox" ${practice.checks['s'+i]?'checked':''} onchange="practiceCheck('s${i}',this.checked)"><span><b>${i+1}.</b> ${x}</span></label>`).join('')}</div><div class="tipbox"><b>Waarom deze techniek?</b> ${c.why}</div></div>`;
+ if(practiceStage===3)body=`<div class="sig-stephead"><div><div class="sig-stepnum">STAP 3 VAN 5</div><h2>Proef als een professional</h2></div></div>
+  <div class="sig-card"><p>Proef een kleine hoeveelheid. Kies wat het beste past.</p><div class="tastebuttons">${['Te zuur','Te zoet','Te sterk','Te waterig','Te weinig aroma','In balans'].map(t=>`<button class="${practice.taste===t?'on':''}" onclick="practiceTaste('${t}')">${t}</button>`).join('')}</div>
+  <div class="field" style="margin-top:14px"><label>Wat proef of merk je? *</label><textarea placeholder="Bijv. fris zuur, duidelijke muntgeur, bruis blijft goed aanwezig..." oninput="practice.observation=this.value;savePractice()">${escText(practice.observation)}</textarea></div>
+  <div class="tipbox">Tijdens de gezamenlijke proeverij vertel jij straks kort wat kenmerkend is aan jouw cocktail.</div></div>`;
+ if(practiceStage===4)body=`<div class="sig-stephead"><div><div class="sig-stepnum">STAP 4 VAN 5</div><h2>Bewijs & leerpunt</h2></div></div>
+  <div class="sig-card"><div class="photo-box"><b>Foto van jouw ${c.name} *</b><div class="small">Schoon glas · nette garnish · rustige achtergrond · goed licht.</div><input type="file" accept="image/*" capture="environment" onchange="practicePhoto(this)">${practice.photo?`<img class="practice-photo" src="${practice.photo}">`:''}</div>
+  <div class="field" style="margin-top:14px"><label>Mijn belangrijkste leerpunt *</label><textarea placeholder="Bijv. munt niet kapot muddlen, want dan wordt de smaak snel bitter." oninput="practice.learning=this.value;savePractice()">${escText(practice.learning)}</textarea></div></div>`;
+ if(practiceStage===5)body=`<div class="practice-done"><div class="pill">AFGEROND ✓</div><h2>Jij bent klaar voor de proeverij</h2><p>Jij bent nu de expert van <b>${c.name}</b>. Vertel straks kort: wat zit erin, welke techniek gebruikte je en waar moet je bij de smaak op letten?</p>
+  <div class="practice-summary"><div class="sig-card"><b>Techniek</b><br>${c.tech}</div><div class="sig-card"><b>Proefcheck</b><br>${escText(practice.taste)}</div><div class="sig-card"><b>Leerpunt</b><br>${escText(practice.learning)}</div></div>
+  ${practice.photo?`<img class="practice-photo" src="${practice.photo}">`:''}
+  <div class="tipbox"><b>Volgende fase:</b> proef samen de verschillende cocktails. Daarna ga je naar 🏆 The Signature Serve en ontwikkel je een eigen horecaproduct.</div></div>`;
+ return `<div class="walk-hero"><div><div class="pill">MIJN TOEGEWEZEN COCKTAIL</div><h1>${c.name}</h1><p>${c.base} · <b>${c.tech}</b> · ${c.taste}</p><p>${c.focus}</p></div><div class="bigglass">${c.icon}</div></div>
+ <div class="assign-banner">Deze cocktail is door je docent toegewezen. Verkeerde gekozen? <button class="secondary" onclick="changePractice()">Kies opnieuw</button></div>
+ ${progress}${body}
+ <div class="sig-actions"><button class="secondary" onclick="practicePrev()" ${practiceStage<=1?'disabled':''}>← Vorige</button>${practiceStage<5?`<button class="primary" onclick="practiceNext()">${practiceStage===4?'Afronden ✓':'Volgende →'}</button>`:`<button class="primary" onclick="pushRoute({type:'category',id:'signature'})">Naar Signature Serve →</button>`}</div>`;
+}
+function practiceLabView(){
+ crumbs([{label:'Home',action:goHome},{label:'Praktijklab',action:()=>{}}]);
+ if(!practice.selected)return `<div class="section-title"><div><h2>👨‍🍳 Praktijklab</h2><p>Fase 1 — maak één cocktail die door je docent aan jou is toegewezen.</p></div></div>
+ <div class="notice"><b>Belangrijk:</b> kies niet je favoriet. Selecteer hieronder de cocktail die je docent aan jou heeft toegewezen. Daarna krijg je jouw eigen walkthrough.</div>
+ ${practiceFan()}
+ <div class="sig-card"><h3>Wat gebeurt er daarna?</h3><p><b>1.</b> Jij maakt jouw toegewezen cocktail → <b>2.</b> we proeven samen de verschillende cocktails → <b>3.</b> daarna ontwikkel je jouw eigen 🏆 Signature Serve.</p></div>`;
+ return `<div class="sig-shell">${practiceWalk()}</div>`;
+}
+
+const sigKey='mixology_signature_serve_v1';
+let sigStep=1;
+let sig=loadSig();
+
+function blankSig(){
+ return {
+  student:'',group:'',signatureChoice:'',drinkName:'',guest:'',occasion:'',alcohol:'Cocktail',price:'',
+  tastes:[],experience:'',
+  concept:'',why1:'',why2:'',
+  v1:[{name:'',qty:'',unit:'ml'}],v1tech:'',v1glass:'',v1ice:'',v1garnish:'',
+  scoreTaste:'3',scoreAroma:'3',scoreTemp:'3',scoreDilution:'3',scoreLook:'3',scoreGuest:'3',
+  v1problem:'',change:'',changeWhy:'',
+  v2:[{name:'',qty:'',unit:'ml'}],v2tech:'',v2glass:'',v2ice:'',v2garnish:'',method:'',
+  photoFinal:'',photoDev:'',photoTest:'',
+  menuText:'',menuPrice:'',
+  salesQ:'',salesFollow:'',salesPitch:'',salesClose:'',
+  reflection:''
+ };
+}
+function loadSig(){try{return {...blankSig(),...JSON.parse(localStorage.getItem(sigKey)||'{}')}}catch(e){return blankSig()}}
+function saveSig(){localStorage.setItem(sigKey,JSON.stringify(sig))}
+function setSig(k,v){sig[k]=v;saveSig()}
+function val(k){return (sig[k]??'').toString().replaceAll('"','&quot;')}
+function escText(v){return (v??'').toString().replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]))}
+function tasteChip(t){
+ const on=sig.tastes.includes(t);
+ return `<button type="button" class="chip ${on?'on':''}" onclick="toggleTaste('${t}')">${t}</button>`;
+}
+function toggleTaste(t){
+ sig.tastes=sig.tastes.includes(t)?sig.tastes.filter(x=>x!==t):[...sig.tastes,t].slice(0,3);
+ saveSig(); render();
+}
+function sigProgress(){
+ return `<div class="sig-progress">${[1,2,3,4,5,6,7,8].map(n=>`<div class="sig-dot ${n<sigStep?'done':n===sigStep?'active':''}"></div>`).join('')}</div>`;
+}
+function sigInput(label,key,ph='',type='text',help=''){
+ return `<div class="field"><label>${label}</label><input type="${type}" value="${val(key)}" placeholder="${ph}" oninput="setSig('${key}',this.value)">${help?`<small>${help}</small>`:''}</div>`;
+}
+function sigArea(label,key,ph='',help=''){
+ return `<div class="field full"><label>${label}</label><textarea placeholder="${ph}" oninput="setSig('${key}',this.value)">${escText(sig[key])}</textarea>${help?`<small>${help}</small>`:''}</div>`;
+}
+function sigSelect(label,key,opts){
+ return `<div class="field"><label>${label}</label><select onchange="setSig('${key}',this.value)">${opts.map(o=>`<option ${sig[key]===o?'selected':''}>${o}</option>`).join('')}</select></div>`;
+}
+function recipeRows(which){
+ const arr=sig[which]||[];
+ return `<div class="recipe-rows">${arr.map((r,i)=>`<div class="recipe-row">
+   <input placeholder="Ingrediënt, bv. limoensap" value="${(r.name||'').replaceAll('"','&quot;')}" oninput="updateRecipe('${which}',${i},'name',this.value)">
+   <input placeholder="Hoeveelheid" value="${(r.qty||'').replaceAll('"','&quot;')}" oninput="updateRecipe('${which}',${i},'qty',this.value)">
+   <select onchange="updateRecipe('${which}',${i},'unit',this.value)" style="background:#11181d;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:10px">
+    ${['ml','cl','g','stuks','dash','top'].map(u=>`<option ${r.unit===u?'selected':''}>${u}</option>`).join('')}
+   </select>
+   <button class="remove-row" type="button" onclick="removeRecipeRow('${which}',${i})">×</button>
+  </div>`).join('')}</div>
+  <button class="add-row" type="button" onclick="addRecipeRow('${which}')">+ Ingrediënt toevoegen</button>`;
+}
+function updateRecipe(w,i,k,v){sig[w][i][k]=v;saveSig()}
+function addRecipeRow(w){sig[w].push({name:'',qty:'',unit:'ml'});saveSig();render()}
+function removeRecipeRow(w,i){if(sig[w].length>1)sig[w].splice(i,1);saveSig();render()}
+
+function scoreField(label,key){
+ return `<div class="field"><label>${label}</label><select onchange="setSig('${key}',this.value)">
+ ${[1,2,3,4,5].map(n=>`<option ${sig[key]==n?'selected':''} value="${n}">${n}/5</option>`).join('')}
+ </select></div>`;
+}
+function compressPhoto(input,key){
+ const f=input.files&&input.files[0]; if(!f)return;
+ const reader=new FileReader();
+ reader.onload=e=>{
+  const img=new Image();
+  img.onload=()=>{
+   const max=1200, scale=Math.min(1,max/img.width,max/img.height);
+   const c=document.createElement('canvas'); c.width=Math.round(img.width*scale); c.height=Math.round(img.height*scale);
+   c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+   sig[key]=c.toDataURL('image/jpeg',.78); saveSig(); render();
+  };
+  img.src=e.target.result;
+ };
+ reader.readAsDataURL(f);
+}
+function photoBox(label,key,required=false){
+ return `<div class="photo-box"><b>${label}${required?' <span class="req">*</span>':''}</b><div class="small">Maak of upload een foto. De app verkleint hem automatisch voor opslag.</div>
+ <input class="no-print" type="file" accept="image/*" capture="environment" onchange="compressPhoto(this,'${key}')">
+ ${sig[key]?`<img src="${sig[key]}" alt="${label}"><div><button class="secondary no-print" style="margin-top:8px" onclick="setSig('${key}','');render()">Foto verwijderen</button></div>`:''}</div>`;
+}
+function copyV1toV2(){
+ sig.v2=JSON.parse(JSON.stringify(sig.v1)); sig.v2tech=sig.v1tech;sig.v2glass=sig.v1glass;sig.v2ice=sig.v1ice;sig.v2garnish=sig.v1garnish;
+ saveSig(); sigStep=5;render();window.scrollTo({top:0,behavior:'smooth'});
+}
+function makeMenuSuggestion(){
+ const n=sig.drinkName||'Signature Serve';
+ const tastes=sig.tastes.length?sig.tastes.join(', ').toLowerCase():'verfrissende';
+ sig.menuText=`${n} – een ${tastes} signature serve, ontwikkeld voor ${sig.guest||'onze gast'}.`;
+ saveSig();render();
+}
+function makeSalesSuggestion(){
+ const q=sig.salesQ||'Waar heeft u vandaag zin in: iets fris, fruitigs of juist wat kruidiger?';
+ const traits=sig.tastes.length?sig.tastes.join(' en ').toLowerCase():'verfrissend';
+ sig.salesPitch=`Dan zou ik onze ${sig.drinkName||'Signature Serve'} adviseren. Die is ${traits}${sig.why1?`, waarbij ${sig.why1.charAt(0).toLowerCase()+sig.why1.slice(1)}`:''}.`;
+ sig.salesClose='Zal ik die voor u maken?';
+ if(!sig.salesQ)sig.salesQ=q;
+ saveSig();render();
+}
+function stepCanNext(){
+ if(sigStep===1)return sig.signatureChoice&&sig.drinkName.trim()&&sig.guest.trim();
+ if(sigStep===2)return sig.tastes.length>0&&sig.concept.trim();
+ if(sigStep===3)return sig.v1.some(r=>r.name.trim()&&r.qty.toString().trim());
+ if(sigStep===4)return sig.v1problem.trim()&&sig.change.trim();
+ if(sigStep===5)return sig.v2.some(r=>r.name.trim()&&r.qty.toString().trim())&&sig.method.trim();
+ if(sigStep===6)return !!sig.photoFinal;
+ if(sigStep===7)return sig.menuText.trim();
+ if(sigStep===8)return sig.salesQ.trim()&&sig.salesPitch.trim();
+ return true;
+}
+function nextSig(){
+ if(!stepCanNext()){alert('Vul eerst de belangrijkste velden van deze stap in.');return}
+ if(sigStep<8){sigStep++;render();window.scrollTo({top:0,behavior:'smooth'});}
+}
+function prevSig(){if(sigStep>1){sigStep--;render();window.scrollTo({top:0,behavior:'smooth'});}}
+function resetSig(){
+ if(confirm('Weet je zeker dat je de hele Signature Serve-opdracht wilt wissen?')){
+  sig=blankSig();saveSig();sigStep=1;render();
+ }
+}
+function printSignature(){
+ document.title=(sig.drinkName||'Signature Serve')+'_portfolio';
+ window.print();
+}
+function signatureReview(){
+ const ing=arr=>`<table class="recipe"><tr><th>Ingrediënt</th><th>Hoeveelheid</th></tr>${arr.filter(r=>r.name||r.qty).map(r=>`<tr><td>${escText(r.name)}</td><td>${escText(r.qty)} ${escText(r.unit)}</td></tr>`).join('')}</table>`;
+ return `<div class="print-sheet">
+ <div class="hero" style="padding:20px"><div class="pill">SIGNATURE SERVE PORTFOLIO</div><h1>${escText(sig.drinkName||'Mijn Signature Serve')}</h1>
+ <p>${escText(sig.student)} ${sig.group?'· '+escText(sig.group):''}</p></div>
+ ${sig.photoFinal?`<div style="text-align:center;margin:18px 0"><img class="review-photo" src="${sig.photoFinal}"></div>`:''}
+ <div class="review-block"><h3>1. Gast & concept</h3><p><b>Gast:</b> ${escText(sig.guest)}<br><b>Moment:</b> ${escText(sig.occasion)}<br><b>Type:</b> ${escText(sig.alcohol)}<br><b>Smaakprofiel:</b> ${escText(sig.tastes.join(', '))}</p><p>${escText(sig.experience)}</p></div>
+ <div class="review-block"><h3>2. Smaakidee</h3><p>${escText(sig.concept)}</p><p><b>Waarom werkt dit?</b><br>${escText(sig.why1)}<br>${escText(sig.why2)}</p></div>
+ <div class="review-block"><h3>3. Recept V1</h3>${ing(sig.v1)}<p><b>Techniek:</b> ${escText(sig.v1tech)} · <b>Glas:</b> ${escText(sig.v1glass)} · <b>IJs:</b> ${escText(sig.v1ice)} · <b>Garnish:</b> ${escText(sig.v1garnish)}</p></div>
+ <div class="review-block"><h3>4. Test & verbetering</h3><p><b>Probleem/observatie:</b> ${escText(sig.v1problem)}</p><p><b>Aanpassing:</b> ${escText(sig.change)}</p><p><b>Waarom:</b> ${escText(sig.changeWhy)}</p></div>
+ <div class="review-block"><h3>5. Definitief recept V2</h3>${ing(sig.v2)}<p><b>Techniek:</b> ${escText(sig.v2tech)} · <b>Glas:</b> ${escText(sig.v2glass)} · <b>IJs:</b> ${escText(sig.v2ice)} · <b>Garnish:</b> ${escText(sig.v2garnish)}</p><p><b>Werkwijze:</b><br>${escText(sig.method)}</p></div>
+ <div class="review-block"><h3>6. Menukaart</h3><p><b>Verkoopprijs:</b> € ${escText(sig.menuPrice||sig.price)}</p><p>${escText(sig.menuText)}</p></div>
+ <div class="review-block"><h3>7. Gastgericht verkopen</h3><p><b>Open vraag:</b> ${escText(sig.salesQ)}</p><p><b>Doorvraag:</b> ${escText(sig.salesFollow)}</p><p><b>Advies/verkoopverhaal:</b> ${escText(sig.salesPitch)}</p><p><b>Afsluiting:</b> ${escText(sig.salesClose)}</p></div>
+ <div class="review-block"><h3>8. Reflectie</h3><p>${escText(sig.reflection)}</p></div>
+ ${sig.photoDev||sig.photoTest?`<div class="review-block"><h3>Bewijsfoto’s</h3><div class="sig-grid">${sig.photoDev?`<img class="review-photo" src="${sig.photoDev}">`:''}${sig.photoTest?`<img class="review-photo" src="${sig.photoTest}">`:''}</div></div>`:''}
+ </div>`;
+}
+
+const signatureOptions=[
+ {id:'daiquiri',name:'Daiquiri-variant',hint:'Rum · limoen · zoet · shake',base:'Daiquiri'},
+ {id:'mojito',name:'Mojito-variant',hint:'Rum · limoen · munt · bruis',base:'Mojito'},
+ {id:'moscow',name:'Moscow Mule-variant',hint:'Vodka · limoen · ginger beer',base:'Moscow Mule'},
+ {id:'blue',name:'Blue Lagoon-variant',hint:'Vodka · Blue Curaçao 0.0 · citrus',base:'Blue Lagoon'},
+ {id:'berry',name:'Berry Smash-variant',hint:'Vodka · rood fruit · limoen · kruiden',base:'Berry Smash'},
+ {id:'tropical',name:'Tropical Passion-variant',hint:'Vodka · passievrucht · ananas · limoen',base:'Tropical Passion'},
+ {id:'sunrise',name:'Tropical Sunrise',hint:'Vodka · sinaasappel/ananas · grenadine',base:'Tropical Sunrise'},
+ {id:'ginger',name:'Ginger Citrus',hint:'Vodka of 0.0 · citrus · gember · bruis',base:'Ginger Citrus'},
+ {id:'own',name:'Zelf bedenken',hint:'Maak met de beschikbare ingrediënten een eigen combinatie.',base:''}
+];
+function chooseSignature(id){
+ const o=signatureOptions.find(x=>x.id===id); if(!o)return;
+ sig.signatureChoice=id;
+ if(id==='own'){
+   if(['Daiquiri','Mojito','Moscow Mule','Blue Lagoon','Berry Smash','Tropical Passion','Tropical Sunrise','Ginger Citrus'].includes(sig.drinkName)) sig.drinkName='';
+ }else if(!sig.drinkName || signatureOptions.some(x=>x.base===sig.drinkName)){
+   sig.drinkName=o.base;
+ }
+ saveSig();render();
+}
+function signatureChoiceMenu(){
+ return `<div class="sig-card"><h3>Kies je vertrekpunt</h3>
+ <p>Gebruik een cocktail die met onze beschikbare ingrediënten gemaakt kan worden, of kies <b>Zelf bedenken</b>. Je mag de naam daarna aanpassen voor jouw eigen Signature Serve.</p>
+ <div class="signature-choice-grid">${signatureOptions.map(o=>`<button type="button" class="signature-choice ${sig.signatureChoice===o.id?'on':''}" onclick="chooseSignature('${o.id}')"><b>${o.name}</b><small>${o.hint}</small></button>`).join('')}</div>
+ <div class="tipbox"><b>Belangrijk:</b> dit is je vertrekpunt, niet het eindproduct. Bij de Signature Serve moet je bewust kiezen voor een gast, testen en minimaal één verbetering uitvoeren.</div></div>`;
+}
+function signatureStepContent(){
+ if(sigStep===1)return `<div class="sig-stephead"><div><div class="sig-stepnum">STAP 1 VAN 8</div><h2>Kies je vertrekpunt & je gast</h2></div></div>
+ ${signatureChoiceMenu()}
+ <div class="sig-card"><div class="sig-grid">
+ ${sigInput('Jouw naam','student','Voor- en achternaam')}
+ ${sigInput('Klas/groep','group','Bijv. Hospitality P1')}
+ ${sigInput('Naam van de Signature Serve *','drinkName','Bijv. Tropical Sunset')}
+ ${sigSelect('Cocktail of 0.0?','alcohol',['Cocktail','Mocktail / 0.0'])}
+ ${sigInput('Voor welke gast? *','guest','Bijv. jongvolwassene die iets fris zoekt')}
+ ${sigInput('Moment / gelegenheid','occasion','Bijv. zomeravond op het terras')}
+ ${sigInput('Richtprijs','price','Bijv. 8,50')}
+ ${sigArea('Wat moet de gast ervaren?','experience','Bijv. fris, verrassend en verzorgd.')}
+ </div><div class="tipbox"><b>Tip:</b> begin niet met “ik wil iets met aardbei”. Begin met de gast: voor wie, wanneer en welke ervaring?</div></div>`;
+ if(sigStep===2)return `<div class="sig-stephead"><div><div class="sig-stepnum">STAP 2 VAN 8</div><h2>Bouw je smaakprofiel</h2></div></div>
+ <div class="sig-card"><label><b>Kies maximaal 3 kenmerken *</b></label><div class="chips">${['Fris','Fruitig','Tropisch','Kruidig','Zoet','Zuur','Bitter','Romig','Licht','Krachtig','Verrassend'].map(tasteChip).join('')}</div></div>
+ <div class="sig-card"><div class="sig-grid">
+ ${sigArea('Jouw smaakidee *','concept','Bijv. passievrucht + limoen + vanille: tropisch, fris en rond.')}
+ ${sigArea('Waarom werkt combinatie 1?','why1','Bijv. limoen brengt zuur en frisheid en balanceert de zoete passievrucht.')}
+ ${sigArea('Waarom werkt combinatie 2?','why2','Bijv. vanille geeft een warm aroma en maakt het geheel ronder.')}
+ </div><div class="tipbox">Gebruik het Smaakkompas in de app als je inspiratie nodig hebt. Denk aan: basis + zuur + zoet + aroma + eventueel bitter/bruis/textuur.</div></div>`;
+ if(sigStep===3)return `<div class="sig-stephead"><div><div class="sig-stepnum">STAP 3 VAN 8</div><h2>Maak recept V1</h2></div></div>
+ <div class="sig-card"><h3>Ingrediënten & exacte hoeveelheden *</h3>${recipeRows('v1')}</div>
+ <div class="sig-card"><div class="sig-grid">
+ ${sigInput('Techniek','v1tech','Bijv. shake, build, stir')}
+ ${sigInput('Glaswerk','v1glass','Bijv. coupe, highball')}
+ ${sigInput('IJs','v1ice','Bijv. cubes, crushed')}
+ ${sigInput('Garnish','v1garnish','Bijv. halve passievrucht')}
+ </div><div class="tipbox"><b>Niet:</b> “een beetje limoen”. <b>Wel:</b> “20 ml limoensap”. Een collega moet het exact kunnen namaken.</div></div>`;
+ if(sigStep===4)return `<div class="sig-stephead"><div><div class="sig-stepnum">STAP 4 VAN 8</div><h2>Proef, analyseer en verbeter</h2></div></div>
+ <div class="sig-card"><h3>Beoordeel V1</h3><div class="score-grid">
+ ${scoreField('Smaakbalans','scoreTaste')}${scoreField('Aroma','scoreAroma')}${scoreField('Temperatuur','scoreTemp')}
+ ${scoreField('Verdunning','scoreDilution')}${scoreField('Uiterlijk','scoreLook')}${scoreField('Past bij gast','scoreGuest')}
+ </div></div>
+ <div class="sig-card"><div class="sig-grid">
+ ${sigArea('Wat viel op / wat was het probleem? *','v1problem','Bijv. te zoet; passievrucht kwam te weinig naar voren.')}
+ ${sigArea('Wat verander je in V2? *','change','Bijv. 5 ml minder vanillesiroop en 5 ml extra limoensap.')}
+ ${sigArea('Waarom verwacht je dat dit beter werkt?','changeWhy','Leg uit wat de verandering doet met balans, aroma of gastbeleving.')}
+ </div><div class="tipbox"><b>Mixoloog-regel:</b> verander bij voorkeur één ding tegelijk, proef opnieuw en beoordeel het effect.</div></div>`;
+ if(sigStep===5)return `<div class="sig-stephead"><div><div class="sig-stepnum">STAP 5 VAN 8</div><h2>Definitief recept & werkinstructie</h2></div><button class="secondary no-print" onclick="copyV1toV2()">Kopieer V1 → V2</button></div>
+ <div class="sig-card"><h3>Definitieve ingrediënten *</h3>${recipeRows('v2')}</div>
+ <div class="sig-card"><div class="sig-grid">
+ ${sigInput('Techniek','v2tech','Bijv. shake')}
+ ${sigInput('Glaswerk','v2glass','Bijv. coupe')}
+ ${sigInput('IJs','v2ice','Bijv. shake met cubes, serve zonder ijs')}
+ ${sigInput('Garnish','v2garnish','Bijv. limoenwiel')}
+ ${sigArea('Werkwijze voor een collega *','method','Schrijf stap voor stap: mise-en-place, afmeten, techniek, uitschenken, garnish, eindcheck.')}
+ </div></div>`;
+ if(sigStep===6)return `<div class="sig-stephead"><div><div class="sig-stepnum">STAP 6 VAN 8</div><h2>Fotografeer je product</h2></div></div>
+ <div class="sig-card">${photoBox('Definitieve productfoto *','photoFinal',true)}<div class="tipbox"><b>Foto-check:</b> schoon glas · goed licht · rustige achtergrond · nette garnish · drankje is hoofdonderwerp · geschikt voor menukaart of social media.</div></div>
+ <div class="sig-grid">${photoBox('Bewijsfoto ontwikkeling (optioneel)','photoDev')}${photoBox('Bewijsfoto testen (optioneel)','photoTest')}</div>`;
+ if(sigStep===7)return `<div class="sig-stephead"><div><div class="sig-stepnum">STAP 7 VAN 8</div><h2>Zet hem op de kaart</h2></div></div>
+ <div class="sig-card"><div class="sig-grid">
+ ${sigInput('Verkoopprijs','menuPrice',sig.price||'Bijv. 8,50')}
+ ${sigArea('Menukaarttekst *','menuText','Kort, aantrekkelijk en in gasttaal. Geen technisch recept.')}
+ </div><button class="secondary no-print" onclick="makeMenuSuggestion()">✨ Maak een startvoorstel</button>
+ <div class="tipbox"><b>Medewerkerstaal</b> is exact en technisch. <b>Gasttaal</b> is aantrekkelijk, duidelijk en smaakgericht.</div></div>`;
+ if(sigStep===8)return `<div class="sig-stephead"><div><div class="sig-stepnum">STAP 8 VAN 8</div><h2>Verkoop hem aan de gast</h2></div></div>
+ <div class="sig-card"><div class="sig-grid">
+ ${sigArea('Open verkoopvraag *','salesQ','Bijv. Waar heeft u vandaag zin in: iets fris, fruitigs of juist wat kruidiger?')}
+ ${sigArea('Doorvraag','salesFollow','Bijv. Mag er alcohol in? / Houdt u van zuur of juist wat zoeter?')}
+ ${sigArea('Jouw advies / verkoopverhaal *','salesPitch','Koppel wat de gast zegt aan jouw Signature Serve.')}
+ ${sigArea('Afsluitvraag','salesClose','Bijv. Zal ik die voor u maken?')}
+ ${sigArea('Korte reflectie','reflection','Wat ging goed en wat zou je volgende keer nog verbeteren?')}
+ </div><button class="secondary no-print" onclick="makeSalesSuggestion()">✨ Maak een startvoorstel</button></div>
+ <div class="notice"><b>VRAAG → LUISTER → KOPPEL → ADVISEER → MAAK AANTREKKELIJK → SLUIT AF.</b></div>`;
+}
+function signatureView(){
+ crumbs([{label:'Home',action:goHome},{label:'The Signature Serve',action:()=>{}}]);
+ const complete=[sig.drinkName,sig.guest,sig.concept,sig.v1problem,sig.method,sig.photoFinal,sig.menuText,sig.salesPitch].filter(Boolean).length;
+ return `<div class="sig-shell">
+ <div class="detail-head"><div><div class="pill">PRAKTIJKOPDRACHT</div><h1>🏆 The Signature Serve</h1><div class="detail-sub">Ontwikkel een cocktail of mocktail die goed genoeg is om morgen op de kaart te zetten.</div></div></div>
+ <div class="kpi"><span class="tag">${complete}/8 kerndelen ingevuld</span><span class="tag">Automatisch lokaal opgeslagen</span></div>
+ ${sigProgress()}
+ ${signatureStepContent()}
+ <div class="sig-actions no-print">
+   <button class="secondary" onclick="prevSig()" ${sigStep===1?'disabled':''}>← Vorige</button>
+   <div style="display:flex;gap:8px">
+    <button class="secondary" onclick="resetSig()">Wis</button>
+    ${sigStep<8?`<button class="primary" onclick="nextSig()">Volgende →</button>`:`<button class="primary" onclick="pushRoute({type:'signatureReview'})">Controle & PDF →</button>`}
+   </div>
+ </div></div>`;
+}
+function signatureReviewView(){
+ crumbs([{label:'Home',action:goHome},{label:'Signature Serve',action:()=>pushRoute({type:'category',id:'signature'})},{label:'Controle & PDF',action:()=>{}}]);
+ return `<div class="sig-shell"><div class="section-title"><div><h2>Controle & portfolio</h2><p>Controleer je eindproduct. Daarna maak je er één nette PDF van.</p></div></div>
+ <div class="notice no-print"><b>PDF maken:</b> druk op de knop hieronder. Kies in het printvenster <b>Bewaar als PDF</b> / <b>Save as PDF</b>. Op iPhone/iPad kun je via de deelopties als PDF bewaren.</div>
+ ${signatureReview()}
+ <div class="sig-actions no-print"><button class="secondary" onclick="goBack()">← Terug naar opdracht</button><button class="primary" onclick="printSignature()">📄 Maak PDF</button></div></div>`;
+}
+
+function top10View(){
+ const ids=['pornstar-martini','sex-on-the-beach','mojito','espresso-martini','aperol-spritz','moscow-mule','pina-colada','margarita','strawberry-daiquiri','gin-tonic'];
+ const arr=ids.map(id=>DB.recipes.find(r=>r.id===id)).filter(Boolean);
+ crumbs([{label:'Home',action:goHome},{label:'Horeca Top 10',action:()=>{}}]);
+ return `<div class="section-title"><div><h2>🔥 Horeca Top 10</h2><p>Een didactische selectie van bekende horecacocktails — geen officiële verkoopranglijst.</p></div></div>
+ <div class="notice"><b>Waarom deze lijst?</b> Deze cocktails zijn herkenbaar en geven samen veel verschillende smaken en technieken: tropisch, fris, bitterzoet, fruitig, shake, build, muddle en presentatie.</div>
+ <div class="list top10-list">${arr.map((r,i)=>`<div class="top10-wrap"><div class="rank-badge">#${i+1}</div>${recipeCard(r)}</div>`).join('')}</div>`;
+}
+
+function recipesView(){
+ const bases=[...new Set(DB.recipes.map(r=>r.base))];
+ const techs=[...new Set(DB.recipes.map(r=>r.tech))];
+ return `<div class="section-title"><div><h2>🍸 Receptenbank</h2><p>Filter op basis, techniek of 0.0.</p></div></div>
+ <div class="filters">
+ <select id="baseFilter" onchange="filterRecipes()"><option value="">Alle basisdranken</option>${bases.map(x=>`<option>${x}</option>`).join('')}</select>
+ <select id="techFilter" onchange="filterRecipes()"><option value="">Alle technieken</option>${techs.map(x=>`<option>${x}</option>`).join('')}</select>
+ <select id="zeroFilter" onchange="filterRecipes()"><option value="">Alcohol & 0.0</option><option value="1">Alleen 0.0</option></select>
+ </div><div id="recipeList" class="list">${DB.recipes.map(recipeCard).join('')}</div>`;
+}
+function filterRecipes(){
+ const b=$('#baseFilter').value,t=$('#techFilter').value,z=$('#zeroFilter').value;
+ const arr=DB.recipes.filter(r=>(!b||r.base===b)&&(!t||r.tech===t)&&(!z||r.zero));
+ $('#recipeList').innerHTML=arr.map(recipeCard).join('')||'<div class="empty">Geen recepten gevonden.</div>';
+}
+
+function accordion(title,body){return `<div class="acc"><button onclick="this.parentElement.classList.toggle('open')"><span>${title}</span><span>＋</span></button><div class="body">${body}</div></div>`}
+
+function spiritDetail(id){
+ const s=DB.spirits.find(x=>x.id===id);
+ crumbs([{label:'Home',action:goHome},{label:'Drankenkompas',action:()=>pushRoute({type:'category',id:'spirits'})},{label:s.name,action:()=>{}}]);
+ return `<div class="detail-head"><div><div class="emoji">${s.icon}</div><h1>${s.name}</h1><div class="detail-sub">${s.short}</div></div></div>
+ <div class="factgrid">${Object.entries(s.facts).map(([k,v])=>`<div class="fact"><b>${k}</b>${v}</div>`).join('')}</div>
+ <div class="accordion">${s.sections.map(([a,b])=>accordion(a,b)).join('')}</div>
+ ${s.links.length?`<div class="section-title" style="margin-top:26px"><div><h2>Ontdek verder</h2></div></div><div class="linkrow">${s.links.map(id=>{const r=DB.recipes.find(x=>x.id===id);return r?`<button class="linkbtn" onclick="pushRoute({type:'recipe',id:'${id}'})">${r.name} →</button>`:''}).join('')}</div>`:''}`;
+}
+
+function recipeDetail(id){
+ const r=DB.recipes.find(x=>x.id===id);
+ crumbs([{label:'Home',action:goHome},{label:'Receptenbank',action:()=>pushRoute({type:'category',id:'recipes'})},{label:r.name,action:()=>{}}]);
+ return `<div class="detail-head"><div><div class="pill">${r.base}${r.zero?' · 0.0':''}</div><h1>${r.name}</h1><div class="detail-sub">${r.taste} · ${r.tech}</div></div>
+ <button class="iconbtn" onclick="toggleFav('${r.id}')">${isFav(r.id)?'★ Favoriet':'☆ Favoriet'}</button></div>
+ <div class="accordion">
+ ${accordion('🍸 Recept',`<table class="recipe"><tr><th>Ingrediënt</th><th>Hoeveelheid</th></tr>${r.ingredients.map(x=>`<tr><td>${x[0]}</td><td>${x[1]}</td></tr>`).join('')}</table>`)}
+ ${accordion('➡️ Stroomschema',`<div class="flow">${r.flow.map(s=>`<span class="step">${s}</span>`).join('')}</div>`)}
+ ${accordion('🧪 Waarom werkt dit?',r.why)}
+ </div>
+ <div class="linkrow">${r.links.map(linkButton).join('')}</div>`;
+}
+
+function linkButton(id){
+ let x=DB.spirits.find(a=>a.id===id); if(x) return `<button class="linkbtn" onclick="pushRoute({type:'spirit',id:'${id}'})">${x.icon} ${x.name}</button>`;
+ x=DB.ingredients.find(a=>a.id===id); if(x) return `<button class="linkbtn" onclick="pushRoute({type:'ingredient',id:'${id}'})">${x.icon} ${x.name}</button>`;
+ return '';
+}
+
+function ingredientDetail(id){
+ const x=DB.ingredients.find(a=>a.id===id);
+ crumbs([{label:'Home',action:goHome},{label:'Smaakkompas',action:()=>pushRoute({type:'category',id:'flavours'})},{label:x.name,action:()=>{}}]);
+ return `<div class="detail-head"><div><div class="emoji">${x.icon}</div><h1>${x.name}</h1><div class="detail-sub">${x.type}</div></div></div>
+ <div class="flavour-bars">${Object.entries(x.bars).map(([k,v])=>`<div class="barline"><span>${k.replace('_',' ')}</span><div class="bar"><div class="fill" style="width:${v*20}%"></div></div><b>${v}/5</b></div>`).join('')}</div>
+ <div class="accordion">
+ ${accordion('🤝 Waarmee combineren?',x.works.map(w=>`<p><b>${w[0]}</b> — ${w[1]}</p>`).join(''))}
+ ${accordion('⚠️ Wanneer wordt het te veel?',x.warning)}
+ ${accordion('🍸 Cocktails met '+x.name,x.recipes.map(id=>{const r=DB.recipes.find(a=>a.id===id);return `<p><button class="linkbtn" onclick="pushRoute({type:'recipe',id:'${id}'})">${r.name} →</button></p>`}).join(''))}
+ </div>`;
+}
+
+function problemDetail(id){
+ const p=DB.problems.find(x=>x.id===id);
+ crumbs([{label:'Home',action:goHome},{label:'Fix mijn drankje',action:()=>pushRoute({type:'category',id:'problems'})},{label:p.name,action:()=>{}}]);
+ return `<div class="detail-head"><div><div class="emoji">${p.icon}</div><h1>${p.name}</h1></div></div>
+ <div class="factgrid"><div class="fact"><b>Mogelijke oorzaken</b>${p.causes.map(x=>'• '+x).join('<br>')}</div><div class="fact"><b>Wat kun je testen?</b>${p.fix.map(x=>'• '+x).join('<br>')}</div></div>
+ <div class="notice"><b>Mixoloog-regel:</b> ${p.note}</div>
+ <div class="flow"><span class="step">PROEF</span><span class="step">BENOEM PROBLEEM</span><span class="step">VERANDER 1 DING</span><span class="step">PROEF OPNIEUW</span><span class="step">BEOORDEEL</span></div>`;
+}
+function techniqueDetail(id){
+ const t=DB.techniques.find(x=>x.id===id);
+ crumbs([{label:'Home',action:goHome},{label:'Technieken',action:()=>pushRoute({type:'category',id:'techniques'})},{label:t.name,action:()=>{}}]);
+ return `<div class="detail-head"><div><div class="emoji">${t.icon}</div><h1>${t.name}</h1><div class="detail-sub">${t.what}</div></div></div>
+ <div class="factgrid"><div class="fact"><b>Wanneer?</b>${t.when}</div><div class="fact"><b>Waarom?</b>${t.why}</div><div class="fact"><b>Veelgemaakte fout</b>${t.mistake}</div></div>
+ ${accordion('▶ Stappen',`<div class="flow">${t.steps.map(s=>`<span class="step">${s}</span>`).join('')}</div>`)}
+ ${accordion('🍸 Voorbeeldcocktails',t.examples.map(id=>{const r=DB.recipes.find(a=>a.id===id);return `<p><button class="linkbtn" onclick="pushRoute({type:'recipe',id:'${id}'})">${r.name} →</button></p>`}).join(''))}`;
+}
+function termsView(){
+ crumbs([{label:'Home',action:goHome},{label:'Begrippen',action:()=>{}}]);
+ return `<div class="section-title"><div><h2>📖 Begrippenbank</h2><p>Korte vakdefinities.</p></div></div>
+ <div class="search-results">${DB.terms.sort((a,b)=>a[0].localeCompare(b[0])).map(t=>`<div class="result"><b>${t[0]}</b><div class="small">${t[1]}</div></div>`).join('')}</div>`;
+}
+function showFavorites(){
+ const favRecipes=DB.recipes.filter(r=>isFav(r.id));
+ historyStack.push(route); route={type:'favorites'}; render();
+}
+function favoritesView(){
+ crumbs([{label:'Home',action:goHome},{label:'Favorieten',action:()=>{}}]);
+ const favRecipes=DB.recipes.filter(r=>isFav(r.id));
+ return `<div class="section-title"><div><h2>★ Favorieten</h2><p>Opgeslagen op dit apparaat.</p></div></div><div class="list">${favRecipes.map(recipeCard).join('')||'<div class="empty">Nog geen favorieten. Tik bij een recept op ☆.</div>'}</div>`;
+}
+function runSearch(){
+ const q=$('#globalSearch').value.trim().toLowerCase();
+ if(!q)return;
+ historyStack.push(route); route={type:'search',q}; render();
+}
+function searchView(q){
+ crumbs([{label:'Home',action:goHome},{label:'Zoeken',action:()=>{}}]);
+ const results=[];
+ DB.spirits.forEach(x=>{if((x.name+' '+x.short+' '+Object.values(x.facts).join(' ')).toLowerCase().includes(q)) results.push({kind:'Drank',name:x.name,desc:x.short,route:{type:'spirit',id:x.id}})});
+ DB.recipes.forEach(x=>{if((x.name+' '+x.base+' '+x.taste+' '+x.tech+' '+x.ingredients.flat().join(' ')).toLowerCase().includes(q)) results.push({kind:'Recept',name:x.name,desc:x.base+' · '+x.taste,route:{type:'recipe',id:x.id}})});
+ DB.ingredients.forEach(x=>{if((x.name+' '+x.type+' '+x.works.flat().join(' ')).toLowerCase().includes(q)) results.push({kind:'Smaak',name:x.name,desc:x.type,route:{type:'ingredient',id:x.id}})});
+ DB.techniques.forEach(x=>{if((x.name+' '+x.what+' '+x.when).toLowerCase().includes(q)) results.push({kind:'Techniek',name:x.name,desc:x.what,route:{type:'technique',id:x.id}})});
+ DB.problems.forEach(x=>{if((x.name+' '+x.causes.join(' ')+' '+x.fix.join(' ')).toLowerCase().includes(q)) results.push({kind:'Fix',name:x.name,desc:x.note,route:{type:'problem',id:x.id}})});
+ DB.terms.forEach(x=>{if((x[0]+' '+x[1]).toLowerCase().includes(q)) results.push({kind:'Begrip',name:x[0],desc:x[1],route:null})});
+ return `<div class="section-title"><div><h2>🔎 Zoekresultaten</h2><p>Voor “${q}”</p></div></div>
+ <div class="search-results">${results.length?results.map(r=>`<div class="result" ${r.route?`onclick='pushRoute(${JSON.stringify(r.route)})' style="cursor:pointer"`:''}><span class="tag">${r.kind}</span><h3>${r.name}</h3><div class="small">${r.desc}</div></div>`).join(''):'<div class="empty">Geen resultaten gevonden.</div>'}</div>`;
+}
+
+function render(){
+ const v=$('#view');
+ if(route.type==='home') v.innerHTML=home();
+ if(route.type==='category') v.innerHTML=category(route.id);
+ if(route.type==='spirit') v.innerHTML=spiritDetail(route.id);
+ if(route.type==='recipe') v.innerHTML=recipeDetail(route.id);
+ if(route.type==='ingredient') v.innerHTML=ingredientDetail(route.id);
+ if(route.type==='problem') v.innerHTML=problemDetail(route.id);
+ if(route.type==='technique') v.innerHTML=techniqueDetail(route.id);
+ if(route.type==='favorites') v.innerHTML=favoritesView();
+ if(route.type==='signatureReview') v.innerHTML=signatureReviewView();
+ if(route.type==='search') v.innerHTML=searchView(route.q);
+}
+
+$('#globalSearch').addEventListener('keydown',e=>{if(e.key==='Enter')runSearch()});
+render();
+</script>
+</body>
+</html>

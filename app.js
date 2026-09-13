@@ -306,6 +306,22 @@ const academyData = {
                                     beschikbaar: true
                                 }
                             ]
+                        },
+                        {
+                            id: "les-4-mixology",
+                            naam: "Les 4 – Mixology",
+                            modules: [
+                                {
+                                    id: "hospitality-les-4-mixology-handboek",
+                                    titel: "Les 4 – Mixology: ontwerp je signature mocktail",
+                                    type: "Praktijkopdracht en naslagwerk",
+                                    duur: "Basiskennis en praktijk",
+                                    beschrijving: "Leer de basis van dranken, cocktails, smaken en technieken. Gebruik het handboek als naslagwerk en ontwerp stap voor stap je eigen signature mocktail.",
+                                    bestand: "modules/hospitality/leerjaar-1/periode-1/les-4-mixology/mixology-handboek-v4-1.html",
+                                    actieLabel: "Start Mixology",
+                                    beschikbaar: true
+                                }
+                            ]
                         }
                     ]
                 },
