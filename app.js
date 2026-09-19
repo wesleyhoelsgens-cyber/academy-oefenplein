@@ -322,6 +322,22 @@ const academyData = {
                                     beschikbaar: true
                                 }
                             ]
+                        },
+                        {
+                            id: "les-5-5s-workplace-mission",
+                            naam: "Les 5 – 5S Workplace Mission",
+                            modules: [
+                                {
+                                    id: "hospitality-les-5-5s-workplace-mission",
+                                    titel: "Les 5 – Maak je werkplek slimmer met 5S",
+                                    type: "Interactieve praktijkopdracht",
+                                    duur: "Op school of op het werk",
+                                    beschrijving: "Leer de vijf stappen van 5S en verbeter stap voor stap een echte werkplek. Kies de uitgebreide leerroute of ga direct praktisch aan de slag en leg je resultaat vast.",
+                                    bestand: "modules/hospitality/leerjaar-1/periode-1/les-5-5s-workplace-mission/5s-workplace-mission.html",
+                                    actieLabel: "Start 5S-missie",
+                                    beschikbaar: true
+                                }
+                            ]
                         }
                     ]
                 },
