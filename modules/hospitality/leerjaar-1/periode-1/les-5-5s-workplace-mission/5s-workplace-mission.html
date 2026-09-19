@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>5S Workplace Mission - Sprint 15</title>
+<title>5S Workplace Mission</title>
 <style>
 *{box-sizing:border-box}
 body{
@@ -244,6 +244,9 @@ textarea{
   body *{visibility:hidden}
   #reportPrint,#reportPrint *{visibility:visible}
   #reportPrint{position:absolute;left:0;top:0;width:100%;padding:0;margin:0;border-radius:0}
+  body.print-quick #reportPrint,body.print-quick #reportPrint *{visibility:hidden}
+  body.print-quick #quickReportPrint,body.print-quick #quickReportPrint *{visibility:visible}
+  body.print-quick #quickReportPrint{display:block!important;position:absolute;left:0;top:0;width:100%;padding:0;margin:0;border-radius:0}
   .report-item{page-break-inside:avoid}
   .save-state{display:none!important}
 }
@@ -332,7 +335,7 @@ button:disabled{opacity:.55;cursor:not-allowed;transform:none!important}
 <body>
 <div class="app">
   <div class="header">
-    <div class="brand">5S WORKPLACE MISSION • SPRINT 15</div>
+    <div class="brand">5S WORKPLACE MISSION</div>
     <div class="header-actions">
       <button id="homeButton" class="home-btn hidden" type="button">⌂ Opdracht</button>
       <a class="home-btn academy-home" href="../../../../../index.html" aria-label="Terug naar het beginscherm van SVO Academy">⌂ Academy</a>
@@ -341,7 +344,7 @@ button:disabled{opacity:.55;cursor:not-allowed;transform:none!important}
 
   <main id="homeScreen">
     <section class="panel home-hero">
-      <div class="title">5S WORKPLACE MISSION • SPRINT 15</div>
+      <div class="title">5S WORKPLACE MISSION</div>
       <h1>Maak jouw werkplek slimmer, schoner en professioneler.</h1>
       <p>Kies de route die bij jou past. Werk steeds <b>één ruimte of werkplek tegelijk</b> af.</p>
 
@@ -419,7 +422,7 @@ button:disabled{opacity:.55;cursor:not-allowed;transform:none!important}
           <div class="progressbar"><div id="workProgress" class="progressfill"></div></div>
         </button>
       </div>
-      <p class="note">Sprint 8: na afronden krijg je een compleet 5S-rapport dat je kunt afdrukken of opslaan als PDF.</p>
+      <p class="note">Je voortgang, foto’s en antwoorden worden lokaal op dit apparaat bewaard.</p>
       <div class="actions">
         <button class="back-btn" data-home type="button">← Terug</button>
       </div>
@@ -557,7 +560,9 @@ button:disabled{opacity:.55;cursor:not-allowed;transform:none!important}
         <div><b>VOOR</b><img id="quickDoneBefore" alt="Voorfoto"></div>
         <div><b>NA</b><img id="quickDoneAfter" alt="Nafoto"></div>
       </div>
+      <div id="quickDoneAnswers" class="note"></div>
       <div class="actions">
+        <button id="quickPdf" class="action" type="button">🖨 PDF van deze ruimte</button>
         <button id="quickAnother" class="action" type="button">＋ Volgende ruimte</button>
         <button id="quickOverview" class="action" type="button">Bekijk mijn ruimtes →</button>
         <button class="back-btn" data-home type="button">⌂ Home</button>
@@ -754,7 +759,9 @@ button:disabled{opacity:.55;cursor:not-allowed;transform:none!important}
     <article id="reportPrint" class="report"></article>
   </main>
 
-<div id="resetConfirm" class="reset-confirm hidden" role="dialog" aria-modal="true">
+<article id="quickReportPrint" class="report quick-report-print hidden"></article>
+
+  <div id="resetConfirm" class="reset-confirm hidden" role="dialog" aria-modal="true">
     <div class="reset-box">
       <h2>Alle ruimtes resetten?</h2>
       <p>Hiermee worden <b>alle school- en werkplekscans</b>, foto's, antwoorden en voortgang op dit apparaat gewist.</p>
@@ -972,6 +979,10 @@ function openQuickDone(){
  var r=qroom();document.getElementById("quickDoneTitle").textContent=r.name+" is afgerond";
  document.getElementById("quickDoneBefore").src=r.quick.before||"";
  document.getElementById("quickDoneAfter").src=r.quick.after||"";
+ document.getElementById("quickDoneAnswers").innerHTML=
+   "<b>Vooral verbeterd:</b> "+esc(r.quick.improvement||"Niet ingevuld")+"<br>"+
+   "<b>Grootste verschil:</b> "+esc(r.quick.difference||"Niet ingevuld")+"<br>"+
+   "<b>Hoe blijft het zo:</b> "+esc(r.quick.keep||"Niet ingevuld");
  show(document.getElementById("quickDoneScreen"));
 }
 function openQuickResume(){
@@ -994,6 +1005,31 @@ document.getElementById("quickCheckBack").onclick=openQuickAfter;
 document.getElementById("quickFinish").onclick=function(){
  var r=qroom();r.quick.difference=document.getElementById("quickDifference").value;r.quick.keep=document.getElementById("quickKeep").value;r.completed=true;save();updateCards();openQuickDone();
 };
+function buildQuickRoomReport(){
+ var r=qroom(),m=data[activeType];
+ var h='<div class="report-head"><div style="font-size:13px;font-weight:800;letter-spacing:1px">5S WORKPLACE MISSION</div>'+
+ '<h1>Snelle 5S – '+esc(r.name)+'</h1><div class="report-meta">'+
+ '<div><b>Student:</b> '+txt(m.student)+'</div>'+
+ (activeType==="work"?'<div><b>Bedrijf:</b> '+txt(m.company)+'</div>':'')+
+ '<div><b>Ruimte:</b> '+esc(r.name)+'</div><div><b>Datum:</b> '+new Date().toLocaleDateString("nl-NL")+'</div></div></div>'+
+ '<section class="report-item"><h2>Voor → Na</h2><div class="compare-preview">'+
+ '<div><b>VOOR</b>'+reportPhoto(r.quick.before)+'</div>'+
+ '<div><b>NA</b>'+reportPhoto(r.quick.after)+'</div></div></section>'+
+ '<section class="report-item report-priority"><h2>Korte 5S-check</h2>'+
+ '<div class="report-row"><b>Vooral verbeterd:</b> '+txt(r.quick.improvement)+'</div>'+
+ '<div class="report-row"><b>Grootste verschil:</b><br>'+txt(r.quick.difference)+'</div>'+
+ '<div class="report-row"><b>Hoe zorgen we dat het zo blijft?</b><br>'+txt(r.quick.keep)+'</div></section>'+
+ '<div style="margin-top:24px;padding-top:12px;border-top:1px solid #ccd4d7;font-size:12px;color:#68767c">5S Workplace Mission • Hospitality</div>';
+ document.getElementById("quickReportPrint").innerHTML=h;
+}
+document.getElementById("quickPdf").onclick=function(){
+ buildQuickRoomReport();
+ document.body.classList.add("print-quick");
+ window.print();
+ setTimeout(function(){document.body.classList.remove("print-quick")},300);
+};
+window.addEventListener("afterprint",function(){document.body.classList.remove("print-quick")});
+
 document.getElementById("quickAnother").onclick=openQuickSetup;
 document.getElementById("quickOverview").onclick=function(){goHub(activeType)};
 
@@ -1052,7 +1088,12 @@ function openOverview(){
  document.getElementById("overviewIntro").textContent=done+" van "+m.rooms.length+" ruimtes volledig gescand.";
  g.innerHTML="";
  if(!m.rooms.length)g.innerHTML='<div class="note">Nog geen ruimtes gescand.</div>';
- m.rooms.forEach(function(r){var d=document.createElement("div");d.className="room-card "+(r.completed?"room-done":"room-active");d.innerHTML="<h3>"+esc(r.name)+"</h3><p>"+(r.completed?"✓ Afgerond":"○ Nog bezig • stap "+(r.step+1)+" van 5")+"</p>"+(r.priority.step>=0?"<p><b>Topverbetering:</b> "+esc(STEPS[r.priority.step].name)+"</p>":"");g.appendChild(d)});
+ m.rooms.forEach(function(r){
+ var d=document.createElement("div");d.className="room-card "+(r.completed?"room-done":"room-active");
+ var status=r.completed?"✓ "+(r.mode==="quick"?"Snelle 5S afgerond":"5S-scan afgerond"):(r.mode==="quick"?"○ Snelle 5S bezig":"○ Nog bezig • stap "+(r.step+1)+" van 5");
+ var extra=r.mode==="quick"?(r.quick.improvement?"<p><b>Verbeterd:</b> "+esc(r.quick.improvement)+"</p>":""):(r.priority.step>=0?"<p><b>Topverbetering:</b> "+esc(STEPS[r.priority.step].name)+"</p>":"");
+ d.innerHTML="<h3>"+esc(r.name)+"</h3><p>"+status+"</p>"+extra;g.appendChild(d)
+});
  show(document.getElementById("overviewScreen"));
 }
 
