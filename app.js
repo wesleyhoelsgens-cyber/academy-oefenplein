@@ -142,6 +142,22 @@ const academyData = {
                                     beschikbaar: true
                                 }
                             ]
+                        },
+                        {
+                            id: "smaaklab-niveau-2-en-3",
+                            naam: "Smaaklab – Niveau 2 en 3",
+                            modules: [
+                                {
+                                    id: "smaaklab-niveau-2-en-3-trainer",
+                                    titel: "Smaaklab – Ontdek hoe smaak werkt",
+                                    type: "Interactieve smaakleertrainer",
+                                    duur: "Universeel voor niveau 2 en 3",
+                                    beschrijving: "Deze app is geschikt voor niveau 2 en 3. Volg de smaakthema’s stap voor stap. Doe je niveau 3? Dan moet je naast niveau 2 ook het volledige niveau 3-deel afronden.",
+                                    bestand: "modules/traiteur/leerjaar-2/periode-5/smaaklab/smaaklab-niveau-2-en-3.html",
+                                    actieLabel: "Start Smaaklab",
+                                    beschikbaar: true
+                                }
+                            ]
                         }
                     ]
                 },

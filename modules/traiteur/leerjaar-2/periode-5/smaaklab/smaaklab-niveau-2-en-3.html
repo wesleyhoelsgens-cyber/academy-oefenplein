@@ -1,0 +1,789 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Smaaklab | Niveau 2 en 3</title>
+<style>
+:root{--ink:#17202a;--muted:#637080;--paper:#f4f1e9;--card:#fff;--accent:#6b3f78;--line:#d9d3c8;--ok:#26734d;--bad:#9d3b32}
+*{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:var(--paper);color:var(--ink)}
+header{position:sticky;top:0;z-index:10;background:#17202a;color:white;padding:12px 16px;display:flex;align-items:center;gap:12px}
+header b{font-size:18px}.spacer{flex:1}.small{font-size:13px;color:var(--muted)}
+button{font:inherit;border:0;border-radius:12px;padding:12px 15px;cursor:pointer;font-weight:700}
+header button{padding:8px 11px}.primary{background:var(--accent);color:#fff}.secondary{background:#e7e1d7;color:var(--ink)}
+main{max-width:980px;margin:auto;padding:22px 16px 60px}.hero{background:#17202a;color:white;border-radius:22px;padding:28px;margin-bottom:18px}
+.hero h1{margin:0 0 8px;font-size:clamp(28px,5vw,48px)}.hero p{max-width:700px;color:#d8dee5}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 3px 12px #0000000a}
+.card h2,.card h3{margin-top:0}.theme{min-height:185px;display:flex;flex-direction:column}.theme .num{font-size:13px;font-weight:800;color:var(--accent);letter-spacing:.08em}.theme button{margin-top:auto}.theme.locked{opacity:.58}.theme.locked button{background:#d8d4cd;color:#777;cursor:not-allowed}
+.lock{display:inline-block;font-size:12px;font-weight:800;padding:5px 9px;border-radius:999px;background:#ece8e1;color:#666;margin-top:6px}
+.unlock{background:#e3f3ea;color:#185d3c}.routebox{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.routebox span{padding:7px 10px;border-radius:999px;background:#ffffff22;font-size:12px;font-weight:800}
+.routebox .done{background:#dff2e7;color:#185d3c}.routebox .current{background:white;color:#17202a}
+.progress{height:8px;background:#ffffff30;border-radius:99px;overflow:hidden;width:min(260px,35vw)}.progress i{display:block;height:100%;background:#fff;width:0%}
+.view{display:none}.view.active{display:block}.topline{display:flex;gap:10px;align-items:center;margin-bottom:16px}
+.visual{font-size:48px;margin:8px 0}.choices{display:grid;gap:9px}.choice{background:#f1ede6;text-align:left}.choice.selected{outline:3px solid var(--accent)}
+.feedback{margin-top:12px;padding:12px;border-radius:12px;background:#eee}.ok{background:#e3f3ea;color:#185d3c}.bad{background:#f7e4e1;color:#7c2c25}
+.scale{margin:20px 0}.scale label{display:flex;justify-content:space-between;font-weight:700}.scale input{width:100%;accent-color:var(--accent)}
+.profilebox{display:grid;grid-template-columns:1fr 1fr;gap:16px}.radar{display:grid;place-items:center;min-height:260px;background:#f3efe8;border-radius:16px}
+.radar svg{width:230px;height:230px}.score{font-size:52px;font-weight:900;color:var(--accent)}
+.pill{display:inline-block;background:#ece4ef;color:#53305d;border-radius:999px;padding:6px 10px;font-size:12px;font-weight:800;margin:3px}
+footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px}
+@media(max-width:700px){.grid,.profilebox{grid-template-columns:1fr}.theme{min-height:0}.progress{width:100px}.hero{padding:22px}.radar{min-height:220px}}
+
+.tastegrid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:18px 0}
+.tastechip{background:#f1ede6;border-radius:14px;padding:14px 8px;text-align:center;font-weight:800}
+.question{border-top:1px solid var(--line);padding-top:16px;margin-top:18px}
+.quizcount{font-weight:800;color:var(--accent);font-size:13px;letter-spacing:.05em}
+button:disabled{opacity:.55;cursor:not-allowed}
+@media(max-width:700px){.tastegrid{grid-template-columns:repeat(2,1fr)}}
+
+.productrow{display:grid;grid-template-columns:1.2fr 2fr;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.productname{font-weight:800}.miniChoices{display:flex;gap:6px;flex-wrap:wrap}.miniChoices button{padding:8px 10px;font-size:13px;background:#f1ede6}
+.miniChoices button.good{background:#e3f3ea;color:#185d3c}.miniChoices button.wrong{background:#f7e4e1;color:#7c2c25}
+@media(max-width:700px){.productrow{grid-template-columns:1fr}}
+
+.depthbox{background:#f7f4ee;border-left:4px solid var(--accent);padding:14px 16px;border-radius:10px;margin:16px 0}
+.checkstatus{font-size:13px;font-weight:800;margin:10px 0;color:var(--muted)}
+.themecheck .question{margin-top:14px}
+
+.vizlab{margin:18px 0;padding:18px;background:#f7f4ee;border:1px solid var(--line);border-radius:16px}
+.vizlab h3{margin:0 0 6px}.viznote{font-size:13px;color:var(--muted);margin-bottom:14px}
+.meterrow{display:grid;grid-template-columns:110px 1fr 46px;gap:10px;align-items:center;margin:10px 0}
+.meterrow input{width:100%;accent-color:var(--accent)}.meterrow output{font-weight:800;text-align:right}
+.axisDemo{margin:15px 0}.axisLabels{display:flex;justify-content:space-between;font-weight:800;font-size:13px}
+.axisTrack{height:10px;background:linear-gradient(90deg,#d9d3c8,#6b3f78);border-radius:99px;position:relative;margin:8px 0}
+.axisDot{position:absolute;top:50%;width:20px;height:20px;border-radius:50%;background:white;border:4px solid var(--accent);transform:translate(-50%,-50%)}
+@media(max-width:700px){.meterrow{grid-template-columns:85px 1fr 38px}}
+
+/* Mobiele bediening */
+html,body{max-width:100%;overflow-x:hidden}
+header{box-sizing:border-box;max-width:100%;flex-wrap:wrap}
+header .progress{min-width:120px;flex:1 1 160px}
+header button{flex:0 1 auto;white-space:nowrap}
+input[type="range"]{
+ width:100%;
+ min-width:0;
+ height:44px;
+ margin:2px 0;
+ padding:0;
+ touch-action:pan-y;
+ -webkit-tap-highlight-color:transparent;
+}
+input[type="range"]::-webkit-slider-runnable-track{height:8px;border-radius:999px}
+input[type="range"]::-webkit-slider-thumb{
+ -webkit-appearance:none;
+ width:28px;height:28px;border-radius:50%;
+ margin-top:-10px;
+}
+input[type="range"]::-moz-range-track{height:8px;border-radius:999px}
+input[type="range"]::-moz-range-thumb{width:28px;height:28px;border-radius:50%;border:0}
+.profilebox,.vizlab,.meterrow,.scale{min-width:0;max-width:100%}
+@media(max-width:700px){
+ header{gap:7px;padding:9px 10px}
+ header .brand{flex:1 1 100%}
+ header .progress{order:2;flex:1 1 100%;width:100%}
+ header button{order:3;font-size:13px;padding:9px 10px}
+ .meterrow{grid-template-columns:72px minmax(0,1fr) 34px;gap:7px}
+ .vizlab{padding:14px 12px}
+}
+
+
+.productReminder{
+ margin:18px 0 10px;padding:14px 16px;border:1px solid var(--line);
+ border-left:4px solid var(--accent);border-radius:12px;background:#f7f4ee;
+ font-size:14px;line-height:1.45
+}
+.productReminder strong{display:block;margin-bottom:3px}
+
+.level3card{grid-column:1/-1;border:2px solid var(--accent);background:#fbf8fc}
+.level3card .leveltag{display:inline-block;background:var(--accent);color:#fff;border-radius:999px;padding:6px 10px;font-size:12px;font-weight:900;letter-spacing:.04em}
+.level3card .optional{display:inline-block;background:#ece8e1;color:#555;border-radius:999px;padding:6px 10px;font-size:12px;font-weight:800;margin-left:6px}
+.caseStep{border-top:1px solid var(--line);padding-top:18px;margin-top:18px}
+.caseChoices{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.caseChoices button{background:#f1ede6;text-align:left}
+.caseChoices button.selected{outline:3px solid var(--accent)}
+.caseChoices button.good{background:#e3f3ea;color:#185d3c}
+.caseChoices button.warn{background:#fff2d8;color:#6d4c10}
+.caseChoices button.bad{background:#f7e4e1;color:#7c2c25}
+.caseDone{border-left:4px solid var(--ok);background:#e3f3ea;padding:12px 14px;border-radius:10px;margin-top:16px}
+.l3progress{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.l3progress span{padding:7px 10px;border-radius:999px;background:#ece8e1;font-size:12px;font-weight:800}
+.l3progress span.done{background:#e3f3ea;color:#185d3c}
+.compareProfile{display:grid;grid-template-columns:120px 1fr;gap:8px 12px;align-items:center;margin:12px 0}
+.compareProfile .track{height:9px;background:#e3ded6;border-radius:99px;overflow:hidden}
+.compareProfile .fill{height:100%;background:var(--accent);border-radius:99px}
+@media(max-width:700px){.compareProfile{grid-template-columns:90px 1fr}.level3card .optional{margin:6px 0 0 0}}
+
+</style>
+</head>
+<body>
+<header><b>SMAAKLAB</b><span class="small" style="color:#cfd6dc">Basis Smaakleer</span><div class="spacer"></div>
+<div class="progress"><i id="bar"></i></div><button onclick="resetCurrentTheme()">Reset thema</button><button onclick="resetApp()">Reset alles</button><button onclick="home()">Home</button></header>
+<main>
+
+<section id="home" class="view active">
+<div class="hero"><div class="small" style="color:#d8dee5">NIVEAU 2 • 5 THEMA'S</div>
+<h1>Ontdek hoe smaak werkt.</h1>
+<p>Je begint bij wat je tong waarneemt en bouwt stap voor stap door naar een compleet smaakprofiel. Rond een thema af om het volgende te ontgrendelen.</p>
+<button class="primary" onclick="continueRoute()">Start / ga verder →</button><div class="routebox" id="routebox"></div></div>
+<div class="grid" id="themeGrid"></div>
+<div class="card level3card" id="level3Tile" style="margin-top:16px">
+  <span class="leveltag">NIVEAU 3 • SMAAK STUREN</span><span class="optional">Niveau 2: vrijwillige verdieping</span>
+  <h2 style="margin-top:12px">Van proeven naar gericht verbeteren</h2>
+  <p>Vanaf <b>niveau 3</b> hoort dit bij je eindniveau. Je oefent met smaakproblemen herkennen, een doel kiezen, een gerecht aanpassen en voorspellen wat er verandert.</p>
+  <div class="depthbox"><b>Voor niveau 3</b><br>Dit moet je beheersen. Je kunt hierover vragen krijgen op je examen.<br><br><b>Voor niveau 2</b><br>Niet verplicht. Je mag deze verdieping uit interesse doen.</div>
+  <button class="primary" id="openL3" onclick="openLevel3()">Open Niveau 3 →</button>
+  <div id="l3TileStatus" class="small" style="margin-top:8px"></div>
+</div>
+</section>
+
+<section id="t1" class="view">
+<div class="topline"><button class="secondary" onclick="home()">← Terug</button><span class="pill">THEMA 1</span></div>
+<div class="card"><h1>De 5 basissmaken</h1>
+<p>Met de vijf basissmaken leer je producten beter beschrijven: <b>zoet, zuur, zout, bitter en umami</b>. Een product kan meerdere basissmaken tegelijk hebben. Soms proef je de ene smaak sterker dan de andere.</p>
+<div class="depthbox"><b>Goed om te weten</b><br>
+Een <b>basissmaak</b> is niet hetzelfde als alles wat je proeft en ruikt. Bij koffie kun je bijvoorbeeld bitter proeven én koffiegeur ruiken. Later kijk je ook naar geur, temperatuur, structuur, verwachting en mondgevoel.</div>
+<div class="tastegrid">
+<div class="tastechip">🍯<br>Zoet<br><span class="small">suiker, honing</span></div>
+<div class="tastechip">🍋<br>Zuur<br><span class="small">citroen, azijn</span></div>
+<div class="tastechip">🧂<br>Zout<br><span class="small">zout, zoute kaas</span></div>
+<div class="tastechip">🍫<br>Bitter<br><span class="small">pure chocolade, koffie</span></div>
+<div class="tastechip">🍅<br>Umami<br><span class="small">oude kaas, tomaat, soja</span></div>
+</div>
+
+
+<div class="vizlab">
+<h3>Verken de vijf basissmaken</h3>
+<p class="viznote">De vijf basissmaken zijn niet elkaars tegenpolen. Een product kan meerdere basissmaken tegelijk hebben. Gebruik de schuiven om te zien hoe sterk iedere smaak kan zijn.</p>
+<div class="meterrow"><b>Zoet</b><input type="range" min="0" max="100" value="20" oninput="tasteMeter(this,'mSweet')"><output id="mSweet">20</output></div>
+<div class="meterrow"><b>Zuur</b><input type="range" min="0" max="100" value="20" oninput="tasteMeter(this,'mSour')"><output id="mSour">20</output></div>
+<div class="meterrow"><b>Zout</b><input type="range" min="0" max="100" value="20" oninput="tasteMeter(this,'mSalt')"><output id="mSalt">20</output></div>
+<div class="meterrow"><b>Bitter</b><input type="range" min="0" max="100" value="20" oninput="tasteMeter(this,'mBitter')"><output id="mBitter">20</output></div>
+<div class="meterrow"><b>Umami</b><input type="range" min="0" max="100" value="20" oninput="tasteMeter(this,'mUmami')"><output id="mUmami">20</output></div>
+<p class="small"><b>Let op:</b> met de schuiven vergelijk je hoe sterk je de smaken proeft.</p>
+</div>
+<div class="question"><h3>Oefenen met producten</h3>
+<p>Bekijk de vijf producten. Kies welke basissmaak je bij ieder product het duidelijkst proeft. Een product kan ook andere basissmaken hebben.</p>
+<div id="tasteProducts"></div>
+<div id="tasteProductSummary"></div>
+</div>
+
+<div class="vizlab" id="basicProfileLab">
+<h3>Analyseer een product</h3>
+<p class="viznote">Een product heeft meestal meer dan één basissmaak. Kies een product en geef met de schuiven aan hoe sterk je iedere basissmaak verwacht te proeven. De schuiven beginnen in het midden.</p>
+
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 10px">
+<button type="button" id="basicCitroen" class="primary" onclick="selectBasicProduct('citroen')">Citroen</button>
+<button type="button" id="basicTomaat" onclick="selectBasicProduct('tomaat')">Tomaat</button>
+<button type="button" id="basicKaas" onclick="selectBasicProduct('kaas')">Oude kaas</button>
+</div>
+
+<div id="basicProductNote" class="small" style="margin-bottom:14px"><b>Citroen:</b> denk niet in één antwoord. Schat alle vijf de basissmaken in.</div>
+
+<div class="meterrow"><b>Zoet</b><input id="bpSweet" type="range" min="0" max="100" value="50"><output id="boSweet">50</output></div>
+<div id="bhSweet" class="small"></div>
+<div class="meterrow"><b>Zuur</b><input id="bpSour" type="range" min="0" max="100" value="50"><output id="boSour">50</output></div>
+<div id="bhSour" class="small"></div>
+<div class="meterrow"><b>Zout</b><input id="bpSalt" type="range" min="0" max="100" value="50"><output id="boSalt">50</output></div>
+<div id="bhSalt" class="small"></div>
+<div class="meterrow"><b>Bitter</b><input id="bpBitter" type="range" min="0" max="100" value="50"><output id="boBitter">50</output></div>
+<div id="bhBitter" class="small"></div>
+<div class="meterrow"><b>Umami</b><input id="bpUmami" type="range" min="0" max="100" value="50"><output id="boUmami">50</output></div>
+<div id="bhUmami" class="small"></div>
+
+<button type="button" class="primary" onclick="checkBasicProfile()" style="margin-top:14px">Controleer analyse</button>
+<div class="small" style="margin-top:8px">Dit is een voorbeeld. Een product kan in het echt iets anders smaken.</div>
+<div id="basicProfileFeedback"></div>
+</div>
+<div class="productReminder"><strong>Heb je alle producten gedaan?</strong>
+Probeer <b>citroen, tomaat én oude kaas</b> met de sliders voordat je Thema 1 afrondt. Alleen naar beneden scrollen is niet genoeg: juist het vergelijken van de drie profielen is de oefening.</div>
+<div class="themecheck"><h3>Controle Thema 1</h3><div class="checkstatus" id="status1">0 van 4 vragen goed</div><div id="check1"></div></div>
+<p><button class="primary" id="next1" disabled onclick="finishTheme(1)">Maak eerst de check hierboven</button></p>
+</div></section>
+
+<section id="t2" class="view">
+<div class="topline"><button class="secondary" onclick="go('t1')">← Terug</button><span class="pill">THEMA 2</span></div>
+<div class="card"><h1>Wat beïnvloedt smaakbeleving?</h1>
+<p>Wat je beleeft bij het eten komt niet alleen van de vijf basissmaken. Ook andere zintuigen en eigenschappen van het product doen mee.</p>
+<div class="grid">
+<div class="card"><div class="visual">👃</div><h3>Geur</h3><p>Aroma’s bepalen sterk wat je ervaart.</p><p class="small"><b>Voorbeelden:</b> koffie, vanille, gebakken brood, verse kruiden.</p></div>
+<div class="card"><div class="visual">🌡️</div><h3>Temperatuur</h3><p>Warm of koud verandert hoe je smaken en aroma’s waarneemt.</p><p class="small"><b>Voorbeelden:</b> warme en koude tomatensoep; gesmolten en koude kaas.</p></div>
+<div class="card"><div class="visual">🥄</div><h3>Structuur</h3><p>Krokant, romig, stevig of sappig verandert de beleving.</p><p class="small"><b>Voorbeelden:</b> cracker, yoghurt, noot, tomaat.</p></div>
+<div class="card"><div class="visual">🧠</div><h3>Verwachting</h3><p>Wat je ziet en verwacht beïnvloedt wat je denkt te gaan proeven.</p><p class="small"><b>Voorbeelden:</b> kleur, presentatie, verpakking en productnaam.</p></div>
+</div>
+<div class="themecheck"><h3>Controle Thema 2</h3><div class="checkstatus" id="status2">0 van 3 vragen goed</div><div id="check2"></div></div>
+<p><button class="primary" id="next2" disabled onclick="finishTheme(2)">Maak eerst de check hierboven</button></p>
+</div></section>
+
+<section id="t3" class="view">
+<div class="topline"><button class="secondary" onclick="go('t2')">← Terug</button><span class="pill">THEMA 3</span></div>
+<div class="card"><h1>Mondgevoel</h1><p>Mondgevoel beschrijft <b>hoe een product voelt</b> in je mond.</p>
+<div class="grid">
+<div class="card"><h3>Filmend</h3><p>Romig of vettig; er blijft als het ware een laagje achter.</p><p class="small"><b>Voorbeelden:</b> mayonaise, roomsaus, volle yoghurt, avocado.</p></div>
+<div class="card"><h3>Strak</h3><p>Fris en weinig laagje; in dit lesmodel tegenover filmend.</p><p class="small"><b>Voorbeelden:</b> appel, komkommer, radijs, frisse vinaigrette.</p></div>
+<div class="card"><h3>Stevig / hard</h3><p>Je moet duidelijk bijten of kauwen.</p><p class="small"><b>Voorbeelden:</b> oude kaas, noten, rauwe wortel, harde korst.</p></div>
+<div class="card"><h3>Zacht / luchtig</h3><p>Weinig weerstand of veel lucht.</p><p class="small"><b>Voorbeelden:</b> mousse, slagroom, zacht brood, luchtige puree.</p></div>
+<div class="card"><h3>Glibberig / sappig</h3><p>Glad en/of vochtig.</p><p class="small"><b>Voorbeelden:</b> oester, rijpe tomaat, watermeloen.</p></div>
+<div class="card"><h3>Krokant / droog</h3><p>Breekt of kraakt en bevat weinig vrij vocht.</p><p class="small"><b>Voorbeelden:</b> cracker, toast, krokante korst, chips.</p></div>
+</div>
+<div class="themecheck"><h3>Controle Thema 3</h3><div class="checkstatus" id="status3">0 van 3 vragen goed</div><div id="check3"></div></div>
+<p><button class="primary" id="next3" disabled onclick="finishTheme(3)">Maak eerst de check hierboven</button></p>
+</div></section>
+
+<section id="t4" class="view">
+<div class="topline"><button class="secondary" onclick="go('t3')">← Terug</button><span class="pill">THEMA 4</span></div>
+<div class="card"><h1>Wat is een smaakprofiel?</h1>
+<p>Een smaakprofiel is een vaste manier om de smaakbeleving van een product of gerecht te beschrijven. Zo kun je producten vergelijken en uitleggen wat je waarneemt.</p>
+<div class="hero" style="margin-top:18px"><h2 style="margin:0">Product → Smaak → Mondgevoel → Klantbeleving</h2>
+<p style="margin-bottom:0"><b>Voorbeeld:</b> oude kaas kun je in dit lesmodel beschrijven als rijp, intens en behoorlijk complex, met een stevig mondgevoel.</p></div>
+<div class="grid">
+<div class="card"><h3>Smaaktype</h3><p><b>Fris ↔ rijp</b></p><p class="small">Bijvoorbeeld appel tegenover oude kaas.</p></div>
+<div class="card"><h3>Intensiteit</h3><p><b>Vlak/mild ↔ intens</b></p><p class="small">Hoe krachtig is de totale smaak?</p></div>
+<div class="card"><h3>Complexiteit</h3><p><b>Laag ↔ hoog</b></p><p class="small">Hoeveel verschillende smaken en geuren neem je waar?</p></div>
+<div class="card"><h3>Mondgevoel</h3><p><b>Wat voel je?</b></p><p class="small">Bijvoorbeeld filmend, strak, stevig, zacht, sappig of krokant.</p></div>
+</div>
+<div class="themecheck"><h3>Controle Thema 4</h3><div class="checkstatus" id="status4">0 van 4 vragen goed</div><div id="check4"></div></div>
+<p><button class="primary" id="next4" disabled onclick="finishTheme(4)">Maak eerst de check hierboven</button></p>
+</div></section>
+
+<section id="t5" class="view">
+<div class="topline"><button class="secondary" onclick="go('t4')">← Terug</button><span class="pill">THEMA 5</span></div>
+<div class="card"><h1>Bouw het smaakprofiel</h1>
+<p>Kies één van de drie herkenbare producten. Alle schuiven beginnen bewust in het midden. Bouw voor ieder product opnieuw het profiel.</p>
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 8px">
+<button type="button" id="prodCheese" class="primary" onclick="selectProfileProduct('cheese')">Oude kaas</button>
+<button type="button" id="prodApple" onclick="selectProfileProduct('apple')">Groene appel</button>
+<button type="button" id="prodChoc" onclick="selectProfileProduct('choc')">Pure chocolade</button>
+</div>
+<div id="profileProductNote" class="depthbox"><b>Oude kaas</b><br>Denk aan rijping, kracht, verschillende smaaklagen en het mondgevoel.</div>
+<div class="profilebox"><div>
+<div class="scale"><label><span>Fris</span><span>Rijp</span></label><input id="s1" type="range" min="0" max="100" value="50" oninput="draw()"><div id="hint1" class="small"></div></div>
+<div class="scale"><label><span>Vlak</span><span>Intens</span></label><input id="s2" type="range" min="0" max="100" value="50" oninput="draw()"><div id="hint2" class="small"></div></div>
+<div class="scale"><label><span>Complexiteit laag</span><span>Hoog</span></label><input id="s3" type="range" min="0" max="100" value="50" oninput="draw()"><div id="hint3" class="small"></div></div>
+<div class="scale"><label><span>Strak</span><span>Filmend</span></label><input id="s4" type="range" min="0" max="100" value="50" oninput="draw()"><div id="hint4" class="small"></div></div>
+<button class="primary" onclick="checkProfile()">Controleer profiel</button>
+<div class="small" style="margin-top:8px">Je hoeft niet precies op één getal uit te komen. Een kleine afwijking is goed.</div><div id="profileFeedback"></div>
+</div>
+<div class="radar"><svg viewBox="0 0 240 240"><g fill="none" stroke="#c8c1b6"><polygon points="120,20 220,120 120,220 20,120"/><polygon points="120,50 190,120 120,190 50,120"/><line x1="120" y1="20" x2="120" y2="220"/><line x1="20" y1="120" x2="220" y2="120"/></g><g font-size="11" fill="#56606c"><text x="91" y="14">Smaaktype</text><text x="196" y="114">Intensiteit</text><text x="88" y="236">Complexiteit</text><text x="0" y="114">Mondgevoel</text></g><polygon id="poly" points="" fill="#6b3f7866" stroke="#6b3f78" stroke-width="3"/></svg></div>
+</div>
+<div class="productReminder"><strong>Heb je alle drie de profielen geprobeerd?</strong>
+Maak eerst <b>oude kaas, groene appel én pure chocolade</b>. Vergelijk wat er gebeurt met fris–rijp, intensiteit, complexiteit en mondgevoel. Ga daarna pas verder.</div>
+<p><button class="primary" id="next5" disabled onclick="finishTheme(5)">Controleer eerst je profiel</button></p>
+</div></section>
+
+
+<section id="l3" class="view">
+<div class="topline"><button class="secondary" onclick="home()">← Terug</button><span class="pill">NIVEAU 3 • SMAAK STUREN</span></div>
+<div class="card">
+<h1>Wat ga je doen?</h1>
+<p>Op niveau 3 ga je een stap verder. Je beschrijft niet alleen wat je proeft, maar kiest ook <b>wat je wilt verbeteren</b> en <b>hoe je dat kunt doen</b>.</p>
+<div class="depthbox"><b>Vaste werkwijze</b><br>PROEF → BENOEM → KIES JE DOEL → PAS AAN → VOORSPEL → PROEF OPNIEUW</div>
+<div class="l3progress"><span id="l3p1">1. Tomatensoep</span><span id="l3p2">2. Oude kaas</span><span id="l3p3">3. Chocoladedessert</span></div>
+</div>
+
+<div class="card" style="margin-top:16px" id="case1">
+<span class="quizcount">CASUS 1 • VEEL KEUZEHULP</span><h2>Tomatensoep – er klopt iets niet</h2>
+<p><b>Situatie:</b> de tomatensoep smaakt behoorlijk zuur, de smaak is verder wat vlak en de soep voelt dun in de mond.</p>
+<div class="caseStep"><h3>1. Wat merk je?</h3><p>Klik de drie kenmerken aan die bij de situatie passen.</p>
+<div class="caseChoices" id="c1observe">
+<button onclick="toggleMulti(this,'c1observe')">Zuur</button><button onclick="toggleMulti(this,'c1observe')">Zoet</button><button onclick="toggleMulti(this,'c1observe')">Vlak</button><button onclick="toggleMulti(this,'c1observe')">Intens</button><button onclick="toggleMulti(this,'c1observe')">Dun</button><button onclick="toggleMulti(this,'c1observe')">Filmend</button>
+</div><button class="secondary" onclick="checkC1Observe()">Controleer</button><div id="c1of"></div></div>
+
+<div class="caseStep"><h3>2. Wat wil je verbeteren?</h3><p>Er zijn meerdere goede doelen. Kies wat je als eerste wilt aanpakken.</p>
+<div class="caseChoices" id="c1goal">
+<button onclick="chooseCase(this,'c1goal','Meer hartige smaak')">Meer hartige smaak</button>
+<button onclick="chooseCase(this,'c1goal','Voller mondgevoel')">Voller mondgevoel</button>
+<button onclick="chooseCase(this,'c1goal','Minder scherp zuur')">Minder scherp zuur</button>
+<button onclick="chooseCase(this,'c1goal','Nog zuurder maken')">Nog zuurder maken</button>
+</div><div id="c1gf"></div></div>
+
+<div class="caseStep"><h3>3. Wat ga je doen?</h3><p>Kies een ingreep. Lees daarna wat die waarschijnlijk doet.</p>
+<div class="caseChoices" id="c1action">
+<button onclick="c1Action(this,'umami')">Bouillon / umami toevoegen</button>
+<button onclick="c1Action(this,'room')">Een beetje room toevoegen</button>
+<button onclick="c1Action(this,'reduce')">Verder inkoken</button>
+<button onclick="c1Action(this,'lemon')">Extra citroensap toevoegen</button>
+</div><div id="c1af"></div></div>
+
+<div class="caseStep"><h3>4. Voorspel het resultaat</h3><p>Zet de schuiven zoals jij denkt dat de soep <b>na jouw aanpassing</b> wordt.</p>
+<div class="meterrow"><b>Zuur</b><input id="c1sour" type="range" min="0" max="100" value="50"><output id="c1sourO">50</output></div>
+<div class="meterrow"><b>Umami</b><input id="c1umami" type="range" min="0" max="100" value="50"><output id="c1umamiO">50</output></div>
+<div class="meterrow"><b>Intensiteit</b><input id="c1int" type="range" min="0" max="100" value="50"><output id="c1intO">50</output></div>
+<div class="meterrow"><b>Vol mondgevoel</b><input id="c1mouth" type="range" min="0" max="100" value="50"><output id="c1mouthO">50</output></div>
+<button class="primary" onclick="finishCase1()">Controleer mijn voorspelling</button><div id="c1final"></div></div>
+</div>
+
+<div class="card" style="margin-top:16px" id="case2">
+<span class="quizcount">CASUS 2 • COMBINEREN</span><h2>Oude kaas – maak de combinatie compleet</h2>
+<p><b>Situatie:</b> oude kaas is krachtig, zout en umamirijk. Het mondgevoel is stevig en kan ook wat filmend zijn. Er is niets fout aan de kaas. Je wilt <b>contrast</b> toevoegen.</p>
+<div class="compareProfile">
+<b>Intensiteit</b><div class="track"><div class="fill" style="width:85%"></div></div>
+<b>Zout / umami</b><div class="track"><div class="fill" style="width:82%"></div></div>
+<b>Filmend</b><div class="track"><div class="fill" style="width:62%"></div></div>
+</div>
+<div class="caseStep"><h3>1. Wat serveer je erbij?</h3><p>Kies één combinatie en bekijk wat deze toevoegt.</p>
+<div class="caseChoices" id="c2food">
+<button onclick="c2Food(this,'apple')">Groene appel</button>
+<button onclick="c2Food(this,'pickle')">Ingelegde ui</button>
+<button onclick="c2Food(this,'nuts')">Geroosterde noten</button>
+<button onclick="c2Food(this,'cream')">Romige saus</button>
+</div><div id="c2ff"></div></div>
+<div class="caseStep"><h3>2. Waarom werkt jouw keuze?</h3>
+<div class="caseChoices" id="c2why">
+<button onclick="c2Why(this,'fresh')">Geeft frisheid / zuur als contrast</button>
+<button onclick="c2Why(this,'crunch')">Geeft krokant mondgevoel als contrast</button>
+<button onclick="c2Why(this,'fat')">Maakt het geheel vooral nog romiger</button>
+</div><div id="c2wf"></div></div>
+<div class="caseStep"><h3>3. Wat gebeurt er met de combinatie?</h3><p>Gebruik de sliders voor de <b>hele hap</b>: kaas + jouw gekozen product.</p>
+<div class="meterrow"><b>Frisheid</b><input id="c2fresh" type="range" min="0" max="100" value="50"><output id="c2freshO">50</output></div>
+<div class="meterrow"><b>Contrast</b><input id="c2contrast" type="range" min="0" max="100" value="50"><output id="c2contrastO">50</output></div>
+<button class="primary" onclick="finishCase2()">Controleer combinatie</button><div id="c2final"></div></div>
+</div>
+
+<div class="card" style="margin-top:16px" id="case3">
+<span class="quizcount">CASUS 3 • MEER ZELFSTANDIG</span><h2>Chocoladedessert – verbeter het gerecht</h2>
+<p><b>Situatie:</b> het dessert is erg zoet, romig en zwaar. De eerste hap is lekker, maar na een paar happen wordt het eentonig.</p>
+<div class="caseStep"><h3>1. Wat is volgens jou het belangrijkste probleem?</h3>
+<div class="caseChoices" id="c3problem">
+<button onclick="c3Problem(this,'balance')">Te weinig balans en contrast</button>
+<button onclick="c3Problem(this,'salt')">Er zit te weinig zout in</button>
+<button onclick="c3Problem(this,'heat')">Het dessert is niet warm genoeg</button>
+</div><div id="c3pf"></div></div>
+<div class="caseStep"><h3>2. Kies je verbeterdoel</h3>
+<div class="caseChoices" id="c3goal">
+<button onclick="chooseCase(this,'c3goal','Meer frisheid')">Meer frisheid</button>
+<button onclick="chooseCase(this,'c3goal','Meer bitter contrast')">Meer bitter contrast</button>
+<button onclick="chooseCase(this,'c3goal','Meer structuurcontrast')">Meer structuurcontrast</button>
+</div></div>
+<div class="caseStep"><h3>3. Kies een aanpassing</h3>
+<div class="caseChoices" id="c3action">
+<button onclick="c3Action(this,'fruit')">Rood fruit / citrus toevoegen</button>
+<button onclick="c3Action(this,'dark')">Donkerdere chocolade gebruiken</button>
+<button onclick="c3Action(this,'crunch')">Iets krokants toevoegen</button>
+<button onclick="c3Action(this,'sugar')">Extra suiker toevoegen</button>
+</div><div id="c3af"></div></div>
+<div class="caseStep"><h3>4. Bouw het gewenste nieuwe profiel</h3>
+<div class="meterrow"><b>Zoet</b><input id="c3sweet" type="range" min="0" max="100" value="50"><output id="c3sweetO">50</output></div>
+<div class="meterrow"><b>Frisheid</b><input id="c3fresh" type="range" min="0" max="100" value="50"><output id="c3freshO">50</output></div>
+<div class="meterrow"><b>Complexiteit</b><input id="c3complex" type="range" min="0" max="100" value="50"><output id="c3complexO">50</output></div>
+<div class="meterrow"><b>Contrast</b><input id="c3contrast" type="range" min="0" max="100" value="50"><output id="c3contrastO">50</output></div>
+<button class="primary" onclick="finishCase3()">Controleer mijn profiel</button><div id="c3final"></div></div>
+</div>
+
+<div class="card" style="margin-top:16px;text-align:center" id="l3finish">
+<h2>Niveau 3 afronden</h2>
+<p>Rond eerst alle drie de praktijkcasussen af.</p>
+<button class="primary" id="finishL3Btn" disabled onclick="finishLevel3()">Niveau 3 afronden</button>
+<div id="l3done" style="display:none" class="caseDone"><b>✓ Niveau 3 afgerond</b><br>Je hebt geoefend met proeven, een probleem benoemen, een doel kiezen, gericht aanpassen en het effect voorspellen.</div>
+</div>
+</section>
+
+<section id="finish" class="view">
+<div class="topline"><button class="secondary" onclick="go('t5')">← Terug</button><span class="pill">EINDCHECK</span></div>
+<div class="card"><div class="quizcount">EINDCHECK • 5 THEMA'S</div><h1>Kun jij de basis toepassen?</h1>
+<p>Beantwoord vijf korte vragen. Je krijgt direct feedback en kunt een fout antwoord opnieuw proberen.</p>
+<div id="quiz"></div><div id="result" style="display:none;text-align:center;margin-top:24px">
+<div class="score">5/5</div><h2>Basisroute voltooid</h2><p>Je hebt alle vijf thema’s doorlopen en de eindcheck afgerond.</p>
+<button class="primary" onclick="resetApp()">Opnieuw beginnen</button></div></div>
+</section>
+
+<footer>Smaaklab • Niveau 2 + verdieping Niveau 3 • je voortgang wordt op dit apparaat bewaard</footer>
+</main>
+
+<script>
+const themes=[
+['De 5 basissmaken','Zoet, zuur, zout, bitter en umami.','👅'],
+['Wat beïnvloedt smaak?','Geur, temperatuur, structuur en verwachting.','👃'],
+['Mondgevoel','Hoe voelt een product in je mond?','🥄'],
+['Smaakprofielen','Leer smaaktype, intensiteit, complexiteit en mondgevoel.','🎯'],
+['Bouw je profiel','Zet zelf de sliders en vergelijk je analyse.','📊']
+];
+
+let l3Cases=new Set(),l3Action1='umami',l3Food='apple',l3Action3='fruit';
+let l3Done=localStorage.getItem('smaaklab_l3_done')==='1';
+
+function openLevel3(){go('l3')}
+function markCase(n){
+ l3Cases.add(n);
+ document.getElementById('l3p'+n).classList.add('done');
+ document.getElementById('l3p'+n).textContent='✓ '+['1. Tomatensoep','2. Oude kaas','3. Chocoladedessert'][n-1];
+ if(l3Cases.size===3)document.getElementById('finishL3Btn').disabled=false;
+}
+function toggleMulti(btn,id){btn.classList.toggle('selected')}
+function selectedTexts(id){return [...document.querySelectorAll('#'+id+' button.selected')].map(b=>b.textContent.trim())}
+function chooseCase(btn,id,value){
+ document.querySelectorAll('#'+id+' button').forEach(b=>b.classList.remove('selected'));
+ btn.classList.add('selected');
+ if(id==='c1goal'){
+   const f=document.getElementById('c1gf');
+   f.className='feedback '+(value==='Nog zuurder maken'?'bad':'ok');
+   f.textContent=value==='Nog zuurder maken'?'Dat past niet goed bij deze situatie: de soep is al behoorlijk zuur.':'Logisch doel. Nu kies je een ingreep die daarbij kan helpen.';
+ }
+}
+function checkC1Observe(){
+ const s=new Set(selectedTexts('c1observe')),good=['Zuur','Vlak','Dun'];
+ const ok=good.every(x=>s.has(x))&&s.size===3,f=document.getElementById('c1of');
+ f.className='feedback '+(ok?'ok':'bad');
+ f.textContent=ok?'Goed. Je benoemt eerst wat je werkelijk merkt: zuur, vlak en dun.':'Lees de situatie nog eens. Kies precies de drie woorden die letterlijk bij de soep passen.';
+}
+function c1Action(btn,key){
+ l3Action1=key;document.querySelectorAll('#c1action button').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');
+ const data={
+  umami:['ok','Bouillon of een umamirijk ingrediënt kan de hartige smaak versterken. Let wel op dat de soep niet te zout wordt.'],
+  room:['ok','Room kan het mondgevoel voller maken en het zure karakter zachter laten overkomen.'],
+  reduce:['ok','Inkoken maakt de soep minder waterig en de smaak intenser. Ook het zuur kan daardoor sterker naar voren komen.'],
+  lemon:['bad','Extra citroen maakt een soep die al zuur is waarschijnlijk nog zuurder. Dat past hier niet goed bij het probleem.']
+ }[key],f=document.getElementById('c1af');f.className='feedback '+data[0];f.textContent=data[1];
+}
+function finishCase1(){
+ const vals=[+c1sour.value,+c1umami.value,+c1int.value,+c1mouth.value];
+ const targets={
+   umami:[65,80,65,50],
+   room:[45,50,55,80],
+   reduce:[75,65,85,55],
+   lemon:[90,45,55,40]
+ };
+ const labels=['Zuur','Umami','Intensiteit','Vol mondgevoel'];
+ const t=targets[l3Action1],tol=18;
+ let good=0,tips=[];
+ vals.forEach((v,i)=>{
+   if(Math.abs(v-t[i])<=tol)good++;
+   else tips.push(labels[i]+': '+(v<t[i]?'schuif wat hoger':'schuif wat lager'));
+ });
+ const f=document.getElementById('c1final');
+ if(good===4){
+   f.className='feedback ok';
+   f.innerHTML='<b>Goed voorspeld.</b> Je profiel past bij de gekozen aanpassing.';
+   markCase(1);
+ }else{
+   f.className='feedback bad';
+   f.innerHTML='<b>'+good+' van 4 staan in een logisch gebied.</b><br>'+tips.join(' • ')+'<br>Pas de schuiven aan en probeer opnieuw.';
+ }
+}
+function c2Food(btn,key){
+ l3Food=key;document.querySelectorAll('#c2food button').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');
+ const t={
+ apple:'Groene appel geeft frisheid, zuur, sappigheid en een stevig/krokant contrast.',
+ pickle:'Ingelegde ui geeft zuur en frisheid en kan de krachtige kaas doorbreken.',
+ nuts:'Geroosterde noten geven vooral krokantheid en geroosterde smaken als contrast.',
+ cream:'Een romige saus kan lekker zijn, maar geeft weinig contrast met het volle en filmende karakter van de kaas.'
+ }[key],f=document.getElementById('c2ff');f.className='feedback '+(key==='cream'?'warn':'ok');f.textContent=t;
+}
+function c2Why(btn,key){
+ document.querySelectorAll('#c2why button').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');
+ const expected=l3Food==='nuts'?'crunch':(l3Food==='cream'?'fat':'fresh'),f=document.getElementById('c2wf');
+ f.className='feedback '+(key===expected?'ok':'warn');
+ f.textContent=key===expected?'Dat past goed bij jouw gekozen product.':'Dat kan een effect zijn, maar kijk nog eens welk contrast jouw gekozen product vooral toevoegt.';
+}
+function finishCase2(){
+ const fresh=+c2fresh.value,contrast=+c2contrast.value;
+ const targets={
+   apple:[85,85],
+   pickle:[80,80],
+   nuts:[35,75],
+   cream:[20,25]
+ };
+ const t=targets[l3Food],tol=18;
+ const ok1=Math.abs(fresh-t[0])<=tol,ok2=Math.abs(contrast-t[1])<=tol;
+ const f=document.getElementById('c2final');
+ if(ok1&&ok2){
+   f.className='feedback ok';
+   f.innerHTML='<b>Goed voorspeld.</b> Dit past bij wat jouw gekozen product aan de kaas toevoegt.';
+   markCase(2);
+ }else{
+   let tips=[];
+   if(!ok1)tips.push('Frisheid: '+(fresh<t[0]?'hoger':'lager'));
+   if(!ok2)tips.push('Contrast: '+(contrast<t[1]?'hoger':'lager'));
+   f.className='feedback bad';
+   f.innerHTML='<b>Nog niet helemaal.</b> Denk aan het effect van <b>'+({apple:'groene appel',pickle:'ingelegde ui',nuts:'geroosterde noten',cream:'romige saus'}[l3Food])+'</b>.<br>'+tips.join(' • ');
+ }
+}
+function c3Problem(btn,key){
+ document.querySelectorAll('#c3problem button').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');
+ const f=document.getElementById('c3pf');f.className='feedback '+(key==='balance'?'ok':'bad');
+ f.textContent=key==='balance'?'Goed. Het gerecht is vooral zoet, zwaar en eentonig. Meer balans of contrast is een logisch doel.':'Dit staat niet in de situatie. Kijk naar wat de gast werkelijk ervaart: zoet, zwaar en eentonig.';
+}
+function c3Action(btn,key){
+ l3Action3=key;
+ document.querySelectorAll('#c3action button').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');
+ const d={
+ fruit:['ok','Fruit of citrus kan frisheid en zuur toevoegen en zo contrast geven met zoet en romig.'],
+ dark:['ok','Donkerdere chocolade kan meer bitterheid en chocoladekracht geven en het zoete karakter minder centraal zetten.'],
+ crunch:['ok','Een krokant onderdeel geeft vooral contrast in mondgevoel en maakt iedere hap minder eentonig.'],
+ sugar:['bad','Extra suiker versterkt juist het probleem dat al genoemd is: het dessert is al erg zoet.']
+ }[key],f=document.getElementById('c3af');f.className='feedback '+d[0];f.textContent=d[1];
+}
+function finishCase3(){
+ const vals=[+c3sweet.value,+c3fresh.value,+c3complex.value,+c3contrast.value];
+ const targets={
+   fruit:[45,85,75,85],
+   dark:[40,35,75,70],
+   crunch:[55,35,65,85],
+   sugar:[90,20,35,20]
+ };
+ const labels=['Zoet','Frisheid','Complexiteit','Contrast'],t=targets[l3Action3],tol=20;
+ let good=0,tips=[];
+ vals.forEach((v,i)=>{
+   if(Math.abs(v-t[i])<=tol)good++;
+   else tips.push(labels[i]+': '+(v<t[i]?'wat hoger':'wat lager'));
+ });
+ const f=document.getElementById('c3final');
+ if(good===4 && l3Action3!=='sugar'){
+   f.className='feedback ok';
+   f.innerHTML='<b>Goed.</b> Het nieuwe profiel past bij jouw gekozen aanpassing en geeft meer balans of contrast.';
+   markCase(3);
+ }else if(l3Action3==='sugar'){
+   f.className='feedback bad';
+   f.innerHTML='<b>Deze ingreep lost het probleem niet goed op.</b> Het dessert was al erg zoet. Kies een andere aanpassing en bouw daarna opnieuw het profiel.';
+ }else{
+   f.className='feedback bad';
+   f.innerHTML='<b>'+good+' van 4 staan in een logisch gebied.</b><br>'+tips.join(' • ')+'<br>Pas je profiel aan en probeer opnieuw.';
+ }
+}
+function finishLevel3(){
+ if(l3Cases.size<3)return;
+ l3Done=true;localStorage.setItem('smaaklab_l3_done','1');
+ document.getElementById('l3done').style.display='block';
+ document.getElementById('finishL3Btn').disabled=true;
+ updateL3Tile();
+}
+function updateL3Tile(){
+ const s=document.getElementById('l3TileStatus');if(!s)return;
+ s.innerHTML=l3Done?'<b style="color:var(--ok)">✓ Niveau 3 afgerond</b>':'Drie praktijkcasussen: tomatensoep, oude kaas en chocoladedessert.';
+}
+function initL3Ranges(){
+ ['c1sour','c1umami','c1int','c1mouth','c2fresh','c2contrast','c3sweet','c3fresh','c3complex','c3contrast'].forEach(id=>{
+  const r=document.getElementById(id),o=document.getElementById(id+'O');
+  if(r&&o)r.addEventListener('input',()=>o.textContent=r.value);
+ });
+ updateL3Tile();
+}
+
+let done=JSON.parse(localStorage.getItem('smaaklab_done_v3')||'[]');
+let profileAttempts=0, quizDone=new Set(), currentView='home';
+
+function save(){localStorage.setItem('smaaklab_done_v3',JSON.stringify(done));update()}
+function unlocked(n){return n===1||done.includes(n-1)}
+function complete(n){if(!done.includes(n))done.push(n);save()}
+function openTheme(n){if(unlocked(n))go('t'+n)}
+function continueRoute(){for(let n=1;n<=5;n++){if(!done.includes(n)){openTheme(n);return}}go('finish')}
+function finishTheme(n){complete(n);if(n<5)go('t'+(n+1));else{buildQuiz();go('finish')}}
+function home(){go('home')}
+function go(id){
+ if(/^t[1-5]$/.test(id)&&!unlocked(+id.slice(1))){home();return}
+ document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+ document.getElementById(id).classList.add('active');currentView=id;scrollTo(0,0);
+ if(id==='t5'){profileAttempts=0;draw()} if(id==='finish')buildQuiz(); if(id==='l3')updateL3Tile(); update()
+}
+function update(){
+ document.getElementById('bar').style.width=(new Set(done).size/5*100)+'%';
+ const grid=document.getElementById('themeGrid');
+ grid.innerHTML=themes.map((t,i)=>{let n=i+1,u=unlocked(n),d=done.includes(n);
+ return `<div class="card theme ${u?'':'locked'}" id="card${n}"><span class="num">THEMA 0${n}</span><div class="visual">${t[2]}</div><h2>${t[0]}</h2><p>${t[1]}</p><button class="secondary" ${u?'':'disabled'} onclick="openTheme(${n})">${d?'Opnieuw bekijken':u?'Open thema':'Vergrendeld'}</button><div><span class="lock ${d?'unlock':''}">${d?'✓ Afgerond':u?'Beschikbaar':'🔒 Rond thema '+(n-1)+' eerst af'}</span></div></div>`}).join('');
+ const rb=document.getElementById('routebox');
+ rb.innerHTML=[1,2,3,4,5].map(n=>`<span class="${done.includes(n)?'done':unlocked(n)?'current':''}">${done.includes(n)?'✓ ':unlocked(n)?'→ ':'🔒 '}Thema ${n}</span>`).join('');
+}
+
+
+function tasteMeter(el,outId){document.getElementById(outId).textContent=el.value}
+function mouthDemo(el){
+ const v=+el.value,t=document.getElementById('mouthText');
+ if(v<35)t.innerHTML='<b>Meer richting strak.</b> Het product voelt fris en laat weinig laagje achter in je mond.';
+ else if(v>65)t.innerHTML='<b>Meer richting filmend.</b> Het product voelt romig of vettig en laat een laagje achter in je mond.';
+ else t.innerHTML='<b>Midden.</b> Een product hoeft niet helemaal strak of helemaal filmend te zijn.';
+}
+function profileDemo(){}
+
+
+const basicProducts={
+ citroen:{name:'Citroen',target:[20,90,5,25,5]},
+ tomaat:{name:'Tomaat',target:[40,60,10,10,65]},
+ kaas:{name:'Oude kaas',target:[10,20,70,20,80]}
+};
+let currentBasicProduct='citroen',basicAttempts=0;
+const basicIds=['Sweet','Sour','Salt','Bitter','Umami'];
+function initBasicProfile(){
+ basicIds.forEach(k=>{
+ const s=document.getElementById('bp'+k),o=document.getElementById('bo'+k);
+ if(s){s.addEventListener('input',()=>o.textContent=s.value)}
+ });
+}
+function selectBasicProduct(key){
+ currentBasicProduct=key;basicAttempts=0;
+ basicIds.forEach(k=>{
+ const s=document.getElementById('bp'+k),o=document.getElementById('bo'+k),h=document.getElementById('bh'+k);
+ s.value=50;o.textContent='50';h.textContent='';h.removeAttribute('style');
+ });
+ document.getElementById('basicProductNote').innerHTML='<b>'+basicProducts[key].name+':</b> denk niet in één antwoord. Schat alle vijf de basissmaken in.';
+ document.getElementById('basicProfileFeedback').innerHTML='';
+ [['citroen','basicCitroen'],['tomaat','basicTomaat'],['kaas','basicKaas']].forEach(([k,id])=>document.getElementById(id).classList.toggle('primary',k===key));
+}
+function checkBasicProfile(){
+ basicAttempts++;
+ const vals=basicIds.map(k=>+document.getElementById('bp'+k).value);
+ const target=basicProducts[currentBasicProduct].target,tol=20;
+ let good=0;
+ vals.forEach((v,i)=>{
+ const h=document.getElementById('bh'+basicIds[i]);
+ if(Math.abs(v-target[i])<=tol){good++;h.innerHTML='✓ <b>Goed gebied</b>';h.style.color='var(--ok)'}
+ else if(v<target[i]){h.textContent='Deze basissmaak mag duidelijker aanwezig zijn.';h.style.color='var(--bad)'}
+ else{h.textContent='Je schat deze basissmaak wat te sterk in.';h.style.color='var(--bad)'}
+ });
+ const f=document.getElementById('basicProfileFeedback');
+ if(good===5){f.className='feedback ok';f.innerHTML='<b>Goed geanalyseerd.</b> Je ziet dat één product uit meerdere basissmaken kan zijn opgebouwd.'}
+ else{f.className='feedback bad';f.innerHTML='<b>'+good+' van 5 staan in het richtgebied.</b> Gebruik de feedback per schuif en probeer opnieuw.'}
+}
+
+const themeChecks={
+1:[
+ {q:'Een kok proeft een tomatensaus. De saus heeft een hartige, volle smaak. Welke basissmaak speelt waarschijnlijk een belangrijke rol?',a:['Bitter','Umami','Zuur'],c:1,why:'Tomaat bevat stoffen die bijdragen aan umami. In een echte saus kunnen daarnaast ook zuur, zoet en zout aanwezig zijn.'},
+ {q:'Je proeft pure chocolade. Welke basissmaak is zonder toevoegingen vaak duidelijk herkenbaar?',a:['Zuur','Umami','Bitter'],c:2,why:'Cacao levert een duidelijke bittere component. Zoet kan door toegevoegde suiker aanwezig zijn.'},
+ {q:'Een gerecht bevat citroensap, honing en zout. Welke uitspraak is het meest professioneel?',a:['Meerdere basissmaken kunnen tegelijk aanwezig zijn','Het gerecht heeft maar één basissmaak','Honing bepaalt automatisch de hele smaak'],c:0,why:'Producten en gerechten bestaan vaak uit meerdere basissmaken. Je analyseert welke aanwezig zijn en hoe sterk ze naar voren komen.'},
+ {q:'Iemand zegt: “Vanille is één van de vijf basissmaken.” Wat klopt?',a:['Ja, vanille is een basissmaak','Ja, maar alleen wanneer vanille warm is','Nee, vanille nemen we vooral als aroma waar'],c:2,why:'Vanille is vooral een aroma. De vijf basissmaken zijn zoet, zuur, zout, bitter en umami.'}
+],
+2:[
+ {q:'Twee identieke glazen yoghurt worden geserveerd: één koelkastkoud en één minder koud. Ze worden verschillend ervaren. Wat is de beste verklaring?',a:['Temperatuur beïnvloedt de smaakbeleving','De basissmaken zijn veranderd in andere basissmaken','De kleur verandert de samenstelling'],c:0,why:'Temperatuur kan beïnvloeden hoe sterk smaken en aroma’s worden geproefd of geroken.'},
+ {q:'Een student proeft een winegum eerst normaal en daarna met de neus dicht. De fruitsmaak is dan moeilijker te herkennen. Wat laat dit zien?',a:['De tong werkt niet wanneer de neus dicht zit','Aroma via de neus is belangrijk voor herkenning','Mondgevoel verdwijnt wanneer de neus dicht zit'],c:1,why:'De basissmaken blijven te proeven of te ruiken, maar veel karakteristieke geuren valt weg.'},
+ {q:'Je ziet een groene drank en verwacht vóór het proeven al dat hij fris en zuur is. Wat heeft hier invloed?',a:['De kleur veroorzaakt umami','De temperatuur verhoogt automatisch de complexiteit','De kleur wekt een verwachting op'],c:2,why:'Wat je ziet kan vooraf een verwachting oproepen en daarmee de beleving beïnvloeden.'}
+],
+3:[
+ {q:'Een saus blijft romig en vettig als een laagje in de mond aanwezig. Welke term past het best?',a:['Filmend','Strak','Krokant'],c:0,why:'Een romige of vettige laagje wordt in dit lesmodel filmend genoemd.'},
+ {q:'Je vergelijkt een cracker met een mousse. Welk verschil beschrijft vooral het mondgevoel?',a:['Cracker bitter; mousse zoet','Cracker krokant/droog; mousse zacht/luchtig','Cracker intens; mousse complex'],c:1,why:'Krokant/droog en zacht/luchtig beschrijven hoe de producten fysiek in de mond aanvoelen.'},
+ {q:'Een student schrijft bij komkommer alleen “lekker fris”. Welke aanvulling maakt de analyse bruikbaarder voor mondgevoel?',a:['Beschrijf ook of het product bijvoorbeeld strak, sappig of krokant aanvoelt','Geef alleen een cijfer van 1 tot 10','Noem alleen de kleur'],c:0,why:'Mondgevoel vraagt om concrete, waarneembare termen in plaats van alleen een waardering.'}
+],
+4:[
+ {q:'Product A smaakt heel krachtig, maar je neemt maar weinig verschillende smaken en geuren waar. Welke analyse past?',a:['Lage intensiteit, hoge complexiteit','Hoge complexiteit omdat de smaak krachtig is','Hoge intensiteit, lage complexiteit'],c:2,why:'Intensiteit gaat over kracht; complexiteit over het aantal verschillende waarneembare lagen.'},
+ {q:'Product B smaakt mild, maar je ontdekt tijdens het proeven meerdere verschillende smaken en geuren. Welke beschrijving past?',a:['Mild betekent automatisch lage complexiteit','Lage intensiteit kan samengaan met hogere complexiteit','Complexiteit en intensiteit zijn hetzelfde'],c:1,why:'Een product hoeft niet krachtig te zijn om meerdere smaken en geuren te hebben.'},
+ {q:'Je vergelijkt een frisse appel met oude kaas. Welke profiel-as helpt vooral om dit verschil te beschrijven?',a:['Fris ↔ rijp','Laag ↔ hoog gewicht','Koud ↔ warm'],c:0,why:'In dit lesmodel gebruik je fris ↔ rijp als onderdeel van het smaaktype.'},
+ {q:'Waarom is “lekker” geen compleet smaakprofiel?',a:['Het is alleen toegestaan bij zoete producten','Het zegt alleen iets over temperatuur','Het is een persoonlijke mening en beschrijft niet wat je waarneemt'],c:2,why:'Een goed smaakprofiel gebruikt beschrijvende kenmerken zoals smaaktype, intensiteit, complexiteit en mondgevoel.'}
+]};
+const themeCorrect={1:new Set(),2:new Set(),3:new Set(),4:new Set()};
+function buildThemeChecks(){
+ Object.entries(themeChecks).forEach(([tn,qs])=>{
+ const box=document.getElementById('check'+tn);if(!box)return;
+ box.innerHTML=qs.map((x,i)=>`<div class="question"><p><b>${i+1}. ${x.q}</b></p><div class="choices">${x.a.map((a,j)=>`<button class="choice" onclick="themeAnswer(this,${tn},${i},${j})">${a}</button>`).join('')}</div><div id="tcf${tn}_${i}"></div></div>`).join('');
+ });
+}
+function themeAnswer(btn,tn,qi,ai){
+ const q=themeChecks[tn][qi],ok=ai===q.c,f=document.getElementById(`tcf${tn}_${qi}`);
+ btn.parentElement.querySelectorAll('button').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');
+ f.className='feedback '+(ok?'ok':'bad');
+ f.innerHTML=ok?'<b>Goed.</b> '+q.why:'<b>Nog niet.</b> Kies opnieuw. Let op wat er in de situatie daadwerkelijk wordt geproefd of geroken.';
+ if(ok){themeCorrect[tn].add(qi);btn.parentElement.querySelectorAll('button').forEach(b=>b.disabled=true)}
+ const total=themeChecks[tn].length,got=themeCorrect[tn].size;
+ document.getElementById('status'+tn).textContent=`${got} van ${total} vragen goed`;
+ if(got===total){let b=document.getElementById('next'+tn);b.disabled=false;b.textContent='Thema '+tn+' afronden →'}
+}
+
+function draw(){
+ let v=['s1','s2','s3','s4'].map(x=>+document.getElementById(x).value),c=120,r=95;
+ let pts=[[c,c-r*v[0]/100],[c+r*v[1]/100,c],[c,c+r*v[2]/100],[c-r*v[3]/100,c]];
+ document.getElementById('poly').setAttribute('points',pts.map(p=>p.join(',')).join(' '))
+}
+
+const profileProducts={
+ cheese:{name:'Oude kaas',target:[80,85,75,65],
+ low:['Dit product hoort meer aan de rijpe kant.','De smaak mag duidelijker richting intens.','Er zijn meer smaak- en aromalagen te proeven of te ruiken.','Het mondgevoel mag iets meer richting filmend.'],
+ high:['Je zit wat ver richting rijp.','Je zit erg hoog in intensiteit.','Je maakt het profiel iets te complex.','Je zit te ver richting filmend.']},
+ apple:{name:'Groene appel',target:[20,55,35,20],
+ low:['De appel mag iets minder extreem fris.','De smaak mag iets krachtiger.','Er mogen iets meer lagen in het profiel.','Deze positie is al sterk richting strak.'],
+ high:['Groene appel hoort duidelijker richting fris.','Je maakt de appel te intens.','Je maakt de appel te complex.','Groene appel hoort duidelijker richting strak.']},
+ choc:{name:'Pure chocolade',target:[70,80,65,55],
+ low:['Pure chocolade mag meer richting rijp.','De smaak mag duidelijker richting intens.','Er zijn meerdere smaken en geuren te proeven of te ruiken.','Het mondgevoel mag iets meer richting filmend.'],
+ high:['Je zit wat ver richting rijp.','Je maakt de chocolade extreem intens.','Je maakt het profiel iets te complex.','Je zit te ver richting filmend.']}
+};
+let currentProfileProduct='cheese';
+function selectProfileProduct(key){
+ currentProfileProduct=key;profileAttempts=0;
+ ['s1','s2','s3','s4'].forEach(id=>document.getElementById(id).value=50);
+ ['hint1','hint2','hint3','hint4'].forEach(id=>{const e=document.getElementById(id);e.textContent='';e.removeAttribute('style')});
+ document.getElementById('profileFeedback').innerHTML='';
+ const notes={cheese:'Denk aan rijping, kracht, verschillende smaaklagen en het mondgevoel.',apple:'Denk aan frisheid, intensiteit, het aantal smaaklagen en een strak mondgevoel.',choc:'Denk aan het rijpere karakter, duidelijke intensiteit, meerdere aroma- en smaaklagen en het mondgevoel.'};
+ document.getElementById('profileProductNote').innerHTML='<b>'+profileProducts[key].name+'</b><br>'+notes[key];
+ [['cheese','prodCheese'],['apple','prodApple'],['choc','prodChoc']].forEach(([k,id])=>document.getElementById(id).classList.toggle('primary',k===key));
+ document.getElementById('next5').disabled=true;
+ draw();
+}
+function checkProfile(){
+ profileAttempts++;
+ const vals=['s1','s2','s3','s4'].map(x=>+document.getElementById(x).value),product=profileProducts[currentProfileProduct],target=product.target,tol=15;
+ const lowTips=product.low;
+ const highTips=product.high;
+ let allGood=true;
+ vals.forEach((v,i)=>{let h=document.getElementById('hint'+(i+1));if(Math.abs(v-target[i])<=tol){h.innerHTML='✓ <b>Goed gebied</b>';h.style.color='var(--ok)'}else{allGood=false;h.textContent=v<target[i]?lowTips[i]:highTips[i];h.style.color='var(--bad)'}});
+ let f=document.getElementById('profileFeedback');
+ if(allGood){f.className='feedback ok';f.textContent='Goed opgebouwd. Alle vier de schuiven staan binnen het richtgebied.';unlockProfile()}
+ else if(profileAttempts>=3){f.className='feedback ok';f.innerHTML='<b>Je hebt goed geoefend.</b> Gebruik de tips om het voorbeeldprofiel te bekijken. Je mag verder; de app laat je niet vastlopen.';unlockProfile()}
+ else{f.className='feedback bad';f.textContent='Nog niet alle onderdelen zitten in het richtgebied. Gebruik de tip onder iedere schuif en probeer opnieuw.'}
+}
+function unlockProfile(){let b=document.getElementById('next5');b.disabled=false;b.textContent='Thema 5 afronden →'}
+
+
+const tasteProducts=[
+ {name:'Pure chocolade',correct:'Bitter',tip:'Cacao geeft een duidelijke bittere component; suiker kan daarnaast zoet toevoegen.'},
+ {name:'Oude kaas',correct:'Umami',tip:'Oude kaas is een herkenbare bron van umami en kan daarnaast duidelijk zout smaken.'},
+ {name:'Naturel yoghurt',correct:'Zuur',tip:'Melkzuur zorgt voor de herkenbare zure component.'},
+ {name:'Honing',correct:'Zoet',tip:'Honing is een duidelijk voorbeeld van een product waarin zoet sterk naar voren komt.'},
+ {name:'Gezouten bouillon',correct:'Zout',tip:'In deze oefening staat de zoute component centraal; bouillon kan daarnaast ook umami bevatten.'}
+];
+function buildTasteProducts(){
+ const box=document.getElementById('tasteProducts'); if(!box)return;
+ box.innerHTML=tasteProducts.map((p,i)=>`<div class="productrow"><div class="productname">${p.name}</div><div><div class="miniChoices">${['Zoet','Zuur','Zout','Bitter','Umami'].map(x=>`<button onclick="pickTaste(this,${i},'${x}')">${x}</button>`).join('')}</div><div id="pt${i}" class="small" style="margin-top:6px"></div></div></div>`).join('');
+}
+function pickTaste(btn,i,choice){
+ const p=tasteProducts[i], row=btn.closest('.productrow'), feedback=document.getElementById('pt'+i);
+ row.querySelectorAll('.miniChoices button').forEach(b=>b.classList.remove('good','wrong'));
+ if(choice===p.correct){btn.classList.add('good');feedback.innerHTML='✓ Goed. '+p.tip;feedback.style.color='var(--ok)'}
+ else{btn.classList.add('wrong');feedback.textContent='Nog niet. Denk aan de meest herkenbare basissmaak van dit voorbeeld.';feedback.style.color='var(--bad)'}
+}
+
+const quizQs=[
+{q:'Welke vijf zijn de basissmaken?',a:['Zoet, zuur, zout, bitter en umami','Zoet, zuur, pittig, fris en zout','Fris, rijp, zoet, zout en bitter'],c:0},
+{q:'Wat hoort naast de basissmaken bij smaakbeleving?',a:['Alleen de kleur','Onder andere geur en mondgevoel','Alleen de prijs'],c:1},
+{q:'Welk mondgevoel past het best bij mayonaise?',a:['Krokant','Hard','Filmend'],c:2},
+{q:'Wat betekent intensiteit in een smaakprofiel?',a:['Hoe krachtig de smaakbeleving is','Hoeveel ingrediënten erin zitten','Hoe duur het product is'],c:0},
+{q:'Welke vier onderdelen gebruiken we voor het smaakprofiel?',a:['Zoet, zuur, zout en bitter','Geur, kleur, temperatuur en prijs','Smaaktype, intensiteit, complexiteit en mondgevoel'],c:2}
+];
+function buildQuiz(){
+ quizDone=new Set();document.getElementById('result').style.display='none';
+ document.getElementById('quiz').innerHTML=quizQs.map((x,i)=>`<div class="question"><h3>${i+1}. ${x.q}</h3><div class="choices">${x.a.map((a,j)=>`<button class="choice" onclick="quizAnswer(this,${i},${j})">${a}</button>`).join('')}</div><div id="qf${i}"></div></div>`).join('')
+}
+function quizAnswer(btn,i,j){
+ let ok=j===quizQs[i].c,f=document.getElementById('qf'+i);
+ btn.parentElement.querySelectorAll('button').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');
+ f.className='feedback '+(ok?'ok':'bad');f.textContent=ok?'Goed.':'Nog niet. Probeer nog een keer.';
+ if(ok){quizDone.add(i);btn.parentElement.querySelectorAll('button').forEach(b=>b.disabled=true)}
+ if(quizDone.size===quizQs.length)document.getElementById('result').style.display='block'
+}
+
+function resetCurrentTheme(){
+ if(!/^t[1-5]$/.test(currentView)){alert('Open eerst het thema dat je opnieuw wilt doen.');return}
+ const n=+currentView.slice(1);
+ if(!confirm('Thema '+n+' opnieuw beginnen? De voortgang vanaf dit thema wordt gewist.'))return;
+ done=done.filter(x=>x<n);localStorage.setItem('smaaklab_done_v3',JSON.stringify(done));
+ if(n<=4 && typeof themeCorrect!=='undefined'){themeCorrect[n]=new Set();buildThemeChecks();let s=document.getElementById('status'+n);if(s)s.textContent='0 van '+themeChecks[n].length+' vragen goed';}
+ if(n===1)buildTasteProducts();
+ if(n===5){profileAttempts=0;['s1','s2','s3','s4'].forEach(id=>document.getElementById(id).value=50);['hint1','hint2','hint3','hint4'].forEach(id=>document.getElementById(id).textContent='');document.getElementById('profileFeedback').innerHTML='';draw();}
+ let nb=document.getElementById('next'+n);if(nb){nb.disabled=true;nb.textContent=n===5?'Controleer eerst je profiel':'Maak eerst de controle hierboven'}
+ update();go('t'+n)
+}
+
+function resetApp(){
+ if(!confirm('Wil je alle voortgang wissen en opnieuw beginnen?'))return;
+ localStorage.removeItem('smaaklab_done_v3');localStorage.removeItem('smaaklab_l3_done');done=[];l3Done=false;l3Cases=new Set();profileAttempts=0;quizDone=new Set();
+ ['s1','s2','s3','s4'].forEach(id=>document.getElementById(id).value=50);update();home()
+}
+buildTasteProducts();buildThemeChecks();update();draw();
+
+initBasicProfile();
+
+
+initL3Ranges();
+
+function improveRangeTouch(){
+ document.querySelectorAll('input[type="range"]').forEach(r=>{
+ r.addEventListener('pointerdown',(event)=>{r.setPointerCapture?.(event.pointerId)}, {passive:true});
+ });
+}
+improveRangeTouch();
+
+</script>
+</body></html>
