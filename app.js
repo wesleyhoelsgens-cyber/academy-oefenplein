@@ -84,6 +84,21 @@ const academyData = {
                 5: {
                     themas: [
                         {
+                            id: "nieuwe-lesstof-voedingskennis-smaakleer",
+                            naam: "Voedingskennis & Smaakleer – 8 weken, 8 lessen",
+                            modules: [
+                                {
+                                    id: "voedingskennis-smaakleer-trainer",
+                                    titel: "Voedingskennis & Smaakleer – 8 weken, 8 lessen",
+                                    type: "Leer- en examentrainer",
+                                    duur: "Hele periode · 8 lessen",
+                                    beschrijving: "Deze trainer is een vast en verplicht onderdeel van de hele periode. Werk iedere week aan de bijbehorende les: 8 weken, 8 lessen met uitleg, praktijkopdrachten, etiketanalyse en examentraining. Gebruik de trainer elke week om voedingskennis en smaakleer stap voor stap onder de knie te krijgen.",
+                                    bestand: "modules/traiteur/leerjaar-2/periode-5/voedingskennis-smaakleer/voedingskennis-smaakleer-trainer.html",
+                                    beschikbaar: true
+                                }
+                            ]
+                        },
+                        {
                             id: "voedingskennis",
                             naam: "Les 1 – Voedingskennis Herhaling vorig jaar",
                             modules: [
@@ -129,16 +144,17 @@ const academyData = {
                             ]
                         },
                         {
-                            id: "nieuwe-lesstof-voedingskennis-smaakleer",
-                            naam: "Nieuwe lesstof – Voedingskennis & Smaakleer",
+                            id: "les-4-koude-sauzen-etikettering",
+                            naam: "Les 4 – Koude sauzen en etikettering",
                             modules: [
                                 {
-                                    id: "voedingskennis-smaakleer-trainer",
-                                    titel: "Nieuwe lesstof – Voedingskennis & Smaakleer",
-                                    type: "Leer- en examentrainer",
-                                    duur: "8 weektrainingen",
-                                    beschrijving: "Ga na de herhalingslessen verder met nieuwe voedingskennis en smaakleer, inclusief praktijkopdrachten, etiketanalyse en examentraining.",
-                                    bestand: "modules/traiteur/leerjaar-2/periode-5/voedingskennis-smaakleer/voedingskennis-smaakleer-trainer.html",
+                                    id: "sauslab-100-gram",
+                                    titel: "Sauslab – Eigen saus en etiket",
+                                    type: "Praktijkopdracht en rekenhulp",
+                                    duur: "Tijdens de praktijkles",
+                                    beschrijving: "Ontwikkel een saus van 100 gram. Bereken automatisch percentages en voedingswaarden, onderzoek allergenen en additieven en print je recept of etiket. Controleer de oefengegevens met de docent.",
+                                    bestand: "modules/traiteur/leerjaar-2/periode-5/sauslab/sauslab-100-gram.html",
+                                    actieLabel: "Open Sauslab",
                                     beschikbaar: true
                                 }
                             ]
@@ -259,6 +275,22 @@ const academyData = {
             createLeerjaar(1, [1, 2, 3, 4], {
                 1: {
                     themas: [
+                        {
+                            id: "vakjargon-game-1",
+                            naam: "Vakjargon game 1",
+                            modules: [
+                                {
+                                    id: "vakjargon-game-1",
+                                    titel: "Vakjargon game 1",
+                                    type: "Kennisspel",
+                                    duur: "Speel in je eigen tempo",
+                                    beschrijving: "Oefen de vakwoorden van Hospitality, leerjaar 1, periode 1 met deze interactieve game.",
+                                    bestand: "modules/hospitality/leerjaar-1/periode-1/vakjargon-game-1/vakjargon-game-1.html",
+                                    actieLabel: "Start game",
+                                    beschikbaar: true
+                                }
+                            ]
+                        },
                         {
                             id: "gastvrijheid-verlenen",
                             naam: "Hospitality vaktaal & examentraining",

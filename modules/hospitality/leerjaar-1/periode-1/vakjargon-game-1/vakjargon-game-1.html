@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Vakjargon game 1 – Hospitality · Leerjaar 1 · Periode 1</title>
+<style>
+:root{--bg:#10151c;--panel:#19212b;--panel2:#222c38;--text:#f7f8fa;--muted:#aeb8c5;--accent:#e5a84b;--good:#2fb36f;--bad:#d85b5b;--line:#354150}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;min-height:100vh}
+button,input{font:inherit}
+button{touch-action:manipulation;cursor:pointer}
+.wrap{max-width:1500px;margin:auto;padding:22px 28px 34px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:14px}
+.brand{font-weight:900;letter-spacing:.08em;font-size:clamp(18px,2vw,30px)} .meta{color:var(--muted);font-size:clamp(14px,1.4vw,20px)}
+.progress{height:9px;background:#29333f;border-radius:99px;overflow:hidden;margin:8px 0 22px} .bar{height:100%;background:var(--accent);width:0;transition:.25s}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:clamp(22px,3vw,46px)}
+.round{color:var(--accent);font-size:clamp(17px,1.8vw,27px);font-weight:900;letter-spacing:.08em;text-align:center;margin-bottom:18px}
+.q{font-size:clamp(26px,3vw,48px);line-height:1.15;font-weight:850;text-align:center;max-width:1200px;margin:0 auto 30px}
+.answers{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.answer{min-height:110px;border:3px solid transparent;border-radius:18px;background:var(--panel2);color:var(--text);padding:20px;text-align:left;display:flex;gap:18px;align-items:center;font-size:clamp(18px,2vw,30px);font-weight:750}
+.letter{width:52px;height:52px;min-width:52px;border-radius:13px;background:#344253;display:grid;place-items:center;font-size:25px;font-weight:900}
+.answer.correct{border-color:var(--good);background:#173b2a} .answer.dim{opacity:.38}
+.feedback{display:none;margin-top:22px;background:#132d22;border:2px solid var(--good);border-radius:16px;padding:18px 22px;font-size:clamp(18px,1.7vw,26px);line-height:1.35}
+.mainbtn{display:block;width:min(680px,100%);margin:26px auto 0;border:0;border-radius:16px;background:var(--accent);color:#151515;min-height:72px;padding:15px 28px;font-size:clamp(20px,2vw,31px);font-weight:900}
+.nav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:16px;flex-wrap:wrap}
+.smallbtn{border:1px solid var(--line);background:#1b2530;color:var(--text);border-radius:12px;min-height:48px;padding:10px 18px;font-weight:700}
+.start{text-align:center;padding:clamp(30px,5vw,80px) 20px} .start h1{font-size:clamp(38px,5vw,76px);margin:0 0 12px} .start p{font-size:clamp(18px,2vw,28px);color:var(--muted)}
+.toggle{display:inline-flex;gap:12px;align-items:center;margin-top:18px;font-size:18px} .toggle input{width:24px;height:24px}
+.score{display:none;font-weight:900;color:var(--accent)}
+.overlay{display:none;position:fixed;inset:0;background:rgba(5,8,12,.94);z-index:20;padding:28px;overflow:auto}
+.overlay .inner{max-width:1100px;margin:auto} .grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:22px}
+.num{min-height:62px;border:1px solid var(--line);background:var(--panel2);color:white;border-radius:12px;font-size:22px;font-weight:800}
+.interstitial{text-align:center;padding:60px 20px} .interstitial h2{font-size:clamp(35px,5vw,70px);margin:8px} .interstitial p{font-size:clamp(20px,2vw,30px);color:var(--muted)}
+.hint{color:var(--muted);text-align:center;margin-top:10px;font-size:14px}
+@media(max-width:700px){.wrap{padding:14px}.answers{grid-template-columns:1fr}.answer{min-height:82px}.grid{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap" id="app">
+<section id="start" class="card start">
+  <div class="meta">LEERJAAR 1 · PERIODE 1</div>
+  <h1>VAKJARGON<br>GAME 1</h1>
+  <p>Vaktaal herkennen, toepassen en bespreken.</p>
+  <label class="toggle"><input id="points" type="checkbox"> Puntentelling gebruiken</label>
+  <button class="mainbtn" id="startBtn">START DE QUIZ</button>
+  <div class="hint">Werkt met touchscreen, muis én toetsenbord.</div>
+</section>
+
+<section id="game" style="display:none">
+  <div class="top"><div><div class="brand">HOSPITALITY CHALLENGE</div><div class="meta" id="count"></div></div><div class="score" id="score">0 punten</div></div>
+  <div class="progress"><div class="bar" id="bar"></div></div>
+  <div class="card">
+    <div class="round" id="round"></div>
+    <div class="q" id="question"></div>
+    <div class="answers" id="answers"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="mainbtn" id="action">TOON ANTWOORD</button>
+  </div>
+  <div class="nav">
+    <button class="smallbtn" id="prev">← Vorige vraag</button>
+    <button class="smallbtn" id="overview">☰ Overzicht</button>
+    <button class="smallbtn" id="nextSmall">Volgende →</button>
+  </div>
+  <div class="hint">Spatie / → = antwoord tonen of verder · ← = vorige vraag</div>
+</section>
+
+<section id="between" class="card interstitial" style="display:none">
+  <div class="meta" id="betweenSmall"></div><h2 id="betweenTitle"></h2><p id="betweenText"></p>
+  <button class="mainbtn" id="betweenBtn">VERDER →</button>
+</section>
+
+<section id="finish" class="card interstitial" style="display:none">
+  <div style="font-size:70px">🏆</div><h2>CHALLENGE KLAAR</h2><p>Alle 20 vragen zijn gespeeld.</p>
+  <div id="finalScore" style="font-size:30px;font-weight:900;color:var(--accent);margin:20px"></div>
+  <button class="mainbtn" id="restart">OPNIEUW STARTEN</button>
+</section>
+</div>
+
+<div class="overlay" id="overlay"><div class="inner">
+  <div class="top"><div><div class="brand">VRAAGOVERZICHT</div><div class="meta">Klik op een nummer om direct naar die vraag te gaan.</div></div><button class="smallbtn" id="close">Sluiten ✕</button></div>
+  <div class="grid" id="grid"></div>
+</div></div>
+
+<script>
+const Q=[{"round": "Ronde 1", "label": "SNEL ERIN", "q": "Wat is een passant?", "a": ["Een vaste gast", "Een gast zonder reservering", "Een gast met een arrangement", "Een gast die al betaald heeft"], "correct": 1, "ex": "Een passant is een gast die zonder reservering binnenkomt."}, {"round": "Ronde 1", "label": "SNEL ERIN", "q": "Je poetst glazen zodat ze helemaal streeploos zijn. Hoe heet dit?", "a": ["Mastiek maken", "Indekken", "Poleren", "Debarrasseren"], "correct": 2, "ex": "Poleren betekent glazen of bestek streeploos poetsen."}, {"round": "Ronde 1", "label": "SNEL ERIN", "q": "Wat is een couvert?", "a": ["Een gedekte plaats voor één gast", "Een compleet menu", "Een rekeninghouder", "Een tafelreservering"], "correct": 0, "ex": "Een couvert is een gedekte plaats voor één gast."}, {"round": "Ronde 1", "label": "SNEL ERIN", "q": "Welke drank wordt vóór de maaltijd gedronken?", "a": ["Digestief", "Aperitief", "Supplement", "Menage"], "correct": 1, "ex": "Een aperitief wordt vóór de maaltijd gedronken."}, {"round": "Ronde 1", "label": "SNEL ERIN", "q": "Je begeleidt gasten naar hun tafel. Hoe heet dit?", "a": ["Placeren", "Uitgeleide doen", "Uitserveren", "Indekken"], "correct": 0, "ex": "Placeren is een gast naar een passende tafel of zitplaats begeleiden."}, {"round": "Ronde 2", "label": "WAT DOE JE HIER?", "q": "Tafel 4 krijgt het hoofdgerecht. Je ziet dat één gast nog geen geschikt bestek heeft. Wat doe je?", "a": ["Indekken", "Bijdekken", "Debarrasseren", "Poleren"], "correct": 1, "ex": "Bijdekken betekent extra bestek of materiaal neerleggen voor een volgende gang."}, {"round": "Ronde 2", "label": "WAT DOE JE HIER?", "q": "Twee mensen lopen het restaurant binnen en vragen of er nog een tafel vrij is. Ze hebben niet gereserveerd. Hoe noem je deze gasten?", "a": ["Couverts", "Passanten", "Supplementen", "Arrangementen"], "correct": 1, "ex": "Gasten die zonder reservering binnenkomen zijn passanten."}, {"round": "Ronde 2", "label": "WAT DOE JE HIER?", "q": "Een gast bestelt een gerecht. Jij voert de bestelling in en stuurt deze door naar de keuken. Wat doe je?", "a": ["Bon inschieten", "Uitserveren", "Aanprijzen", "Bijdekken"], "correct": 0, "ex": "Bon inschieten is een bestelling invoeren en doorsturen naar keuken of bar."}, {"round": "Ronde 2", "label": "WAT DOE JE HIER?", "q": "Het hoofdgerecht is afgelopen. Je haalt de gebruikte borden en het bestek van tafel. Wat doe je?", "a": ["Uitserveren", "Indekken", "Debarrasseren", "Mastiek maken"], "correct": 2, "ex": "Debarrasseren is gebruikt servies, bestek en glaswerk van tafel verwijderen."}, {"round": "Ronde 2", "label": "WAT DOE JE HIER?", "q": "De keuken zet de gerechten klaar op de plaats waar de bediening ze overneemt. Hoe heet deze plek?", "a": ["Wijk", "Uitgifte", "Menage", "Garderobe"], "correct": 1, "ex": "De uitgifte is het punt waar keuken en bediening gerechten overdragen."}, {"round": "Ronde 3", "label": "BEGRIPPENSTRIJD", "q": "Je vraagt: “Wilt u misschien nog een portie friet bij uw gerecht?” Welke verkoophandeling is dit vooral?", "a": ["Aanprijzen", "Bijverkoop", "Supplement", "Arrangement"], "correct": 1, "ex": "Bijverkoop is een passend extra product bij de bestelling verkopen."}, {"round": "Ronde 3", "label": "BEGRIPPENSTRIJD", "q": "De gast vraagt welke wijn goed bij het gerecht past. Jij vertelt aantrekkelijk waarom een bepaalde wijn goed past. Wat doe je?", "a": ["Aanprijzen", "Bijdekken", "Bon inschieten", "Debarrasseren"], "correct": 0, "ex": "Aanprijzen is een product passend en aantrekkelijk aanbevelen."}, {"round": "Ronde 3", "label": "BEGRIPPENSTRIJD", "q": "Op de kaart staat: “Extra saus + €2,50.” Die €2,50 is een…", "a": ["Arrangement", "Bijverkoop", "Supplement", "Couvert"], "correct": 2, "ex": "Een supplement is een extra product of dienst waarvoor apart wordt betaald."}, {"round": "Ronde 3", "label": "BEGRIPPENSTRIJD", "q": "Wat is het belangrijkste verschil tussen een aperitief en een digestief?", "a": ["Warm of koud", "Alcoholisch of alcoholvrij", "Voor of na de maaltijd", "Goedkoop of duur"], "correct": 2, "ex": "Een aperitief drink je vóór de maaltijd; een digestief na de maaltijd."}, {"round": "Ronde 3", "label": "BEGRIPPENSTRIJD", "q": "Wat is het verschil tussen indekken en bijdekken?", "a": ["Er is geen verschil", "Indekken is vooraf; bijdekken is extra materiaal voor een volgende gang", "Bijdekken is alleen voor glazen", "Indekken gebeurt alleen na het eten"], "correct": 1, "ex": "Indekken is bestek, glaswerk en eventueel servies vooraf klaarzetten. Bijdekken doe je wanneer extra materiaal nodig is voor een volgende gang."}, {"round": "Ronde 4", "label": "JIJ BENT DE MEDEWERKER", "q": "Een gast komt binnen. De jas wordt aangenomen en daarna begeleid je de gast naar tafel. Welke twee begrippen passen hierbij?", "a": ["Garderobe → placeren", "Placeren → uitgeleide doen", "Menage → placeren", "Garderobe → debarrasseren"], "correct": 0, "ex": "De jas kan naar de garderobe; daarna placeer je de gast aan tafel."}, {"round": "Ronde 4", "label": "JIJ BENT DE MEDEWERKER", "q": "Je bent verantwoordelijk voor tafel 1 t/m 8. Hoe heet deze groep tafels?", "a": ["Arrangement", "Wijk", "Uitgifte", "Couvert"], "correct": 1, "ex": "Een wijk is een groep tafels waarvoor een medewerker verantwoordelijk is."}, {"round": "Ronde 4", "label": "JIJ BENT DE MEDEWERKER", "q": "Voor de bediening begint voer je alle voorbereidingen uit zodat alles klaarstaat. Welk overkoepelend begrip hoort hierbij?", "a": ["Mise-en-place", "Uitserveren", "Bijverkoop", "Placeren"], "correct": 0, "ex": "Mise-en-place betekent alle voorbereidingen uitvoeren vóór de bediening begint."}, {"round": "Ronde 4", "label": "JIJ BENT DE MEDEWERKER", "q": "De gasten hebben betaald. Je loopt mee richting uitgang, bedankt ze en wenst ze een fijne avond. Wat doe je?", "a": ["Rekening presenteren", "Placeren", "Uitgeleide doen", "Debarrasseren"], "correct": 2, "ex": "Uitgeleide doen is de gast bij vertrek begeleiden en gastvrij afscheid nemen."}, {"round": "Finale", "label": "DE GASTREIS", "q": "Welke volgorde past het best bij een logische gastreis?", "a": ["Reservering → placeren → aperitief → bon inschieten → uitserveren → debarrasseren → rekening presenteren → uitgeleide doen", "Reservering → aperitief → placeren → uitserveren → bon inschieten → rekening presenteren → debarrasseren → uitgeleide doen", "Placeren → reservering → bon inschieten → aperitief → debarrasseren → uitserveren → uitgeleide doen → rekening presenteren", "Reservering → placeren → bon inschieten → debarrasseren → uitserveren → aperitief → rekening presenteren → uitgeleide doen"], "correct": 0, "ex": "Dit volgt de gast logisch van reservering en ontvangst via bediening naar betalen en gastvrij afscheid nemen."}];
+let i=0,revealed=false,usePoints=false,score=0;
+const $=id=>document.getElementById(id), letters=['A','B','C','D'];
+function showOnly(id){['start','game','between','finish'].forEach(x=>$(x).style.display=x===id?'block':'none')}
+function render(){
+  showOnly('game'); revealed=false;
+  const q=Q[i]; $('count').textContent=`Vraag ${i+1} van ${Q.length}`;
+  $('round').textContent=`${q.round.toUpperCase()} — ${q.label}`;
+  $('question').textContent=q.q; $('bar').style.width=`${((i+1)/Q.length)*100}%`;
+  $('answers').innerHTML='';
+  q.a.forEach((t,n)=>{const d=document.createElement('div');d.className='answer';d.innerHTML=`<span class="letter">${letters[n]}</span><span>${t}</span>`;$('answers').appendChild(d)});
+  $('feedback').style.display='none'; $('feedback').innerHTML='';
+  $('action').textContent='TOON ANTWOORD'; $('prev').disabled=i===0;
+  $('score').style.display=usePoints?'block':'none'; $('score').textContent=`${score} punten`;
+}
+function reveal(){
+ if(revealed)return; revealed=true; const q=Q[i];
+ [...$('answers').children].forEach((el,n)=>el.classList.add(n===q.correct?'correct':'dim'));
+ $('feedback').innerHTML=`<strong>✓ ${letters[q.correct]} — ${q.a[q.correct]}</strong><br>${q.ex}`;
+ $('feedback').style.display='block'; $('action').textContent=i===Q.length-1?'AFRONDEN →':'VOLGENDE VRAAG →';
+}
+function forward(){
+ if(!revealed){reveal();return}
+ if(i===Q.length-1){showOnly('finish');$('finalScore').textContent=usePoints?`${score} punten`:'Goed geoefend!';return}
+ const oldRound=Q[i].round; i++;
+ if(Q[i].round!==oldRound){showBetween();} else render();
+}
+function showBetween(){
+ showOnly('between'); $('betweenSmall').textContent=`${Q[i-1].round.toUpperCase()} KLAAR`;
+ $('betweenTitle').textContent=Q[i].round==='Finale'?'🏆 FINALE':'Nu wordt het moeilijker…';
+ const texts={'Ronde 2':'Vanaf nu krijg je situaties uit de praktijk.','Ronde 3':'Begrippen die op elkaar lijken gaan de strijd met elkaar aan.','Ronde 4':'Denk als een hospitalitymedewerker.','Finale':'Overleg goed: zet de hele gastreis in de juiste volgorde.'};
+ $('betweenText').textContent=texts[Q[i].round]||'Klaar voor de volgende ronde?';
+}
+$('startBtn').onclick=()=>{usePoints=$('points').checked;i=0;score=0;render()};
+$('action').onclick=forward;
+$('nextSmall').onclick=()=>{if(i<Q.length-1){i++;render()}};
+$('prev').onclick=()=>{if(i>0){i--;render()}};
+$('betweenBtn').onclick=render;
+$('restart').onclick=()=>showOnly('start');
+$('overview').onclick=()=>{$('grid').innerHTML='';Q.forEach((q,n)=>{const b=document.createElement('button');b.className='num';b.textContent=n+1;b.onclick=()=>{i=n;$('overlay').style.display='none';render()};$('grid').appendChild(b)});$('overlay').style.display='block'};
+$('close').onclick=()=>$('overlay').style.display='none';
+document.addEventListener('keydown',e=>{
+ if($('game').style.display==='none')return;
+ if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;
+ if(e.code==='Space'||e.key==='ArrowRight'){e.preventDefault();forward()}
+ if(e.key==='ArrowLeft'){e.preventDefault();if(i>0){i--;render()}}
+});
+</script>
+</body></html>
