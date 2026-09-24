@@ -383,12 +383,28 @@ function renderWeekCheck(box,w,ws){
   h+=`<div class="card"><button class="btn" onclick="finishWeekCheck()">Weekcheck nakijken</button><div id="wcResult"></div></div>`; box.innerHTML=h;
 }
 function finishWeekCheck(){
-  const qs=window.currentCheck||[]; let correct=0;
-  for(let i=0;i<qs.length;i++){const el=document.querySelector(`input[name="wc${i}"]:checked`); if(!el){alert('Beantwoord eerst alle vragen.');return} if(Number(el.value)===qs[i].a)correct++;}
+  const qs=window.currentCheck||[], selected=[], missing=[];
+  for(let i=0;i<qs.length;i++){
+    const el=document.querySelector(`input[name="wc${i}"]:checked`);
+    if(!el){missing.push(i);continue}
+    selected[i]=Number(el.value);
+  }
+  const result=document.getElementById('wcResult');
+  if(missing.length){
+    result.innerHTML=`<div class="feedback"><b>Nog niet alles ingevuld.</b><br>Beantwoord eerst vraag ${missing.map(i=>i+1).join(', ')}.</div>`;
+    result.scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+  const correct=qs.reduce((n,q,i)=>n+(selected[i]===q.a?1:0),0);
   const pct=Math.round(correct/qs.length*100), s=getState(), ws=ensureWeekState(s,currentWeek);
   ws.weekcheck.attempts=(ws.weekcheck.attempts||0)+1; ws.weekcheck.best=Math.max(ws.weekcheck.best||0,pct); setState(s);
-  document.getElementById('wcResult').innerHTML=`<div class="feedback"><b>${pct>=70?'✓ Weekcheck behaald':'🟠 Nog even oefenen'}</b><br>Score: ${correct} / ${qs.length} = ${pct}%<br>${pct>=70?'Deze week telt nu mee als afgerond zodra ook de andere onderdelen klaar zijn.':'Bekijk je fouten, oefen de onderdelen opnieuw en probeer daarna een nieuwe Weekcheck.'}</div>`;
-  document.getElementById('wcResult').scrollIntoView({behavior:'smooth',block:'center'});
+  let h=`<div class="feedback"><b>${pct>=70?'✓ Weekcheck behaald':'🟠 Nog even oefenen'}</b><br>Score: ${correct} / ${qs.length} = ${pct}%</div><h3 style="margin-top:18px">Feedback per vraag</h3>`;
+  qs.forEach((q,i)=>{
+    const ok=selected[i]===q.a;
+    h+=`<div class="feedback" style="margin-top:10px;border-left:4px solid var(--${ok?'good':'bad'})"><b>Vraag ${i+1}: ${ok?'✓ Goed':'✗ Niet goed'}</b><br><span class="small">Jouw antwoord:</span> ${escapeHtml(q.opts[selected[i]])}${ok?'':`<br><span class="small">Juiste antwoord:</span> <b>${escapeHtml(q.opts[q.a])}</b>`}<br><span class="small">Uitleg:</span> ${escapeHtml(q.why||'Bekijk dit onderwerp nog een keer.')}</div>`;
+  });
+  result.innerHTML=h;
+  result.scrollIntoView({behavior:'smooth',block:'start'});
 }
 function markPart(part){
   const s=getState(), ws=ensureWeekState(s,currentWeek); ws[part]=true; setState(s); renderWeek();
@@ -422,13 +438,14 @@ function startExam(){
 }
 function finishExam(){
   let mcPoints=0, mcMax=0, cats={};
-  const missing=[];
+  const missing=[], mcReview=[];
   for(let i=0;i<examQuestions.length;i++){
     const q=examQuestions[i];
     if(q.type==='mc'){
       const el=document.querySelector(`input[name="ex${i}"]:checked`);
       if(!el){missing.push(i);continue}
-      const ok=Number(el.value)===q.a;
+      const chosen=Number(el.value), ok=chosen===q.a;
+      mcReview.push({number:i+1,q:q.q,chosen,correct:q.a,opts:q.opts,why:q.why||'',points:q.points,ok});
       mcMax+=q.points;
       if(ok) mcPoints+=q.points;
       cats[q.cat]=cats[q.cat]||{earned:0,total:0};
@@ -438,24 +455,25 @@ function finishExam(){
       if(!txt) missing.push(i);
     }
   }
-
   if(missing.length){
     const result=document.getElementById('examResult');
     result.innerHTML=`<div class="notice" style="margin-top:14px"><b>Nog niet alles ingevuld.</b><p>Beantwoord eerst vraag ${missing.map(i=>i+1).join(', ')}. Daarna kan het oefenexamen worden nagekeken.</p></div>`;
     const first=missing[0];
-    const target=examQuestions[first].type==='mc'
-      ? document.querySelector(`input[name="ex${first}"]`)
-      : document.getElementById(`openex${first}`);
+    const target=examQuestions[first].type==='mc'?document.querySelector(`input[name="ex${first}"]`):document.getElementById(`openex${first}`);
     if(target){target.closest('.examcard').scrollIntoView({behavior:'smooth',block:'center'});target.focus();}
     return;
   }
-
+  window.examMcReview=mcReview;
   const box=document.getElementById('examBox');
-  let review=`<div class="card"><span class="badge good">✓ Ingeleverd en nagekeken</span><h2>Meerkeuze: ${mcPoints} / ${mcMax} punten</h2><p>De meerkeuzevragen zijn automatisch nagekeken. Beoordeel nu alleen nog je open antwoorden met de antwoordonderdelen hieronder. Daarna verschijnt je volledige eindscore.</p></div>`;
+  let review=`<div class="card"><span class="badge good">✓ Ingeleverd en nagekeken</span><h2>Meerkeuze: ${mcPoints} / ${mcMax} punten</h2><p>Hieronder zie je per meerkeuzevraag wat goed of fout was. Beoordeel daarna je open antwoorden om de volledige eindscore te berekenen.</p></div><div class="card"><h2>Feedback meerkeuzevragen</h2>`;
+  mcReview.forEach(r=>{
+    review+=`<div class="feedback" style="margin-top:10px;border-left:4px solid var(--${r.ok?'good':'bad'})"><b>Vraag ${r.number}: ${r.ok?'✓ Goed':'✗ Niet goed'}</b><p>${escapeHtml(r.q)}</p><span class="small">Jouw antwoord:</span> ${escapeHtml(r.opts[r.chosen])}${r.ok?'':`<br><span class="small">Juiste antwoord:</span> <b>${escapeHtml(r.opts[r.correct])}</b>`}<br><span class="small">Uitleg:</span> ${escapeHtml(r.why||'Bekijk dit onderwerp nog een keer.')}</div>`;
+  });
+  review+='</div>';
   examQuestions.forEach((q,i)=>{
     if(q.type!=='mc'){
       review+=`<div class="card"><h3>Vraag ${i+1} – ${q.points} punten</h3><p><b>Jouw antwoord:</b><br>${escapeHtml(document.getElementById(`openex${i}`).value)}</p><p><b>Controleer je antwoord:</b></p>`;
-      q.criteria.forEach((c,ci)=>review+=`<label class="checkrow"><input type="checkbox" class="selfcheck" data-q="${i}" data-cat="${q.cat}" data-max="${q.points}" value="${ci}"> ${c}</label>`);
+      q.criteria.forEach((criterion,ci)=>review+=`<label class="checkrow"><input type="checkbox" class="selfcheck" data-q="${i}" data-cat="${q.cat}" data-max="${q.points}" value="${ci}"> ${criterion}</label>`);
       review+=`<details><summary><b>Bekijk voorbeeldantwoord</b></summary><p>${q.model}</p></details></div>`;
     }
   });
@@ -464,26 +482,35 @@ function finishExam(){
   box.scrollIntoView({behavior:'smooth',block:'start'});
 }
 function calculateFinalExam(mcPoints){
-  let openEarned=0, catsOpen={};
+  let openEarned=0, catsOpen={}, openReview=[];
   examQuestions.forEach((q,i)=>{
     if(q.type!=='mc'){
       const checks=[...document.querySelectorAll(`.selfcheck[data-q="${i}"]`)];
       const checked=checks.filter(x=>x.checked).length;
-      // Each open task is worth max 2. If 3 criteria exist, all 3 =2; 1-2 criteria =1.
       let pts=0;
       if(q.criteria.length<=2) pts=Math.min(2,checked);
       else pts=checked===q.criteria.length?2:(checked>0?1:0);
       openEarned+=pts;
       catsOpen[q.cat]={earned:pts,total:q.points};
+      openReview.push({number:i+1,points:pts,max:q.points,missing:q.criteria.filter((criterion,ci)=>!checks[ci].checked)});
     }
   });
   let total=mcPoints+openEarned;
   const passed=total>=14;
   const s=getState(); s.lastExam={score:total,max:22,passed,date:new Date().toLocaleString('nl-NL')}; setState(s);
-
-  let h=`<div class="card"><div class="score">Score: ${total} / 22</div><h2>${passed?'✓ Voldoende':'Nog niet voldoende'}</h2><p>${passed?'Je hebt de oefengrens van 14 punten gehaald.':'Je zit onder de oefengrens van 14 punten. Gebruik je resultaat om gericht terug te oefenen.'}</p></div>`;
-  h+=`<div class="card"><h2>Wat nu?</h2><p>Ga terug naar je leerroute en herhaal vooral de onderwerpen waarbij je twijfelde of punten verloor. Daarna kun je opnieuw oefenen.</p><button class="btn" onclick="showHome()">Terug naar mijn leerroute</button></div>`;
+  let h=`<div class="card"><div class="score">Score: ${total} / 22</div><h2>${passed?'✓ Voldoende':'Nog niet voldoende'}</h2><p>${passed?'Je hebt de oefengrens van 14 punten gehaald.':'Je zit onder de oefengrens van 14 punten. Gebruik de feedback hieronder om gericht terug te oefenen.'}</p></div>`;
+  const wrongMc=(window.examMcReview||[]).filter(r=>!r.ok);
+  h+=`<div class="card"><h2>Dit ging nog niet goed</h2>`;
+  if(!wrongMc.length && openReview.every(r=>r.points===r.max)){
+    h+='<p>Je hebt geen fouten gemaakt. Sterk gedaan!</p>';
+  } else {
+    wrongMc.forEach(r=>h+=`<div class="feedback" style="margin-top:10px;border-left:4px solid var(--bad)"><b>Meerkeuzevraag ${r.number}</b><br>Jouw antwoord: ${escapeHtml(r.opts[r.chosen])}<br>Juiste antwoord: <b>${escapeHtml(r.opts[r.correct])}</b><br>Uitleg: ${escapeHtml(r.why||'Bekijk dit onderwerp nog een keer.')}</div>`);
+    openReview.filter(r=>r.points<r.max).forEach(r=>h+=`<div class="feedback" style="margin-top:10px;border-left:4px solid var(--bad)"><b>Open vraag ${r.number}: ${r.points} / ${r.max} punten</b><br>Nog niet aangetoond:<ul>${r.missing.map(m=>`<li>${escapeHtml(m)}</li>`).join('')}</ul></div>`);
+  }
+  h+='</div>';
+  h+=`<div class="card"><h2>Wat nu?</h2><p>Ga terug naar je leerroute en herhaal vooral de onderwerpen waarbij je punten verloor. Daarna kun je opnieuw oefenen.</p><button class="btn" onclick="showHome()">Terug naar mijn leerroute</button></div>`;
   document.getElementById('examBox').innerHTML=h;
+  document.getElementById('examBox').scrollIntoView({behavior:'smooth',block:'start'});
 }
 function escapeHtml(s){
   return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
