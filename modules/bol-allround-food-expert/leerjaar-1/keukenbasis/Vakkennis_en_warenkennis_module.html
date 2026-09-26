@@ -1,0 +1,1040 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Keukenbasis – BOL leerjaar 1</title>
+<style>
+:root{--bg:#f4f7f5;--card:#fff;--ink:#17352c;--muted:#66736e;--accent:#1f765d;--accent2:#e7f2ed;--line:#dbe5e0;--warn:#fff4d8;--shadow:0 8px 24px rgba(24,61,49,.09);--radius:20px}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink)}button,input{font:inherit}.app{max-width:980px;margin:auto;min-height:100vh}header{padding:22px 18px 12px}.brand{font-size:13px;font-weight:800;letter-spacing:.08em;color:var(--accent);text-transform:uppercase}h1{font-size:clamp(28px,5vw,44px);margin:5px 0}.sub{color:var(--muted);margin:0}main{padding:10px 18px 48px}.view{display:none}.view.active{display:block}.hero,.card,.tile{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}.hero,.card{padding:20px;margin:10px 0}.grid2,.grid3{display:grid;gap:14px}.grid2{grid-template-columns:repeat(2,1fr)}.grid3{grid-template-columns:repeat(3,1fr)}.tile{padding:20px;text-align:left;cursor:pointer;min-height:140px}.tile:hover,.tech-btn:hover{background:var(--accent2);border-color:#9fc3b3}.tile.primary{width:100%;background:linear-gradient(135deg,#1f765d,#245f50);color:#fff;border:0}.tile.primary p{color:#e9f6f1}.tile h3{margin:9px 0 5px}.tile p{margin:0;color:var(--muted);line-height:1.4}.icon{font-size:30px}.topnav{position:sticky;top:0;z-index:100;background:rgba(244,247,245,.96);backdrop-filter:blur(10px);margin:0 -18px 12px;padding:8px 18px;border-bottom:1px solid var(--line);display:flex;gap:8px}.back,.action{border:1px solid var(--line);background:#fff;color:var(--accent);font-weight:800;padding:10px 12px;border-radius:12px;cursor:pointer}.tag{display:inline-block;background:var(--accent2);color:var(--accent);font-size:12px;font-weight:800;border-radius:999px;padding:6px 9px;text-transform:uppercase}.bigdef{font-size:21px;line-height:1.35}.tech-jumpbar,.sticky-tools{position:sticky;top:67px;z-index:88;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:15px;padding:7px;box-shadow:var(--shadow);display:grid;gap:5px;margin:10px 0 16px}.tech-jumpbar{grid-template-columns:repeat(6,minmax(0,1fr))}.sticky-tools{grid-template-columns:repeat(4,minmax(0,1fr))}.tech-jumpbar button,.sticky-tools button{min-width:0;border:1px solid #bad2c7;background:#fff;color:var(--ink);font-size:11px;line-height:1.12;font-weight:750;border-radius:9px;padding:7px 4px;cursor:pointer}.searchbox{width:100%;border:1px solid var(--line);border-radius:14px;background:#fff;padding:13px 14px;margin-bottom:12px}.tech-group{scroll-margin-top:150px;margin:20px 0 26px}.group-head{display:flex;gap:12px;margin-bottom:10px}.group-no{display:flex;align-items:center;justify-content:center;flex:0 0 34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;font-weight:850}.group-head h3{margin:0 0 3px}.group-head p{margin:0;color:var(--muted);font-size:14px}.tech-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.tech-btn{border:1px solid var(--line);background:#fff;border-radius:14px;padding:13px;text-align:left;cursor:pointer;color:var(--ink);min-height:67px}.tech-btn b{display:block;margin-bottom:3px}.tech-btn.return-focus{outline:3px solid #9fc3b3;background:var(--accent2)}.tech-btn span{font-size:12px;color:var(--muted)}.anchor{scroll-margin-top:140px}.example{padding:11px 0;border-bottom:1px solid var(--line)}.example:last-child{border:0}.warning{background:var(--warn);padding:12px;border-radius:13px;margin:8px 0}.good{background:#e9f6ee;padding:12px;border-radius:13px;margin:8px 0}.note{background:var(--accent2);padding:14px;border-radius:14px;margin:12px 0}.factgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}.fact{background:var(--accent2);border-radius:13px;padding:11px;text-align:center}.fact b{display:block;font-size:12px;color:var(--accent)}.compare{width:100%;border-collapse:collapse;font-size:13px}.compare th,.compare td{padding:9px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.flow{display:flex;gap:7px;overflow:auto;padding:8px 0}.flow span{flex:0 0 auto;background:#fff;border:1px solid var(--line);border-radius:999px;padding:9px 11px;font-size:12px;font-weight:700}
+@media(max-width:680px){.grid2,.grid3,.tech-list{grid-template-columns:1fr}.tech-jumpbar button,.sticky-tools button{font-size:10px;padding:7px 2px}.factgrid{grid-template-columns:1fr}.compare{font-size:11px}header{padding-top:18px}}
+
+.howto-wrap{margin:12px 0}.howto-toggle{width:100%;display:flex;justify-content:space-between;align-items:center;gap:10px;border:1px solid #bad2c7;background:var(--accent2);color:var(--ink);font-weight:850;border-radius:14px;padding:13px 14px;cursor:pointer;text-align:left}
+.howto-panel{display:none;border:1px solid var(--line);border-top:0;background:#fff;border-radius:0 0 14px 14px;padding:14px}.howto-panel.open{display:block}
+.howto-panel ol{margin:5px 0 10px;padding-left:22px}.howto-panel li{margin:8px 0;line-height:1.4}.howto-mistakes{background:var(--warn);border-radius:12px;padding:11px;margin-top:10px}
+
+/* Praktijkvoortgang */
+.practice-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+.practice-stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;text-align:center}
+.practice-stat strong{display:block;font-size:1.45rem}
+.practice-filters{display:flex;gap:8px;flex-wrap:wrap;position:sticky;top:8px;z-index:15;background:rgba(247,248,245,.96);padding:8px 0;margin:10px 0 16px}
+.practice-filters button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 12px;font-weight:800;cursor:pointer}
+.practice-filters button.active{background:var(--ink);color:#fff}
+.practice-section{margin:18px 0 24px}
+.practice-section h3{margin-bottom:8px}
+.practice-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 12px;margin:8px 0}
+.practice-name{border:0;background:transparent;text-align:left;font:inherit;font-weight:850;color:var(--ink);cursor:pointer;padding:4px 0}
+.practice-name small{display:block;font-weight:500;color:var(--muted);margin-top:3px}
+.status-btn{border:0;border-radius:999px;padding:9px 11px;font-weight:850;cursor:pointer;white-space:nowrap}
+.status-0{background:#eef0ed;color:#444}.status-1{background:#fff0b8;color:#664d00}.status-2{background:#d9f1df;color:#185c2d}
+@media(max-width:600px){.practice-summary{grid-template-columns:1fr}.practice-row{grid-template-columns:1fr}.status-btn{width:100%}}
+
+
+.student-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.student-fields label{font-weight:800}
+.student-fields input{display:block;width:100%;box-sizing:border-box;margin-top:6px;padding:11px;border:1px solid var(--line);border-radius:10px;font:inherit}
+.muted-note{color:var(--muted);font-size:.92rem}
+#printReport{display:none}
+.report-head{border-bottom:2px solid #222;padding-bottom:10px;margin-bottom:16px}
+.report-meta{display:grid;grid-template-columns:1fr 1fr;gap:6px 20px}
+.report-group{margin:20px 0}
+.report-table{width:100%;border-collapse:collapse;font-size:12px}
+.report-table th,.report-table td{border-bottom:1px solid #ccc;padding:7px 5px;text-align:left;vertical-align:top}
+.report-table th:last-child,.report-table td:last-child{width:150px}
+.report-disclaimer{margin-top:22px;padding-top:10px;border-top:1px solid #aaa;font-size:10.5px}
+@media(max-width:600px){.student-fields{grid-template-columns:1fr}}
+@media print{
+ html,body{margin:0!important;padding:0!important;background:#fff!important}
+ body *{visibility:hidden!important}
+ #printReport,#printReport *{visibility:visible!important}
+ #printReport{
+   display:block!important;
+   position:absolute!important;
+   left:0!important;top:0!important;
+   width:100%!important;
+   margin:0!important;padding:0!important;
+   color:#111!important;background:#fff!important;
+   font-size:10.5pt!important;line-height:1.25!important
+ }
+ #printReport .report-head{margin:0 0 8px!important;padding:0 0 7px!important}
+ #printReport .report-head h1{font-size:18pt!important;margin:0 0 7px!important}
+ #printReport .report-head p{margin:6px 0!important}
+ #printReport .report-meta{gap:3px 16px!important}
+ #printReport .report-group{
+   margin:10px 0 12px!important;
+   padding:0!important;
+   break-inside:auto!important;
+   page-break-inside:auto!important
+ }
+ #printReport .report-group h2{
+   font-size:13pt!important;
+   margin:0 0 4px!important;
+   break-after:avoid!important;
+   page-break-after:avoid!important
+ }
+ #printReport .report-table{font-size:9.5pt!important;margin:0!important}
+ #printReport .report-table tr{break-inside:avoid!important;page-break-inside:avoid!important}
+ #printReport .report-table th,#printReport .report-table td{padding:4px 4px!important;line-height:1.2!important}
+ #printReport .report-table th:last-child,#printReport .report-table td:last-child{width:125px!important}
+ #printReport .report-disclaimer{margin-top:10px!important;padding-top:7px!important;font-size:9pt!important}
+ @page{size:A4;margin:10mm}
+}
+
+
+.passport-progress{margin-top:14px}.progress-title{display:flex;justify-content:space-between;gap:12px;align-items:end}
+.progress-title h3{margin:5px 0}.progress-title strong{font-size:1.7rem}
+.progress-track{height:18px;background:#e7e9e5;border-radius:999px;overflow:hidden;margin:10px 0}
+.progress-fill{height:100%;width:0;background:#3c7d4d;border-radius:999px;transition:width .25s ease}
+.badge-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.badge{border:1px solid var(--line);border-radius:14px;padding:12px;text-align:center;background:#f3f4f1;opacity:.55}
+.badge.earned{background:#fff;opacity:1;border-color:#a9cdb1}.badge .badge-icon{font-size:1.8rem;display:block}
+.badge small{display:block;color:var(--muted);margin-top:3px}
+.practice-actions{display:flex;gap:7px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.joker-btn{border:1px dashed #7c62a8;background:#f4effb;color:#513b77;border-radius:999px;padding:8px 10px;font-weight:800;cursor:pointer}
+.next-step-item{padding:8px 0;border-bottom:1px solid var(--line)}.next-step-item:last-child{border-bottom:0}
+@media(max-width:650px){.badge-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.practice-actions{justify-content:stretch}.practice-actions button{flex:1}}
+@media print{#printReport .report-progress{margin:8px 0 12px}#printReport .report-progress-track{height:10px;background:#ddd;border-radius:99px;overflow:hidden}#printReport .report-progress-fill{height:100%;background:#333}#printReport .report-analysis{margin:10px 0}#printReport .report-analysis h3{font-size:11.5pt;margin:7px 0 3px}#printReport .report-analysis ul{margin:3px 0 6px;padding-left:18px}}
+
+
+.practice-jumpbar{
+ position:sticky;top:6px;z-index:30;
+ display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
+ gap:6px;padding:7px;margin:8px 0 14px;
+ background:rgba(247,248,245,.96);backdrop-filter:blur(8px);
+ border:1px solid var(--line);border-radius:14px
+}
+.practice-jumpbar button{
+ min-width:0;border:0;background:#fff;border-radius:10px;
+ padding:8px 4px;font-weight:850;cursor:pointer;font-size:1.05rem
+}
+.practice-jumpbar button span{display:block;font-size:.72rem;margin-top:2px}
+.passport-lower{margin-top:26px;padding-top:8px;border-top:2px solid var(--line)}
+.practice-section{scroll-margin-top:90px}
+.practice-row.cut-focus{outline:3px solid #9fc7a8;outline-offset:2px}
+@media(max-width:430px){
+ .practice-jumpbar{gap:3px;padding:5px}
+ .practice-jumpbar button{padding:7px 2px;font-size:1rem}
+ .practice-jumpbar button span{font-size:.64rem}
+}
+@media print{.practice-jumpbar{display:none!important}.passport-lower{display:none!important}}
+
+
+.joker-panel{margin-top:28px;border:1px dashed #7c62a8;background:#faf7fd}
+.joker-bottom-btn{border:1px solid #7c62a8;background:#f0e8f8;color:#4f3970;border-radius:12px;padding:11px 14px;font-weight:850;cursor:pointer}
+
+
+.passport-sticky-dock{
+ position:sticky;top:0;z-index:60;
+ margin:8px 0 14px;padding:6px 7px 7px;
+ background:rgba(247,248,245,.97);
+ backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+ border:1px solid var(--line);border-radius:0 0 15px 15px;
+ box-shadow:0 7px 18px rgba(0,0,0,.08)
+}
+.passport-sticky-dock .practice-jumpbar{
+ position:static;top:auto;z-index:auto;margin:5px 0 0;padding:0;
+ background:transparent;border:0;border-radius:0;backdrop-filter:none
+}
+.sticky-progress{padding:2px 4px 3px}
+.sticky-progress-line{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:.76rem}
+.sticky-progress-line strong{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sticky-progress-track{height:6px;background:#e1e5df;border-radius:99px;overflow:hidden;margin-top:4px}
+.sticky-progress-fill{height:100%;width:0;background:#3c7d4d;border-radius:99px;transition:width .25s ease}
+@media(max-width:430px){
+ .passport-sticky-dock{padding:5px 5px 6px}
+ .sticky-progress-line{font-size:.7rem}
+ .sticky-progress-track{height:5px}
+}
+@media print{.passport-sticky-dock{display:none!important}}
+
+
+/* FIX: SkillsPaspoort-balk blijft onder de vaste Home/navigatiebalk */
+.passport-sticky-dock{
+  top:88px !important;
+}
+.practice-section{
+  scroll-margin-top:190px !important;
+}
+@media(max-width:650px){
+  .passport-sticky-dock{top:82px !important;}
+  .practice-section{scroll-margin-top:180px !important;}
+}
+
+
+.flow-reasons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.flow-reasons>div{padding:12px;border:1px solid var(--line);border-radius:13px;background:#f8faf7}
+.flow-reasons small{display:block;color:var(--muted);margin-top:4px;line-height:1.35}
+.flow-steps{display:grid;gap:8px}.flow-steps>div{display:grid;grid-template-columns:minmax(180px,.8fr) 1.5fr;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}
+.flow-steps>div:last-child{border-bottom:0}.flow-steps span{color:var(--muted)}
+.flow-sheet{border:2px solid #b8c9c0;border-radius:12px;overflow:hidden;background:#fff}
+.flow-sheet-head{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px;border-bottom:1px solid #cfd9d4}
+.flow-cols{display:grid;grid-template-columns:1fr 1fr 1fr}.flow-cols>div{padding:10px;border-right:1px solid #cfd9d4;min-height:130px}.flow-cols>div:last-child{border-right:0}.flow-cols span{display:block;font-size:.78rem;color:var(--muted)}.flow-cols p{margin:8px 0}
+.flow-table{display:grid;grid-template-columns:.8fr 1.4fr;border-top:1px solid #cfd9d4}.flow-table>div{padding:9px;border-right:1px solid #cfd9d4;border-bottom:1px solid #cfd9d4}.flow-table>div:nth-child(even){border-right:0}.flow-table .fh{font-weight:900;background:#eef4f0}
+.example-flow{display:grid;gap:12px}.example-meta,.example-materials{padding:10px 12px;background:#eef4f0;border-radius:11px}.example-meta span{color:var(--muted);margin-left:8px}
+.example-stream{display:flex;gap:7px;align-items:stretch;overflow-x:auto;padding:3px 0 8px}.example-stream>div{min-width:145px;padding:10px;border:1px solid var(--line);border-radius:12px;background:#fff}.example-stream small{display:block;color:var(--muted);margin-top:4px}.example-stream i{align-self:center;font-style:normal;font-weight:900}
+.flow-check-card label{display:block;padding:9px 4px;border-bottom:1px solid var(--line);line-height:1.35}.flow-check-card input{width:19px;height:19px;vertical-align:middle;margin-right:8px}
+.flow-status-buttons{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.flow-status-buttons button{padding:12px 8px;border:1px solid var(--line);border-radius:999px;background:#f0f1ef;font-weight:850;cursor:pointer}.flow-status-buttons button.active0{background:#eceeeb}.flow-status-buttons button.active1{background:#fff0b5}.flow-status-buttons button.active2{background:#dff3e3}
+@media(max-width:650px){.flow-reasons{grid-template-columns:1fr}.flow-steps>div{grid-template-columns:1fr;gap:4px}.flow-cols{grid-template-columns:1fr}.flow-cols>div{border-right:0;border-bottom:1px solid #cfd9d4;min-height:auto}.flow-sheet-head{grid-template-columns:1fr}.flow-status-buttons{grid-template-columns:1fr}.example-stream>div{min-width:132px}}
+
+
+.pro-thinking-card{padding:0;overflow:hidden;border:2px solid #d8e6df}
+.pro-thinking-toggle{width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;text-align:left;border:0;background:#f3f8f5;padding:17px 18px;color:var(--ink);cursor:pointer}
+.pro-thinking-toggle b{font-size:1.12rem}.pro-thinking-toggle small{display:block;color:var(--muted);margin-top:3px;font-weight:650}
+.pro-chevron{font-size:1.6rem;transition:transform .2s}.pro-thinking-toggle[aria-expanded="true"] .pro-chevron{transform:rotate(180deg)}
+.pro-thinking-body{padding:4px 18px 18px}.pro-intro{padding:10px 0}
+.lasagne-build{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:8px;align-items:stretch;margin:12px 0 16px}
+.build-card{border:1px solid var(--line);border-radius:13px;padding:12px;background:#fff;text-align:center}.build-card>span{font-size:1.8rem;display:block}.build-card b,.build-card small{display:block}.build-card small{color:var(--muted);margin-top:5px;line-height:1.35}.build-plus{align-self:center;font-weight:900;font-size:1.35rem}
+.build-arrow{grid-column:1/-1;text-align:center;font-size:1.7rem;font-weight:900;line-height:1}
+.build-card.final{grid-column:2/5;background:#eef6f0;border-color:#aac9b3}
+.pro-lightbulb{background:#fff7d8;border-radius:13px;padding:12px 14px;margin:12px 0}.pro-lightbulb p{margin:5px 0 0}
+.reuse-examples{display:grid;gap:7px;margin:12px 0}.reuse-examples>div{display:flex;flex-wrap:wrap;align-items:center;gap:7px;padding:10px 12px;border:1px solid var(--line);border-radius:11px;background:#fff}.reuse-examples span{color:var(--muted);font-weight:900}
+.professional-quote{border-left:5px solid #3c7d4d;padding:10px 14px;background:#eef6f0;border-radius:0 12px 12px 0;margin-top:14px}.professional-quote p{margin:5px 0 0}
+.save-tip{margin:14px 0 0}
+@media(max-width:650px){
+ .lasagne-build{grid-template-columns:1fr}
+ .build-plus{transform:none;text-align:center}.build-arrow{grid-column:1}.build-card.final{grid-column:1}
+ .reuse-examples>div{font-size:.92rem}
+}
+
+.scale-card{margin:16px 0;padding:14px;border:1px solid #d4dfd8;border-radius:14px;background:#f8faf8}.scale-card h3{margin:7px 0}.scale-example{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:8px;align-items:center;margin:12px 0}.scale-example>div{text-align:center;border:1px solid var(--line);border-radius:12px;padding:10px;background:#fff}.scale-example small,.scale-example b,.scale-example span{display:block}.scale-example small{color:var(--muted)}.scale-example span{margin-top:3px;font-weight:800}.scale-example i{font-style:normal;font-weight:900;text-align:center}.kitchen-database{display:grid;grid-template-columns:auto 1fr;gap:13px;padding:15px;background:#edf5f0;border-radius:14px;margin:16px 0}.database-icon{font-size:2.1rem}.kitchen-database h3{margin:0 0 5px}.database-flow{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:11px 0}.database-flow span{background:#fff;border:1px solid #cbd9d0;border-radius:999px;padding:7px 9px;font-weight:800}@media(max-width:650px){.scale-example{grid-template-columns:1fr}.kitchen-database{grid-template-columns:1fr}}
+.label-quick{display:grid;gap:10px;margin-top:12px}.label-step{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border:1px solid #d9e2dc;border-radius:14px;background:#fff}.label-step>b{min-width:28px;font-size:1.1rem}.choice-row{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.choice-pill{padding:9px 12px;border-radius:999px;background:#eef5f0;font-weight:700}.learn-toggle{width:100%;text-align:left;padding:14px 16px;border:1px solid #d7dfda;border-radius:14px;background:#f8faf9;font-weight:800;font-size:1rem;cursor:pointer;margin-top:10px}.learn-panel{display:none;padding:12px 4px 2px}.learn-panel.open{display:block}.allergen-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:9px;margin-top:12px}.allergen{padding:11px;border:1px solid #dfe5e1;border-radius:12px;background:#fff}.allergen b{display:block;margin-bottom:4px}.level-card{border-left:5px solid #8aa998}.mini-question{padding:12px;border-radius:12px;background:#f3f6f4;margin-top:10px}.smallmuted{font-size:.92rem;color:#526158}.label-deep summary{cursor:pointer;font-weight:800;padding:4px 0}
+/* Compact beginscherm: vier hoofdcategorieën direct zichtbaar */
+#home{min-height:0}
+#home .home-intro{padding:12px 14px;margin:0 0 10px}
+#home .home-intro .tag{padding:4px 7px;font-size:10px}
+#home .home-intro h2{font-size:18px;margin:5px 0 2px}
+#home .home-intro p{font-size:12px;line-height:1.3}
+#home .home-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+#home .home-grid .tile{min-height:0;padding:13px 14px;border-radius:16px}
+#home .home-grid .icon{font-size:23px;line-height:1}
+#home .home-grid .tag{font-size:9px;padding:4px 6px;margin-top:6px}
+#home .home-grid h3{font-size:17px;line-height:1.12;margin:7px 0 4px}
+#home .home-grid p{font-size:12px;line-height:1.28}
+#home .home-section-title{font-size:14px;margin:11px 2px 7px;color:var(--muted)}
+@media(max-width:650px){
+ body:has(#home.active) header{padding:13px 14px 6px}
+ body:has(#home.active) header .brand{font-size:11px}
+ body:has(#home.active) header h1{font-size:28px;margin:2px 0}
+ body:has(#home.active) header .sub{font-size:13px;line-height:1.25}
+ body:has(#home.active) main{padding:5px 14px 18px}
+ #home .home-intro{padding:9px 11px;margin-bottom:8px}
+ #home .home-intro h2{font-size:16px}
+ #home .home-intro p{font-size:11px}
+ #home .home-grid{gap:8px}
+ #home .home-grid .tile{padding:11px 10px}
+ #home .home-grid .icon{font-size:21px}
+ #home .home-grid h3{font-size:15px}
+ #home .home-grid p{font-size:11px}
+ #home .home-section-title{font-size:12px;margin:8px 2px 5px}
+}
+
+/* HOME KLEURCONCEPT — alleen beginscherm */
+#home .home-grid .tile.home-flow{background:linear-gradient(135deg,#1f765d,#245f50);color:#fff;border:0}
+#home .home-grid .tile.home-label{background:linear-gradient(135deg,#68449a,#51317f);color:#fff;border:0}
+#home .home-grid .tile.home-theory{background:linear-gradient(135deg,#1769aa,#0f568f);color:#fff;border:0}
+#home .home-grid .tile.home-passport{background:linear-gradient(135deg,#c98522,#a96812);color:#fff;border:0}
+#home .home-grid .tile.home-flow p,#home .home-grid .tile.home-label p,#home .home-grid .tile.home-theory p,#home .home-grid .tile.home-passport p{color:rgba(255,255,255,.91)}
+#home .home-grid .tile.home-flow h3,#home .home-grid .tile.home-label h3,#home .home-grid .tile.home-theory h3,#home .home-grid .tile.home-passport h3{color:#fff}
+#home .home-grid .home-tag{background:rgba(255,255,255,.18);color:#fff}
+
+
+/* HOME v2: vier duidelijke, mobiel schermvullende hoofdroutes */
+#home .home-intro{padding:11px 14px;margin-bottom:10px}
+#home .home-intro h2{font-size:18px}
+#home .home-intro p{font-size:12px}
+#home .home-grid{gap:10px}
+#home .home-grid .tile{min-height:150px;padding:16px 15px;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start}
+#home .home-grid .icon{font-size:27px}
+#home .home-grid h3{font-size:18px;margin:9px 0 5px}
+#home .home-grid p{font-size:12.5px;line-height:1.3}
+#home .home-section-title{font-size:13px;margin:9px 2px 6px}
+@media(max-width:600px){
+ body:has(#home.active) header{padding:12px 14px 5px}
+ body:has(#home.active) header h1{font-size:27px}
+ body:has(#home.active) header .sub{font-size:12px}
+ body:has(#home.active) main{padding:4px 14px 14px}
+ #home .home-intro{padding:9px 11px;margin-bottom:7px}
+ #home .home-intro .tag{font-size:9px;padding:3px 6px}
+ #home .home-intro h2{font-size:15px;margin:4px 0 1px}
+ #home .home-intro p{font-size:10.5px;line-height:1.22}
+ #home .home-grid{gap:9px}
+ #home .home-grid .tile{min-height:142px;padding:13px 12px}
+ #home .home-grid .icon{font-size:24px}
+ #home .home-grid h3{font-size:16px;margin:7px 0 4px}
+ #home .home-grid p{font-size:11.5px;line-height:1.27}
+ #home .home-section-title{font-size:11px;margin:6px 2px 4px}
+}
+/* Thema-kleurcodering door de app */
+body.theme-flow{--accent:#1f765d;--accent2:#e7f3ee;--line:#c5dbd1}
+body.theme-label{--accent:#68449a;--accent2:#f0eafa;--line:#d8cae9}
+body.theme-theory{--accent:#1769aa;--accent2:#e8f2fa;--line:#c5dced}
+body.theme-passport{--accent:#b87518;--accent2:#fbf0df;--line:#ead1a8}
+body.theme-flow .topnav,body.theme-label .topnav,body.theme-theory .topnav,body.theme-passport .topnav{border-bottom-color:var(--line)}
+body.theme-flow .back,body.theme-label .back,body.theme-theory .back,body.theme-passport .back{color:var(--accent)}
+
+
+/* =========================================================
+   SUBTIELE THEMA-ORIËNTATIE — 80/20 REGEL
+   Kleur helpt oriënteren; inhoud blijft rustig en neutraal.
+   ========================================================= */
+body.theme-flow,body.theme-label,body.theme-theory,body.theme-passport{--theme:var(--accent);--theme-soft:var(--accent2)}
+
+/* Vast kleurspoor bovenaan, zonder hele vlakken te kleuren */
+body.theme-flow .topnav,body.theme-label .topnav,body.theme-theory .topnav,body.theme-passport .topnav,
+body.theme-flow #technique .topnav,body.theme-label #technique .topnav,body.theme-theory #technique .topnav,body.theme-passport #technique .topnav{
+  box-shadow:inset 0 4px 0 var(--theme);
+}
+
+/* Herkenningslabel: klein, consequent, altijd dezelfde plek */
+#flow.active::before,#theory.active::before,#category.active::before,#practice.active::before,
+body.theme-theory #technique.active::before,body.theme-label #technique.active::before{
+  display:inline-flex;align-items:center;gap:7px;margin:1px 0 4px;padding:6px 10px;border-radius:999px;
+  background:var(--theme-soft);color:var(--theme);font-size:11px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;
+}
+#flow.active::before{content:'●  STROOMSCHEMA'}
+#theory.active::before,#category.active::before,body.theme-theory #technique.active::before{content:'●  THEORIE'}
+#practice.active::before{content:'●  SKILLSPASPOORT'}
+body.theme-label #technique.active::before{content:'●  ETIKETTEREN'}
+
+/* Grote inhoudskaarten blijven wit; alleen een subtiel accent */
+body.theme-flow .view.active>.hero,body.theme-label .view.active>.hero,body.theme-theory .view.active>.hero,body.theme-passport .view.active>.hero{
+  border-left:5px solid var(--theme);
+}
+body.theme-flow .view.active>.card>.tag,body.theme-label .view.active>.card>.tag,body.theme-theory .view.active>.card>.tag,body.theme-passport .view.active>.card>.tag,
+body.theme-flow .view.active>.hero>.tag,body.theme-label .view.active>.hero>.tag,body.theme-theory .view.active>.hero>.tag,body.theme-passport .view.active>.hero>.tag{
+  background:var(--theme-soft);color:var(--theme);
+}
+
+/* Acties: kleur op belangrijke knoppen, maar geen gekleurde tekstblokken */
+body.theme-flow .action,body.theme-label .action,body.theme-theory .action,body.theme-passport .action{
+  border-color:var(--theme);color:var(--theme);background:#fff;
+}
+body.theme-flow .action:hover,body.theme-label .action:hover,body.theme-theory .action:hover,body.theme-passport .action:hover{
+  background:var(--theme-soft);
+}
+
+/* Theorie: zoekveld, groepsnummers en focus volgen blauw */
+body.theme-theory .group-no{background:var(--theme)}
+body.theme-theory .searchbox:focus{outline:3px solid var(--theme-soft);border-color:var(--theme)}
+body.theme-theory .tech-btn.return-focus{outline-color:var(--theme);background:var(--theme-soft)}
+body.theme-theory .tech-jumpbar button:hover,body.theme-theory .sticky-tools button:hover{background:var(--theme-soft);border-color:var(--theme)}
+
+/* SkillsPaspoort: goud voor navigatie/voortgang; statuskleuren blijven semantisch */
+body.theme-passport .progress-fill,body.theme-passport .sticky-progress-fill{background:var(--theme)}
+body.theme-passport .practice-jumpbar button{border-color:var(--line)}
+body.theme-passport .practice-jumpbar button:hover{background:var(--theme-soft);border-color:var(--theme)}
+body.theme-passport .practice-filters button.active{border-color:var(--theme);box-shadow:0 0 0 2px var(--theme-soft)}
+body.theme-passport .passport-progress{border-left:5px solid var(--theme)}
+
+/* Etiketteren: paars alleen als wegwijzer; waarschuwingen/status houden eigen betekenis */
+body.theme-label .level-card{border-left:5px solid var(--theme)}
+body.theme-label .learn-toggle{border-color:var(--line)}
+body.theme-label .learn-toggle:hover{background:var(--theme-soft);border-color:var(--theme)}
+body.theme-label .label-deep{border-left:5px solid var(--theme)}
+
+/* Stroomschema: groen op proces- en voortgangselementen */
+body.theme-flow .flow-sheet{border-color:var(--theme)}
+body.theme-flow .flow-check-card{border-left:5px solid var(--theme)}
+
+/* Semantische kleuren nooit overschrijven */
+.warning{color:var(--ink)}
+.good{color:var(--ink)}
+
+@media(max-width:600px){
+ #flow.active::before,#theory.active::before,#category.active::before,#practice.active::before,
+ body.theme-theory #technique.active::before,body.theme-label #technique.active::before{font-size:10px;padding:5px 8px;margin-top:0}
+}
+
+
+/* Vakkennis & opleiding */
+.home-wide{width:100%;margin-top:14px;padding:18px 20px;border:1px solid #d7e2dc;border-radius:18px;background:#fff;text-align:left;display:flex;align-items:center;gap:15px;box-shadow:0 4px 14px rgba(20,40,30,.06);cursor:pointer}
+.home-wide .wide-icon{font-size:32px;flex:0 0 auto}.home-wide h3{margin:0 0 4px}.home-wide p{margin:0;color:var(--muted)}
+.home-wide.knowledge{border-left:7px solid #6f9c69;background:#f6faf5}.home-wide.route{border-left:7px solid #5c6f82;background:#f7f9fb}
+.theme-knowledge header{background:#edf5ea}.theme-route header{background:#eef2f6}
+.knowledge-grid,.agf-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.knowledge-tile{border:1px solid #dbe5d8;background:#fff;border-radius:16px;padding:16px;text-align:left;cursor:pointer}.knowledge-tile.locked{opacity:.58;cursor:default}.knowledge-tile.foodmarkt{border:2px solid #d5ad55;background:#fffaf0;grid-column:1 / -1}.knowledge-tile.foodmarkt .foodmarkt-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.knowledge-tile.foodmarkt .foodmarkt-tags span{font-size:11px;font-weight:700;background:#f7edd6;border-radius:999px;padding:5px 8px}.knowledge-tile .icon{font-size:28px}.knowledge-tile h3{margin:7px 0 4px}.knowledge-tile p{margin:0;color:var(--muted);font-size:14px}
+.agf-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.agf-actions button{border:1px solid #dbe5d8;background:#fff;border-radius:14px;padding:13px 9px;font-weight:700;cursor:pointer}
+.route-line{display:flex;flex-direction:column;gap:8px}.route-step{border:1px solid #d9e1e7;border-radius:16px;padding:15px;background:#fff}.route-arrow{text-align:center;font-size:22px;color:#71808d}.food-chain{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.food-chain span{background:#f1f4f6;border-radius:999px;padding:7px 10px;font-size:12px;font-weight:700}
+.mini-list{display:grid;gap:8px}.mini-list div{padding:10px 12px;border-radius:12px;background:#f6f8f6}.agf-topic{display:none}.agf-topic.active{display:block}
+@media(max-width:600px){.knowledge-grid,.agf-grid{grid-template-columns:1fr 1fr}.agf-actions{grid-template-columns:1fr 1fr}.home-wide{padding:15px}.home-wide .wide-icon{font-size:28px}}
+</style>
+</head>
+<body><div class="app"><header><div class="brand">SVO • Keukenbasis</div><h1>Keukenbasis</h1><p class="sub">BOL leerjaar 1 · van recept naar professioneel handelen</p></header><main>
+<section id="home" class="view">
+<div class="card home-intro" style="background:#edf5f0;border-color:#c9ddd1"><span class="tag">START HIER</span><h2>Eerst je professionele basis</h2><p>Begin met stroomschema en etiketteren. Deze twee heb je vanaf de start van de opleiding nodig.</p></div>
+<h2 class="home-section-title">Eerst afronden</h2>
+<div class="home-grid">
+<button class="tile home-flow" onclick="show('flow')"><div class="icon">🧭</div><span class="tag home-tag">MUST</span><h3>Stroomschema</h3><p>Recept lezen, plannen, mise-en-place en uitvoeren.</p></button>
+<button class="tile home-label" onclick="openHomeLabeling()"><div class="icon">🏷️</div><span class="tag home-tag">MUST</span><h3>Etiketteren</h3><p>Veilig opslaan, allergenen, batchcode en traceerbaarheid.</p></button>
+</div>
+<h2 class="home-section-title">Daarna verder</h2>
+<div class="home-grid">
+<button class="tile home-theory" onclick="show('theory')"><div class="icon">📚</div><h3>Theorie</h3><p>Koude en warme technieken, messen en materialen leren.</p></button>
+<button class="tile home-passport" onclick="show('practice')"><div class="icon">🎯</div><h3>SkillsPaspoort</h3><p>Volg je praktijkvaardigheden, voortgang en behaalde doelen.</p></button>
+</div>
+<button class="home-wide knowledge" onclick="show('knowledge')"><div class="wide-icon">🧠</div><div><h3>Vakkennis & warenkennis</h3><p>Leer producten herkennen, beoordelen, bewaren en toepassen.</p></div></button>
+<button class="home-wide route" onclick="show('opleiding')"><div class="wide-icon">🗺️</div><div><h3>Mijn opleiding</h3><p>Bekijk waar je nu staat en waar je in twee jaar naartoe werkt.</p></div></button>
+</section>
+
+<section id="knowledge" class="view active">
+<div class="topnav"><button class="back" onclick="returnToMainApp()">← Keukenbasis</button></div>
+<div class="hero"><span class="tag">VAKMANSCHAP</span><h2>🧠 Vakkennis & warenkennis</h2><p>Je leert producten <b>herkennen</b>, in de juiste groep plaatsen, de <b>kwaliteit</b> beoordelen, goed <b>bewaren</b> en professioneel <b>toepassen</b>.</p></div>
+<div class="knowledge-grid">
+<button class="knowledge-tile" onclick="show('agf')"><div class="icon">🥕</div><h3>AGF</h3><p>Aardappelen, groenten, paddenstoelen en fruit.</p></button>
+<div class="knowledge-tile locked"><div class="icon">🦃</div><h3>Wild & gevogelte</h3><p>Inclusief oliën & vetten · volgt later.</p></div>
+<div class="knowledge-tile locked"><div class="icon">🥐</div><h3>Brood & banket</h3><p>Productherkenning en warenkennis · volgt later.</p></div>
+<div class="knowledge-tile locked"><div class="icon">🐟</div><h3>Vis & duurzaamheid</h3><p>Herkennen, kwaliteit en toepassing · volgt later.</p></div>
+<div class="knowledge-tile locked"><div class="icon">🧀</div><h3>Kaas</h3><p>Soorten, productie, rijping en toepassing · volgt later.</p></div>
+<div class="knowledge-tile locked"><div class="icon">🥩</div><h3>Vlees & vleeswaren</h3><p>Inclusief vleesvervangers & eiwittransitie · volgt later.</p></div>
+<div class="knowledge-tile locked"><div class="icon">☕</div><h3>Drankenkennis</h3><p>Herkomst, productie, bereiden en adviseren · volgt later.</p></div>
+<button class="knowledge-tile foodmarkt" onclick="show('opleiding')"><div class="icon">🏪</div><span class="tag">EINDPROEVE · LEERJAAR 2</span><h3>8. FOODMARKT · hier komt alles samen</h3><p>De vakkennis uit alle thema’s komt hier samen met de andere theorievakken en professionele vaardigheden uit de opleiding.</p><div class="foodmarkt-tags"><span>📚 Vakkennis</span><span>👨‍🍳 Productie</span><span>🌡️ Voedselveiligheid</span><span>🚚 Logistiek</span><span>💶 Financieel</span><span>📣 Marketing</span><span>👥 Personeel</span><span>🧭 Management & leidinggeven</span><span>🛒 Verkoop & klantadvies</span></div></button>
+</div>
+</section>
+
+<section id="agf" class="view">
+<div class="topnav"><button class="back" onclick="show('knowledge')">← Vakkennis</button><button class="back" onclick="returnToMainApp()">⌂ Home</button></div>
+<div class="hero"><span class="tag">LEERJAAR 1 · THEMA 1</span><h2>🥕 AGF</h2><p><b>Wat is het? Bij welke groep hoort het? Is de kwaliteit goed? Hoe bewaar je het? Wat kun je ermee?</b></p></div>
+<div class="card"><span class="tag">LEREN</span><h3>Kies een onderdeel</h3><div class="agf-grid">
+<button class="knowledge-tile" onclick="openAgfTopic('potato')"><div class="icon">🥔</div><h3>Aardappelen</h3><p>Kooktypen, kwaliteit, bewaren en producten.</p></button>
+<button class="knowledge-tile" onclick="openAgfTopic('veg')"><div class="icon">🥬</div><h3>Groenten</h3><p>6 productgroepen, herkennen, kwaliteit en bewaren.</p></button>
+<button class="knowledge-tile" onclick="openAgfTopic('mush')"><div class="icon">🍄</div><h3>Paddenstoelen</h3><p>Gekweekt en wild herkennen.</p></button>
+<button class="knowledge-tile" onclick="openAgfTopic('fruit')"><div class="icon">🍎</div><h3>Fruit</h3><p>4 productgroepen, rijping, kwaliteit en LTB.</p></button></div></div>
+<div class="card"><span class="tag">OEFENEN</span><h3>Oefen je vakkennis</h3><div class="agf-actions"><button onclick="showAgfPractice('Herkennen')">👁️ Herkennen</button><button onclick="showAgfPractice('Productgroepen')">🗂️ Productgroepen</button><button onclick="showAgfPractice('Kwaliteit')">✅ Kwaliteit</button><button onclick="showAgfPractice('Bewaren')">🌡️ Bewaren</button><button onclick="showAgfPractice('Toepassen')">🍳 Toepassen</button><button onclick="showAgfPractice('Oefentoets')">📝 Oefentoets</button></div><div id="agfPracticeMsg" class="note" style="display:none;margin-top:12px"></div></div>
+<div id="agfTopicArea">
+<div id="agf-potato" class="card agf-topic"><span class="tag">AARDAPPELEN</span><h3>Vier kooktypen</h3><div class="mini-list"><div><b>Vastkokend</b> · blijft stevig, geschikt als vorm heel moet blijven.</div><div><b>Vrij vastkokend</b> · blijft redelijk stevig.</div><div><b>Iets tot matig kruimig</b> · zachter en bloemiger.</div><div><b>Zeer kruimig</b> · valt makkelijk uiteen, geschikt voor puree.</div></div><h3>Belangrijke begrippen</h3><p>Solanine · stootblauw · aardappelziekte · koel en donker bewaren.</p><h3>Producten & bereidingen</h3><p>Friet · puree · kroket · gratin · duchesse · rösti · gnocchi · pommes parisienne.</p></div>
+<div id="agf-veg" class="card agf-topic"><span class="tag">GROENTEN</span><h3>De 6 productgroepen</h3><div class="mini-list"><div><b>1. Knol- en wortelgewassen</b> · o.a. knolselderij, wortel, radijs.</div><div><b>2. Bolgewassen</b> · ui, rode ui, knoflook, sjalot.</div><div><b>3. Bladgroenten</b> · sla, andijvie, prei, spinazie.</div><div><b>4. Vruchtgroenten</b> · courgette, aubergine, tomaat, paprika, sperzieboon.</div><div><b>5. Stengelgewassen</b> · asperge, rabarber, bleekselderij, bloemkool, broccoli.</div><div><b>6. Spruit-/kiemgroenten & cressen</b> · taugé, alfalfa, tuinkers/cressen.</div></div><h3>Bij ontvangst</h3><p>Controleer: juiste product · juiste hoeveelheid · juiste kwaliteit.</p><h3>Bewaren</h3><p>Let op temperatuur, RV, licht, geuren, FIFO, derving en plaats producten nooit rechtstreeks op de grond.</p></div>
+<div id="agf-mush" class="card agf-topic"><span class="tag">PADDENSTOELEN</span><h3>Aparte productgroep</h3><p>Paddenstoelen zijn officieel geen groenten, maar worden in de keuken vaak zo toegepast.</p><div class="mini-list"><div><b>Gekweekt</b> · champignon, beukenzwam, oesterzwam, shiitake.</div><div><b>Wild</b> · cantharel, eekhoorntjesbrood, truffel, morielje.</div></div></div>
+<div id="agf-fruit" class="card agf-topic"><span class="tag">FRUIT</span><h3>De 4 productgroepen</h3><div class="mini-list"><div><b>Hard fruit</b> · appels en peren.</div><div><b>Zacht fruit</b> · o.a. aardbei, framboos, bes, druif, pruim.</div><div><b>Citrusfruit</b> · o.a. citroen, limoen, mandarijn, sinaasappel.</div><div><b>Exoten</b> · o.a. banaan, kiwi, avocado, papaja, meloen, granaatappel, carambola.</div></div><h3>Kwaliteit & bewaren</h3><p>Let op beurs worden, uitdrogen, verkleuren en schimmel. Hard en zacht fruit worden volgens het lesmateriaal gekoeld bewaard; exoten zijn gevoelig voor <b>LTB (lage temperatuurbederf)</b>.</p></div>
+</div></section>
+
+<section id="opleiding" class="view">
+<div class="topnav"><button class="back" onclick="returnToMainApp()">⌂ Home</button></div>
+<div class="hero"><span class="tag">JOUW ROUTE</span><h2>🗺️ Mijn opleiding</h2><p>Je hoeft nog niet alles te kunnen. Iedere periode bouw je verder aan wat je aan het einde nodig hebt.</p></div>
+<div class="route-line"><div class="route-step"><b>🌱 Leerjaar 1 · De vakbasis</b><p>Warenkennis · producten herkennen · keukentechnieken · plannen · voedselveilig werken.</p></div><div class="route-arrow">↓</div><div class="route-step"><b>🎓 Proeve leerjaar 1 · TRAITEUR</b><p>Van recept naar een volwaardig product: maken, terugkoelen, verpakken, etiketteren en professioneel klant- en bewaaradvies geven.</p></div><div class="route-arrow">↓</div><div class="route-step"><b>🚀 Leerjaar 2 · Verdiepen & verantwoordelijkheid</b><p>Meer warenkennis · complexere technieken · organiseren · adviseren · samenwerken en leidinggeven.</p></div><div class="route-arrow">↓</div><div class="route-step"><b>🏪 Eindproeve · FOODMARKT</b><p>Hier komt de hele opleiding samen.</p><div class="food-chain"><span>💡 Concept & locatie</span><span>🍽️ Product</span><span>👨‍🍳 Productie</span><span>🏷️ Etikettering</span><span>🔎 Traceerbaarheid</span><span>📦 Opslag</span><span>🚚 Logistiek</span><span>🌡️ Voedselveiligheid</span><span>💶 Financieel</span><span>📣 Marketing</span><span>👥 Personeel & leidinggeven</span><span>🛒 Verkoop & klantadvies</span></div></div></div>
+<div class="card" style="margin-top:14px"><b>Alles wat je tijdens de opleiding leert, is een bouwsteen voor jouw Foodmarkt.</b><p>In leerjaar 1 bouwen we eerst een sterke vakbasis.</p></div>
+</section>
+
+<section id="flow" class="view">
+<div class="topnav" id="flowTopnav"><button class="back" onclick="returnToMainApp()">⌂ Home</button></div>
+
+<div class="hero">
+ <span class="tag">De kapstok</span>
+ <h2>Van recept naar stroomschema</h2>
+ <p>Een goed stroomschema laat vóór je begint zien <b>wat</b> je nodig hebt, <b>wat</b> je gaat doen en <b>in welke volgorde</b>. Zo kun je plannen, organiseren en tijdens het koken overzicht houden.</p>
+</div>
+
+<div class="card">
+ <span class="tag">Waarom?</span><h3>Waarom maak je een stroomschema?</h3>
+ <div class="flow-reasons">
+  <div>🧠 <b>Eerst denken, dan doen</b><small>Je voorkomt dat je tijdens de bereiding belangrijke stappen vergeet.</small></div>
+  <div>⏱️ <b>Plannen</b><small>Je ziet wat eerst moet en welke werkzaamheden tegelijk kunnen.</small></div>
+  <div>🧰 <b>Organiseren</b><small>Grondstoffen, materialen en apparatuur staan op tijd klaar.</small></div>
+  <div>🎯 <b>Controleren</b><small>Je weet waarop je tijdens en aan het einde van de bereiding controleert.</small></div>
+ </div>
+</div>
+
+<div class="card">
+ <span class="tag">Stap voor stap</span><h3>Zo bouw je jouw stroomschema op</h3>
+ <div class="flow-steps">
+  <div><b>1. Lees de receptuur helemaal</b><span>Wat maak je, voor hoeveel personen en wat moet het eindresultaat zijn?</span></div>
+  <div><b>2. Noteer grondstoffen en hulpstoffen</b><span>Maak hoeveelheden concreet. Gebruik waar mogelijk <b>gram (g)</b> en <b>milliliter (ml)</b>. Werk met een vaste basis, bijvoorbeeld voor <b>1 of 2 personen</b>, zodat je later eenvoudig kunt omrekenen.</span></div>
+  <div><b>3. Zet materiaal en apparatuur klaar</b><span>Bijvoorbeeld mes, juiste snijplank, weegschaal, litermaat, kommen, pannen en apparatuur.</span></div>
+  <div><b>4. Voorbereiding / mise-en-place</b><span>Richt je werkplek logisch in. Weeg en meet af en verwarm apparatuur voor als dat nodig is.</span></div>
+  <div><b>5. Schoonmaken</b><span>Beschrijf wat je met de grondstoffen doet: bijvoorbeeld wassen, schillen of ontvellen.</span></div>
+  <div><b>6. Opdelen</b><span>Noem de echte vakterm: bijvoorbeeld snipperen, julienne of brunoise. Schrijf niet alleen ‘snijden’ als je specifieker kunt zijn.</span></div>
+  <div><b>7. Bereiden</b><span>Noem de bereidingstechniek en noteer <b>tijd en temperatuur</b> wanneer die belangrijk zijn.</span></div>
+  <div><b>8. Afronden</b><span>Beschrijf serveren, dresseren, verpakken, opslaan of terugkoelen wanneer dat van toepassing is.</span></div>
+  <div><b>9. Controle</b><span>Controleer bijvoorbeeld smaak, gaarheid, structuur, temperatuur en presentatie.</span></div>
+ </div>
+</div>
+
+<div class="card pro-thinking-card">
+ <button class="pro-thinking-toggle" type="button" onclick="toggleProThinking()" aria-expanded="false" id="proThinkingToggle">
+   <span><b>🤯 Waarom is dit zoveel werk?</b><small>Ontdek hoe een professional denkt</small></span><span class="pro-chevron">⌄</span>
+ </button>
+ <div id="proThinkingBody" class="pro-thinking-body" hidden>
+   <div class="pro-intro">
+    <h3>Je bouwt een bibliotheek met bouwstenen</h3>
+    <p>Een gerecht bestaat vaak uit meerdere <b>basisbereidingen</b>. Daarom kan een volledig stroomschema in het begin veel werk lijken. Maar je hoeft een goede basisbereiding niet iedere keer opnieuw uit te vinden: je bewaart hem en gebruikt hem later opnieuw.</p>
+   </div>
+
+   <h3>Voorbeeld: één lasagne bestaat uit meerdere stroomschema's</h3>
+   <div class="lasagne-build">
+    <div class="build-card"><span>🍝</span><b>1. Pastadeeg</b><small>Een eigen stroomschema voor het maken en verwerken van het deeg.</small></div>
+    <div class="build-plus">+</div>
+    <div class="build-card"><span>🍅</span><b>2. Gehakt-tomatensaus</b><small>Een eigen stroomschema voor de saus en de bereiding ervan.</small></div>
+    <div class="build-plus">+</div>
+    <div class="build-card"><span>🥛</span><b>3. Bechamelsaus</b><small>Een eigen stroomschema voor deze basissaus.</small></div>
+    <div class="build-arrow">↓</div>
+    <div class="build-card final"><span>🧱</span><b>4. Lasagne opbouwen</b><small>De onderdelen samenbrengen, opbouwen, bereiden, controleren en afronden.</small></div>
+   </div>
+
+   <div class="pro-lightbulb">
+    <b>💡 De winst komt de volgende keer.</b>
+    <p>Heb je het stroomschema voor pastadeeg eenmaal goed gemaakt en bewaard? Dan is dat voortaan een bouwsteen. Voor een ander pastagerecht pak je die basis opnieuw en combineer je hem met een andere saus of bereiding.</p>
+   </div>
+
+   <div class="reuse-examples">
+    <div><b>🍝 Pastadeeg</b><span>+</span><b>🍅 Tomatensaus</b><span>→</span><strong>Pasta met tomatensaus</strong></div>
+    <div><b>🍝 Pastadeeg</b><span>+</span><b>🍅 Bolognesesaus</b><span>→</span><strong>Pasta bolognese</strong></div>
+    <div><b>🍝 Pastadeeg</b><span>+</span><b>🍅 Gehakt-tomatensaus</b><span>+</span><b>🥛 Bechamel</b><span>→</span><strong>Lasagne</strong></div>
+   </div>
+
+   <div class="scale-card">
+    <span class="tag">📐 Maak je basis schaalbaar</span>
+    <h3>Werk met een vast basisrecept voor 1 of 2 personen</h3>
+    <p>Maak en bewaar een basisstroomschema bij voorkeur voor een <b>vast klein aantal personen</b>, bijvoorbeeld 1 of 2. Noteer alle grondstoffen zo nauwkeurig mogelijk in <b>gram (g)</b> en <b>milliliter (ml)</b>. Dan kun je het recept later eenvoudig omrekenen.</p>
+    <div class="scale-example">
+      <div><small>Basis</small><b>2 personen</b><span>500 g</span></div><i>× 5</i>
+      <div><small>Opdracht</small><b>10 personen</b><span>2.500 g</span></div><i>→</i>
+      <div><small>Bestellijst</small><b>Benodigd</b><span>2,5 kg</span></div>
+    </div>
+    <p class="muted-note"><b>Let op:</b> dit is een rekenvoorbeeld. Gebruik in jouw stroomschema altijd de echte hoeveelheden uit jouw basisrecept.</p>
+   </div>
+   <div class="kitchen-database">
+    <div class="database-icon">🗂️</div><div>
+      <h3>Bouw je eigen keukendatabase</h3>
+      <p>Als je jouw basisbereidingen steeds op dezelfde manier opslaat, ontstaat vanzelf een verzameling die je opnieuw kunt gebruiken voor <b>keukenopdrachten, planning én bestellingen</b>.</p>
+      <div class="database-flow"><span>📄 Basisrecept</span><b>→</b><span>🧭 Stroomschema</span><b>→</b><span>🔢 Omrekenen</span><b>→</b><span>🛒 Bestellijst</span></div>
+      <p><b>Eenmaal goed vastgelegd = later sneller werken.</b> Je hoeft niet opnieuw te bedenken welke grondstoffen, hoeveelheden, materialen en stappen bij de basisbereiding horen.</p>
+    </div>
+   </div>
+   <div class="professional-quote">
+    <b>Zo denkt een professional</b>
+    <p>Je verzamelt niet alleen losse gerechten. Je bouwt een persoonlijke gereedschapskist met <b>basisrecepten, technieken en stroomschema's</b> die je steeds opnieuw kunt combineren.</p>
+   </div>
+   <p class="save-tip"><b>📁 Slimme tip:</b> bewaar goede stroomschema's. Maak ze één keer zorgvuldig en bouw zo gedurende je opleiding je eigen verzameling basisbereidingen op.</p>
+ </div>
+</div>
+
+<div class="card">
+ <span class="tag">Leeg model</span><h3>Zo ziet het formulier eruit</h3>
+ <p class="muted-note">Dit volgt dezelfde opbouw als het stroomschema dat je op school gebruikt.</p>
+ <div class="flow-sheet">
+  <div class="flow-sheet-head"><div><b>Naam:</b> __________________</div><div><b>Product:</b> __________________</div></div>
+  <div class="flow-cols">
+   <div><b>Grondstoffen</b><span>kg / gram</span><p>________________</p><p>________________</p><p>________________</p></div>
+   <div><b>Hulpstoffen</b><span>gram / ml</span><p>________________</p><p>________________</p><p>________________</p></div>
+   <div><b>Materiaal</b><p>________________</p><p>________________</p><p>________________</p></div>
+  </div>
+  <div class="flow-table">
+   <div class="fh">Belangrijke stap</div><div class="fh">Aandachtspunten</div>
+   <div><b>1 Voorbereiding</b></div><div>________________________________</div>
+   <div><b>2 Schoonmaken</b></div><div>________________________________</div>
+   <div><b>3 Opdelen</b></div><div>________________________________</div>
+   <div><b>4 Bereiden</b></div><div>________________________________</div>
+   <div><b>5 Afronden</b></div><div>________________________________</div>
+   <div><b>Controle</b></div><div>________________________________</div>
+  </div>
+ </div>
+</div>
+
+<div class="card">
+ <span class="tag">Ingevuld voorbeeld</span><h3>Voorbeeld: aardappelsalade</h3>
+ <p class="muted-note">Dit voorbeeld laat zien <b>hoe</b> je de informatie ordent. De precieze hoeveelheden komen altijd uit de receptuur waarmee jij werkt.</p>
+ <div class="example-flow">
+  <div class="example-meta"><b>Product:</b> aardappelsalade <span>→ receptuur eerst volledig lezen</span></div>
+  <div class="example-stream">
+   <div><b>🥔 Aardappelen</b><small>hoeveelheid in g volgens receptuur</small></div><i>→</i>
+   <div><b>Wassen / schillen</b><small>schoon en zo min mogelijk verlies</small></div><i>→</i>
+   <div><b>Opdelen</b><small>gelijkmatig volgens receptuur</small></div><i>→</i>
+   <div><b>Bereiden</b><small>techniek + tijd/temperatuur noteren</small></div><i>→</i>
+   <div><b>Terugkoelen</b><small>voor koud verwerken</small></div>
+  </div>
+  <div class="example-stream">
+   <div><b>🥣 Saus / hulpstoffen</b><small>hoeveelheden in g/ml</small></div><i>→</i>
+   <div><b>Afwegen</b><small>alles eerst klaarzetten</small></div><i>→</i>
+   <div><b>Mengen</b><small>pas met afgekoelde aardappel</small></div><i>→</i>
+   <div><b>Controleren</b><small>smaak · structuur · presentatie</small></div><i>→</i>
+   <div><b>Afronden</b><small>dresseren / bewaren volgens opdracht</small></div>
+  </div>
+  <div class="example-materials"><b>Materiaal vooraf benoemen:</b> passend mes, juiste snijplank, weegschaal, maatmateriaal, kommen en passende pan/apparatuur.</div>
+ </div>
+</div>
+
+<div class="card flow-check-card">
+ <span class="tag">Klaar-check</span><h3>Mijn stroomschema is compleet als…</h3>
+ <label><input type="checkbox"> ik de hele receptuur eerst heb gelezen.</label>
+ <label><input type="checkbox"> alle grondstoffen en hulpstoffen zijn opgenomen.</label>
+ <label><input type="checkbox"> hoeveelheden waar mogelijk in <b>g of ml</b> staan.</label>
+ <label><input type="checkbox"> duidelijk is voor hoeveel personen mijn basisrecept is gemaakt.</label>
+ <label><input type="checkbox"> materiaal en apparatuur zijn benoemd.</label>
+ <label><input type="checkbox"> voorbereiding en mise-en-place zijn uitgewerkt.</label>
+ <label><input type="checkbox"> schoonmaken en voorbewerken zijn benoemd.</label>
+ <label><input type="checkbox"> snijtechnieken met de juiste vakterm zijn benoemd.</label>
+ <label><input type="checkbox"> bereidingstechnieken zijn benoemd.</label>
+ <label><input type="checkbox"> tijd en temperatuur zijn toegevoegd waar dat nodig is.</label>
+ <label><input type="checkbox"> afronden en controlepunten zijn opgenomen.</label>
+</div>
+
+<div class="card flow-selfscore">
+ <span class="tag">Mijn skill</span><h3>Kan ik zelfstandig van een recept een goed stroomschema maken?</h3>
+ <p>Kies de status die nu bij jou past. Je kunt dit later altijd aanpassen.</p>
+ <div class="flow-status-buttons">
+  <button onclick="setFlowPractice(0)" id="flowStatus0">⚪ Nog oefenen</button>
+  <button onclick="setFlowPractice(1)" id="flowStatus1">🟡 In ontwikkeling</button>
+  <button onclick="setFlowPractice(2)" id="flowStatus2">🟢 Beheers ik</button>
+ </div>
+</div>
+
+<div id="flowJokerArea"></div>
+</section>
+
+<section id="theory" class="view"><div class="topnav"><button class="back" onclick="returnToMainApp()">⌂ Home</button></div>
+<h2>Theorie</h2><div class="grid3">
+<button class="tile" onclick="openCategory('cold')"><div class="icon">🥕</div><h3>Voorbewerking & koud</h3><p>Alle koude technieken in de volgorde van het keukenproces.</p></button>
+<button class="tile" onclick="openCategory('warm')"><div class="icon">🔥</div><h3>Warme technieken</h3><p>Van bereiden in vocht en stoom tot bakken, braden en stoven.</p></button>
+<button class="tile" onclick="openCategory('materials')"><div class="icon">🔪</div><h3>Messen & materialen</h3><p>Messen, snijplanken, gereedschap, zeven, machines, pannen en verhittingsapparatuur.</p></button></div></section>
+
+<section id="category" class="view"><div class="topnav"><button class="back" onclick="show('theory')">← Theorie</button><button class="back" onclick="returnToMainApp()">⌂ Home</button></div>
+<div class="hero"><span id="catTag" class="tag"></span><h2 id="catTitle"></h2><p id="catIntro"></p></div>
+<div id="jumpbar" class="tech-jumpbar"></div>
+<input id="search" class="searchbox" type="search" placeholder="Welke techniek zoek je?" oninput="renderGroups(this.value)">
+<div id="groups"></div><div id="categoryLink"></div></section>
+
+<section id="technique" class="view"><div class="topnav" id="techTopnav"><button class="back" onclick="returnToCategory()">← Technieken</button><button class="back" onclick="returnToMainApp()">⌂ Home</button></div>
+<div id="techContent"></div></section>
+
+<section id="practice" class="view"><div class="topnav"><button class="back" onclick="returnToMainApp()">⌂ Home</button></div>
+<div class="hero"><span class="tag">Verzamelopdracht leerjaar 1</span><h2>🎯 Mijn SkillsPaspoort</h2>
+<p>Dit paspoort bouw je het hele eerste leerjaar op. Niet iedere skill komt automatisch in een les voorbij. Oefen waar dat passend en veilig kan: tijdens de praktijkles, op BPV/stage of thuis. Jij houdt zelf je voortgang bij. Blijft een skill lang op <b>Nog oefenen</b>? Bespreek dan met je docent hoe je deze kunt oefenen.</p>
+<p><b>Begin bovenaan:</b> eerst leer je plannen met receptuur en stroomschema én nauwkeurig afwegen en afmeten. Daarna bouw je verder aan snijtechnieken, koude keuken, warme keuken en materiaalgebruik.</p><p><b>Doel:</b> aan het einde van leerjaar 1 heb je alle beschikbare basisvaardigheden beheerst of, wanneer iets echt niet uitvoerbaar is, verantwoord met een joker afgehandeld. Jokers blijven altijd apart zichtbaar in je export.</p></div>
+
+<div class="practice-summary">
+ <div class="practice-stat"><strong id="ps0">0</strong>⚪ Nog oefenen</div>
+ <div class="practice-stat"><strong id="ps1">0</strong>🟡 In ontwikkeling</div>
+ <div class="practice-stat"><strong id="ps2">0</strong>🟢 Beheers ik</div>
+</div>
+<div class="card passport-progress">
+ <div class="progress-title"><div><span class="tag">Voortgang</span><h3 id="progressHeadline">0 van 45 skills afgerond</h3></div><strong id="progressPct">0%</strong></div>
+ <div class="progress-track"><div id="progressBar" class="progress-fill"></div></div>
+ <p id="nextBadgeText" class="muted-note"></p>
+</div>
+<div class="practice-filters" id="practiceFilters">
+ <button class="active" data-pf="all" onclick="setPracticeFilter('all',this)">Alles</button>
+ <button data-pf="0" onclick="setPracticeFilter('0',this)">⚪ Nog oefenen</button>
+ <button data-pf="1" onclick="setPracticeFilter('1',this)">🟡 In ontwikkeling</button>
+ <button data-pf="2" onclick="setPracticeFilter('2',this)">🟢 Beheers ik</button>
+</div>
+<div class="passport-sticky-dock" id="passportStickyDock">
+ <div class="sticky-progress">
+   <div class="sticky-progress-line">
+     <strong id="stickyProgressText">0/45 skills afgerond</strong>
+     <span id="stickyProgressPct">0%</span>
+   </div>
+   <div class="sticky-progress-track"><div id="stickyProgressBar" class="sticky-progress-fill"></div></div>
+ </div>
+<div class="practice-jumpbar" id="practiceJumpbar">
+ <button onclick="jumpPracticeGroup(0)">🧭<span>Plannen</span></button>
+ <button onclick="jumpPracticeCuts()">🔪<span>Snijden</span></button>
+ <button onclick="jumpPracticeGroup(1)">🥕<span>Koud</span></button>
+ <button onclick="jumpPracticeGroup(2)">🔥<span>Warm</span></button>
+ <button onclick="jumpPracticeGroup(3)">🧰<span>Materiaal</span></button>
+</div>
+</div>
+<div id="practiceList"></div><div class="passport-lower">
+<h2>Mijn voortgang & export</h2>
+<div class="card">
+ <span class="tag">🎯 Volgende stap</span><h3>Waar kan ik nu mee verder?</h3>
+ <div id="nextSteps"></div>
+</div>
+<div class="card">
+ <span class="tag">Badges</span><h3>Mijn behaalde badges</h3>
+ <div id="badgeGrid" class="badge-grid"></div>
+</div>
+<div class="card">
+  <span class="tag">Mijn gegevens</span>
+  <h3>Praktijkoverzicht bewaren of versturen</h3>
+  <div class="student-fields">
+    <label>Naam<input id="studentName" type="text" placeholder="Voor- en achternaam" oninput="saveStudentDetails()"></label>
+    <label>Klas / groep<input id="studentClass" type="text" placeholder="Bijv. BOL 1" oninput="saveStudentDetails()"></label>
+  </div>
+  <button class="action" onclick="exportPractice()">📄 Exporteer mijn praktijkvoortgang</button>
+  <p class="muted-note">Kies in het afdrukvenster voor <b>Opslaan als PDF</b>. Daarna kun je het bestand naar je docent sturen.</p>
+</div>
+</div></section>
+<section id="printReport"></section>
+</main></div>
+<script>
+const DATA={"cold":{"Mise-en-place":{"name":"Mise-en-place","basis":"Alles verzamelen, controleren en klaarzetten voordat je met de bereiding begint.","professional":"Richt het werkstation zo in dat je veilig, logisch en zonder onnodig lopen kunt werken. Denk vooruit: grondstoffen, juiste snijplanken, messen, verspillingsbakje, schalen, weegschaal/litermaat en apparatuur die moet voorverwarmen.","examples":["Verspillingsbakje klaarzetten voor schillen en snijresten.","Juiste kleur snijplank klaarleggen voor iedere productgroep.","Weegschaal of litermaat klaarzetten als je moet wegen of afmeten.","Oven, frituur, grill of pan op tijd laten voorverwarmen.","Bakken/schalen klaarzetten voor grondstoffen, tussenproducten en eindproduct."],"critical":["Lees receptuur en stroomschema volledig vóór de start.","Controleer alle grondstoffen en hoeveelheden.","Bepaal wat lang duurt en dus als eerste moet starten.","Houd rauw en gaar product gescheiden.","Werk tussendoor schoon en houd je station overzichtelijk."],"mistakes":["Beginnen zonder het hele recept te lezen.","Tijdens de bereiding steeds materiaal moeten zoeken.","Te laat ontdekken dat oven, frituur of water nog niet op temperatuur is.","Verkeerde snijplank gebruiken of rauw en gaar door elkaar laten lopen."],"good":["Alles staat logisch klaar vóór de eerste handeling.","De student hoeft nauwelijks onnodig door de keuken te lopen.","Apparatuur is op het juiste moment op temperatuur.","Werkstation blijft schoon, veilig en overzichtelijk."]},"Bewerken":{"name":"Bewerken","basis":"Product gereedmaken voor verdere bewerking door ongewenste delen te verwijderen.","professional":"Verwijder buitenbladeren, stronken/stelen of draden waar nodig.","examples":["Kool/sla; bloemkool/broccoli; boontjes/peultjes"],"critical":["Kies gereedschap en werkwijze passend bij het product.","Werk schoon, veilig en zo gelijkmatig mogelijk.","Beperk onnodig productverlies.","Bereid het product logisch voor op de volgende stap in het stroomschema."],"mistakes":["Zonder voorbereiding beginnen.","Verkeerd of bot gereedschap gebruiken.","Onnodig veel product verliezen.","De volgende processtap niet meenemen in de uitvoering."],"good":["Het product is schoon en netjes voorbereid.","De vorm/structuur past bij de volgende bereiding.","Er is weinig onnodig verlies en de werkplek blijft georganiseerd."]},"Wassen":{"name":"Wassen","basis":"Vuil, zand en oppervlakteresten verwijderen met een methode die bij het product past.","professional":"Kies de wasmethode op basis van vorm, structuur en kwetsbaarheid van het product. Niet ieder product wordt op dezelfde manier gewassen.","examples":["Sla: ruim onderdompelen in koud water; zand naar de bodem laten zakken en de sla uit het water tillen.","Prei: openen of in stukken snijden en goed tussen de lagen spoelen.","Tomaat/paprika/komkommer: onder stromend koud water afspoelen en voorzichtig schoonwrijven.","Bloemkool/broccoli: roosjes controleren en in ruim koud water wassen.","Champignons: liefst droog reinigen of heel kort afspoelen en direct drogen.","Zacht fruit: kort en voorzichtig spoelen, niet laten weken, liefst vlak voor gebruik.","Rijst: in koud water spoelen; afhankelijk van bereiding water meerdere keren verversen."],"critical":["Gebruik schoon, koud drinkwater.","Pas de wasmethode aan het product aan.","Laat gewassen producten goed uitlekken.","Laat producten niet onnodig lang in water liggen.","Was vóór verder snijden als vuil anders via mes/plank kan worden verspreid."],"mistakes":["Sla onder de kraan hard doorspoelen waardoor het kneust.","Prei alleen aan de buitenkant wassen.","Zacht fruit lang laten weken.","Gewassen product kletsnat verder verwerken."],"good":["Geen zichtbaar zand of vuil meer.","Product blijft zoveel mogelijk onbeschadigd.","Er blijft geen onnodig water aan het product hangen.","Werkplek en spoelomgeving blijven schoon."]},"Schillen":{"name":"Schillen","basis":"De schil verwijderen met zo weinig mogelijk verlies van eetbaar product.","professional":"Kies gereedschap passend bij vorm en schil. Werk zuinig: te dik schillen geeft verspilling en extra verlies van voedingsstoffen die in of vlak onder de schil kunnen zitten.","examples":["Aardappel/wortel: dun met dunschiller.","Appel/peer: dun met klein mes of dunschiller.","Knolselderij: eerst een vlakke kant maken en daarna de grove schil met koksmes verwijderen."],"critical":["Schil zo dun mogelijk.","Verwijder eerst zand zodat mes/dunschiller niet onnodig bot wordt.","Gebruik gereedschap passend bij product en schil.","Bewaar geschilde producten alleen onder water als dat nodig is en niet langer dan nodig."],"mistakes":["Te dik schillen.","Met een groot mes onveilig rond een klein product werken.","Vuil product direct schillen.","Geschilde aardappelen onnodig lang in water laten liggen."],"good":["Schil is verwijderd zonder diepe happen uit het product.","Zo min mogelijk bruikbaar product in het verspillingsbakje.","Product is schoon en klaar voor de volgende bewerking."]},"Ontvellen":{"name":"Ontvellen","basis":"Taaie/moeilijk verteerbare schil verwijderen.","professional":"Kruis insnijden; 10–20 sec kokend water; eruit bij omkrullen; ijswater; vel verwijderen; gekoeld bewaren.","examples":["Tomaat"],"critical":["Kies gereedschap en werkwijze passend bij het product.","Werk schoon, veilig en zo gelijkmatig mogelijk.","Beperk onnodig productverlies.","Bereid het product logisch voor op de volgende stap in het stroomschema."],"mistakes":["Zonder voorbereiding beginnen.","Verkeerd of bot gereedschap gebruiken.","Onnodig veel product verliezen.","De volgende processtap niet meenemen in de uitvoering."],"good":["Het product is schoon en netjes voorbereid.","De vorm/structuur past bij de volgende bereiding.","Er is weinig onnodig verlies en de werkplek blijft georganiseerd."]},"Snijden":{"name":"Snijden","basis":"Product verkleinen of in een bepaalde vorm snijden.","professional":"Gebruik passend mes en passende snijplank; grote hoeveelheden eventueel machine.","examples":["Groente; kaas; vleeswaren"],"critical":["Kies gereedschap en werkwijze passend bij het product.","Werk schoon, veilig en zo gelijkmatig mogelijk.","Beperk onnodig productverlies.","Bereid het product logisch voor op de volgende stap in het stroomschema."],"mistakes":["Zonder voorbereiding beginnen.","Verkeerd of bot gereedschap gebruiken.","Onnodig veel product verliezen.","De volgende processtap niet meenemen in de uitvoering."],"good":["Het product is schoon en netjes voorbereid.","De vorm/structuur past bij de volgende bereiding.","Er is weinig onnodig verlies en de werkplek blijft georganiseerd."]},"Julienne":{"name":"Julienne","basis":"Lange, dunne, gelijkmatige reepjes snijden.","professional":"Werk vanuit gelijke plakken naar reepjes met dezelfde dikte en zo veel mogelijk dezelfde lengte.","examples":["Wortel, prei, courgette, knolselderij."],"critical":["Gelijke dikte.","Scherp mes.","Stabiele snijbasis."],"mistakes":["Reepjes sterk verschillend van dikte.","Product niet eerst vlak/stabiel maken.","Te snel werken ten koste van maat en veiligheid."],"good":["Reepjes zijn duidelijk herkenbaar als julienne en grotendeels gelijkmatig.","De snijvorm past bij toepassing en gaart gelijkmatig."]},"Brunoise":{"name":"Brunoise","basis":"Kleine, gelijkmatige blokjes snijden.","professional":"Werk in vaste volgorde: gelijke plakken → julienne → kleine blokjes.","examples":["Wortel, knolselderij, courgette, paprika."],"critical":["Gelijke maat.","Rustige vaste snijvolgorde.","Scherp mes."],"mistakes":["Direct willekeurige blokjes snijden.","Blokjes te groot of sterk verschillend.","Veel snijverlies door slechte voorbereiding."],"good":["Kleine gelijkmatige blokjes met nette snijvlakken.","Blokjes garen ongeveer tegelijk en ogen verzorgd."]},"Chinoise":{"name":"Chinoise","basis":"Groente in gelijkmatige ruitvormige stukjes snijden.","professional":"Snijd het product in schuine, gelijkmatige stukken zodat een ruitvorm ontstaat.","examples":["Groente"],"critical":["Kies gereedschap en werkwijze passend bij het product.","Werk schoon, veilig en zo gelijkmatig mogelijk.","Beperk onnodig productverlies.","Bereid het product logisch voor op de volgende stap in het stroomschema."],"mistakes":["Zonder voorbereiding beginnen.","Verkeerd of bot gereedschap gebruiken.","Onnodig veel product verliezen.","De volgende processtap niet meenemen in de uitvoering."],"good":["Het product is schoon en netjes voorbereid.","De vorm/structuur past bij de volgende bereiding.","Er is weinig onnodig verlies en de werkplek blijft georganiseerd."]},"Raspen":{"name":"Raspen","basis":"Harde producten kleiner verdelen met een rasp.","professional":"Rasp het product passend bij gewenste fijnheid.","examples":["Kaas; wortel; appel; nootmuskaat; sinaasappelschil"],"critical":["Kies gereedschap en werkwijze passend bij het product.","Werk schoon, veilig en zo gelijkmatig mogelijk.","Beperk onnodig productverlies.","Bereid het product logisch voor op de volgende stap in het stroomschema."],"mistakes":["Zonder voorbereiding beginnen.","Verkeerd of bot gereedschap gebruiken.","Onnodig veel product verliezen.","De volgende processtap niet meenemen in de uitvoering."],"good":["Het product is schoon en netjes voorbereid.","De vorm/structuur past bij de volgende bereiding.","Er is weinig onnodig verlies en de werkplek blijft georganiseerd."]},"Schaven":{"name":"Schaven","basis":"Product in mooie, gelijkmatige dunne plakjes verdelen.","professional":"Gebruik handschaaf, keukenmachine of mandoline.","examples":["Groente"],"critical":["Kies gereedschap en werkwijze passend bij het product.","Werk schoon, veilig en zo gelijkmatig mogelijk.","Beperk onnodig productverlies.","Bereid het product logisch voor op de volgende stap in het stroomschema."],"mistakes":["Zonder voorbereiding beginnen.","Verkeerd of bot gereedschap gebruiken.","Onnodig veel product verliezen.","De volgende processtap niet meenemen in de uitvoering."],"good":["Het product is schoon en netjes voorbereid.","De vorm/structuur past bij de volgende bereiding.","Er is weinig onnodig verlies en de werkplek blijft georganiseerd."]},"Snipperen":{"name":"Snipperen","basis":"Met scherp koksmes product in kleine of grotere deeltjes snijden.","professional":"Snijd met scherp koksmes.","examples":["Ui"],"critical":["Kies gereedschap en werkwijze passend bij het product.","Werk schoon, veilig en zo gelijkmatig mogelijk.","Beperk onnodig productverlies.","Bereid het product logisch voor op de volgende stap in het stroomschema."],"mistakes":["Zonder voorbereiding beginnen.","Verkeerd of bot gereedschap gebruiken.","Onnodig veel product verliezen.","De volgende processtap niet meenemen in de uitvoering."],"good":["Het product is schoon en netjes voorbereid.","De vorm/structuur past bij de volgende bereiding.","Er is weinig onnodig verlies en de werkplek blijft georganiseerd."]},"Hakken":{"name":"Hakken","basis":"Kruiden in zeer kleine stukjes hakken.","professional":"Hak op snijplank met groot koksmes.","examples":["Peterselie; bieslook"],"critical":["Kies gereedschap en werkwijze passend bij het product.","Werk schoon, veilig en zo gelijkmatig mogelijk.","Beperk onnodig productverlies.","Bereid het product logisch voor op de volgende stap in het stroomschema."],"mistakes":["Zonder voorbereiding beginnen.","Verkeerd of bot gereedschap gebruiken.","Onnodig veel product verliezen.","De volgende processtap niet meenemen in de uitvoering."],"good":["Het product is schoon en netjes voorbereid.","De vorm/structuur past bij de volgende bereiding.","Er is weinig onnodig verlies en de werkplek blijft georganiseerd."]},"Boren":{"name":"Boren","basis":"Ronde vormpjes uit product halen.","professional":"Steek bolletjes uit product.","examples":["Meloenbolletjes"],"critical":["Kies gereedschap en werkwijze passend bij het product.","Werk schoon, veilig en zo gelijkmatig mogelijk.","Beperk onnodig productverlies.","Bereid het product logisch voor op de volgende stap in het stroomschema."],"mistakes":["Zonder voorbereiding beginnen.","Verkeerd of bot gereedschap gebruiken.","Onnodig veel product verliezen.","De volgende processtap niet meenemen in de uitvoering."],"good":["Het product is schoon en netjes voorbereid.","De vorm/structuur past bij de volgende bereiding.","Er is weinig onnodig verlies en de werkplek blijft georganiseerd."]},"Canneleren":{"name":"Canneleren","basis":"Kanaaltjes/groeven in product aanbrengen.","professional":"Trek groeven met canneleermes.","examples":["Groente/fruit"],"critical":["Kies gereedschap en werkwijze passend bij het product.","Werk schoon, veilig en zo gelijkmatig mogelijk.","Beperk onnodig productverlies.","Bereid het product logisch voor op de volgende stap in het stroomschema."],"mistakes":["Zonder voorbereiding beginnen.","Verkeerd of bot gereedschap gebruiken.","Onnodig veel product verliezen.","De volgende processtap niet meenemen in de uitvoering."],"good":["Het product is schoon en netjes voorbereid.","De vorm/structuur past bij de volgende bereiding.","Er is weinig onnodig verlies en de werkplek blijft georganiseerd."]},"Ciseleren":{"name":"Ciseleren","basis":"Zacht product snel snijden met hakkende beweging waarbij mes loskomt van plank.","professional":"Hakkende beweging met koksmes.","examples":["Zachte producten"],"critical":["Kies gereedschap en werkwijze passend bij het product.","Werk schoon, veilig en zo gelijkmatig mogelijk.","Beperk onnodig productverlies.","Bereid het product logisch voor op de volgende stap in het stroomschema."],"mistakes":["Zonder voorbereiding beginnen.","Verkeerd of bot gereedschap gebruiken.","Onnodig veel product verliezen.","De volgende processtap niet meenemen in de uitvoering."],"good":["Het product is schoon en netjes voorbereid.","De vorm/structuur past bij de volgende bereiding.","Er is weinig onnodig verlies en de werkplek blijft georganiseerd."]},"Uitsnijden":{"name":"Uitsnijden","basis":"Citruspartjes tussen vliezen uitsnijden.","professional":"Kapjes verwijderen; schil rondom weg; partjes tussen vliezen uitsnijden.","examples":["Citrusvrucht"],"critical":["Kies gereedschap en werkwijze passend bij het product.","Werk schoon, veilig en zo gelijkmatig mogelijk.","Beperk onnodig productverlies.","Bereid het product logisch voor op de volgende stap in het stroomschema."],"mistakes":["Zonder voorbereiding beginnen.","Verkeerd of bot gereedschap gebruiken.","Onnodig veel product verliezen.","De volgende processtap niet meenemen in de uitvoering."],"good":["Het product is schoon en netjes voorbereid.","De vorm/structuur past bij de volgende bereiding.","Er is weinig onnodig verlies en de werkplek blijft georganiseerd."]},"Afwegen en afmeten":{"name":"Afwegen en afmeten","basis":"Hoeveelheden uit een recept nauwkeurig wegen en afmeten. In je eigen basisrecept en stroomschema werk je consequent met gram (g) en milliliter (ml).","professional":"Werk nauwkeurig en standaardiseer. Gebruik voor massa een geschikte weegschaal en voor vloeistoffen een passende litermaat. Zet een lege kom op de weegschaal, druk TARA/0 en controleer of 0 g in beeld staat voordat je toevoegt. Zet een litermaat vlak neer en lees op ooghoogte af. Herken kg, g, l, dl, cl en ml en reken andere eenheden vóór gebruik om. Bij zeer kleine hoeveelheden kies je een precisie-/fijnweegschaal met voldoende resolutie; de benodigde nauwkeurigheid hangt af van product en apparaat.","examples":["Weegschaal: lege kom plaatsen → TARA/0 → controleren op 0 g → grondstof toevoegen.","Litermaat: vlak neerzetten en op ooghoogte aflezen.","1 kg = 1.000 g.","1 l = 10 dl = 100 cl = 1.000 ml; 1 dl = 100 ml; 1 cl = 10 ml.","0,5 l melk schrijf je in je stroomschema als 500 ml.","2,5 kg aardappelen schrijf je als 2.500 g wanneer je recept in grammen wordt opgebouwd.","Staat een recept in lb of oz? Herken de buitenlandse eenheid en reken deze betrouwbaar om voordat je gaat wegen.","Een zeer kleine hoeveelheid kruiden of additief vraagt om een fijnere weegschaal dan een gewone keukenweegschaal."],"critical":["Controleer vóór het wegen of de weegschaal stabiel staat en de juiste eenheid toont.","Gebruik TARA/0 pas nadat de lege bak of kom op de weegschaal staat.","Lees een litermaat op een vlakke ondergrond en op ooghoogte af.","Schrijf in je eigen basisrecept en stroomschema consequent g en ml.","Kies de resolutie van de weegschaal passend bij de hoeveelheid; een gewone keukenweegschaal is niet geschikt voor iedere kleine dosering.","Bij buitenlandse maten: eerst bepalen welke eenheid bedoeld wordt, daarna betrouwbaar omrekenen. Vloeibare ounces/cups kunnen per systeem verschillen."],"mistakes":["De kom meewegen omdat TARA/0 niet is gebruikt.","De litermaat schuin vasthouden of van bovenaf aflezen.","dl, cl en ml door elkaar halen.","In één stroomschema allerlei eenheden door elkaar gebruiken.","Een paar gram proberen af te wegen op een weegschaal die daarvoor niet nauwkeurig genoeg is.","Een buitenlandse maat gokken in plaats van eerst omrekenen."],"good":["Je kunt kg, g, l, dl, cl en ml correct lezen en omrekenen.","Je gebruikt TARA/0 zelfstandig en controleert de nulstand.","Je leest een litermaat correct op ooghoogte af.","Je kiest een passende weegschaal voor de gewenste nauwkeurigheid.","Je herkent buitenlandse eenheden en rekent ze eerst betrouwbaar om.","Je noteert hoeveelheden zo dat het basisrecept later betrouwbaar kan worden opgeschaald en gebruikt voor een bestellijst."]},"Ontdooien":{"name":"Ontdooien","basis":"Bevroren product vóór verwerking laten ontdooien.","professional":"In originele verpakking of schaal in koelkast; vlees afgedekt op schaal. Snel: waterdichte zak in koud water.","examples":["Vlees"],"critical":["Kies gereedschap en werkwijze passend bij het product.","Werk schoon, veilig en zo gelijkmatig mogelijk.","Beperk onnodig productverlies.","Bereid het product logisch voor op de volgende stap in het stroomschema."],"mistakes":["Zonder voorbereiding beginnen.","Verkeerd of bot gereedschap gebruiken.","Onnodig veel product verliezen.","De volgende processtap niet meenemen in de uitvoering."],"good":["Het product is schoon en netjes voorbereid.","De vorm/structuur past bij de volgende bereiding.","Er is weinig onnodig verlies en de werkplek blijft georganiseerd."]},"Roeren":{"name":"Roeren","basis":"Ingrediënten bewegen zonder dat product verandert.","professional":"Roer met lepel, spade of garde.","examples":["Saus"],"critical":["Kies gereedschap en werkwijze passend bij het product.","Werk schoon, veilig en zo gelijkmatig mogelijk.","Beperk onnodig productverlies.","Bereid het product logisch voor op de volgende stap in het stroomschema."],"mistakes":["Zonder voorbereiding beginnen.","Verkeerd of bot gereedschap gebruiken.","Onnodig veel product verliezen.","De volgende processtap niet meenemen in de uitvoering."],"good":["Het product is schoon en netjes voorbereid.","De vorm/structuur past bij de volgende bereiding.","Er is weinig onnodig verlies en de werkplek blijft georganiseerd."]},"Mengen":{"name":"Mengen","basis":"Twee of meer grondstoffen door elkaar mengen.","professional":"Meng grondstoffen gelijkmatig.","examples":["Saus; soep"],"critical":["Kies gereedschap en werkwijze passend bij het product.","Werk schoon, veilig en zo gelijkmatig mogelijk.","Beperk onnodig productverlies.","Bereid het product logisch voor op de volgende stap in het stroomschema."],"mistakes":["Zonder voorbereiding beginnen.","Verkeerd of bot gereedschap gebruiken.","Onnodig veel product verliezen.","De volgende processtap niet meenemen in de uitvoering."],"good":["Het product is schoon en netjes voorbereid.","De vorm/structuur past bij de volgende bereiding.","Er is weinig onnodig verlies en de werkplek blijft georganiseerd."]},"Marineren":{"name":"Marineren","basis":"Mengsel van groenten en/of verse kruiden aan later te bereiden product toevoegen.","professional":"Maak marinade en voeg aan product toe.","examples":["Vlees/product"],"critical":["Kies gereedschap en werkwijze passend bij het product.","Werk schoon, veilig en zo gelijkmatig mogelijk.","Beperk onnodig productverlies.","Bereid het product logisch voor op de volgende stap in het stroomschema."],"mistakes":["Zonder voorbereiding beginnen.","Verkeerd of bot gereedschap gebruiken.","Onnodig veel product verliezen.","De volgende processtap niet meenemen in de uitvoering."],"good":["Het product is schoon en netjes voorbereid.","De vorm/structuur past bij de volgende bereiding.","Er is weinig onnodig verlies en de werkplek blijft georganiseerd."]},"Garneren":{"name":"Garneren","basis":"Eetbare toevoeging om gerecht te verfraaien.","professional":"Kies garnituur passend bij hoofdcomponent in kleur, geur, smaak, vorm en grootte.","examples":["Tomatensoep + peterselie"],"critical":["Kies gereedschap en werkwijze passend bij het product.","Werk schoon, veilig en zo gelijkmatig mogelijk.","Beperk onnodig productverlies.","Bereid het product logisch voor op de volgende stap in het stroomschema."],"mistakes":["Zonder voorbereiding beginnen.","Verkeerd of bot gereedschap gebruiken.","Onnodig veel product verliezen.","De volgende processtap niet meenemen in de uitvoering."],"good":["Het product is schoon en netjes voorbereid.","De vorm/structuur past bij de volgende bereiding.","Er is weinig onnodig verlies en de werkplek blijft georganiseerd."]},"Decoreren":{"name":"Decoreren","basis":"Niet-eetbare decoratie om gerecht te verfraaien.","professional":"Kies decoratie passend bij kleur, vorm en grootte.","examples":["Papieren paraplu bij ijssorbet"],"critical":["Kies gereedschap en werkwijze passend bij het product.","Werk schoon, veilig en zo gelijkmatig mogelijk.","Beperk onnodig productverlies.","Bereid het product logisch voor op de volgende stap in het stroomschema."],"mistakes":["Zonder voorbereiding beginnen.","Verkeerd of bot gereedschap gebruiken.","Onnodig veel product verliezen.","De volgende processtap niet meenemen in de uitvoering."],"good":["Het product is schoon en netjes voorbereid.","De vorm/structuur past bij de volgende bereiding.","Er is weinig onnodig verlies en de werkplek blijft georganiseerd."]},"Dresseren":{"name":"Dresseren","basis":"Bereide producten rangschikken op bord, schaal of ander materiaal.","professional":"Rangschik producten bewust.","examples":["Bereid gerecht"],"critical":["Kies gereedschap en werkwijze passend bij het product.","Werk schoon, veilig en zo gelijkmatig mogelijk.","Beperk onnodig productverlies.","Bereid het product logisch voor op de volgende stap in het stroomschema."],"mistakes":["Zonder voorbereiding beginnen.","Verkeerd of bot gereedschap gebruiken.","Onnodig veel product verliezen.","De volgende processtap niet meenemen in de uitvoering."],"good":["Het product is schoon en netjes voorbereid.","De vorm/structuur past bij de volgende bereiding.","Er is weinig onnodig verlies en de werkplek blijft georganiseerd."]},"Invriezen":{"name":"Invriezen","basis":"Product snel naar houdbaarheidstemperatuur brengen.","professional":"Goed verpakken; labelen; ruimte laten voor koude luchtcirculatie.","examples":["Bereide producten"],"critical":["Kies gereedschap en werkwijze passend bij het product.","Werk schoon, veilig en zo gelijkmatig mogelijk.","Beperk onnodig productverlies.","Bereid het product logisch voor op de volgende stap in het stroomschema."],"mistakes":["Zonder voorbereiding beginnen.","Verkeerd of bot gereedschap gebruiken.","Onnodig veel product verliezen.","De volgende processtap niet meenemen in de uitvoering."],"good":["Het product is schoon en netjes voorbereid.","De vorm/structuur past bij de volgende bereiding.","Er is weinig onnodig verlies en de werkplek blijft georganiseerd."]},"Terugkoelen":{"name":"Terugkoelen","basis":"Bereid product zo snel mogelijk terugbrengen naar koelingstemperatuur.","professional":"Product snel terugkoelen.","examples":["Bereid product"],"critical":["Kies gereedschap en werkwijze passend bij het product.","Werk schoon, veilig en zo gelijkmatig mogelijk.","Beperk onnodig productverlies.","Bereid het product logisch voor op de volgende stap in het stroomschema."],"mistakes":["Zonder voorbereiding beginnen.","Verkeerd of bot gereedschap gebruiken.","Onnodig veel product verliezen.","De volgende processtap niet meenemen in de uitvoering."],"good":["Het product is schoon en netjes voorbereid.","De vorm/structuur past bij de volgende bereiding.","Er is weinig onnodig verlies en de werkplek blijft georganiseerd."]}},"warm":{"Blancheren":{"name":"Blancheren","basis":"Product kort in kokend water leggen.","professional":"Ruim water koken; product in één keer onderdompelen; onder water houden; beetgaar koken; terugkoelen.","examples":["Groente; vlees/botten"],"critical":["Gebruik passende apparatuur en controleer temperatuur/tijd.","Werk met een hoeveelheid die bij pan of apparatuur past.","Beoordeel gaarheid, kleur, structuur en veiligheid.","Voorkom onnodig doorgaren of verbranden."],"mistakes":["Temperatuur niet controleren.","Te veel product tegelijk verwerken.","Alleen op tijd koken en niet naar productresultaat kijken.","Product laten doorgaren nadat gewenste garing is bereikt."],"good":["Product heeft de gewenste gaarheid, kleur en structuur.","Temperatuur en techniek zijn beheerst toegepast.","Het eindresultaat is reproduceerbaar en niet verbrand of uitgedroogd."]},"Pocheren":{"name":"Pocheren","basis":"Zacht garen in vloeistof onder het kookpunt.","professional":"Houd de vloeistof rustig tussen 60-90 °C, zodat kwetsbare producten heel blijven en niet uitdrogen.","examples":["Ei, vis, kipfilet."],"critical":["Vloeistof niet laten koken.","Product net onder vloeistof.","Temperatuur controleren.","Kwetsbaar product zo weinig mogelijk bewegen."],"mistakes":["Vloeistof hard laten koken.","Product half boven de vloeistof laten liggen.","Te vaak bewegen waardoor product breekt."],"good":["Product blijft heel en heeft een zachte, gelijkmatige garing.","De vloeistof kookt niet zichtbaar."]},"Koken":{"name":"Koken","basis":"Gaar en verteerbaar maken in vloeistof die aan de kook wordt gehouden.","professional":"Product in vloeistof koken; koud/warm opzetten afhankelijk product.","examples":["Vlees; aardappel; groente"],"critical":["Gebruik passende apparatuur en controleer temperatuur/tijd.","Werk met een hoeveelheid die bij pan of apparatuur past.","Beoordeel gaarheid, kleur, structuur en veiligheid.","Voorkom onnodig doorgaren of verbranden."],"mistakes":["Temperatuur niet controleren.","Te veel product tegelijk verwerken.","Alleen op tijd koken en niet naar productresultaat kijken.","Product laten doorgaren nadat gewenste garing is bereikt."],"good":["Product heeft de gewenste gaarheid, kleur en structuur.","Temperatuur en techniek zijn beheerst toegepast.","Het eindresultaat is reproduceerbaar en niet verbrand of uitgedroogd."]},"Stomen":{"name":"Stomen","basis":"Gaar maken door damp van kokend water.","professional":"Gebruik stoompan met rooster, hogedrukpan of combisteamer.","examples":["Bapao; rijst; aardappel; groente; vis; vlees"],"critical":["Zorg voor voldoende stoom.","Product niet in water laten staan bij stomen zonder druk.","Houd systeem gesloten waar nodig.","Open voorzichtig vanwege hete stoom."],"mistakes":["Te weinig water/stoom.","Deksel/deur steeds openen.","Product in water laten staan.","Onveilig omgaan met hete stoom/druk."],"good":["Product gaart gelijkmatig door stoom en blijft niet waterig.","Apparatuur wordt veilig bediend."]},"Frituren":{"name":"Frituren","basis":"Garen in hete olie.","professional":"Werk met de juiste olietemperatuur, kleine porties en een zo droog mogelijk product voor een krokante korst en beheersbare vetopname.","examples":["Friet, kroketten/snacks, gepaneerde producten."],"critical":["Frituur meestal rond 175 °C volgens de bron.","Niet te veel product tegelijk.","Nat product goed drogen.","Na frituren laten uitlekken en niet afdekken.","Geen zout, suiker of kruiden boven de olie strooien."],"mistakes":["Te veel product tegelijk waardoor temperatuur sterk daalt.","Nat product in hete olie doen.","Frituurproduct na afloop afdekken waardoor het slap wordt.","Te lage temperatuur waardoor product meer vet opneemt."],"good":["Product is gelijkmatig gekleurd en krokant.","Olie blijft voldoende op temperatuur.","Product is goed uitgelekt en niet onnodig vet."]},"Grillen":{"name":"Grillen","basis":"Garen en bruine korst maken met stralings- of contactwarmte.","professional":"Gebruik stralingswarmte of contactwarmte.","examples":["Biefstuk; hamburger; vis; kip; aubergine"],"critical":["Gebruik passende apparatuur en controleer temperatuur/tijd.","Werk met een hoeveelheid die bij pan of apparatuur past.","Beoordeel gaarheid, kleur, structuur en veiligheid.","Voorkom onnodig doorgaren of verbranden."],"mistakes":["Temperatuur niet controleren.","Te veel product tegelijk verwerken.","Alleen op tijd koken en niet naar productresultaat kijken.","Product laten doorgaren nadat gewenste garing is bereikt."],"good":["Product heeft de gewenste gaarheid, kleur en structuur.","Temperatuur en techniek zijn beheerst toegepast.","Het eindresultaat is reproduceerbaar en niet verbrand of uitgedroogd."]},"Gratineren":{"name":"Gratineren","basis":"Korstje op of om gerecht aanbrengen met zeer hete stralingswarmte.","professional":"Volledig, snel of licht gratineren.","examples":["Gerecht met gratinlaag"],"critical":["Gebruik sterke bovenwarmte.","Blijf bij het product; kleur verandert snel.","Gebruik hittebestendige schaal."],"mistakes":["Product onbeheerd laten.","Te lang gratineren waardoor uitdroging/verbranding.","Koud/onbereid product snel willen gratineren alsof het daarmee gaar wordt."],"good":["Bovenkant heeft gewenste goudbruine kleur zonder verbranden.","Binnenkant is passend warm/gaar voor de gekozen gratineermethode."]},"Bakken":{"name":"Bakken","basis":"Garen en bruinen in een kleine hoeveelheid vet.","professional":"Werk met een passende pan- en vettemperatuur, voldoende ruimte en geef het product tijd om een korst te vormen voordat je keert.","examples":["Ei, vis, vlees, aardappel, groente."],"critical":["Pan op passende temperatuur.","Niet te veel product tegelijk.","Niet onnodig in product prikken.","Niet te vroeg keren."],"mistakes":["Koude pan gebruiken.","Pan te vol leggen.","Product steeds verplaatsen.","Te hoge hitte waardoor buitenkant verbrandt voordat binnenkant gaar is."],"good":["Gelijkmatige bruining en passende korst.","Product is gaar zoals bedoeld zonder verbranding.","Pan bevat geen grote hoeveelheid los vocht door overbelading."]},"Rissoleren":{"name":"Rissoleren","basis":"Bakken waarbij product regelmatig wordt omgeschud.","professional":"Bak en schud regelmatig om.","examples":["Krieltjes"],"critical":["Gebruik passende apparatuur en controleer temperatuur/tijd.","Werk met een hoeveelheid die bij pan of apparatuur past.","Beoordeel gaarheid, kleur, structuur en veiligheid.","Voorkom onnodig doorgaren of verbranden."],"mistakes":["Temperatuur niet controleren.","Te veel product tegelijk verwerken.","Alleen op tijd koken en niet naar productresultaat kijken.","Product laten doorgaren nadat gewenste garing is bereikt."],"good":["Product heeft de gewenste gaarheid, kleur en structuur.","Temperatuur en techniek zijn beheerst toegepast.","Het eindresultaat is reproduceerbaar en niet verbrand of uitgedroogd."]},"Myoteren":{"name":"Myoteren","basis":"Specerijen zachtjes bakken in weinig olie.","professional":"Specerijen zacht bakken.","examples":["Specerijen"],"critical":["Gebruik passende apparatuur en controleer temperatuur/tijd.","Werk met een hoeveelheid die bij pan of apparatuur past.","Beoordeel gaarheid, kleur, structuur en veiligheid.","Voorkom onnodig doorgaren of verbranden."],"mistakes":["Temperatuur niet controleren.","Te veel product tegelijk verwerken.","Alleen op tijd koken en niet naar productresultaat kijken.","Product laten doorgaren nadat gewenste garing is bereikt."],"good":["Product heeft de gewenste gaarheid, kleur en structuur.","Temperatuur en techniek zijn beheerst toegepast.","Het eindresultaat is reproduceerbaar en niet verbrand of uitgedroogd."]},"Ontzuren":{"name":"Ontzuren","basis":"Tomatenpuree meebakken.","professional":"Bak tomatenpuree mee.","examples":["Tomatenpuree"],"critical":["Gebruik passende apparatuur en controleer temperatuur/tijd.","Werk met een hoeveelheid die bij pan of apparatuur past.","Beoordeel gaarheid, kleur, structuur en veiligheid.","Voorkom onnodig doorgaren of verbranden."],"mistakes":["Temperatuur niet controleren.","Te veel product tegelijk verwerken.","Alleen op tijd koken en niet naar productresultaat kijken.","Product laten doorgaren nadat gewenste garing is bereikt."],"good":["Product heeft de gewenste gaarheid, kleur en structuur.","Temperatuur en techniek zijn beheerst toegepast.","Het eindresultaat is reproduceerbaar en niet verbrand of uitgedroogd."]},"Bakken in oven":{"name":"Bakken in oven","basis":"Product garen met droge bruine korst zonder bakproduct.","professional":"Bak in oven; tijd afhankelijk van soort, grootte, hoeveelheid, gaarheid.","examples":["Pizza; brood; gebak"],"critical":["Gebruik passende apparatuur en controleer temperatuur/tijd.","Werk met een hoeveelheid die bij pan of apparatuur past.","Beoordeel gaarheid, kleur, structuur en veiligheid.","Voorkom onnodig doorgaren of verbranden."],"mistakes":["Temperatuur niet controleren.","Te veel product tegelijk verwerken.","Alleen op tijd koken en niet naar productresultaat kijken.","Product laten doorgaren nadat gewenste garing is bereikt."],"good":["Product heeft de gewenste gaarheid, kleur en structuur.","Temperatuur en techniek zijn beheerst toegepast.","Het eindresultaat is reproduceerbaar en niet verbrand of uitgedroogd."]},"Afbakken":{"name":"Afbakken","basis":"Voorgebakken convenience-deegproduct ter plaatse verder bakken.","professional":"Bake-off product afbakken.","examples":["Stokbrood; croissant; pistolet"],"critical":["Gebruik passende apparatuur en controleer temperatuur/tijd.","Werk met een hoeveelheid die bij pan of apparatuur past.","Beoordeel gaarheid, kleur, structuur en veiligheid.","Voorkom onnodig doorgaren of verbranden."],"mistakes":["Temperatuur niet controleren.","Te veel product tegelijk verwerken.","Alleen op tijd koken en niet naar productresultaat kijken.","Product laten doorgaren nadat gewenste garing is bereikt."],"good":["Product heeft de gewenste gaarheid, kleur en structuur.","Temperatuur en techniek zijn beheerst toegepast.","Het eindresultaat is reproduceerbaar en niet verbrand of uitgedroogd."]},"Braden":{"name":"Braden","basis":"Vlees geheel/gedeeltelijk op matig vuur garen in hete boter/olie in pan of oven.","professional":"Vlees 30 min vooraf uit koeling; droogdeppen; boter smelten/bruinen; rondom aanbraden; lager vuur; keren/bedruipen; na afloop ±10 min rusten.","examples":["Vlees"],"critical":["Gebruik passende apparatuur en controleer temperatuur/tijd.","Werk met een hoeveelheid die bij pan of apparatuur past.","Beoordeel gaarheid, kleur, structuur en veiligheid.","Voorkom onnodig doorgaren of verbranden."],"mistakes":["Temperatuur niet controleren.","Te veel product tegelijk verwerken.","Alleen op tijd koken en niet naar productresultaat kijken.","Product laten doorgaren nadat gewenste garing is bereikt."],"good":["Product heeft de gewenste gaarheid, kleur en structuur.","Temperatuur en techniek zijn beheerst toegepast.","Het eindresultaat is reproduceerbaar en niet verbrand of uitgedroogd."]},"Stoven":{"name":"Stoven","basis":"Langzaam garen met toegevoegd vocht.","professional":"Bruin het product eerst voor smaak en laat het daarna rustig met vocht en deksel garen totdat het zacht is.","examples":["Stoofvlees met bouillon/wijn/bier.","Groente langzaam stoven."],"critical":["Eerst bruinen.","Voldoende vocht, maar niet onnodig verdrinken.","Rustig garen rond/onder kookpunt.","Deksel gebruiken.","Voldoende tijd geven."],"mistakes":["Hard doorkoken.","Te weinig tijd geven.","Te veel of te weinig vocht.","Niet eerst bruinen wanneer dat voor het gerecht gewenst is."],"good":["Product is zacht en smaakvol.","Vocht is niet volledig weggekookt of waterig zonder reden.","Garing is rustig verlopen."]},"Sous-vide":{"name":"Sous-vide","basis":"Gevacumeerd product garen in waterbad/combisteamer op ideale garingstemperatuur.","professional":"Voorbereiden; zak vullen; vacumeren/sealen; garen; snel koelen; etiketteren; gekoeld opslaan.","examples":["Vlees; vis; groente"],"critical":["Gebruik passende apparatuur en controleer temperatuur/tijd.","Werk met een hoeveelheid die bij pan of apparatuur past.","Beoordeel gaarheid, kleur, structuur en veiligheid.","Voorkom onnodig doorgaren of verbranden."],"mistakes":["Temperatuur niet controleren.","Te veel product tegelijk verwerken.","Alleen op tijd koken en niet naar productresultaat kijken.","Product laten doorgaren nadat gewenste garing is bereikt."],"good":["Product heeft de gewenste gaarheid, kleur en structuur.","Temperatuur en techniek zijn beheerst toegepast.","Het eindresultaat is reproduceerbaar en niet verbrand of uitgedroogd."]},"Regenereren":{"name":"Regenereren","basis":"Reeds bereid product opnieuw verwarmen.","professional":"Verwarm in combisteamer, oven of magnetron.","examples":["Reeds bereid product"],"critical":["Gebruik passende apparatuur en controleer temperatuur/tijd.","Werk met een hoeveelheid die bij pan of apparatuur past.","Beoordeel gaarheid, kleur, structuur en veiligheid.","Voorkom onnodig doorgaren of verbranden."],"mistakes":["Temperatuur niet controleren.","Te veel product tegelijk verwerken.","Alleen op tijd koken en niet naar productresultaat kijken.","Product laten doorgaren nadat gewenste garing is bereikt."],"good":["Product heeft de gewenste gaarheid, kleur en structuur.","Temperatuur en techniek zijn beheerst toegepast.","Het eindresultaat is reproduceerbaar en niet verbrand of uitgedroogd."]},"Binden/Liëren":{"name":"Binden/Liëren","basis":"Vloeistof dikker maken met bindmiddel.","professional":"Voeg passend bindmiddel toe.","examples":["Soep; saus"],"critical":["Gebruik passende apparatuur en controleer temperatuur/tijd.","Werk met een hoeveelheid die bij pan of apparatuur past.","Beoordeel gaarheid, kleur, structuur en veiligheid.","Voorkom onnodig doorgaren of verbranden."],"mistakes":["Temperatuur niet controleren.","Te veel product tegelijk verwerken.","Alleen op tijd koken en niet naar productresultaat kijken.","Product laten doorgaren nadat gewenste garing is bereikt."],"good":["Product heeft de gewenste gaarheid, kleur en structuur.","Temperatuur en techniek zijn beheerst toegepast.","Het eindresultaat is reproduceerbaar en niet verbrand of uitgedroogd."]},"Opzetten met koud water":{"name":"Opzetten met koud water","basis":"Product samen met koud water opzetten en daarna verhitten.","professional":"Gebruik deze manier wanneer stoffen of smaak geleidelijk uit het product in de vloeistof mogen trekken of wanneer het product rustig moet opwarmen.","examples":["Bouillon; bepaalde kookbereidingen"],"critical":["Gebruik voldoende koude vloeistof.","Verwarm geleidelijk.","Controleer schuim/onzuiverheden indien relevant."],"mistakes":["Met te weinig vloeistof starten.","Warm water gebruiken terwijl koud opzetten gevraagd is.","Onnodig hard doorkoken."],"good":["Product en vloeistof warmen gecontroleerd samen op.","Het doel van de bereiding wordt bereikt zonder aanbranden."]},"Opzetten met warm/kokend water":{"name":"Opzetten met warm/kokend water","basis":"Product toevoegen aan al warm of kokend water.","professional":"Gebruik deze manier wanneer het product snel op bereidingstemperatuur moet komen en minder smaak/stof aan de vloeistof hoeft af te geven.","examples":["Groenten"],"critical":["Vloeistof eerst voldoende op temperatuur.","Product gecontroleerd toevoegen.","Na toevoegen opnieuw temperatuur herstellen."],"mistakes":["Product toevoegen voordat water warm genoeg is.","Te grote hoeveelheid ineens waardoor temperatuur sterk zakt.","Spatten door onzorgvuldig toevoegen."],"good":["Bereiding start direct op de bedoelde temperatuur.","Product gaart gelijkmatig."]},"Koken met deksel":{"name":"Koken met deksel","basis":"Koken met de pan afgedekt.","professional":"Gebruik deksel om warmte en vocht vast te houden wanneer dat past bij product en bereiding.","examples":["Diverse kookbereidingen"],"critical":["Pas hitte aan om overkoken te voorkomen.","Deksel passend plaatsen.","Niet gebruiken wanneer damp/zuren juist moeten ontsnappen."],"mistakes":["Vol vermogen laten staan tot pan overkookt.","Deksel gebruiken bij groene groente wanneer zonder deksel gewenst is."],"good":["Voldoende warmte blijft behouden zonder overkoken.","Vochtverlies past bij de bereiding."]},"Koken zonder deksel":{"name":"Koken zonder deksel","basis":"Koken met een open pan.","professional":"Gebruik dit wanneer je wilt kunnen controleren, vocht wilt laten verdampen of bij groene groente zuren wilt laten ontsnappen.","examples":["Spinazie; broccoli; boontjes; ei"],"critical":["Let op verdamping.","Controleer gaarheid regelmatig.","Pas hitte aan om rustig te koken."],"mistakes":["Vloeistof volledig laten wegkoken.","Onnodig hard koken.","Niet opletten omdat de pan openstaat."],"good":["Gaarheid en vochtgehalte zijn gecontroleerd.","Product behoudt gewenste kleur/structuur."]},"Stomen zonder druk":{"name":"Stomen zonder druk","basis":"Garen met stoom bij normale luchtdruk.","professional":"Water laten koken; product boven het water plaatsen; stoom langs het product laten gaan.","examples":["Groente; vis; rijst"],"critical":["Zorg voor voldoende stoom.","Product niet in water laten staan bij stomen zonder druk.","Houd systeem gesloten waar nodig.","Open voorzichtig vanwege hete stoom."],"mistakes":["Te weinig water/stoom.","Deksel/deur steeds openen.","Product in water laten staan.","Onveilig omgaan met hete stoom/druk."],"good":["Product gaart gelijkmatig door stoom en blijft niet waterig.","Apparatuur wordt veilig bediend."]},"Stomen met druk":{"name":"Stomen met druk","basis":"Garen met stoom in een afgesloten systeem waarin druk wordt opgebouwd.","professional":"Gebruik een geschikte hogedrukpan volgens veilige werkwijze.","examples":["Stevige producten"],"critical":["Zorg voor voldoende stoom.","Product niet in water laten staan bij stomen zonder druk.","Houd systeem gesloten waar nodig.","Open voorzichtig vanwege hete stoom."],"mistakes":["Te weinig water/stoom.","Deksel/deur steeds openen.","Product in water laten staan.","Onveilig omgaan met hete stoom/druk."],"good":["Product gaart gelijkmatig door stoom en blijft niet waterig.","Apparatuur wordt veilig bediend."]},"Stomen met combisteamer":{"name":"Stomen met combisteamer","basis":"Garen met gecontroleerde stoom in een combisteamer.","professional":"Plaats product in geschikte bak/plaat en kies stoomfunctie.","examples":["Groente; aardappel; vis; vlees"],"critical":["Zorg voor voldoende stoom.","Product niet in water laten staan bij stomen zonder druk.","Houd systeem gesloten waar nodig.","Open voorzichtig vanwege hete stoom."],"mistakes":["Te weinig water/stoom.","Deksel/deur steeds openen.","Product in water laten staan.","Onveilig omgaan met hete stoom/druk."],"good":["Product gaart gelijkmatig door stoom en blijft niet waterig.","Apparatuur wordt veilig bediend."]},"Grillen met stralingswarmte":{"name":"Grillen met stralingswarmte","basis":"Grillen door warmte die van een hete bron naar het product straalt.","professional":"Werk dicht genoeg bij de warmtebron voor snelle kleuring, maar bewaak afstand en tijd om verbranding te voorkomen.","examples":["Vlees; vis; stevige groente"],"critical":["Grill voorverwarmen.","Passende afstand tot warmtebron.","Continu kleur controleren."],"mistakes":["Te dicht bij bron waardoor buitenkant verbrandt.","Niet voorverwarmen.","Product onbeheerd laten."],"good":["Mooie bruining zonder verbrande plekken.","Product is passend gaar."]},"Grillen met contactwarmte":{"name":"Grillen met contactwarmte","basis":"Grillen doordat product direct contact maakt met een hete plaat/pan.","professional":"Werk met een goed voorverwarmd oppervlak en geef product tijd om grillstrepen en bruining te vormen.","examples":["Biefstuk; hamburger; aubergine"],"critical":["Grillplaat/pan goed voorverwarmen.","Product droog waar passend.","Niet te vroeg bewegen."],"mistakes":["Koud oppervlak.","Product steeds verschuiven.","Te veel product tegelijk."],"good":["Duidelijke grillstrepen/bruining en passende gaarheid."]},"Volledig gratineren":{"name":"Volledig gratineren","basis":"Gerecht verwarmen/garen én een korst laten vormen met hete stralingswarmte.","professional":"Verhit tot het gerecht warm/gaar is en een korst heeft.","examples":["Gratin/gerecht met korstlaag"],"critical":["Gebruik sterke bovenwarmte.","Blijf bij het product; kleur verandert snel.","Gebruik hittebestendige schaal."],"mistakes":["Product onbeheerd laten.","Te lang gratineren waardoor uitdroging/verbranding.","Koud/onbereid product snel willen gratineren alsof het daarmee gaar wordt."],"good":["Bovenkant heeft gewenste goudbruine kleur zonder verbranden.","Binnenkant is passend warm/gaar voor de gekozen gratineermethode."]},"Snel gratineren":{"name":"Snel gratineren","basis":"Reeds warm/gaar gerecht kort en zeer heet kleuren.","professional":"Plaats kort onder zeer hete bovenwarmte.","examples":["Reeds bereid gerecht"],"critical":["Gebruik sterke bovenwarmte.","Blijf bij het product; kleur verandert snel.","Gebruik hittebestendige schaal."],"mistakes":["Product onbeheerd laten.","Te lang gratineren waardoor uitdroging/verbranding.","Koud/onbereid product snel willen gratineren alsof het daarmee gaar wordt."],"good":["Bovenkant heeft gewenste goudbruine kleur zonder verbranden.","Binnenkant is passend warm/gaar voor de gekozen gratineermethode."]},"Licht gratineren":{"name":"Licht gratineren","basis":"Bovenzijde licht laten kleuren met hete stralingswarmte.","professional":"Kort onder bovenwarmte tot lichte kleuring.","examples":["Afwerking van gerecht"],"critical":["Gebruik sterke bovenwarmte.","Blijf bij het product; kleur verandert snel.","Gebruik hittebestendige schaal."],"mistakes":["Product onbeheerd laten.","Te lang gratineren waardoor uitdroging/verbranding.","Koud/onbereid product snel willen gratineren alsof het daarmee gaar wordt."],"good":["Bovenkant heeft gewenste goudbruine kleur zonder verbranden.","Binnenkant is passend warm/gaar voor de gekozen gratineermethode."]}},"materials":{"Koksmes":{"name":"Koksmes","basis":"Meest gebruikte mes; verschillende maten.","professional":"Kies formaat passend bij product.","examples":["Diverse producten"],"critical":["Gebruik een scherp en schoon mes.","Werk op een stabiele snijplank.","Houd vingers uit de snijrichting.","Gebruik het mes voor de juiste toepassing."],"mistakes":["Bot mes gebruiken.","Verkeerd mes kiezen.","Onstabiele plank of product.","Mes los in spoelbak of onveilig neerleggen."],"good":["Meskeuze past bij product en handeling.","Sneden zijn gecontroleerd en product wordt weinig beschadigd.","Mes wordt veilig gebruikt en opgeborgen."]},"Officemesje":{"name":"Officemesje","basis":"Klein mes voor klein snijwerk.","professional":"Gebruik voor kleine handelingen.","examples":["Kleine producten"],"critical":["Gebruik een scherp en schoon mes.","Werk op een stabiele snijplank.","Houd vingers uit de snijrichting.","Gebruik het mes voor de juiste toepassing."],"mistakes":["Bot mes gebruiken.","Verkeerd mes kiezen.","Onstabiele plank of product.","Mes los in spoelbak of onveilig neerleggen."],"good":["Meskeuze past bij product en handeling.","Sneden zijn gecontroleerd en product wordt weinig beschadigd.","Mes wordt veilig gebruikt en opgeborgen."]},"Dunschiller / éconoom":{"name":"Dunschiller / éconoom","basis":"Schilgereedschap voor dunne schillen.","professional":"Beweeg langs product en verwijder dunne schil.","examples":["Aardappel; wortel; komkommer"],"critical":["Gebruik een scherp en schoon mes.","Werk op een stabiele snijplank.","Houd vingers uit de snijrichting.","Gebruik het mes voor de juiste toepassing."],"mistakes":["Bot mes gebruiken.","Verkeerd mes kiezen.","Onstabiele plank of product.","Mes los in spoelbak of onveilig neerleggen."],"good":["Meskeuze past bij product en handeling.","Sneden zijn gecontroleerd en product wordt weinig beschadigd.","Mes wordt veilig gebruikt en opgeborgen."]},"Aardappelschilmesje / toerneermesje":{"name":"Aardappelschilmesje / toerneermesje","basis":"Klein schilmes voor aardappel, groente en fruit.","professional":"Gebruik aardappelschilmesje / toerneermesje voor het werk waarvoor het is ontworpen, met een scherp snijvlak en stabiele werkhouding.","examples":["Aardappel; groente; fruit"],"critical":["Gebruik een scherp en schoon mes.","Werk op een stabiele snijplank.","Houd vingers uit de snijrichting.","Gebruik het mes voor de juiste toepassing."],"mistakes":["Bot mes gebruiken.","Verkeerd mes kiezen.","Onstabiele plank of product.","Mes los in spoelbak of onveilig neerleggen."],"good":["Meskeuze past bij product en handeling.","Sneden zijn gecontroleerd en product wordt weinig beschadigd.","Mes wordt veilig gebruikt en opgeborgen."]},"Aanzetstaal":{"name":"Aanzetstaal","basis":"Stalen hulpmiddel om snede van mes scherp te houden.","professional":"Mes langs staal aanzetten.","examples":["Messen"],"critical":["Aanzetstaal onderhoudt de snede; een bot mes moet worden geslepen.","Werk rustig met vaste hoek en stabiel staal."],"mistakes":["Proberen een volledig bot mes met aanzetstaal te slijpen.","Te snel of ongecontroleerd aanzetten."],"good":["Snede voelt weer recht/scherp genoeg voor veilig snijwerk.","Beweging blijft gecontroleerd en veilig."]},"Broodmes / zaagmes / kartelmes":{"name":"Broodmes / zaagmes / kartelmes","basis":"Mes met kartelrand voor zachte producten met harde korst.","professional":"Zaagbeweging.","examples":["Brood; cake"],"critical":["Gebruik een scherp en schoon mes.","Werk op een stabiele snijplank.","Houd vingers uit de snijrichting.","Gebruik het mes voor de juiste toepassing."],"mistakes":["Bot mes gebruiken.","Verkeerd mes kiezen.","Onstabiele plank of product.","Mes los in spoelbak of onveilig neerleggen."],"good":["Meskeuze past bij product en handeling.","Sneden zijn gecontroleerd en product wordt weinig beschadigd.","Mes wordt veilig gebruikt en opgeborgen."]},"Uitbeenmes":{"name":"Uitbeenmes","basis":"Mes voor uitbenen.","professional":"Gebruik uitbeenmes voor het werk waarvoor het is ontworpen, met een scherp snijvlak en stabiele werkhouding.","examples":["Vlees"],"critical":["Gebruik een scherp en schoon mes.","Werk op een stabiele snijplank.","Houd vingers uit de snijrichting.","Gebruik het mes voor de juiste toepassing."],"mistakes":["Bot mes gebruiken.","Verkeerd mes kiezen.","Onstabiele plank of product.","Mes los in spoelbak of onveilig neerleggen."],"good":["Meskeuze past bij product en handeling.","Sneden zijn gecontroleerd en product wordt weinig beschadigd.","Mes wordt veilig gebruikt en opgeborgen."]},"Fileermes":{"name":"Fileermes","basis":"Mes voor fileren van vis; stevig of flexibel afhankelijk vis.","professional":"Gebruik fileermes voor het werk waarvoor het is ontworpen, met een scherp snijvlak en stabiele werkhouding.","examples":["Vis"],"critical":["Gebruik een scherp en schoon mes.","Werk op een stabiele snijplank.","Houd vingers uit de snijrichting.","Gebruik het mes voor de juiste toepassing."],"mistakes":["Bot mes gebruiken.","Verkeerd mes kiezen.","Onstabiele plank of product.","Mes los in spoelbak of onveilig neerleggen."],"good":["Meskeuze past bij product en handeling.","Sneden zijn gecontroleerd en product wordt weinig beschadigd.","Mes wordt veilig gebruikt en opgeborgen."]},"Glaceermes / paletmes":{"name":"Glaceermes / paletmes","basis":"Plat mes voor gladstrijken/glaceren.","professional":"Strijk product glad.","examples":["Slagroom; taart"],"critical":["Gebruik een scherp en schoon mes.","Werk op een stabiele snijplank.","Houd vingers uit de snijrichting.","Gebruik het mes voor de juiste toepassing."],"mistakes":["Bot mes gebruiken.","Verkeerd mes kiezen.","Onstabiele plank of product.","Mes los in spoelbak of onveilig neerleggen."],"good":["Meskeuze past bij product en handeling.","Sneden zijn gecontroleerd en product wordt weinig beschadigd.","Mes wordt veilig gebruikt en opgeborgen."]},"Kleurcodering snijplanken":{"name":"Kleurcodering snijplanken","basis":"Gebruik de juiste kleur snijplank bij de juiste productgroep.","professional":"Kleurcodering helpt kruisbesmetting beperken: groen AGF, geel gevogelte, rood rauw vlees, bruin gaar vlees, blauw vis en wit brood.","examples":["Groen = AGF","Geel = gevogelte","Rood = rauw vlees","Bruin = gaar vlees","Blauw = vis","Wit = brood"],"critical":["Kleur consequent gebruiken.","Rauw en gaar gescheiden houden.","Plank correct reinigen/desinfecteren tussen werkzaamheden."],"mistakes":["Verkeerde plankkleur gebruiken.","Rauw en gaar op dezelfde ongereinigde plank.","Versleten/groefrijke vieze plank blijven gebruiken."],"good":["Juiste kleur ligt vóór start klaar.","Productgroepen blijven gescheiden.","Plank is schoon en stabiel."]},"Garde":{"name":"Garde","basis":"Draadgereedschap voor kloppen, roeren en mengen.","professional":"Gebruik bij slagroom, beslag, saus, mayonaise.","examples":["Slagroom; beslag; mayonaise"],"critical":["Kies formaat en materiaal passend bij product.","Gebruik schoon en heel gereedschap.","Voorkom krassen/beschadiging aan pan of product."],"mistakes":["Verkeerd gereedschap kiezen.","Te hard of onhandig werken.","Vuil hulpmiddel tussen producten gebruiken."],"good":["Handeling gaat gecontroleerd en efficiënt.","Product en pan worden niet onnodig beschadigd."]},"Spatel":{"name":"Spatel","basis":"Recht/gebogen hulpmiddel van hout of kunststof.","professional":"Meng voorzichtig.","examples":["Beslag; soep; saus"],"critical":["Kies formaat en materiaal passend bij product.","Gebruik schoon en heel gereedschap.","Voorkom krassen/beschadiging aan pan of product."],"mistakes":["Verkeerd gereedschap kiezen.","Te hard of onhandig werken.","Vuil hulpmiddel tussen producten gebruiken."],"good":["Handeling gaat gecontroleerd en efficiënt.","Product en pan worden niet onnodig beschadigd."]},"Pannenlikker":{"name":"Pannenlikker","basis":"Flexibel roergereedschap/schraper.","professional":"Roeren en pannen/bekkens leegschrapen.","examples":["Beslag/saus"],"critical":["Kies formaat en materiaal passend bij product.","Gebruik schoon en heel gereedschap.","Voorkom krassen/beschadiging aan pan of product."],"mistakes":["Verkeerd gereedschap kiezen.","Te hard of onhandig werken.","Vuil hulpmiddel tussen producten gebruiken."],"good":["Handeling gaat gecontroleerd en efficiënt.","Product en pan worden niet onnodig beschadigd."]},"Schuimspaan":{"name":"Schuimspaan","basis":"Geperforeerde opscheplepel.","professional":"Schep product; vocht loopt door gaatjes weg.","examples":["Bouillon; producten uit vloeistof"],"critical":["Kies formaat en materiaal passend bij product.","Gebruik schoon en heel gereedschap.","Voorkom krassen/beschadiging aan pan of product."],"mistakes":["Verkeerd gereedschap kiezen.","Te hard of onhandig werken.","Vuil hulpmiddel tussen producten gebruiken."],"good":["Handeling gaat gecontroleerd en efficiënt.","Product en pan worden niet onnodig beschadigd."]},"Frituurspaan / draadspaan":{"name":"Frituurspaan / draadspaan","basis":"Draadspaan voor gefrituurde producten.","professional":"Uit frituurvet scheppen.","examples":["Gefrituurde producten"],"critical":["Kies formaat en materiaal passend bij product.","Gebruik schoon en heel gereedschap.","Voorkom krassen/beschadiging aan pan of product."],"mistakes":["Verkeerd gereedschap kiezen.","Te hard of onhandig werken.","Vuil hulpmiddel tussen producten gebruiken."],"good":["Handeling gaat gecontroleerd en efficiënt.","Product en pan worden niet onnodig beschadigd."]},"Soeplouche / sauslouche":{"name":"Soeplouche / sauslouche","basis":"Diepe opscheplepel.","professional":"Soep, saus, ragout opscheppen.","examples":["Soep; saus; ragout"],"critical":["Kies formaat en materiaal passend bij product.","Gebruik schoon en heel gereedschap.","Voorkom krassen/beschadiging aan pan of product."],"mistakes":["Verkeerd gereedschap kiezen.","Te hard of onhandig werken.","Vuil hulpmiddel tussen producten gebruiken."],"good":["Handeling gaat gecontroleerd en efficiënt.","Product en pan worden niet onnodig beschadigd."]},"Bolzeef / passeerzeef":{"name":"Bolzeef / passeerzeef","basis":"Ronde zeef.","professional":"Zeven en wassen.","examples":["Saus; soep; rijst"],"critical":["Kies maas/fijnheid passend bij doel.","Niet overvol vullen.","Spoel/reinig direct zodat resten niet indrogen."],"mistakes":["Te fijne of grove zeef kiezen.","Te hard drukken waardoor ongewenste deeltjes meekomen.","Zeef laten indrogen."],"good":["Gewenste vaste/vloeibare fractie wordt netjes gescheiden.","Zeef blijft schoon en onbeschadigd."]},"Puntzeef / chinois":{"name":"Puntzeef / chinois","basis":"Kegelvormige puntzeef; chinois is de Franse vakbenaming.","professional":"Giet product of vloeistof door de zeef.","examples":["Grondstoffen/sauzen"],"critical":["Kies maas/fijnheid passend bij doel.","Niet overvol vullen.","Spoel/reinig direct zodat resten niet indrogen."],"mistakes":["Te fijne of grove zeef kiezen.","Te hard drukken waardoor ongewenste deeltjes meekomen.","Zeef laten indrogen."],"good":["Gewenste vaste/vloeibare fractie wordt netjes gescheiden.","Zeef blijft schoon en onbeschadigd."]},"Bouillonzeef":{"name":"Bouillonzeef","basis":"Fijnmazige zeef.","professional":"Fijn zeven.","examples":["Bouillon; soep; saus"],"critical":["Kies maas/fijnheid passend bij doel.","Niet overvol vullen.","Spoel/reinig direct zodat resten niet indrogen."],"mistakes":["Te fijne of grove zeef kiezen.","Te hard drukken waardoor ongewenste deeltjes meekomen.","Zeef laten indrogen."],"good":["Gewenste vaste/vloeibare fractie wordt netjes gescheiden.","Zeef blijft schoon en onbeschadigd."]},"Vetzeef":{"name":"Vetzeef","basis":"Zeef voor vet/olie.","professional":"Frituurolie/vet zeven.","examples":["Frituurolie"],"critical":["Kies maas/fijnheid passend bij doel.","Niet overvol vullen.","Spoel/reinig direct zodat resten niet indrogen."],"mistakes":["Te fijne of grove zeef kiezen.","Te hard drukken waardoor ongewenste deeltjes meekomen.","Zeef laten indrogen."],"good":["Gewenste vaste/vloeibare fractie wordt netjes gescheiden.","Zeef blijft schoon en onbeschadigd."]},"Roerzeef / passe-vite":{"name":"Roerzeef / passe-vite","basis":"Roerzeef waarmee zacht product door een zeef wordt gedrukt.","professional":"Draai het mechanisme zodat het product door de zeef wordt gedrukt.","examples":["Appelmoes; pureesoep; vulling"],"critical":["Kies maas/fijnheid passend bij doel.","Niet overvol vullen.","Spoel/reinig direct zodat resten niet indrogen."],"mistakes":["Te fijne of grove zeef kiezen.","Te hard drukken waardoor ongewenste deeltjes meekomen.","Zeef laten indrogen."],"good":["Gewenste vaste/vloeibare fractie wordt netjes gescheiden.","Zeef blijft schoon en onbeschadigd."]},"Vergiet":{"name":"Vergiet","basis":"Geperforeerde kom.","professional":"Wassen, uitlekken, afgieten.","examples":["Groente"],"critical":["Kies maas/fijnheid passend bij doel.","Niet overvol vullen.","Spoel/reinig direct zodat resten niet indrogen."],"mistakes":["Te fijne of grove zeef kiezen.","Te hard drukken waardoor ongewenste deeltjes meekomen.","Zeef laten indrogen."],"good":["Gewenste vaste/vloeibare fractie wordt netjes gescheiden.","Zeef blijft schoon en onbeschadigd."]},"Groentesnijmachine":{"name":"Groentesnijmachine","basis":"Machine met verwisselbare snijschijven.","professional":"Kies schijf passend bij groente en snijwijze.","examples":["Groente"],"critical":["Juiste hulpstuk/mes/schijf kiezen.","Beveiligingen en deksel correct plaatsen.","Machine uitschakelen vóór wisselen of schoonmaken.","Niet met handen bij bewegende delen."],"mistakes":["Machine gebruiken zonder juiste beveiliging.","Met handen product richting draaiende delen duwen.","Verkeerd hulpstuk of te hoge belasting.","Schoonmaken terwijl stekker/machine nog actief is."],"good":["Machine is correct opgebouwd en veilig gebruikt.","Productresultaat is gelijkmatig.","Machine wordt na gebruik veilig uitgeschakeld en gereinigd."]},"Mengmachine":{"name":"Mengmachine","basis":"Machine met mengkom voor mengen.","professional":"Gebruik passende hulpstuk.","examples":["Deeg/beslag"],"critical":["Juiste hulpstuk/mes/schijf kiezen.","Beveiligingen en deksel correct plaatsen.","Machine uitschakelen vóór wisselen of schoonmaken.","Niet met handen bij bewegende delen."],"mistakes":["Machine gebruiken zonder juiste beveiliging.","Met handen product richting draaiende delen duwen.","Verkeerd hulpstuk of te hoge belasting.","Schoonmaken terwijl stekker/machine nog actief is."],"good":["Machine is correct opgebouwd en veilig gebruikt.","Productresultaat is gelijkmatig.","Machine wordt na gebruik veilig uitgeschakeld en gereinigd."]},"Foodprocessor":{"name":"Foodprocessor","basis":"Gecombineerde keukenmachine.","professional":"Gebruik passende functie/schijf.","examples":["Diverse producten"],"critical":["Juiste hulpstuk/mes/schijf kiezen.","Beveiligingen en deksel correct plaatsen.","Machine uitschakelen vóór wisselen of schoonmaken.","Niet met handen bij bewegende delen."],"mistakes":["Machine gebruiken zonder juiste beveiliging.","Met handen product richting draaiende delen duwen.","Verkeerd hulpstuk of te hoge belasting.","Schoonmaken terwijl stekker/machine nog actief is."],"good":["Machine is correct opgebouwd en veilig gebruikt.","Productresultaat is gelijkmatig.","Machine wordt na gebruik veilig uitgeschakeld en gereinigd."]},"Blender":{"name":"Blender","basis":"Elektrische mengbeker.","professional":"Mengen, verkleinen, pureren.","examples":["Vloeibare/halfvloeibare producten"],"critical":["Juiste hulpstuk/mes/schijf kiezen.","Beveiligingen en deksel correct plaatsen.","Machine uitschakelen vóór wisselen of schoonmaken.","Niet met handen bij bewegende delen."],"mistakes":["Machine gebruiken zonder juiste beveiliging.","Met handen product richting draaiende delen duwen.","Verkeerd hulpstuk of te hoge belasting.","Schoonmaken terwijl stekker/machine nog actief is."],"good":["Machine is correct opgebouwd en veilig gebruikt.","Productresultaat is gelijkmatig.","Machine wordt na gebruik veilig uitgeschakeld en gereinigd."]},"Staafmixer":{"name":"Staafmixer","basis":"Mixstaaf met draaiende messen aan uiteinde.","professional":"Pureren/mixen.","examples":["Soep; saus"],"critical":["Juiste hulpstuk/mes/schijf kiezen.","Beveiligingen en deksel correct plaatsen.","Machine uitschakelen vóór wisselen of schoonmaken.","Niet met handen bij bewegende delen."],"mistakes":["Machine gebruiken zonder juiste beveiliging.","Met handen product richting draaiende delen duwen.","Verkeerd hulpstuk of te hoge belasting.","Schoonmaken terwijl stekker/machine nog actief is."],"good":["Machine is correct opgebouwd en veilig gebruikt.","Productresultaat is gelijkmatig.","Machine wordt na gebruik veilig uitgeschakeld en gereinigd."]},"Koekenpan / sauteuse":{"name":"Koekenpan / sauteuse","basis":"Lage, ondiepe pan met steel. Sauteuse is de Franse vakbenaming die in deze context bij bakken/sauteren hoort.","professional":"Verhit de pan, voeg een kleine hoeveelheid vet toe en bak het product.","examples":["Vlees; vis; groente"],"critical":["Panformaat past bij hoeveelheid.","Handgrepen veilig positioneren.","Gebruik hitte die past bij techniek.","Voorkom overvolle pan."],"mistakes":["Te kleine of te volle pan.","Handgreep uit laten steken.","Te hoge hitte zonder controle.","Lege pan onnodig lang verhitten."],"good":["Pan is passend gekozen en stabiel geplaatst.","Hitte wordt beheerst gebruikt.","Product gaart gelijkmatig zonder onnodig morsen."]},"Kookpan":{"name":"Kookpan","basis":"Ronde pan met twee handvatten, met/zonder deksel.","professional":"Gebruik voor koken, stomen, pocheren, braiseren, stoven.","examples":["Diverse bereidingen"],"critical":["Panformaat past bij hoeveelheid.","Handgrepen veilig positioneren.","Gebruik hitte die past bij techniek.","Voorkom overvolle pan."],"mistakes":["Te kleine of te volle pan.","Handgreep uit laten steken.","Te hoge hitte zonder controle.","Lege pan onnodig lang verhitten."],"good":["Pan is passend gekozen en stabiel geplaatst.","Hitte wordt beheerst gebruikt.","Product gaart gelijkmatig zonder onnodig morsen."]},"Steelpan":{"name":"Steelpan","basis":"Kookpan met steel; niet hoog.","professional":"Koken in vloeistof; kleine stukken stoven/smoren; makkelijk uitgieten.","examples":["Kleine hoeveelheden"],"critical":["Panformaat past bij hoeveelheid.","Handgrepen veilig positioneren.","Gebruik hitte die past bij techniek.","Voorkom overvolle pan."],"mistakes":["Te kleine of te volle pan.","Handgreep uit laten steken.","Te hoge hitte zonder controle.","Lege pan onnodig lang verhitten."],"good":["Pan is passend gekozen en stabiel geplaatst.","Hitte wordt beheerst gebruikt.","Product gaart gelijkmatig zonder onnodig morsen."]},"Sauspan":{"name":"Sauspan","basis":"Steelpan met afgeronde opstaande rand.","professional":"Roer langs ronde rand.","examples":["Saus"],"critical":["Panformaat past bij hoeveelheid.","Handgrepen veilig positioneren.","Gebruik hitte die past bij techniek.","Voorkom overvolle pan."],"mistakes":["Te kleine of te volle pan.","Handgreep uit laten steken.","Te hoge hitte zonder controle.","Lege pan onnodig lang verhitten."],"good":["Pan is passend gekozen en stabiel geplaatst.","Hitte wordt beheerst gebruikt.","Product gaart gelijkmatig zonder onnodig morsen."]},"Braadpan / casserole":{"name":"Braadpan / casserole","basis":"Zware ronde of ovale pan met deksel. Casserole is een andere vakbenaming.","professional":"Gebruik de pan op het fornuis of in de oven, afhankelijk van de bereiding.","examples":["Stoofvlees; braadstuk"],"critical":["Panformaat past bij hoeveelheid.","Handgrepen veilig positioneren.","Gebruik hitte die past bij techniek.","Voorkom overvolle pan."],"mistakes":["Te kleine of te volle pan.","Handgreep uit laten steken.","Te hoge hitte zonder controle.","Lege pan onnodig lang verhitten."],"good":["Pan is passend gekozen en stabiel geplaatst.","Hitte wordt beheerst gebruikt.","Product gaart gelijkmatig zonder onnodig morsen."]},"Grillpan":{"name":"Grillpan","basis":"Pan met ribbels.","professional":"Verhit sterk en grill product.","examples":["Vlees/groente"],"critical":["Panformaat past bij hoeveelheid.","Handgrepen veilig positioneren.","Gebruik hitte die past bij techniek.","Voorkom overvolle pan."],"mistakes":["Te kleine of te volle pan.","Handgreep uit laten steken.","Te hoge hitte zonder controle.","Lege pan onnodig lang verhitten."],"good":["Pan is passend gekozen en stabiel geplaatst.","Hitte wordt beheerst gebruikt.","Product gaart gelijkmatig zonder onnodig morsen."]},"Wok / wadjang":{"name":"Wok / wadjang","basis":"Dunne plaatstalen pan met ronde bodem.","professional":"Houd het voedsel tijdens het bakken voortdurend in beweging.","examples":["Groente; vlees; roerbakgerecht"],"critical":["Mise-en-place volledig klaar hebben.","Werk op hoge hitte en blijf bewegen.","Niet te veel product tegelijk."],"mistakes":["Nog snijden terwijl wok al heet is.","Wok overvol laden.","Te lage hitte waardoor product gaat koken/stomen."],"good":["Korte, snelle bereiding met duidelijke bruining.","Product blijft passend stevig en niet waterig."]},"Stoompan":{"name":"Stoompan","basis":"Pan met een buitenpan, geperforeerde binnenpan en deksel.","professional":"Breng water onderin aan de kook. De stoom gaat door de gaatjes langs het product.","examples":["Groente; rijst; vis"],"critical":["Panformaat past bij hoeveelheid.","Handgrepen veilig positioneren.","Gebruik hitte die past bij techniek.","Voorkom overvolle pan."],"mistakes":["Te kleine of te volle pan.","Handgreep uit laten steken.","Te hoge hitte zonder controle.","Lege pan onnodig lang verhitten."],"good":["Pan is passend gekozen en stabiel geplaatst.","Hitte wordt beheerst gebruikt.","Product gaart gelijkmatig zonder onnodig morsen."]},"Marmite":{"name":"Marmite","basis":"Grote, hoge kookpan, meestal met schenktuit.","professional":"Gebruik de marmite als grote kookpan.","examples":["Bouillon; grote hoeveelheden"],"critical":["Panformaat past bij hoeveelheid.","Handgrepen veilig positioneren.","Gebruik hitte die past bij techniek.","Voorkom overvolle pan."],"mistakes":["Te kleine of te volle pan.","Handgreep uit laten steken.","Te hoge hitte zonder controle.","Lege pan onnodig lang verhitten."],"good":["Pan is passend gekozen en stabiel geplaatst.","Hitte wordt beheerst gebruikt.","Product gaart gelijkmatig zonder onnodig morsen."]},"Hogedrukpan":{"name":"Hogedrukpan","basis":"Afgesloten pan waarin stoom niet vrij kan ontsnappen en druk wordt opgebouwd.","professional":"Gebruik de pan gesloten en volg altijd de veiligheidsinstructies.","examples":["Stevige producten / langere bereidingen"],"critical":["Controleer sluiting en beveiligingen.","Nooit openen zolang er druk op staat.","Volg apparaatinstructies."],"mistakes":["Deksel forceren.","Te vol vullen.","Openen voordat druk volledig weg is."],"good":["Pan is correct gesloten, druk veilig opgebouwd en volledig afgevoerd vóór openen."]},"Verhittingsapparatuur":{"name":"Verhittingsapparatuur","basis":"Apparaten waarmee je voedsel bereidt door middel van een bereidingstechniek of voedsel en materiaal warm houdt.","professional":"Kies apparatuur passend bij de bereiding of het warmhouden. In het bronmateriaal worden ook verschillende manieren van verhitten onderscheiden.","examples":["Voor bereiden: oven, fornuis, salamander, grill, combisteamer, combioven, frituurpan en kantelbare braadslede.","Voor warmhouden: bain-marie, warmhoudkast of -wagen, infrarood warmer of warmtebrug en rechaud.","Manieren van verhitten: elektrisch, gas, hete lucht, water, olie en microgolven."],"critical":["Gebruik apparatuur voor het doel waarvoor deze bedoeld is.","Werk volgens de instructies en veiligheidsafspraken van het apparaat."],"mistakes":["Verkeerde apparatuur kiezen voor de bereiding.","Apparatuur gebruiken zonder de werking of veiligheidsafspraken te kennen."],"good":["De gekozen apparatuur past bij bereiden of warmhouden.","De student kan benoemen welke manieren van verhitten in de keuken voorkomen."]}},"professional":{"Etiketteren, opslaan & traceerbaarheid":{"name":"Etiketteren, opslaan & traceerbaarheid","basis":"Elk product dat je bewaart moet herkenbaar, veilig opgeslagen en terug te vinden zijn. In Eindhoven geldt dit ook voor producten die na de praktijk teruggaan naar koelkast, diepvries of droge opslag.","professional":"Werk volgens de afspraken van de locatie én controleer welk type etiket nodig is. Vul een voorbedrukt opslagetiket volledig aan, kruis de juiste bewaarwijze aan en maak bij een nieuwe productiepartij een nieuw lot-/batchnummer volgens de SVO Eindhoven-afspraak: jaar-maand-dag. Voor producten voor verkoop of levering controleer je daarnaast de wettelijk verplichte etiketinformatie.","examples":["Interne opslag: bestaand/voorgedrukt etiket aanvullen en koelkast, diepvries of droog correct aankruisen.","Nieuwe productiepartij op 25 september 2026: interne batchcode 2026-09-25.","Voorverpakt eindproduct: productnaam, ingrediënten, allergenen, nettohoeveelheid, houdbaarheid, bewaar-/gebruiksvoorwaarden en overige verplichte informatie controleren.","Allergenen staan duidelijk herkenbaar in de ingrediëntenlijst; niet automatisch een losse allergenenbox toevoegen.","Een waarschuwing voor mogelijke kruisbesmetting met allergenen gebruik je niet standaard: daarvoor gelden aparte voorwaarden."],"critical":["Geen product zonder duidelijke identificatie terugzetten in opslag.","Kruis bewust de juiste opslag aan: koelkast, diepvries of droog.","Controleer bewaartemperatuur en houdbaarheid volgens de geldende product- en locatieafspraken.","Nieuwe partij = nieuw lot-/batchnummer volgens de afgesproken codering.","Houd ingrediënten- en allergeneninformatie beschikbaar en actueel.","Gebruik bij zeer bederfelijke producten de juiste houdbaarheidsvermelding; THT en TGT zijn niet zomaar uitwisselbaar.","Voor verkoop/levering: controleer alle verplichte vermeldingen die voor het product van toepassing zijn."],"mistakes":["Bak in de koelkast zetten zonder etiket of met een onvolledig etiket.","Vergeten koelkast, diepvries of droog aan te kruisen.","Een oude batchcode laten staan bij een nieuwe productiepartij.","Allergenen vergeten of niet duidelijk herkenbaar maken in de ingrediëntenlijst.","Automatisch ‘kan sporen bevatten van’ toevoegen zonder dat dit volgens de geldende regels is onderbouwd.","Alleen een datum opschrijven zonder te controleren wat die datum betekent en hoe het product bewaard moet worden."],"good":["Product is direct herkenbaar zonder de verpakking te openen.","Bewaarwijze en bewaartemperatuur zijn duidelijk en passend.","Lot-/batchnummer maakt de productiepartij traceerbaar.","Houdbaarheidsinformatie is correct en begrijpelijk ingevuld.","Allergeneninformatie is gecontroleerd en duidelijk weergegeven.","Een product voor verkoop/levering is vóór uitgifte gecontroleerd op de verplichte etiketonderdelen."]}},"bakingExtra":{"facts":[["⏱ Richttijd","vaak ± 8–15 min"],["🔥 Hitte","matig tot hoog"],["🍳 Vet","kleine hoeveelheid"]],"note":"8–15 minuten is een praktische richtlijn voor veel panbereidingen, geen harde grens. Productsoort, dikte en gewenste gaarheid bepalen de echte tijd.","compare":[["Roerbakken / sauteren","enkele minuten","Hoge hitte, kleine stukken, snel bewegen","Groentereepjes, kleine vleesstukjes"],["Bakken in de pan","vaak ± 8–15 min","Weinig vet, matig tot hoge hitte, kleuren en garen","Visfilet, hamburger, schnitzel, aardappelschijfjes"],["Braden","meestal langer","Eerst kleuren, daarna rustiger verder garen","Groter stuk vlees, kip"],["Stoven","lang","Langzaam garen met vocht","Stoofvlees, sukade, stoofgroenten"]]}};
+const GROUPS={"cold": [["Voorbereiden", ["Mise-en-place", "Afwegen en afmeten", "Ontdooien"]], ["Wassen & schoonmaken", ["Bewerken", "Wassen", "Schillen", "Ontvellen"]], ["Opdelen & snijden", ["Snijden", "Julienne", "Brunoise", "Chinoise", "Raspen", "Schaven", "Snipperen", "Hakken", "Boren", "Canneleren", "Ciseleren", "Uitsnijden"]], ["Verder voorbereiden", ["Roeren", "Mengen", "Marineren"]], ["Afwerken & presenteren", ["Garneren", "Decoreren", "Dresseren"]], ["Koelen & bewaren", ["Terugkoelen", "Invriezen"]]], "warm": [["Bereiden in vocht", ["Blancheren", "Pocheren", "Koken", "Opzetten met koud water", "Opzetten met warm/kokend water", "Koken met deksel", "Koken zonder deksel"]], ["Bereiden met stoom", ["Stomen", "Stomen zonder druk", "Stomen met druk", "Stomen met combisteamer"]], ["Bereiden met vet", ["Bakken", "Rissoleren", "Myoteren", "Ontzuren", "Frituren"]], ["Droge & sterke warmte", ["Grillen", "Grillen met stralingswarmte", "Grillen met contactwarmte", "Gratineren", "Volledig gratineren", "Snel gratineren", "Licht gratineren", "Bakken in oven", "Afbakken"]], ["Langere bereidingen", ["Braden", "Stoven", "Sous-vide"]], ["Afwerken & opnieuw verwarmen", ["Binden/Liëren", "Regenereren"]]], "materials": [["Messen & snijplanken", ["Koksmes", "Officemesje", "Dunschiller / éconoom", "Aardappelschilmesje / toerneermesje", "Aanzetstaal", "Broodmes / zaagmes / kartelmes", "Uitbeenmes", "Fileermes", "Glaceermes / paletmes", "Kleurcodering snijplanken"]], ["Klein keukengereedschap", ["Garde", "Spatel", "Pannenlikker", "Schuimspaan", "Frituurspaan / draadspaan", "Soeplouche / sauslouche"]], ["Zeven & uitlekken", ["Bolzeef / passeerzeef", "Puntzeef / chinois", "Bouillonzeef", "Vetzeef", "Roerzeef / passe-vite", "Vergiet"]], ["Machines", ["Groentesnijmachine", "Mengmachine", "Foodprocessor", "Blender", "Staafmixer"]], ["Pannen", ["Koekenpan / sauteuse", "Kookpan", "Steelpan", "Sauspan", "Braadpan / casserole", "Grillpan", "Wok / wadjang", "Stoompan", "Marmite", "Hogedrukpan"]], ["Apparatuur & warmte", ["Verhittingsapparatuur"]]]};
+
+const HOWTO={
+"Snijden":{"title":"Basis snijhouding","steps":["Zet de snijplank stabiel en kies een passend, scherp mes.","Leg het product stabiel neer. Maak zo nodig eerst een vlakke kant.","Houd het product vast met een klauwgreep: vingertoppen naar binnen.","Snijd rustig en gecontroleerd. Laat het mes het werk doen.","Controleer of de stukken gelijkmatig zijn."],"mistakes":["Instabiel product snijden.","Vingers gestrekt naast het mes houden.","Meer van het product wegsnijden dan nodig is."]},
+"Snipperen":{"title":"Ui snipperen","steps":["Snijd alleen een dun stukje van de stengelkant af. Laat de wortelaanzet zoveel mogelijk intact.","Halveer de ui door de wortelzijde.","Verwijder alleen de droge schil en slechte buitenlaag.","Leg de halve ui met de vlakke kant op de plank.","Maak gelijkmatige sneden richting de wortel, zonder de wortel helemaal door te snijden.","Maak voor een fijne snipper eventueel voorzichtig horizontale sneden.","Snijd daarna dwars in gelijkmatige stukjes.","Verwijder het kleine wortelstuk pas aan het einde."],"mistakes":["Te veel van kop of wortel afsnijden.","Te veel goede uienlagen wegpellen.","De wortel direct verwijderen, waardoor de ui sneller uit elkaar valt.","Ongelijke snippers maken."]},
+"Julienne":{"title":"Julienne van wortel of aardappel","steps":["Was en schil het product waar nodig.","Maak een vlakke kant zodat het product stabiel ligt.","Snijd het product in gelijkmatige plakken.","Leg enkele plakken netjes op elkaar.","Snijd de plakken in lange, dunne, gelijkmatige reepjes.","Controleer lengte en dikte en houd het snijverlies zo klein mogelijk."],"mistakes":["Te dikke of sterk verschillende reepjes.","Een rond product snijden zonder eerst een stabiele kant te maken.","Te veel product wegsnijden om een perfecte vorm te krijgen."]},
+"Brunoise":{"title":"Brunoise van wortel of aardappel","steps":["Was en schil het product waar nodig.","Maak een stabiele vorm en snijd gelijkmatige plakken.","Snijd de plakken eerst tot julienne: lange, gelijkmatige reepjes.","Leg de julienne netjes bij elkaar.","Snijd de reepjes dwars in kleine, gelijkmatige blokjes.","Controleer of de blokjes ongeveer dezelfde maat hebben."],"mistakes":["De stappen plakken → julienne → blokjes overslaan.","Ongelijke julienne maken, waardoor de blokjes ook ongelijk worden.","Te veel afsnijden om het product vierkant te maken."]},
+"Raspen":{"title":"Veilig raspen","steps":["Kies de rasp die past bij de gewenste grofheid.","Zet de rasp stabiel op de werkbank of boven een passende bak.","Beweeg het product gelijkmatig over de rasp.","Werk rustiger zodra het product klein wordt.","Stop voordat je vingers te dicht bij het raspvlak komen."],"mistakes":["Te snel werken met een klein reststuk.","De rasp niet stabiel neerzetten.","Onnodig veel druk zetten."]},
+"Schaven":{"title":"Gelijkmatig schaven","steps":["Kies de juiste schaafdikte.","Zet de schaaf stabiel en gebruik de beveiliging wanneer die aanwezig is.","Houd het product stevig vast en maak gelijkmatige bewegingen.","Controleer tussendoor de dikte.","Stop veilig wanneer het product te klein wordt."],"mistakes":["Zonder beveiliging te dicht bij het mes komen.","Tijdens het werk steeds van dikte veranderen.","Een instabiel product forceren."]},
+"Afwegen en afmeten":{"title":"Nauwkeurig wegen en afmeten","steps":["Lees eerst de hoeveelheid en de eenheid in het recept.","Kies het juiste hulpmiddel: weegschaal voor massa, litermaat voor vloeistof en een fijnere precisieweegschaal als de hoeveelheid zeer klein is.","Wegen: zet de lege bak op de weegschaal, druk TARA/0 en controleer 0 g.","Voeg de grondstof rustig toe tot de juiste hoeveelheid is bereikt.","Afmeten: zet de litermaat vlak neer, vul tot de juiste maatstreep en lees op ooghoogte af.","Reken l, dl, cl of kg om wanneer je basisrecept/stroomschema in ml en g wordt vastgelegd.","Kom je lb, oz of een andere buitenlandse maat tegen? Bepaal eerst welke eenheid bedoeld wordt en reken die betrouwbaar om.","Controleer de hoeveelheid nog één keer voordat je verdergaat."],"mistakes":["Kom of bak niet op nul zetten met TARA/0.","Een litermaat uit de hand of van bovenaf aflezen.","Verkeerde eenheid gebruiken of komma/nul verkeerd lezen.","Een gewone keukenweegschaal gebruiken voor een hoeveelheid die fijner gemeten moet worden."]},
+"Etiketteren, opslaan & traceerbaarheid":{"title":"Product veilig opslaan en traceerbaar maken","steps":["Controleer welk product je opslaat en of het bestaande etiket nog bij dit product en deze partij hoort.","Gebruik het juiste etiket en vul ontbrekende gegevens direct in.","Kruis de juiste bewaarwijze aan: koelkast, diepvries of droog.","Noteer de juiste bewaartemperatuur en houdbaarheid volgens receptuur, productspecificatie en locatieafspraken.","Maak je een nieuwe productiepartij? Gebruik bij SVO Eindhoven de afgesproken batchopbouw jaar-maand-dag, bijvoorbeeld 2026-09-25.","Controleer ingrediënten en de 14 wettelijk aangewezen allergenen. Bij een voorverpakt product moeten aanwezige allergenen duidelijk opvallen in de ingrediëntenlijst.","Gaat het product naar verkoop of levering? Controleer dan ook de overige verplichte etiketonderdelen die voor dat product gelden.","Controleer vóór opslag: product herkenbaar, etiket compleet, opslag juist, datum/houdbaarheid juist en batch traceerbaar."],"mistakes":["Een product ‘even’ zonder etiket terugzetten.","Bewaarwijze niet aankruisen.","Een oude batchcode hergebruiken voor een nieuwe partij.","Allergenen uit het hoofd invullen zonder receptuur/grondstofetiketten te controleren.","Een standaard sporenwaarschuwing toevoegen zonder onderbouwing."]}
+};
+
+const MATERIAL_LINKS={"Koksmes": [["cold", "Snijden"], ["cold", "Julienne"], ["cold", "Brunoise"], ["cold", "Hakken"]], "Officemesje": [["cold", "Snijden"], ["cold", "Uitsnijden"]], "Dunschiller / éconoom": [["cold", "Schillen"]], "Aardappelschilmesje / toerneermesje": [["cold", "Schillen"], ["cold", "Boren"]], "Glaceermes / paletmes": [["cold", "Dresseren"]], "Kleurcodering snijplanken": [["cold", "Mise-en-place"], ["cold", "Snijden"]], "Garde": [["cold", "Roeren"], ["cold", "Mengen"], ["warm", "Binden/Liëren"]], "Spatel": [["cold", "Mengen"], ["warm", "Bakken"]], "Pannenlikker": [["cold", "Roeren"], ["cold", "Mengen"]], "Frituurspaan / draadspaan": [["warm", "Frituren"]], "Vergiet": [["cold", "Wassen"], ["warm", "Koken"]], "Groentesnijmachine": [["cold", "Snijden"], ["cold", "Julienne"], ["cold", "Brunoise"]], "Mengmachine": [["cold", "Mengen"], ["cold", "Roeren"]], "Foodprocessor": [["cold", "Snijden"], ["cold", "Hakken"], ["cold", "Mengen"]], "Blender": [["cold", "Mengen"]], "Staafmixer": [["cold", "Mengen"]], "Koekenpan / sauteuse": [["warm", "Bakken"], ["warm", "Rissoleren"]], "Kookpan": [["warm", "Koken"], ["warm", "Pocheren"], ["warm", "Stoven"]], "Steelpan": [["warm", "Koken"], ["warm", "Stoven"]], "Sauspan": [["warm", "Binden/Liëren"]], "Braadpan / casserole": [["warm", "Braden"], ["warm", "Stoven"]], "Grillpan": [["warm", "Grillen"], ["warm", "Grillen met contactwarmte"]], "Wok / wadjang": [["warm", "Bakken"]], "Stoompan": [["warm", "Stomen"], ["warm", "Stomen zonder druk"]], "Marmite": [["warm", "Koken"]], "Hogedrukpan": [["warm", "Stomen met druk"]], "Verhittingsapparatuur": [["warm", "Bakken in oven"], ["warm", "Grillen"], ["warm", "Frituren"], ["warm", "Regenereren"]]};
+let currentCategory='cold';
+let returnState=null;
+
+const PRACTICE_GROUPS=[
+["🧭 Plannen & organiseren",[
+["flow","Werken met receptuur & stroomschema","Ik kan een recept lezen, werkzaamheden in logische volgorde zetten en mijn werk voorbereiden."],
+["cold","Afwegen en afmeten","Ik kan hoeveelheden nauwkeurig wegen, afmeten, omrekenen en correct vastleggen in g en ml."],
+["professional","Etiketteren, opslaan & traceerbaarheid","Ik kan producten correct etiketteren, veilig opslaan en een productiepartij traceerbaar vastleggen."]
+]],["🥕 Voorbewerking & koud", [["cold", "Mise-en-place", "Werkplek en materiaal logisch klaarzetten"], ["cold", "Wassen", "Product passend en zorgvuldig wassen"], ["cold", "Schillen", "Dun en met zo min mogelijk verlies schillen"], ["cold", "Ontvellen", "Een product correct ontvellen"], ["cold", "Snijden", "Veilig en gelijkmatig snijden"], ["cold", "Julienne", "Gelijke dunne reepjes snijden"], ["cold", "Brunoise", "Gelijke kleine blokjes snijden"], ["cold", "Snipperen", "Een ui netjes en gelijkmatig snipperen"], ["cold", "Hakken", "Veilig en gecontroleerd hakken"], ["cold", "Raspen", "Veilig en gelijkmatig raspen"], ["cold", "Schaven", "Veilig en gelijkmatig schaven"], ["cold", "Roeren", "Producten correct roeren"], ["cold", "Mengen", "Producten gelijkmatig mengen"], ["cold", "Marineren", "Een product correct marineren"], ["cold", "Garneren", "Een passende eetbare garnering aanbrengen"], ["cold", "Dresseren", "Een gerecht verzorgd dresseren"], ["cold", "Terugkoelen", "Een product correct terugkoelen"], ["cold", "Invriezen", "Een product correct verpakken, labelen en invriezen"]]], ["🔥 Warme technieken", [["warm", "Blancheren", "Product correct blancheren en zo nodig terugkoelen"], ["warm", "Pocheren", "Product rustig pocheren zonder het te beschadigen"], ["warm", "Koken", "Product correct koken en gaarheid controleren"], ["warm", "Stomen", "Product correct stomen"], ["warm", "Frituren", "Veilig frituren op passende temperatuur"], ["warm", "Grillen", "Product correct grillen"], ["warm", "Gratineren", "Een passende korst aanbrengen"], ["warm", "Bakken", "Product in de pan bakken met passende hitte en vet"], ["warm", "Braden", "Product aankleuren en verder gaar braden"], ["warm", "Stoven", "Product rustig gaar stoven met vocht"], ["warm", "Binden/Liëren", "Een vloeistof tot de gewenste dikte binden"], ["warm", "Regenereren", "Bereid product correct opnieuw verwarmen"]]], ["🔪 Messen & materiaal", [["materials", "Koksmes", "Koksmes veilig en gecontroleerd gebruiken"], ["materials", "Officemesje", "Officemesje passend en veilig gebruiken"], ["materials", "Dunschiller / éconoom", "Dunschiller veilig en met weinig verlies gebruiken"], ["materials", "Aanzetstaal", "Snede van een mes onderhouden met een aanzetstaal"], ["materials", "Kleurcodering snijplanken", "Juiste snijplank bij de productgroep kiezen"], ["materials", "Groentesnijmachine", "Machine passend en veilig gebruiken"], ["materials", "Mengmachine", "Juiste hulpstuk kiezen en machine veilig gebruiken"], ["materials", "Blender", "Blender passend en veilig gebruiken"], ["materials", "Staafmixer", "Staafmixer passend en veilig gebruiken"], ["materials", "Koekenpan / sauteuse", "Passende pan kiezen en gebruiken voor bakken/sauteren"], ["materials", "Braadpan / casserole", "Passende pan gebruiken voor braden of stoven"], ["materials", "Wok / wadjang", "Wok passend gebruiken bij snelle bereiding"], ["materials", "Stoompan", "Stoompan correct gebruiken"]]]];
+const PRACTICE_KEY='keukenbasis_praktijk_v1';
+
+const STUDENT_KEY='keukenbasis_student_v1';
+function loadStudentDetails(){
+ try{
+   const d=JSON.parse(localStorage.getItem(STUDENT_KEY)||'{}');
+   const n=document.getElementById('studentName'), c=document.getElementById('studentClass');
+   if(n)n.value=d.name||''; if(c)c.value=d.className||'';
+ }catch(e){}
+}
+function saveStudentDetails(){
+ const n=document.getElementById('studentName'), c=document.getElementById('studentClass');
+ try{localStorage.setItem(STUDENT_KEY,JSON.stringify({name:n?n.value.trim():'',className:c?c.value.trim():''}))}catch(e){}
+}
+function exportPractice(){
+ const name=(document.getElementById('studentName')?.value||'').trim();
+ const className=(document.getElementById('studentClass')?.value||'').trim();
+ if(!name){alert('Vul eerst je naam in.');document.getElementById('studentName')?.focus();return;}
+ saveStudentDetails();
+ const st=practiceStats(), x=st.x, counts=st.counts, jokers=st.j;
+ const pct=Math.round(st.complete/st.total*100);
+ const now=new Date();
+ const date=now.toLocaleDateString('nl-NL',{day:'2-digit',month:'2-digit',year:'numeric'});
+ let html=`<div class="report-head"><h1>Mijn praktijkvoortgang – Keukenbasis</h1>
+ <div class="report-meta"><div><b>Naam:</b> ${esc(name)}</div><div><b>Klas / groep:</b> ${esc(className||'—')}</div><div><b>Datum:</b> ${esc(date)}</div><div><b>Totaal:</b> ${counts.reduce((a,b)=>a+b,0)} vaardigheden</div></div>
+ <p><b>Samenvatting:</b> ⚪ ${counts[0]} nog oefenen · 🟡 ${counts[1]} in ontwikkeling · 🟢 ${counts[2]} beheers ik${st.jokerCount?' · 🃏 '+st.jokerCount+' joker'+(st.jokerCount===1?'':'s'):''}</p>
+ <div class="report-progress"><b>${st.complete} van ${st.total} skills afgerond – ${pct}%</b><div class="report-progress-track"><div class="report-progress-fill" style="width:${pct}%"></div></div></div></div>`;
+ const earned=badgeData(st).filter(b=>b[2]).map(b=>b[0]+' '+b[1]);
+ let improving=[], next=[];
+ PRACTICE_GROUPS.forEach(g=>g[1].forEach(it=>{const id=practiceId(it[0],it[1]);if(jokers[id])return;const v=Number(x[id]||0);if(v===1)improving.push(it[1]);if(v===0 && next.length<5)next.push(it[1]);}));
+ html+=`<div class="report-analysis"><h3>🟢 Wat gaat al goed?</h3><p>${counts[2]} skills staan op <b>Beheers ik</b>. ${earned.length?'Behaalde badges: '+earned.map(esc).join(', ')+'.':'De eerste badge is nog in opbouw.'}</p>
+ <h3>🟡 Wat kan nog beter?</h3><p>${improving.length?esc(improving.slice(0,8).join(', '))+(improving.length>8?' en meer.':''):'Er staan op dit moment geen skills op In ontwikkeling.'}</p>
+ <h3>🎯 Belangrijkste volgende stappen</h3>${next.length?'<ul>'+next.map(n=>'<li>'+esc(n)+'</li>').join('')+'</ul>':'<p>Geen skills meer op Nog oefenen. Werk verder aan de skills die nog In ontwikkeling zijn.</p>'}
+ <p>Oefen waar dat passend en veilig kan: tijdens de les, op BPV/stage of thuis. Lukt het niet om een skill te oefenen? Bespreek dit met je docent.</p></div>`;
+ PRACTICE_GROUPS.forEach(g=>{
+   html+=`<div class="report-group"><h2>${esc(g[0])}</h2><table class="report-table"><thead><tr><th>Praktijkvaardigheid</th><th>Status</th></tr></thead><tbody>`;
+   g[1].forEach(it=>{
+     const id=practiceId(it[0],it[1]);const v=x[id]===undefined?0:Number(x[id]);
+     const status=jokers[id]?`🃏 Joker – ${esc(jokers[id].reason)}`:practiceStatus(v)[0];
+     html+=`<tr><td><b>${esc(it[1])}</b><br><span>${esc(it[2])}</span></td><td>${status}</td></tr>`;
+   });
+   html+='</tbody></table></div>';
+ });
+ html+=`<div class="report-disclaimer"><b>Let op:</b> Dit overzicht is door de student zelf bijgehouden en is geen officiële beoordeling. Het is bedoeld om de praktijkontwikkeling te bespreken met de docent.</div>`;
+ document.getElementById('printReport').innerHTML=html;
+ window.print();
+}
+
+let practiceFilter='all';
+let practiceReturn=null;
+
+function practiceId(cat,name){return cat+'::'+name;}
+function getPractice(){
+ try{return JSON.parse(localStorage.getItem(PRACTICE_KEY)||'{}')}catch(e){return {}}
+}
+function savePractice(x){try{localStorage.setItem(PRACTICE_KEY,JSON.stringify(x))}catch(e){}}
+
+const JOKER_KEY='keukenbasis_jokers_v1';
+function getJokers(){try{return JSON.parse(localStorage.getItem(JOKER_KEY)||'{}')}catch(e){return {}}}
+function saveJokers(x){try{localStorage.setItem(JOKER_KEY,JSON.stringify(x))}catch(e){}}
+function isJoker(cat,name){return !!getJokers()[practiceId(cat,name)]}
+function toggleJoker(cat,name){
+ const j=getJokers(), id=practiceId(cat,name);
+ if(j[id]){
+   if(confirm('Joker verwijderen bij "'+name+'"?')){delete j[id];saveJokers(j);renderPractice();}
+   return;
+ }
+ const used=Object.keys(j).length;
+ const reason=prompt('Waarom kan deze skill echt niet worden uitgevoerd?\\nBijvoorbeeld: apparatuur niet beschikbaar op school/BPV.');
+ if(!reason || !reason.trim())return;
+ if(confirm('Joker inzetten voor "'+name+'"?\\n\\nReden: '+reason.trim()+'\\n\\nDeze joker blijft zichtbaar in je voortgangsrapport.')){
+   j[id]={reason:reason.trim(),date:new Date().toISOString()};saveJokers(j);renderPractice();
+ }
+}
+const CUTTING_NAMES=['Snijden','Julienne','Brunoise','Snipperen','Hakken','Raspen','Schaven'];
+function practiceStats(){
+ const x=getPractice(), j=getJokers(); let counts=[0,0,0], total=0, jokerCount=0;
+ PRACTICE_GROUPS.forEach(g=>g[1].forEach(it=>{total++;const id=practiceId(it[0],it[1]);if(j[id])jokerCount++;else{const v=x[id]===undefined?0:Number(x[id]);counts[v]++;}}));
+ return {x,j,counts,total,jokerCount,complete:counts[2]+jokerCount};
+}
+function allComplete(items,st){
+ return items.every(it=>{const id=practiceId(it[0],it[1]);return st.j[id] || Number(st.x[id])===2;});
+}
+function badgeData(st){
+ const groups=Object.fromEntries(PRACTICE_GROUPS.map(g=>[g[0],g[1]]));
+ const cold=groups['🥕 Voorbewerking & koud']||[], warm=groups['🔥 Warme technieken']||[], mat=groups['🔪 Messen & materiaal']||[], plan=groups['🧭 Plannen & organiseren']||[];
+ const cuts=cold.filter(it=>CUTTING_NAMES.includes(it[1]));
+ const coldOther=cold.filter(it=>!CUTTING_NAMES.includes(it[1]));
+ const b=[
+  ['🧭','Planner',allComplete(plan,st),'Receptuur & stroomschema'],
+  ['🔪','Snijtechnieken',allComplete(cuts,st),'Belangrijkste snijskills'],
+  ['🥕','Koude keuken',allComplete(coldOther,st),'Voorbewerking & koud'],
+  ['🔥','Warme keuken',allComplete(warm,st),'Warme technieken'],
+  ['🧰','Materiaalmeester',allComplete(mat,st),'Messen & materiaal'],
+  ['🥉','Keukenstarter',st.complete>=10,'10 skills afgerond'],
+  ['🥈','Keukenbouwer',st.complete>=20,'20 skills afgerond'],
+  ['🥇','Professional in opleiding',st.complete>=30,'30 skills afgerond'],
+  ['⭐','Bijna compleet',st.complete>=40,'40 skills afgerond'],
+  ['🏆','Keukenbasis compleet',st.complete>=st.total,st.total+' van '+st.total+' afgerond']
+ ];
+ return b;
+}
+function updatePassportDashboard(){
+ const st=practiceStats(), pct=Math.round(st.complete/st.total*100);
+ document.getElementById('progressHeadline').textContent=st.complete+' van '+st.total+' skills afgerond'+(st.jokerCount?' · '+st.jokerCount+' joker'+(st.jokerCount===1?'':'s'):'');
+ document.getElementById('progressPct').textContent=pct+'%';
+ document.getElementById('progressBar').style.width=pct+'%';
+ const spText=document.getElementById('stickyProgressText'), spPct=document.getElementById('stickyProgressPct'), spBar=document.getElementById('stickyProgressBar');
+ if(spText)spText.textContent=st.complete+'/'+st.total+' skills afgerond'+(st.jokerCount?' · 🃏 '+st.jokerCount:'');
+ if(spPct)spPct.textContent=pct+'%';
+ if(spBar)spBar.style.width=pct+'%';
+ const milestones=[10,20,30,40,st.total], next=milestones.find(n=>st.complete<n);
+ document.getElementById('nextBadgeText').textContent=next?('Nog '+(next-st.complete)+' skill'+((next-st.complete)===1?'':'s')+' tot je volgende mijlpaal. Jokers blijven apart zichtbaar in je voortgangsrapport.'):'SkillsPaspoort compleet!';
+ document.getElementById('badgeGrid').innerHTML=badgeData(st).map(b=>`<div class="badge ${b[2]?'earned':''}"><span class="badge-icon">${b[0]}</span><b>${esc(b[1])}</b><small>${b[2]?'Behaald':'Nog te behalen'} · ${esc(b[3])}</small></div>`).join('');
+ let open=[];
+ PRACTICE_GROUPS.forEach(g=>g[1].forEach(it=>{const id=practiceId(it[0],it[1]);if(!st.j[id] && Number(st.x[id]||0)===0 && open.length<5)open.push(it[1]);}));
+ document.getElementById('nextSteps').innerHTML=open.length?open.map(n=>`<div class="next-step-item">🎯 ${esc(n)}</div>`).join('')+`<p class="muted-note">Kies waar je dit passend en veilig kunt oefenen: tijdens de les, op BPV/stage of thuis. Lukt dat niet? Bespreek het met je docent.</p>`:`<p>Geen skills meer op <b>Nog oefenen</b>. Kijk naar de skills die nog <b>In ontwikkeling</b> zijn.</p>`;
+}
+
+function cyclePractice(cat,name){
+ const x=getPractice(), id=practiceId(cat,name);
+ const cur=(x[id]===undefined?0:Number(x[id]));
+ x[id]=(cur+1)%3; savePractice(x); renderPractice();
+}
+function setPracticeFilter(f,btn){
+ practiceFilter=f;
+ document.querySelectorAll('#practiceFilters button').forEach(b=>b.classList.remove('active'));
+ if(btn)btn.classList.add('active');
+ renderPractice();
+}
+function practiceStatus(v){
+ return [
+  ['⚪ Nog oefenen','status-0'],
+  ['🟡 In ontwikkeling','status-1'],
+  ['🟢 Beheers ik','status-2']
+ ][v]||['⚪ Nog oefenen','status-0'];
+}
+function renderPractice(){
+ const x=getPractice(); let counts=[0,0,0], html='';
+ const jokers=getJokers();
+ PRACTICE_GROUPS.forEach(g=>g[1].forEach(it=>{const id=practiceId(it[0],it[1]);if(jokers[id])return;let v=x[id]===undefined?0:Number(x[id]);counts[v]++;}));
+ document.getElementById('ps0').textContent=counts[0];document.getElementById('ps1').textContent=counts[1];document.getElementById('ps2').textContent=counts[2];
+ PRACTICE_GROUPS.forEach((g,gi)=>{
+   let rows='';
+   g[1].forEach(it=>{
+     const jid=practiceId(it[0],it[1]);let v=x[jid]===undefined?0:Number(x[jid]);
+     if(jokers[jid] && practiceFilter!=='all')return;
+     if(!jokers[jid] && practiceFilter!=='all' && String(v)!==practiceFilter)return;
+     const st=practiceStatus(v);
+     rows+=`<div class="practice-row" data-practice="${esc(practiceId(it[0],it[1]))}">
+       <button class="practice-name" onclick="openPracticeTechnique('${it[0]}','${it[1].replace(/'/g,"\\'")}',this)">${esc(it[1])}<small>${esc(it[2])} · Tik voor uitleg</small></button>
+       <div class="practice-actions"><button class="status-btn ${st[1]}" onclick="cyclePractice('${it[0]}','${it[1].replace(/'/g,"\\'")}')">${st[0]}</button></div>
+     </div>`;
+   });
+   if(rows)html+=`<div class="practice-section" id="practiceGroup${gi}"><h3>${g[0]}</h3>${rows}</div>`;
+ });
+ document.getElementById('practiceList').innerHTML=html||'<div class="card"><p>Geen vaardigheden in dit filter.</p></div>';
+ updatePassportDashboard();
+}
+
+function jumpPracticeGroup(i){
+ const el=document.getElementById('practiceGroup'+i);
+ if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function jumpPracticeCuts(){
+ const names=['Snijden','Julienne','Brunoise','Snipperen','Hakken','Raspen','Schaven'];
+ const rows=[...document.querySelectorAll('.practice-row')];
+ const row=rows.find(r=>names.some(n=>r.dataset.practice===practiceId('cold',n)));
+ if(row){
+   row.scrollIntoView({behavior:'smooth',block:'center'});
+   row.classList.add('cut-focus');setTimeout(()=>row.classList.remove('cut-focus'),1500);
+ }
+}
+
+function openPracticeTechnique(cat,name,el){
+ const row=el.closest('.practice-row');
+ practiceReturn={cat,name,offset:row.getBoundingClientRect().top,filter:practiceFilter};
+ if(cat==='flow'){
+   show('flow');
+   const nav=document.querySelector('#flow .topnav');
+   nav.innerHTML=`<button class="back" onclick="returnToPractice()">← Mijn praktijk</button><button class="back" onclick="returnToMainApp()">⌂ Home</button>`;
+   return;
+ }
+ currentCategory=cat; openTechnique(name);
+ requestAnimationFrame(()=>requestAnimationFrame(()=>window.scrollTo({top:0,behavior:'auto'})));
+}
+function returnToPractice(){
+ show('practice');practiceFilter=practiceReturn?.filter||'all';
+ document.querySelectorAll('#practiceFilters button').forEach(b=>b.classList.toggle('active',b.dataset.pf===practiceFilter));
+ renderPractice();
+ requestAnimationFrame(()=>requestAnimationFrame(()=>{
+   const id=practiceId(practiceReturn.cat,practiceReturn.name);
+   const row=[...document.querySelectorAll('.practice-row')].find(r=>r.dataset.practice===id);
+   if(row){window.scrollBy(0,row.getBoundingClientRect().top-practiceReturn.offset);row.classList.add('return-focus');setTimeout(()=>row.classList.remove('return-focus'),1400);}
+ }));
+}
+
+
+
+
+function toggleProThinking(){
+ const body=document.getElementById('proThinkingBody'), btn=document.getElementById('proThinkingToggle');
+ if(!body||!btn)return;
+ const opening=body.hidden;
+ body.hidden=!opening;
+ btn.setAttribute('aria-expanded',opening?'true':'false');
+}
+
+function setFlowPractice(v){
+ const x=getPractice(); x[practiceId('flow','Werken met receptuur & stroomschema')]=v; savePractice(x); updateFlowPractice();
+}
+function updateFlowPractice(){
+ const x=getPractice(), id=practiceId('flow','Werken met receptuur & stroomschema');
+ const v=x[id]===undefined?0:Number(x[id]);
+ [0,1,2].forEach(n=>{const b=document.getElementById('flowStatus'+n);if(b)b.className=(n===v?'active'+n:'');});
+ const ja=document.getElementById('flowJokerArea');
+ if(ja)ja.innerHTML=jokerPanelHTML('flow','Werken met receptuur & stroomschema');
+}
+
+
+function openAgfTopic(id){
+ document.querySelectorAll('.agf-topic').forEach(x=>x.classList.remove('active'));
+ const e=document.getElementById('agf-'+id); if(e){e.classList.add('active');e.scrollIntoView({behavior:'smooth',block:'start'});}
+}
+function showAgfPractice(kind){
+ const e=document.getElementById('agfPracticeMsg'); if(!e)return;
+ e.style.display='block';
+ e.innerHTML='<b>'+kind+'</b><br>Deze oefenroute staat klaar in de structuur. De definitieve vragen en herkenningsfoto’s vullen we vanuit de LJ1-productlijst en het AGF-lesmateriaal.';
+}
+function returnToMainApp(){
+ window.location.href='Keukenbasis_BOL_LJ1_AGF_v30.html';
+}
+function show(id){
+ document.body.classList.remove('theme-flow','theme-label','theme-theory','theme-passport','theme-knowledge','theme-route');
+ if(id==='flow') document.body.classList.add('theme-flow');
+ else if(id==='labeling') document.body.classList.add('theme-label');
+ else if(id==='technique' && currentCategory==='professional') document.body.classList.add('theme-label');
+ else if(id==='theory'||id==='category'||id==='technique') document.body.classList.add('theme-theory');
+ else if(id==='practice') document.body.classList.add('theme-passport');
+ else if(id==='knowledge'||id==='agf') document.body.classList.add('theme-knowledge');
+ else if(id==='opleiding') document.body.classList.add('theme-route');if(id==='practice')setTimeout(()=>{renderPractice();loadStudentDetails();},0);if(id==='flow')setTimeout(updateFlowPractice,0);document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function jumpTo(id){const e=document.getElementById(id);if(e)e.scrollIntoView({behavior:'smooth',block:'start'});}
+function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+
+function openCategory(cat){
+ currentCategory=cat; show('category');
+ document.getElementById('search').value='';
+ const meta={cold:['Voorbewerking & koud','Technieken in werkvolgorde','Niet alfabetisch, maar zoals je ze tijdens een keukenopdracht tegenkomt.'],warm:['Warme bereidingstechnieken','Warme technieken in logische groepen','Kies de bereiding die bij het product en het gewenste resultaat past.'],materials:['Messen & materialen','Messen, materialen & apparatuur','Kies het hulpmiddel dat past bij het product en de handeling.']};
+ document.getElementById('catTag').textContent=meta[cat][0];document.getElementById('catTitle').textContent=meta[cat][1];document.getElementById('catIntro').textContent=meta[cat][2];
+ const jb=document.getElementById('jumpbar');jb.innerHTML='';
+ GROUPS[cat].forEach((g,i)=>{const b=document.createElement('button');const short=(cat==='materials'?['Messen','Gereedschap','Zeven','Machines','Pannen','Warmte'][i]:g[0].replace('Bereiden ','').replace(' & presenteren','').replace(' & bewaren',''));b.textContent=(i+1)+' '+short;b.onclick=()=>jumpTo('grp'+i);jb.appendChild(b)});
+ renderGroups('');
+}
+
+function renderGroups(q){
+ q=(q||'').toLowerCase().trim(); const wrap=document.getElementById('groups');wrap.innerHTML='';
+ GROUPS[currentCategory].forEach((g,i)=>{
+   const names=g[1].filter(n=>!q || n.toLowerCase().includes(q) || (DATA[currentCategory][n]?.basis||'').toLowerCase().includes(q));
+   if(!names.length)return;
+   const sec=document.createElement('div');sec.className='tech-group';sec.id='grp'+i;
+   sec.innerHTML=`<div class="group-head"><div class="group-no">${i+1}</div><div><h3>${esc(g[0])}</h3><p>${currentCategory==='cold'?'Volgorde binnen de voorbewerking en koude keuken.':currentCategory==='warm'?'Technieken met een vergelijkbare manier van warmteoverdracht of toepassing.':'Materialen met een vergelijkbare functie in de keuken.'}</p></div></div><div class="tech-list"></div>`;
+   const list=sec.querySelector('.tech-list');
+   names.forEach(n=>{const d=DATA[currentCategory][n];const b=document.createElement('button');b.className='tech-btn';b.dataset.tech=n;b.innerHTML=`<b>${esc(n)} →</b><span>${esc(d.basis)}</span>`;b.onclick=()=>{rememberTechniquePosition(n,b);openTechnique(n)};list.appendChild(b)});
+   wrap.appendChild(sec);
+ });
+ const link=document.getElementById('categoryLink');
+ if(currentCategory==='cold') link.innerHTML=`<div class="card" style="background:var(--accent2)"><span class="tag">Volgende stap</span><h3>🔥 Gaat jouw product naar een warme bereiding?</h3><p>Ga verder met de warme technieken.</p><button class="action" onclick="openCategory('warm')">Ga naar warme bereidingstechnieken →</button></div>`;
+ else if(currentCategory==='warm') link.innerHTML=`<div class="card" style="background:var(--accent2)"><span class="tag">Procesverbinding</span><h3>Klaar met bereiden?</h3><p>Controleer gaarheid, temperatuur, smaak, kleur en structuur. Daarna volgt afwerken/dresseren en opruimen.</p><button class="action" onclick="openCategory('cold')">← Naar koude technieken & afwerken</button></div>`;
+ else link.innerHTML=`<div class="card" style="background:var(--accent2)"><span class="tag">Verbinding</span><h3>Materiaal hoort bij een handeling</h3><p>Open een materiaal en kijk bij <b>Gebruik je bij…</b> welke technieken ermee verbonden zijn.</p></div>`;
+}
+
+
+function rememberTechniquePosition(name,button){
+ const rect=button.getBoundingClientRect();
+ returnState={category:currentCategory,name:name,offset:rect.top};
+}
+function returnToCategory(){
+ const state=returnState;
+ openCategory(currentCategory);
+ if(!state || state.category!==currentCategory)return;
+ requestAnimationFrame(()=>requestAnimationFrame(()=>{
+   const btn=[...document.querySelectorAll('.tech-btn')].find(b=>b.dataset.tech===state.name);
+   if(btn){
+     const y=window.scrollY+btn.getBoundingClientRect().top-state.offset;
+     window.scrollTo({top:y,behavior:'auto'});
+     btn.classList.add('return-focus');
+     setTimeout(()=>btn.classList.remove('return-focus'),1400);
+   }
+ }));
+}
+function toggleHowto(){
+ const p=document.getElementById('howtoPanel'), a=document.getElementById('howtoArrow');
+ if(!p)return;
+ const open=p.classList.toggle('open');
+ a.textContent=open?'▲':'▼';
+ if(open)setTimeout(()=>p.scrollIntoView({behavior:'smooth',block:'nearest'}),50);
+}
+
+function listHTML(items,cls=''){return (items||[]).map(x=>`<div class="${cls||'example'}">${esc(x)}</div>`).join('')}
+
+
+function openLinkedTechnique(cat,name){currentCategory=cat;returnState=null;openTechnique(name);}
+function materialLinksHTML(name){
+ const arr=MATERIAL_LINKS[name]||[];if(!arr.length)return '';
+ return `<div class="card"><span class="tag">Verbinding</span><h3>Gebruik je bij…</h3><p>Bekijk de techniek waarin dit materiaal een rol speelt.</p><div style="display:flex;flex-wrap:wrap;gap:8px">${arr.map(x=>`<button class="action" onclick="openLinkedTechnique('${x[0]}','${x[1].replace(/'/g,"\\'")}')">${x[1]} →</button>`).join('')}</div></div>`;
+}
+
+
+function jokerPanelHTML(cat,name){
+ if(!practiceSkillExists(cat,name))return '';
+ const j=getJokers(), item=j[practiceId(cat,name)];
+ return `<div class="card joker-panel">
+   <span class="tag">🃏 Alleen als deze skill echt niet uitvoerbaar is</span>
+   <h3>${item?'Joker ingezet':'Kan ik deze skill echt niet uitvoeren?'}</h3>
+   <p>${item?`Deze joker blijft zichtbaar in je export.<br><b>Reden:</b> ${esc(item.reason)}`:'Gebruik een joker alleen wanneer je deze skill redelijkerwijs niet kunt uitvoeren, bijvoorbeeld omdat de benodigde apparatuur niet beschikbaar is. Een joker betekent niet dat je de techniek beheerst.'}</p>
+   <button class="joker-bottom-btn" onclick="toggleJokerFromTechnique('${cat}','${String(name).replace(/'/g,"\\'")}')">${item?'🃏 Joker verwijderen':'🃏 Joker inzetten'}</button>
+ </div>`;
+}
+function practiceSkillExists(cat,name){
+ return PRACTICE_GROUPS.some(g=>g[1].some(it=>it[0]===cat && it[1]===name));
+}
+function toggleJokerFromTechnique(cat,name){
+ toggleJoker(cat,name);
+ if(cat==='flow'){updateFlowPractice();}else{openTechnique(name);}
+}
+
+function toggleLearn(id){const p=document.getElementById('learn-'+id);if(p)p.classList.toggle('open');}
+
+function openHomeLabeling(){
+ currentCategory='professional';
+ practiceReturn=null;
+ returnState=null;
+ openTechnique('Etiketteren, opslaan & traceerbaarheid');
+}
+
+function openTechnique(name){
+ const d=DATA[currentCategory][name];
+ const fromPractice=practiceReturn && practiceReturn.cat===currentCategory && practiceReturn.name===name;
+ const tn=document.getElementById('techTopnav');
+ tn.innerHTML=fromPractice?`<button class="back" onclick="returnToPractice()">← Mijn praktijk</button><button class="back" onclick="returnToMainApp()">⌂ Home</button>`:`<button class="back" onclick="returnToCategory()">← Technieken</button><button class="back" onclick="returnToMainApp()">⌂ Home</button>`; if(!d)return; show('technique');
+ const extra=name==='Bakken'?DATA.bakingExtra:null;
+ const how=HOWTO[name]||null;
+ let howButton=how?`<button onclick="toggleHowto()">🔪 Zo doe je het</button>`:'';
+ let howPanel=how?`<div class="howto-wrap anchor" id="t-how"><button class="howto-toggle" onclick="toggleHowto()"><span>🔪 Zo doe je het – ${esc(how.title)}</span><span id="howtoArrow">▼</span></button><div class="howto-panel" id="howtoPanel"><ol>${how.steps.map(x=>`<li>${esc(x)}</li>`).join('')}</ol><div class="howto-mistakes"><b>Dit gaat vaak mis</b>${how.mistakes.map(x=>`<div>• ${esc(x)}</div>`).join('')}</div></div></div>`:'';
+ let facts=extra?`<div class="factgrid">${extra.facts.map(f=>`<div class="fact"><b>${esc(f[0])}</b><span>${esc(f[1])}</span></div>`).join('')}</div><div class="note"><b>Richtlijn:</b> ${esc(extra.note)}</div>`:'';
+ let compare=extra?`<h3>Hoe herken je het verschil?</h3><table class="compare"><tr><th>Techniek</th><th>Richttijd</th><th>Kenmerk</th><th>Voorbeelden</th></tr>${extra.compare.map(r=>`<tr>${r.map(c=>`<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</table>`:'';
+ const cols=how?4:3;const linkBlock=currentCategory==='materials'?materialLinksHTML(name):'';
+ const labelBlock=name==='Etiketteren, opslaan & traceerbaarheid'?`<div class="card level-card"><span class="tag">NIVEAU 1 · Iedere praktijkles</span><h3>🏷️ Product opslaan? Doe altijd deze check</h3><p>Je hoeft niet eerst alle etiketregels uit je hoofd te kennen. Controleer vóórdat je iets wegzet steeds deze stappen.</p><div class="label-quick"><div class="label-step"><b>1</b><span><strong>Wat is het product?</strong><br><span class="smallmuted">Herkenbaar zonder de bak te openen.</span></span></div><div class="label-step"><b>2</b><span><strong>Etiket aanwezig en ingevuld?</strong></span></div><div class="label-step"><b>3</b><span><strong>Waar wordt het bewaard?</strong><div class="choice-row"><span class="choice-pill">❄️ Koelkast</span><span class="choice-pill">🧊 Diepvries</span><span class="choice-pill">📦 Droog</span></div><span class="smallmuted">Kruis de juiste opslag bewust aan.</span></span></div><div class="label-step"><b>4</b><span><strong>Kloppen datum, houdbaarheid en temperatuur?</strong></span></div><div class="label-step"><b>5</b><span><strong>Nieuwe productiepartij?</strong><br>Nieuw batchnummer volgens SVO Eindhoven: <b>jaar-maand-dag</b>.<br><span class="smallmuted">25 september 2026 → 2026-09-25</span></span></div><div class="label-step"><b>6</b><span><strong>Allergenen gecontroleerd?</strong><br><span class="smallmuted">Controleer receptuur én grondstofetiketten. Niet gokken.</span></span></div><div class="label-step"><b>7</b><span><strong>Alles klopt? Dan pas opslaan.</strong></span></div></div></div><div class="card"><span class="tag">Hulp nodig?</span><h3>Leer alleen wat je nu nodig hebt</h3><button class="learn-toggle" onclick="toggleLearn('allergens')">🤧 Bekijk de 14 allergenen ▾</button><div class="learn-panel" id="learn-allergens"><p>De voorbeelden helpen je de allergenen in de keuken te herkennen.</p><div class="allergen-grid"><div class="allergen"><b>🌾 Glutenbevattende granen</b>brood, pasta, bloem</div><div class="allergen"><b>🦐 Schaaldieren</b>garnaal, krab</div><div class="allergen"><b>🥚 Ei</b>mayonaise</div><div class="allergen"><b>🐟 Vis</b>vis, vissaus</div><div class="allergen"><b>🥜 Pinda</b>pinda, pindasaus</div><div class="allergen"><b>🫘 Soja</b>sojasaus, tofu</div><div class="allergen"><b>🥛 Melk</b>melk, room, kaas</div><div class="allergen"><b>🌰 Noten</b>amandel, hazelnoot, walnoot</div><div class="allergen"><b>🌿 Selderij</b>selderij, sommige bouillons</div><div class="allergen"><b>🟡 Mosterd</b>mosterd, dressing</div><div class="allergen"><b>⚪ Sesam</b>sesamzaad, tahin</div><div class="allergen"><b>🍷 Sulfiet</b>o.a. wijn, gedroogd fruit</div><div class="allergen"><b>🌱 Lupine</b>kan voorkomen in meel/bakproducten</div><div class="allergen"><b>🐚 Weekdieren</b>mossel, oester, inktvis</div></div><div class="mini-question"><b>Voorbeeld:</b> mayonaise → welk allergeen verwacht je? <b>Ei.</b><br><span class="smallmuted">Controleer altijd de echte receptuur en etiketten.</span></div></div><button class="learn-toggle" onclick="toggleLearn('batch')">🔎 Wat is een batch- of lotnummer? ▾</button><div class="learn-panel" id="learn-batch"><p>Hiermee kun je terugvinden bij welke productiepartij een product hoort. Dat is <b>traceerbaarheid</b>.</p><div class="note"><b>SVO Eindhoven:</b> nieuwe partij → jaar-maand-dag. Bijvoorbeeld <b>2026-09-25</b>.</div></div><button class="learn-toggle" onclick="toggleLearn('date')">📅 THT of TGT? ▾</button><div class="learn-panel" id="learn-date"><p><b>THT</b> en <b>TGT</b> betekenen niet hetzelfde. Kijk naar het product, de receptuur/productspecificatie en de afspraken die gelden. Vul niet zomaar een datum in.</p></div><button class="learn-toggle" onclick="toggleLearn('sale')">🛒 Product voor verkoop of levering ▾</button><div class="learn-panel" id="learn-sale"><span class="tag">NIVEAU 2</span><p>Voor verkoop of levering moet je meer controleren dan bij interne opslag.</p><div class="checklist"><div>✓ Naam van het levensmiddel</div><div>✓ Ingrediëntenlijst</div><div>✓ Allergenen duidelijk herkenbaar</div><div>✓ Nettohoeveelheid</div><div>✓ Houdbaarheidsdatum</div><div>✓ Bewaar-/gebruiksvoorwaarden</div><div>✓ Verantwoordelijke exploitant</div><div>✓ Herkomst waar verplicht</div><div>✓ Gebruiksaanwijzing waar nodig</div><div>✓ Voedingswaarde waar verplicht</div></div><div class="warning"><b>Let op:</b> voeg niet automatisch een losse allergenenbox of ‘kan sporen bevatten van…’ toe.</div></div></div>`:'';
+ document.getElementById('techContent').innerHTML=`
+ <div class="card anchor" id="t-basic"><span class="tag">Basisniveau</span><h2>${esc(name)}</h2><p class="bigdef">${esc(d.basis)}</p>${facts}</div>
+ <div class="sticky-tools" style="grid-template-columns:repeat(${cols},minmax(0,1fr))"><button onclick="jumpTo('t-examples')">🥬 Voorbeelden</button>${howButton}<button onclick="jumpTo('t-prof')">⭐ Professioneel</button><button onclick="jumpTo('t-attn')">⚠️ Let op</button></div>
+ ${linkBlock}
+ ${labelBlock}
+ ${howPanel}
+ ${name==='Etiketteren, opslaan & traceerbaarheid'?`<div class="card label-deep anchor" id="t-examples"><details><summary>⭐ Professionele verdieping bekijken</summary><div style="padding-top:12px"><h3>Praktijkvoorbeelden</h3>${listHTML(d.examples)}${compare}<h3 id="t-prof">Goed uitgevoerd als…</h3>${listHTML(d.good,'good')}<h3 id="t-attn">Hier moet je op letten</h3>${listHTML(d.critical,'warning')}<h3>Veelgemaakte fouten</h3>${listHTML(d.mistakes,'warning')}</div></details></div>`:`<div class="card anchor" id="t-examples"><span class="tag">Praktijk</span><h3>Praktijkvoorbeelden</h3>${listHTML(d.examples)}${compare}</div><div class="card anchor" id="t-prof"><span class="tag">Professioneel niveau</span><p>${esc(d.professional)}</p><h3>Goed uitgevoerd als…</h3>${listHTML(d.good,'good')}</div><div class="card anchor" id="t-attn"><span class="tag">Kritieke punten</span><h3>Hier moet je op letten</h3>${listHTML(d.critical,'warning')}<h3>Veelgemaakte fouten</h3>${listHTML(d.mistakes,'warning')}</div>`}
+ ${jokerPanelHTML(currentCategory,name)}`;
+ requestAnimationFrame(()=>requestAnimationFrame(()=>window.scrollTo({top:0,behavior:'auto'})));
+}
+</script></body></html>
