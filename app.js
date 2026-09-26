@@ -205,6 +205,7 @@ const academyData = {
             createLeerjaar(1, [1, 2, 3, 4], {
                 1: {
                     themas: [
+                        createKeukenbasisAgfThema(),
                         {
                             id: "professionele-ontwikkeling",
                             naam: "Professionele ontwikkeling",
@@ -243,6 +244,7 @@ const academyData = {
                     themas: [createStageZoekenThema()]
                 }
             }, [
+                createKeukenbasisLeerjaar1Onderdeel(),
                 createEindtoetsOnderdeel(),
                 createWarmeBereidingstechniekenOnderdeel()
             ]),
@@ -480,6 +482,51 @@ function createLeerjaar(nummer, periodeNummers, periodeInhoud = {}, specialeOnde
             themas: periodeInhoud[periodeNummer]?.themas || []
         })),
         specialeOnderdelen
+    };
+}
+
+function createKeukenbasisAgfThema() {
+    return {
+        id: "keukenbasis-agf",
+        naam: "Keukenbasis – Periode 1: AGF",
+        modules: [
+            {
+                id: "keukenbasis-agf-periode-1",
+                titel: "AGF – Periode 1",
+                type: "Herkenning, oefenen & oefenexamen",
+                duur: "Periode 1",
+                beschrijving: "In periode 1 draait Keukenbasis om AGF. Oefen per productgroep, daarna gemengd en sluit af met het oefenexamen. Je voortgang is dezelfde als via de jaartegel.",
+                bestand: "modules/bol-allround-food-expert/leerjaar-1/keukenbasis/Keukenbasis_BOL_LJ1_AGF_v30.html",
+                actieLabel: "Start AGF",
+                beschikbaar: true
+            }
+        ]
+    };
+}
+
+function createKeukenbasisLeerjaar1Onderdeel() {
+    return {
+        id: "keukenbasis-leerjaar-1",
+        naam: "Keukenbasis – hele leerjaar",
+        beschrijving: "De vaste jaartrainer voor alle thema’s van Keukenbasis. AGF is nu volledig beschikbaar; de overige thema’s worden gedurende het leerjaar toegevoegd. Alles wordt lokaal in deze browser bewaard.",
+        themas: [
+            {
+                id: "keukenbasis-alle-themas",
+                naam: "Keukenbasis – alle thema’s",
+                modules: [
+                    {
+                        id: "keukenbasis-jaartrainer",
+                        titel: "Keukenbasis – Leerjaar 1",
+                        type: "Jaartrainer warenkennis & keukenbasis",
+                        duur: "Het hele leerjaar",
+                        beschrijving: "Werk het hele jaar rond aan Keukenbasis. Start nu met AGF: productgroepen, herkennen, toepassen, gemengd oefenen en het oefenexamen. Je voortgang blijft lokaal in deze browser bewaard.",
+                        bestand: "modules/bol-allround-food-expert/leerjaar-1/keukenbasis/Keukenbasis_BOL_LJ1_AGF_v30.html",
+                        actieLabel: "Open Keukenbasis",
+                        beschikbaar: true
+                    }
+                ]
+            }
+        ]
     };
 }
 
