@@ -543,7 +543,6 @@ body.theme-flow .flow-check-card{border-left:5px solid var(--theme)}
 /* v27.1 – mobile/nav audit: vaste Productgroepen-knop, dynamische hero, gemengd-status opgeschoond */
 /* v28 – definitieve audit: categorieën gecorrigeerd + gemengde dekking/voortgang geborgd */
 /* v29 – oefenexamen AGF: 10 gemengde producten, A/B controle, C/D zelfcontrole, twijfelmarkering en compacte PDF-export */
-/* v30 – AGF hoofdroute prominenter: meteen oefenen / oefenexamen / eerst lezen */
 .agf-group-return-bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 12px;padding:10px 12px;border:1px solid #dfe6e1;border-radius:14px;background:#f7faf8}
 .agf-group-return-btn{border:1px solid #cbd8d0;background:#fff;border-radius:12px;padding:9px 13px;font:inherit;font-weight:800;color:#245f43;cursor:pointer}
 .agf-group-return-btn:hover{background:#eef6f1}
@@ -668,7 +667,7 @@ body.theme-flow .flow-check-card{border-left:5px solid var(--theme)}
 <button class="tile home-passport" onclick="show('practice')"><div class="icon">🎯</div><h3>SkillsPaspoort</h3><p>Volg je praktijkvaardigheden, voortgang en behaalde doelen.</p></button>
 </div>
 <button class="home-wide recognition" onclick="show('recognition')"><div class="wide-icon">👁️</div><div><h3>Herkenningstafel</h3><p>Leer producten herkennen, indelen, toepassen en een logisch alternatief adviseren.</p></div></button>
-<button class="home-wide knowledge" onclick="window.location.href='Vakkennis_en_warenkennis_module.html'"><div class="wide-icon">🧠</div><div><h3>Vakkennis & warenkennis</h3><p>Leer producten herkennen, beoordelen, bewaren en toepassen.</p></div></button>
+<button class="home-wide knowledge" onclick="show('knowledge')"><div class="wide-icon">🧠</div><div><h3>Vakkennis & warenkennis</h3><p>Leer producten herkennen, beoordelen, bewaren en toepassen.</p></div></button>
 <button class="home-wide route" onclick="show('opleiding')"><div class="wide-icon">🗺️</div><div><h3>Mijn opleiding</h3><p>Bekijk waar je nu staat en waar je in twee jaar naartoe werkt.</p></div></button>
 </section>
 
@@ -723,11 +722,183 @@ body.theme-flow .flow-check-card{border-left:5px solid var(--theme)}
   </div>
 </div>
 <div class="route-grid agf-start-grid">
-  <button class="route-btn agf-primary-route" onclick="show('agfPhotoPilot');agfOpenGroupChooser()">📸 <span><b>Meteen oefenen</b><small>Ontdek wat je al herkent en waar je nog moet oefenen.</small></span></button>
-  <button class="route-btn agf-exam-route" onclick="show('agfPhotoPilot');agfOpenExamStart()">🎓 <span><b>Oefenexamen</b><small>10 producten, geen hints. Hoe ver kom jij?</small></span></button>
+  <button class="route-btn agf-primary-route" onclick="show('agfPhotoPractice');agfOpenGroupChooser()">📸 <span><b>Meteen oefenen</b><small>Ontdek wat je al herkent en waar je nog moet oefenen.</small></span></button>
+  <button class="route-btn agf-exam-route" onclick="show('agfPhotoPractice');agfOpenExamStart()">🎓 <span><b>Oefenexamen</b><small>10 producten, geen hints. Hoe ver kom jij?</small></span></button>
   <button class="route-btn agf-read-route" onclick="agfShowOverview()">📋 <span><b>Eerst even lezen</b><small>Bekijk wat je voor AGF moet kennen.</small></span></button>
 </div>
 </div>
+
+<div class="card" id="agfRecognitionList"><span class="tag">LEERLIJST</span><h3>📋 AGF-producten die je moet kunnen herkennen</h3>
+<p>Gebruik deze lijst als overzicht. De foto's en interactieve herkenningsoefeningen worden hier later aan gekoppeld.</p>
+<div class="product-group"><h4>Aardappelen</h4><div class="product-list"><div>□ Roseval</div></div></div><div class="product-group"><h4>Knol- en wortelgewassen</h4><div class="product-list"><div>□ Aardpeer</div><div>□ Knolselderij</div><div>□ Radijs</div><div>□ Winterwortel</div><div>□ Bospeen</div></div></div><div class="product-group"><h4>Bolgewassen</h4><div class="product-list"><div>□ Rode ui</div><div>□ Knoflook</div><div>□ Sjalot</div></div></div><div class="product-group"><h4>Bladgroenten</h4><div class="product-list"><div>□ Prei</div><div>□ Andijvie</div><div>□ IJsbergsla</div><div>□ Rucola</div></div></div><div class="product-group"><h4>Vruchtgroenten</h4><div class="product-list"><div>□ Courgette</div><div>□ Aubergine</div><div>□ Sperziebonen</div></div></div><div class="product-group"><h4>Stengelgewassen</h4><div class="product-list"><div>□ Asperges</div><div>□ Rabarber</div><div>□ Broccoli</div><div>□ Bloemkool</div></div></div><div class="product-group"><h4>Spruit-/kiemgroenten & cressen</h4><div class="product-list"><div>□ Tuinkers</div><div>□ Taugé</div></div></div><div class="product-group"><h4>Paddenstoelen</h4><div class="product-list"><div>□ Beukenzwam</div><div>□ Shiitake</div><div>□ Oesterzwam</div><div>□ Champignon</div></div></div><div class="product-group"><h4>Hard fruit</h4><div class="product-list"><div>□ Granny Smith</div><div>□ Conference</div></div></div><div class="product-group"><h4>Zacht fruit</h4><div class="product-list"><div>□ Aardbeien</div><div>□ Framboos</div><div>□ Blauwe bes</div><div>□ Perziken</div><div>□ Pruimen</div><div>□ Druiven</div><div>□ Galia meloen</div><div>□ Watermeloen</div><div>□ Rode bes</div><div>□ Braam</div></div></div><div class="product-group"><h4>Citrusfruit</h4><div class="product-list"><div>□ Citroen</div><div>□ Mandarijn</div><div>□ Sinaasappel</div><div>□ Grapefruit</div><div>□ Kumquat</div><div>□ Limoen</div></div></div><div class="product-group"><h4>Exoten</h4><div class="product-list"><div>□ Kiwi</div><div>□ Banaan</div><div>□ Ananas</div><div>□ Avocado</div><div>□ Papaja</div><div>□ Granaatappel</div><div>□ Carambola</div></div></div>
+</div>
+</section>
+
+
+<section id="agfPhotoPractice" class="view">
+<div class="topnav agf-photo-nav">
+<button class="back productgroups-nav-btn" onclick="agfOpenGroupChooser()">← Productgroepen</button>
+<button class="back" onclick="show('recognitionAgf')">← AGF herkenningstafel</button>
+<button class="back" onclick="show('home')">⌂ Home</button>
+</div>
+<div class="hero" id="agfPracticeHero">
+<span class="tag" id="agfPracticeHeroTag">FOTO-OEFENING</span>
+<h2 id="agfPracticeHeroTitle">📸 AGF oefenen</h2>
+<p id="agfPracticeHeroText">Kies een productgroep of oefen alle productgroepen door elkaar.</p>
+</div>
+<div class="photo-practice">
+
+<div class="card" id="agfExamStart" style="display:none">
+  <span class="tag">🎓 OEFENEXAMEN AGF</span>
+  <h2>Klaar om jezelf te testen?</h2>
+  <p>Je krijgt <b>10 willekeurige AGF-producten</b>, verspreid over verschillende productgroepen.</p>
+  <div class="exam-rules">
+    <b>Tijdens het oefenexamen</b>
+    <ul>
+      <li>Geen hints en geen directe goed/fout-feedback.</li>
+      <li>A: typ zelf de productnaam.</li>
+      <li>B: kies de productgroep uit alle 12 productgroepen.</li>
+      <li>C: geef een mogelijke bereiding of toepassing.</li>
+      <li>D: geef een alternatief dat bij jouw toepassing past en leg kort uit waarom.</li>
+    </ul>
+  </div>
+  <label class="exam-name-label">Naam student
+    <input id="agfExamStudentName" type="text" placeholder="Vul je naam in" autocomplete="name">
+  </label>
+  <div class="exam-start-actions">
+    <button class="primary" onclick="agfStartExam()">Start examen</button>
+    <button class="secondary" onclick="agfOpenGroupChooser()">← Terug</button>
+  </div>
+</div>
+
+<div class="card" id="agfExamPanel" style="display:none"></div>
+<div class="card" id="agfExamResults" style="display:none"></div>
+<div class="card" id="agfMixedSetup" style="display:none">
+  <span class="tag">AGF · GEMENGD OEFENEN</span>
+  <h2>Hoeveel wil je oefenen?</h2>
+  <p>De producten komen uit alle AGF-productgroepen door elkaar.</p>
+
+  <div class="mixed-length-grid">
+    <button onclick="agfChooseMixedLength(5)">
+      <b>⚡ Kort oefenen</b><span>ongeveer 5 producten</span>
+      <small>Handig voor een snelle oefenronde.</small>
+    </button>
+    <button onclick="agfChooseMixedLength(10)">
+      <b>🎯 Goede oefenronde</b><span>ongeveer 10 producten</span>
+      <small>Een stevige ronde met verschillende productgroepen.</small>
+    </button>
+    <button onclick="agfChooseMixedLength('all')">
+      <b>🔥 Kom maar op – alles</b><span>alle 57 producten</span>
+      <small>Je krijgt ieder product één keer in willekeurige volgorde.</small>
+    </button>
+  </div>
+
+  <div id="agfMixedLevel" style="display:none" class="mixed-level-box">
+    <span class="tag">KIES JE LEVEL</span>
+    <h3>Hoe wil je oefenen?</h3>
+    <div class="level-choice-grid">
+      <button onclick="agfStartMixed(1)"><b>🟢 Level 1</b><span>Ik herken het</span></button>
+      <button onclick="agfStartMixed(2)"><b>🔥 Level 2</b><span>Ik weet het zelf</span></button>
+    </div>
+  </div>
+  <button class="mixed-back" onclick="agfOpenGroupChooser()">← Terug naar productgroepen</button>
+</div>
+<div class="card" id="agfGroupChooser" style="display:none">
+<div class="group-chooser-head"><span class="tag">AGF · OEFENEN PER PRODUCTGROEP</span><h2>Kies een productgroep</h2>
+<p>Je oefent automatisch alle producten uit de gekozen groep. De keuze 5 / 10 / alles gebruiken we straks bij gemengd oefenen.</p></div>
+
+<div class="exam-practice-card">
+  <div>
+    <span class="tag">ZONDER HINTS · 10 PRODUCTEN</span>
+    <h3>🎓 Oefenexamen Herkenningstafel AGF</h3>
+    <p>10 producten uit verschillende productgroepen. Eerst alles invullen, daarna pas nakijken.</p>
+  </div>
+  <button type="button" onclick="agfOpenExamStart()">Start oefenexamen →</button>
+</div>
+<div class="mixed-practice-card">
+  <div>
+    <span class="tag">ALLE PRODUCTGROEPEN DOOR ELKAAR</span>
+    <h3>🔀 Gemengd oefenen</h3>
+    <p>Je weet vooraf niet uit welke productgroep het product komt.</p>
+  </div>
+  <button type="button" onclick="agfOpenMixedSetup()">Start gemengd oefenen →</button>
+</div>
+<div class="agf-group-grid">
+<button onclick="agfSelectGroup('Aardappelen')"><span>🥔</span><b>Aardappelen</b><small>3 producten</small></button>
+<button onclick="agfSelectGroup('Knol- en wortelgewassen')"><span>🥕</span><b>Knol- en wortelgewassen</b><small>5 producten</small></button>
+<button onclick="agfSelectGroup('Bolgewassen')"><span>🧅</span><b>Bolgewassen</b><small>3 producten</small></button>
+<button onclick="agfSelectGroup('Bladgroenten')"><span>🥬</span><b>Bladgroenten</b><small>4 producten</small></button>
+<button onclick="agfSelectGroup('Vruchtgroenten')"><span>🍆</span><b>Vruchtgroenten</b><small>3 producten</small></button>
+<button onclick="agfSelectGroup('Stengelgewassen')"><span>🌿</span><b>Stengelgewassen</b><small>4 producten</small></button>
+<button onclick="agfSelectGroup('Spruit-/kiemgroenten & cressen')"><span>🌱</span><b>Spruit-/kiemgroenten & cressen</b><small>4 producten</small></button>
+<button onclick="agfSelectGroup('Paddenstoelen')"><span>🍄</span><b>Paddenstoelen</b><small>4 producten</small></button>
+<button onclick="agfSelectGroup('Hard fruit')"><span>🍎</span><b>Hard fruit</b><small>4 producten</small></button>
+<button onclick="agfSelectGroup('Zacht fruit')"><span>🍓</span><b>Zacht fruit</b><small>10 producten</small></button>
+<button onclick="agfSelectGroup('Citrusfruit')"><span>🍊</span><b>Citrusfruit</b><small>6 producten</small></button>
+<button onclick="agfSelectGroup('Exoten')"><span>🥭</span><b>Exoten</b><small>7 producten</small></button>
+</div></div>
+<div class="card" id="agfPilotIntro">
+<h3>Zo werkt deze oefening</h3>
+<p>Je kunt op twee niveaus oefenen. Begin met herkennen of ga direct naar actief ophalen uit je geheugen.</p>
+<div class="potato-group-banner"><div><span class="potato-emoji">🥬</span></div>
+<div><b id="agfCurrentGroupTitle">Bladgroenten</b><p id="agfCurrentGroupDesc">Je oefent automatisch alle producten uit deze productgroep. Kies alleen nog je level.</p><small id="agfCurrentGroupCount">4 producten</small></div></div>
+<div class="group-back-row"><button type="button" onclick="agfOpenGroupChooser()">← Terug naar productgroepen</button></div>
+<div id="agfProgressSummary"></div>
+
+<div class="practice-step">
+  <span class="tag">KIES JE LEVEL</span>
+  <h3>Kies je niveau</h3>
+  <div class="level-choice-grid">
+    <div class="level-choice-card">
+      <div class="level-icon">🟢</div>
+      <h3>Level 1 · Ik herken het</h3>
+      <p>Je krijgt vier productnamen als hulp. De productgroep kies je steeds uit alle categorieën.</p>
+      <button class="level-start-btn" onclick="agfChooseLevel(1,'all')">Start Level 1 →</button>
+    </div>
+    <div class="level-choice-card level-two">
+      <div class="level-icon">🔥</div>
+      <h3>Level 2 · Ik weet het zelf</h3>
+      <p>Je schrijft de productnaam zelf, bekijkt daarna het juiste antwoord en controleert jezelf. Geen spellingstraf.</p>
+      <button class="level-start-btn" onclick="agfChooseLevel(2,'all')">Start Level 2 →</button>
+    </div>
+  </div>
+</div>
+
+<p class="pilot-note">De herkenningsfoto’s zitten in dit bestand: internet is niet nodig.</p>
+</div>
+<div id="agfPilotGame" style="display:none">
+<div class="agf-group-return-bar">
+  <button type="button" class="agf-group-return-btn" onclick="agfOpenGroupChooser()">← Terug naar productgroepen</button>
+  <span>Kies een andere AGF-productgroep</span>
+</div>
+
+<div class="agf-stepback-bar">
+  <button type="button" class="agf-stepback-btn" onclick="agfBackToSetup()">← Eén stap terug</button>
+  <span>Kies eventueel een ander level</span>
+</div>
+</div>
+</div>
+</section>
+
+<section id="knowledge" class="view">
+<div class="topnav"><button class="back" onclick="show('home')">⌂ Home</button></div>
+<div class="hero"><span class="tag">VAKMANSCHAP</span><h2>🧠 Vakkennis & warenkennis</h2><p>Je leert producten <b>herkennen</b>, in de juiste groep plaatsen, de <b>kwaliteit</b> beoordelen, goed <b>bewaren</b> en professioneel <b>toepassen</b>.</p></div>
+<button class="practice-wide" onclick="show('knowledgePractice')"><div class="wide-icon">🎮</div><div><h3>Oefen je vakkennis</h3><p>Kies een thema en oefen herkennen, productgroepen, kwaliteit, bewaren en toepassen.</p></div><span class="practice-arrow">→</span></button>
+<div class="knowledge-grid">
+<button class="knowledge-tile" onclick="show('agf')"><div class="icon">🥕</div><h3>AGF</h3><p>Aardappelen, groenten, paddenstoelen en fruit.</p></button>
+<div class="knowledge-tile locked"><div class="icon">🦃</div><h3>Wild & gevogelte</h3><p>Inclusief oliën & vetten · volgt later.</p></div>
+<div class="knowledge-tile locked"><div class="icon">🥐</div><h3>Brood & banket</h3><p>Productherkenning en warenkennis · volgt later.</p></div>
+<div class="knowledge-tile locked"><div class="icon">🐟</div><h3>Vis & duurzaamheid</h3><p>Herkennen, kwaliteit en toepassing · volgt later.</p></div>
+<div class="knowledge-tile locked"><div class="icon">🧀</div><h3>Kaas</h3><p>Soorten, productie, rijping en toepassing · volgt later.</p></div>
+<div class="knowledge-tile locked"><div class="icon">🥩</div><h3>Vlees & vleeswaren</h3><p>Inclusief vleesvervangers & eiwittransitie · volgt later.</p></div>
+<div class="knowledge-tile locked"><div class="icon">☕</div><h3>Drankenkennis</h3><p>Herkomst, productie, bereiden en adviseren · volgt later.</p></div>
+<button class="knowledge-tile foodmarkt" onclick="show('opleiding')"><div class="icon">🏪</div><span class="tag">EINDPROEVE · LEERJAAR 2</span><h3>8. FOODMARKT · hier komt alles samen</h3><p>De vakkennis uit alle thema’s komt hier samen met de andere theorievakken en professionele vaardigheden uit de opleiding.</p><div class="foodmarkt-tags"><span>📚 Vakkennis</span><span>👨‍🍳 Productie</span><span>🌡️ Voedselveiligheid</span><span>🚚 Logistiek</span><span>💶 Financieel</span><span>📣 Marketing</span><span>👥 Personeel</span><span>🧭 Management & leidinggeven</span><span>🛒 Verkoop & klantadvies</span></div></button>
+</div>
+</section>
+
+<section id="knowledgePractice" class="view">
+<div class="topnav"><button class="back" onclick="show('knowledge')">← Vakkennis</button><button class="back" onclick="show('home')">⌂ Home</button></div>
+<div class="hero"><span class="tag">OEFENPLEIN</span><h2>🎮 Oefen je vakkennis</h2><p>Kies eerst <b>waarover</b> je wilt oefenen. Daarna kies je <b>hoe</b> je wilt oefenen.</p></div>
 <div class="card"><span class="tag">STAP 1</span><h3>Kies een thema</h3><div class="practice-theme-grid">
 <button onclick="selectKnowledgeTheme('AGF','🥕',this)"><span>🥕</span><b>AGF</b><small>Leerjaar 1 · actief</small></button>
 <button onclick="selectKnowledgeTheme('Wild & gevogelte','🦃',this)"><span>🦃</span><b>Wild & gevogelte</b><small>incl. oliën & vetten</small></button>
@@ -741,47 +912,6 @@ body.theme-flow .flow-check-card{border-left:5px solid var(--theme)}
 <div class="card practice-method-card"><span class="tag">STAP 2</span><h3 id="practiceThemeTitle">Kies hierboven eerst een thema</h3><p id="practiceThemeHelp">Daarna worden de oefenvormen hieronder beschikbaar.</p><div class="agf-actions practice-methods">
 <button disabled onclick="openKnowledgePractice('Herkennen')">👁️ Herkennen</button><button disabled onclick="openKnowledgePractice('Productgroepen')">🗂️ Productgroepen</button><button disabled onclick="openKnowledgePractice('Kwaliteit')">✅ Kwaliteit</button><button disabled onclick="openKnowledgePractice('Bewaren')">🌡️ Bewaren</button><button disabled onclick="openKnowledgePractice('Toepassen')">🍳 Toepassen</button><button disabled onclick="openKnowledgePractice('Oefentoets')">📝 Oefentoets</button></div><div id="knowledgePracticeMsg" class="note" style="display:none;margin-top:12px"></div></div>
 <div class="note"><b>Goed om te weten</b><br>AGF wordt als eerste volledig gevuld. Dezelfde oefenstructuur staat alvast klaar voor de andere vakmanschapsthema’s. <b>Foodmarkt</b> staat hier niet als oefenthema: daar komt juist alle kennis uit de opleiding samen in de eindproeve.</div>
-</section>
-
-<section id="agfPhotoPilot" class="view">
-<div class="topnav"><button class="back" onclick="show('recognitionAgf')">← AGF</button><button class="back" onclick="show('home')">⌂ Home</button></div>
-<div class="hero"><span class="tag" id="agfPracticeHeroTag">AGF · FOTO-OEFENING</span><h2 id="agfPracticeHeroTitle">📸 Kies hoe je wilt oefenen</h2><p id="agfPracticeHeroText">Oefen één productgroep of kies gemengd oefenen met alle productgroepen door elkaar.</p></div>
-<div id="agfGroupChooser" class="card">
-  <h3>Kies een productgroep</h3>
-  <div class="agf-grid">
-    <button class="knowledge-tile" onclick="agfSelectGroup('Aardappelen')"><h3>Aardappelen</h3></button>
-    <button class="knowledge-tile" onclick="agfSelectGroup('Knol- en wortelgewassen')"><h3>Knol- en wortelgewassen</h3></button>
-    <button class="knowledge-tile" onclick="agfSelectGroup('Bolgewassen')"><h3>Bolgewassen</h3></button>
-    <button class="knowledge-tile" onclick="agfSelectGroup('Bladgroenten')"><h3>Bladgroenten</h3></button>
-    <button class="knowledge-tile" onclick="agfSelectGroup('Vruchtgroenten')"><h3>Vruchtgroenten</h3></button>
-    <button class="knowledge-tile" onclick="agfSelectGroup('Stengelgewassen')"><h3>Stengelgewassen</h3></button>
-    <button class="knowledge-tile" onclick="agfSelectGroup('Spruit-/kiemgroenten & cressen')"><h3>Spruit-/kiemgroenten & cressen</h3></button>
-    <button class="knowledge-tile" onclick="agfSelectGroup('Paddenstoelen')"><h3>Paddenstoelen</h3></button>
-    <button class="knowledge-tile" onclick="agfSelectGroup('Hard fruit')"><h3>Hard fruit</h3></button>
-    <button class="knowledge-tile" onclick="agfSelectGroup('Zacht fruit')"><h3>Zacht fruit</h3></button>
-    <button class="knowledge-tile" onclick="agfSelectGroup('Citrusfruit')"><h3>Citrusfruit</h3></button>
-    <button class="knowledge-tile" onclick="agfSelectGroup('Exoten')"><h3>Exoten</h3></button>
-  </div>
-  <div class="practice-nav"><button class="secondary-practice" onclick="agfOpenMixedSetup()">🔀 Gemengd oefenen</button><button class="primary-practice" onclick="agfOpenExamStart()">🎓 Oefenexamen</button></div>
-</div>
-<div id="agfPilotIntro" class="card" style="display:none">
-  <span class="tag">OEFENEN PER PRODUCTGROEP</span><h2 id="agfCurrentGroupTitle"></h2><p id="agfCurrentGroupDesc"></p><p><b id="agfCurrentGroupCount"></b></p>
-  <div id="agfProgressSummary"></div>
-  <div class="practice-nav"><button class="secondary-practice" onclick="agfOpenGroupChooser()">← Andere productgroep</button><button class="primary-practice" onclick="agfChooseLevel(1,'all')">Level 1 · herkennen</button><button class="primary-practice" onclick="agfChooseLevel(2,'all')">Level 2 · zelf weten</button></div>
-</div>
-<div id="agfMixedSetup" class="card" style="display:none">
-  <h2>Gemengd oefenen</h2><p>Kies hoeveel producten je door elkaar wilt oefenen.</p>
-  <div class="practice-nav"><button onclick="agfChooseMixedLength(10)">10 producten</button><button onclick="agfChooseMixedLength(20)">20 producten</button><button onclick="agfChooseMixedLength('all')">Alle producten</button></div>
-  <div id="agfMixedLevel" style="display:none"><div class="practice-nav"><button class="primary-practice" onclick="agfStartMixed(1)">Level 1</button><button class="primary-practice" onclick="agfStartMixed(2)">Level 2</button></div></div>
-</div>
-<div id="agfExamStart" class="card" style="display:none">
-  <h2>Oefenexamen AGF</h2><p>Je krijgt 10 producten zonder hints. Vul eerst je naam in.</p>
-  <input id="agfExamStudentName" class="name-input" type="text" placeholder="Naam student">
-  <div class="practice-nav"><button class="secondary-practice" onclick="agfOpenGroupChooser()">← Terug</button><button class="primary-practice" onclick="agfStartExam()">Start oefenexamen</button></div>
-</div>
-<div id="agfExamPanel" style="display:none"></div>
-<div id="agfExamResults" style="display:none"></div>
-<div id="agfPilotGame" style="display:none"></div>
 </section>
 
 <section id="agf" class="view">
@@ -1868,8 +1998,8 @@ function agfShuffle(a){
   a=[...a]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]} return a;
 }
 function agfMixedMark(knew){
- if(!agfMixedMode || !AGF_PILOT[agfIndex]) return;
- const mp=agfMixedProgress(), nm=AGF_PILOT[agfIndex].name;
+ if(!agfMixedMode || !AGF_PILOT[agfPilotIndex]) return;
+ const mp=agfMixedProgress(), nm=AGF_PILOT[agfPilotIndex].name;
  mp[nm]=mp[nm]||{}; mp[nm].seen=true; mp[nm].level2=knew?'knew':'practice'; agfSaveMixedProgress(mp);
 }
 function agfOpenMixedSetup(){
