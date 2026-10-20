@@ -430,8 +430,8 @@ const academyData = {
                         }
                     ]
                 }
-            }, [createEindtoetsOnderdeel()]),
-            createLeerjaar(2, [5, 6], {}, [createEindexamenOnderdeel()])
+            }, [createGastvrijheidProjectcoachOnderdeel(), createEindtoetsOnderdeel()]),
+            createLeerjaar(2, [5, 6], {}, [createGastvrijheidProjectcoachOnderdeel(), createEindexamenOnderdeel()])
         ]),
         createOpleiding("entreeopleiding", "Entreeopleiding", [], [], [
             {
@@ -564,6 +564,32 @@ function createStageZoekenThema() {
                 bestand: "modules/bol-allround-food-expert/leerjaar-1/stage-zoeken/svo-stage-navigator-v6-2.html",
                 actieLabel: "Start stagezoekhulp",
                 beschikbaar: true
+            }
+        ]
+    };
+}
+
+function createGastvrijheidProjectcoachOnderdeel() {
+    return {
+        id: "gastvrijheid-in-actie-projectcoach",
+        naam: "Gastvrijheid in Actie – Projectcoach",
+        beschrijving: "Uitgebreide desktopapp voor het tweejarige project en je eindpresentatie. Let op: gebruik in leerjaar 1, periode 1 ook de mobiele Fase 1-app voor onderzoek op je werkplek.",
+        themas: [
+            {
+                id: "gastvrijheid-in-actie-volledig-project",
+                naam: "Volledig project niveau 2 en 3",
+                modules: [
+                    {
+                        id: "gastvrijheid-in-actie-projectcoach",
+                        titel: "Gastvrijheid in Actie – volledige Projectcoach",
+                        type: "Tweejarig project en eindpresentatie",
+                        duur: "Doorlopend in leerjaar 1 en 2",
+                        beschrijving: "Werk alle projectfasen uit, verzamel je onderzoeksresultaten en bouw stap voor stap aan je eindpresentatie. Gebruik deze uitgebreide app bij voorkeur op een laptop of computer. Alles wordt lokaal in je browser bewaard; download regelmatig een back-up.",
+                        bestand: "modules/hospitality/gastvrijheid-in-actie-projectcoach/index.html",
+                        actieLabel: "Open Projectcoach",
+                        beschikbaar: true
+                    }
+                ]
             }
         ]
     };
