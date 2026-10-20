@@ -195,6 +195,26 @@ const academyData = {
                             ]
                         }
                     ]
+                },
+                7: {
+                    themas: [
+                        {
+                            id: "financieel-in-de-foodpraktijk",
+                            naam: "Financieel in de foodpraktijk",
+                            modules: [
+                                {
+                                    id: "financieel-in-de-foodpraktijk-compleet",
+                                    titel: "Financieel in de foodpraktijk – Compleet traject",
+                                    type: "Leer-, oefen- en examentraject",
+                                    duur: "1–2 uur per week",
+                                    beschrijving: "Volg zes kernhoofdstukken met uitleg en eigen oefensommen. De begrippen staan in de trainer, maar je haalt het meeste uit dit traject als je de basisbegrippen al kent.",
+                                    bestand: "modules/traiteur/leerjaar-2/periode-7/financieel-in-de-foodpraktijk/financieel-in-de-foodpraktijk.html",
+                                    actieLabel: "Start financieel traject",
+                                    beschikbaar: true
+                                }
+                            ]
+                        }
+                    ]
                 }
             }, [
                 createEindexamenOnderdeel(),
