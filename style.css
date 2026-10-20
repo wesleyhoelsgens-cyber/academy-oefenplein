@@ -290,6 +290,15 @@ main {
     gap: var(--space-6);
 }
 
+.card-grid > .direct-module-card {
+    min-width: 0;
+    grid-column: 1 / -1;
+}
+
+.direct-module-card .module-card {
+    min-height: 0;
+}
+
 .module-overview {
     display: grid;
     gap: var(--space-10);

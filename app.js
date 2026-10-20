@@ -729,7 +729,7 @@ function renderLeerjaarOverview(leerjaar, parentRoute) {
                 </a>
             `).join("")}
             ${leerjaar.specialeOnderdelen.map(onderdeel => onderdeel.directModule
-                ? renderModuleCard(onderdeel.directModule)
+                ? `<div class="direct-module-card">${renderModuleCard(onderdeel.directModule)}</div>`
                 : `
                 <a class="navigation-card special-card" href="${routeTo([...parentRoute, "speciaal", onderdeel.id])}">
                     <span class="special-card-icon" aria-hidden="true">
