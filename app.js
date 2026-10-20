@@ -430,7 +430,7 @@ const academyData = {
                         }
                     ]
                 }
-            }, [createGastvrijheidProjectcoachOnderdeel(), createEindtoetsOnderdeel()]),
+            }, [createGastvrijheidProjectcoachOnderdeel()]),
             createLeerjaar(2, [5, 6], {}, [createGastvrijheidProjectcoachOnderdeel(), createEindexamenOnderdeel()])
         ]),
         createOpleiding("entreeopleiding", "Entreeopleiding", [], [], [
@@ -570,26 +570,27 @@ function createStageZoekenThema() {
 }
 
 function createGastvrijheidProjectcoachOnderdeel() {
+    const projectcoachModule = {
+        id: "gastvrijheid-in-actie-projectcoach",
+        titel: "Gastvrijheid in Actie – volledige Projectcoach",
+        type: "Tweejarig project en eindpresentatie",
+        duur: "Doorlopend in leerjaar 1 en 2",
+        beschrijving: "Werk alle projectfasen uit, verzamel je onderzoeksresultaten en bouw stap voor stap aan je eindpresentatie. Gebruik deze uitgebreide app bij voorkeur op een laptop of computer. Alles wordt lokaal in je browser bewaard; download regelmatig een back-up.",
+        bestand: "modules/hospitality/gastvrijheid-in-actie-projectcoach/index.html",
+        actieLabel: "Open Projectcoach",
+        beschikbaar: true
+    };
+
     return {
         id: "gastvrijheid-in-actie-projectcoach",
         naam: "Gastvrijheid in Actie – Projectcoach",
         beschrijving: "Uitgebreide desktopapp voor het tweejarige project en je eindpresentatie. Let op: gebruik in leerjaar 1, periode 1 ook de mobiele Fase 1-app voor onderzoek op je werkplek.",
+        directModule: projectcoachModule,
         themas: [
             {
                 id: "gastvrijheid-in-actie-volledig-project",
                 naam: "Volledig project niveau 2 en 3",
-                modules: [
-                    {
-                        id: "gastvrijheid-in-actie-projectcoach",
-                        titel: "Gastvrijheid in Actie – volledige Projectcoach",
-                        type: "Tweejarig project en eindpresentatie",
-                        duur: "Doorlopend in leerjaar 1 en 2",
-                        beschrijving: "Werk alle projectfasen uit, verzamel je onderzoeksresultaten en bouw stap voor stap aan je eindpresentatie. Gebruik deze uitgebreide app bij voorkeur op een laptop of computer. Alles wordt lokaal in je browser bewaard; download regelmatig een back-up.",
-                        bestand: "modules/hospitality/gastvrijheid-in-actie-projectcoach/index.html",
-                        actieLabel: "Open Projectcoach",
-                        beschikbaar: true
-                    }
-                ]
+                modules: [projectcoachModule]
             }
         ]
     };
@@ -727,7 +728,9 @@ function renderLeerjaarOverview(leerjaar, parentRoute) {
                     <span>${periode.naam}</span>
                 </a>
             `).join("")}
-            ${leerjaar.specialeOnderdelen.map(onderdeel => `
+            ${leerjaar.specialeOnderdelen.map(onderdeel => onderdeel.directModule
+                ? renderModuleCard(onderdeel.directModule)
+                : `
                 <a class="navigation-card special-card" href="${routeTo([...parentRoute, "speciaal", onderdeel.id])}">
                     <span class="special-card-icon" aria-hidden="true">
                         <svg viewBox="0 0 24 24" focusable="false"><path d="M7 3.75h7l3 3V20.25H7zM14 3.75v3h3M9.5 11h5M9.5 14.5h5"/></svg>
