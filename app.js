@@ -432,7 +432,7 @@ const academyData = {
                 }
             }, [createGastvrijheidProjectcoachOnderdeel()]),
             createLeerjaar(2, [5, 6], {}, [createGastvrijheidProjectcoachOnderdeel(), createEindexamenOnderdeel()])
-        ]),
+        ], [createHospitalityExamenplannerOnderdeel()], [], { overzichtTitel: "Kies je leerjaar" }),
         createOpleiding("entreeopleiding", "Entreeopleiding", [], [], [
             {
                 id: "safety-scan",
@@ -596,6 +596,31 @@ function createGastvrijheidProjectcoachOnderdeel() {
     };
 }
 
+function createHospitalityExamenplannerOnderdeel() {
+    const examenplannerModule = {
+        id: "hospitality-examenplanner",
+        titel: "Hospitality Examenplanner",
+        type: "Persoonlijk hulpmiddel voor je hele opleiding",
+        duur: "Te gebruiken gedurende de hele opleiding",
+        beschrijving: "Plan en organiseer je examens en houd bij wat je nog moet regelen. Bereid vooral je praktijkexamens en de aanvraag daarvan samen met je praktijkbegeleider voor. De officiële informatie en resultaten in de ELO blijven leidend.",
+        bestand: "modules/hospitality/examenplanner/examenplanner.html",
+        actieLabel: "Open examenplanner",
+        beschikbaar: true
+    };
+
+    return {
+        id: "hospitality-examenplanner",
+        naam: "Hospitality Examenplanner",
+        beschrijving: examenplannerModule.beschrijving,
+        directModule: examenplannerModule,
+        themas: [{
+            id: "hospitality-examenplanning",
+            naam: "Examenplanning",
+            modules: [examenplannerModule]
+        }]
+    };
+}
+
 function createEindtoetsOnderdeel() {
     return {
         id: "eindtoets-proeve-van-bekwaamheid",
@@ -705,7 +730,9 @@ function renderOpleidingOverview(opleiding) {
                     <span>${leerjaar.naam}</span>
                 </a>
             `).join("")}
-            ${opleiding.onderdelen.map(onderdeel => `
+            ${opleiding.onderdelen.map(onderdeel => onderdeel.directModule
+                ? `<div class="direct-module-card">${renderModuleCard(onderdeel.directModule)}</div>`
+                : `
                 <a class="navigation-card special-card" href="${routeTo([opleiding.id, "onderdeel", onderdeel.id])}">
                     <span class="special-card-icon" aria-hidden="true">
                         <svg viewBox="0 0 24 24" focusable="false"><path d="M6 2.75h12v18.5H6zM8.5 6h7M9 10h.01M12 10h.01M15 10h.01M9 14h.01M12 14h.01M15 14h.01M9 18h.01M12 18h.01M15 18h.01"/></svg>
@@ -898,11 +925,11 @@ function render() {
         const hasLeerjaren = opleiding.leerjaren.length > 0;
         const hasOnderdelen = opleiding.onderdelen.length > 0;
         const hasThemas = opleiding.themas.length > 0;
-        const pageTitle = hasThemas
+        const pageTitle = opleiding.overzichtTitel || (hasThemas
             ? opleiding.naam
             : hasLeerjaren
             ? (hasOnderdelen ? "Kies je leerjaar of onderdeel" : "Kies je leerjaar")
-            : (hasOnderdelen ? "Kies een onderdeel" : opleiding.naam);
+            : (hasOnderdelen ? "Kies een onderdeel" : opleiding.naam));
         const overview = hasLeerjaren || hasOnderdelen || hasThemas
             ? renderOpleidingOverview(opleiding)
             : renderOpleidingEmptyState();
