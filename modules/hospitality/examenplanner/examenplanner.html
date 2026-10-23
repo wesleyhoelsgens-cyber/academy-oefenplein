@@ -288,22 +288,50 @@ openCard=function(id){
 </style>
 <script id="v72-guide-script">
 (function(){
+ const guides={
+  '3415':{
+   aria:'Visuele routegids bij examenonderdeel 3415',
+   title:'Visuele routegids bij 3415',
+   text:'Lees eerst de officiële opdracht en alle stappen hierboven. Bekijk daarna deze visuele routegids samen met je praktijkbegeleider. De routegids helpt je om de reserveringsopdracht, het aftekenen, het inleveren en het eindgesprek in de juiste volgorde voor te bereiden.',
+   href:'documenten/Routegids_3415_Verwerkt_reserveringen.pdf',
+   button:'Open routegids 3415 (PDF) ↗',
+   meta:'7 pagina’s · Hulpmiddel · toegevoegd 23-10-2026 · De actuele ELO-documenten blijven leidend'
+  },
+  '3416':{
+   aria:'Visuele routegids bij examenonderdeel 3416',
+   title:'Visuele routegids bij 3416',
+   text:'Lees eerst de officiële opdracht en alle stappen hierboven. Bekijk daarna deze visuele routegids samen met je praktijkbegeleider. De routegids helpt je om een echte servicesituatie, je keuzes, de controle op de werkvloer, het inleveren en het eindgesprek goed voor te bereiden.',
+   href:'documenten/Routegids_3416_Service_op_maat.pdf',
+   button:'Open routegids 3416 (PDF) ↗',
+   meta:'9 pagina’s · Hulpmiddel · toegevoegd 23-10-2026 · De actuele ELO-documenten blijven leidend'
+  },
+  '3420':{
+   aria:'Gezamenlijke voorbereidingsgids bij proeve 3420',
+   title:'Samen je proeve voorbereiden',
+   text:'Wil je weten wat je tijdens <b>Proeve van bekwaamheid 3420 – Werken in de bediening</b> kunt verwachten? Neem dan samen met je praktijkbegeleider deze uitgebreide voorbereidingsgids door. De gids is een hulpmiddel; download en bestudeer ook alle officiële examendocumenten uit jullie eigen ELO. Die blijven leidend.',
+   href:'documenten/Proeve_3420_Samen_Voorbereiden.pdf',
+   button:'Open de gezamenlijke examenhandleiding (PDF) ↗',
+   meta:'26 pagina’s · Voor student en praktijkbegeleider · Opent in een nieuw tabblad',
+   review:'<b>Inhoudelijk gecontroleerd op: 22-10-2026.</b> De actuele kandidaat-instructie en beoordelingsdocumenten in de ELO blijven leidend.'
+  }
+ };
  const previousOpenCard=openCard;
  openCard=function(id){
    previousOpenCard(id);
    const prior=document.getElementById('v72-pdf-bottom');
    if(prior)prior.remove();
-   if(id!=='3420')return;
+   const data=guides[id];
+   if(!data)return;
    const footer=document.getElementById('mfeedback');
    if(!footer)return;
    const guide=document.createElement('section');
    guide.id='v72-pdf-bottom';
-   guide.setAttribute('aria-label','Gezamenlijke voorbereidingsgids bij proeve 3420');
-   guide.innerHTML='<h3>Samen je proeve voorbereiden</h3>'+
-    '<p>Wil je weten wat je tijdens <b>Proeve van bekwaamheid 3420 – Werken in de bediening</b> kunt verwachten? Neem dan samen met je praktijkbegeleider deze uitgebreide voorbereidingsgids door. De gids is een hulpmiddel; download en bestudeer ook alle officiële examendocumenten uit jullie eigen ELO. Die blijven leidend.</p>'+
-    '<p class="v72-meta"><b>Inhoudelijk gecontroleerd op: 22-10-2026.</b> De actuele kandidaat-instructie en beoordelingsdocumenten in de ELO blijven leidend.</p>'+
-    '<a class="v72-open" href="documenten/Proeve_3420_Samen_Voorbereiden.pdf" target="_blank" rel="noopener noreferrer">Open de gezamenlijke examenhandleiding (PDF) ↗</a>'+
-    '<p class="v72-meta">26 pagina’s · Voor student en praktijkbegeleider · Opent in een nieuw tabblad</p>';
+   guide.setAttribute('aria-label',data.aria);
+   guide.innerHTML='<h3>'+data.title+'</h3>'+ 
+    '<p>'+data.text+'</p>'+ 
+    (data.review?'<p class="v72-meta">'+data.review+'</p>':'')+
+    '<a class="v72-open" href="'+data.href+'" target="_blank" rel="noopener noreferrer">'+data.button+'</a>'+ 
+    '<p class="v72-meta">'+data.meta+'</p>';
    footer.insertAdjacentElement('afterend',guide);
  };
 })();
