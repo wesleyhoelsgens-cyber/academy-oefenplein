@@ -288,6 +288,13 @@ openCard=function(id){
 </style>
 <script id="v72-guide-script">
 (function(){
+ const updatedPlanning='Lever het portfolio uiterlijk vóór week 8 in. Het eindgesprek wordt normaal in week 9 gepland; snelle studenten kunnen het gesprek al in week 8 voeren.';
+ ['3418','3430'].forEach(id=>{
+  const item=byId[id];
+  if(!item)return;
+  const planningIndex=item.tasks.findIndex(task=>task.includes('plan het schoolgesprek'));
+  if(planningIndex>=0)item.tasks[planningIndex]=updatedPlanning;
+ });
  const guides={
   '3415':{
    aria:'Visuele routegids bij examenonderdeel 3415',
@@ -304,6 +311,22 @@ openCard=function(id){
    href:'documenten/Routegids_3416_Service_op_maat.pdf',
    button:'Open routegids 3416 (PDF) ↗',
    meta:'9 pagina’s · Hulpmiddel · toegevoegd 23-10-2026 · De actuele ELO-documenten blijven leidend'
+  },
+  '3418':{
+   aria:'Visuele routegids bij examenonderdeel 3418',
+   title:'Visuele routegids bij 3418',
+   text:'Lees eerst de officiële opdracht en alle stappen hierboven. Bekijk daarna deze visuele routegids samen met je praktijkbegeleider. De routegids helpt je om twee echte veiligheidssituaties te onderzoeken, uit te werken, te laten controleren en op tijd in te leveren.',
+   href:'documenten/Routegids_3418_Veilig_werken.pdf',
+   button:'Open routegids 3418 – Veilig werken (PDF) ↗',
+   meta:'12 pagina’s · Uiterlijk vóór week 8 inleveren · Eindgesprek in week 9, versneld mogelijk in week 8 · De actuele ELO-documenten blijven leidend'
+  },
+  '3430':{
+   aria:'Visuele routegids bij examenonderdeel 3430',
+   title:'Visuele routegids bij 3430',
+   text:'Lees eerst de officiële opdracht en alle stappen hierboven. Bekijk daarna deze visuele routegids samen met je praktijkbegeleider. De routegids helpt je om de kennischeck, het onderzoek in je leerbedrijf en een geloofwaardig noodscenario volledig voor te bereiden en in te leveren.',
+   href:'documenten/Routegids_3430_Handelen_bij_noodsituaties.pdf',
+   button:'Open routegids 3430 – Handelen bij noodsituaties (PDF) ↗',
+   meta:'12 pagina’s · Uiterlijk vóór week 8 inleveren · Eindgesprek in week 9, versneld mogelijk in week 8 · De actuele ELO-documenten blijven leidend'
   },
   '3420':{
    aria:'Gezamenlijke voorbereidingsgids bij proeve 3420',
