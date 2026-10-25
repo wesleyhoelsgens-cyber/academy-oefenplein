@@ -296,6 +296,7 @@ const academyData = {
         createOpleiding("hospitality", "Hospitality", [
             createLeerjaar(1, [1, 2, 3, 4], {
                 1: {
+                    titel: "De basis van gastvrijheid",
                     themas: [
                         {
                             id: "vakjargon-game-1",
@@ -412,6 +413,7 @@ const academyData = {
                     ]
                 },
                 2: {
+                    titel: "De kunst van het gastcontact",
                     themas: [
                         {
                             id: "hospitality-vaktaal",
@@ -429,6 +431,31 @@ const academyData = {
                             ]
                         }
                     ]
+                },
+                3: {
+                    titel: "Veilig & verantwoord werken",
+                    themas: [
+                        {
+                            id: "het-gastenverblijf",
+                            naam: "Het gastenverblijf",
+                            modules: [
+                                {
+                                    id: "hospitality-p3-het-gastenverblijf",
+                                    titel: "3417 – Het gastenverblijf",
+                                    type: "Periodetrainer en oefenexamen",
+                                    duur: "De hele periode",
+                                    beschrijving: "Oefen vijf thema’s over veilig en verantwoord werken, bouw lokaal voort aan je resultaten en sluit af met het oefenexamen 3417.",
+                                    bestand: "modules/hospitality/leerjaar-1/periode-3/het-gastenverblijf/hospitality-p3-het-gastenverblijf.html",
+                                    actieLabel: "Start periodetrainer",
+                                    beschikbaar: true
+                                }
+                            ]
+                        }
+                    ]
+                },
+                4: {
+                    titel: "Gastvrijheid in de praktijk",
+                    themas: []
                 }
             }, [createGastvrijheidProjectcoachOnderdeel()]),
             createLeerjaar(2, [5, 6], {}, [createGastvrijheidProjectcoachOnderdeel(), createEindexamenOnderdeel()])
@@ -499,6 +526,7 @@ function createLeerjaar(nummer, periodeNummers, periodeInhoud = {}, specialeOnde
         periodes: periodeNummers.map(periodeNummer => ({
             id: `periode-${periodeNummer}`,
             naam: `Periode ${periodeNummer}`,
+            titel: periodeInhoud[periodeNummer]?.titel || "",
             themas: periodeInhoud[periodeNummer]?.themas || []
         })),
         specialeOnderdelen
@@ -752,7 +780,10 @@ function renderLeerjaarOverview(leerjaar, parentRoute) {
         <section class="card-grid" aria-label="Perioden en toets- en examenonderdelen">
             ${leerjaar.periodes.map(periode => `
                 <a class="navigation-card" href="${routeTo([...parentRoute, periode.id])}">
-                    <span>${periode.naam}</span>
+                    <span class="navigation-card-title">
+                        <strong>${periode.naam}</strong>
+                        ${periode.titel ? `<small>${periode.titel}</small>` : ""}
+                    </span>
                 </a>
             `).join("")}
             ${leerjaar.specialeOnderdelen.map(onderdeel => onderdeel.directModule
@@ -895,14 +926,14 @@ function render() {
         renderBreadcrumb([]);
         app.innerHTML = renderHeader(
             "Welkom bij SVO Academy Oefenplein",
-            "Ben je nieuw in de klas? Begin dan met de beroepsafspraken. Kies anders je opleiding om verder te gaan.",
+            "Kies je opleiding om verder te gaan. Ben je nieuw in de klas? Onderaan vind je de beroepsafspraken.",
             null
-        ) + renderModuleOverview(academyData.algemeneThemas) + `
+        ) + `
             <section class="module-section" aria-labelledby="opleidingen-heading">
                 <h2 id="opleidingen-heading">Kies je opleiding</h2>
                 ${renderCards(academyData.opleidingen, [])}
             </section>
-        `;
+        ` + renderModuleOverview(academyData.algemeneThemas);
         return;
     }
 

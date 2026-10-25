@@ -16,3 +16,13 @@ Na het rapport vraagt de AI uitsluitend `Wil je het registratieplan uitvoeren?`.
 De launcher ondersteunt `Systeem`, `Licht` en `Donker`. De voorkeur wordt lokaal opgeslagen onder `academy-theme-preference` met de waarde `system`, `light` of `dark`. Zonder geldige opgeslagen waarde volgt de launcher via `prefers-color-scheme` automatisch het systeem. Het opgeloste visuele thema staat als `data-theme="light"` of `data-theme="dark"` op het `<html>`-element.
 
 De zelfstandige HTML-modules hebben momenteel hun eigen CSS en nemen de launchervoorkeur nog niet automatisch over. Nieuwe modules moeten de semantische kleurvariabelen uit de AI Factory gebruiken; aansluiting van bestaande modules is een afzonderlijk vervolgitem.
+
+## Navigatiecontrole
+
+Zelfstandige modules moeten altijd een werkende terugroute naar Academy Oefenplein hebben. De gedeelde navigatiebalk staat in `academy-navigation.js`. Controleer na het toevoegen of verplaatsen van modules alle geregistreerde bestanden en teruglinks met:
+
+```powershell
+node scripts/check-academy-navigation.cjs
+```
+
+De controle leest de modulebestanden uit `app.js`, controleert of ze bestaan, of hun relatieve link werkelijk bij `index.html` uitkomt en of de vastgelegde opleidingsroute klopt.
