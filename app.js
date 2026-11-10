@@ -76,10 +76,6 @@ const academyData = {
     ],
     opleidingen: [
         createOpleiding("traiteur", "Traiteur", [
-            createLeerjaar(1, [1, 2, 3, 4], {}, [
-                createEindtoetsOnderdeel(),
-                createWarmeBereidingstechniekenOnderdeel()
-            ]),
             createLeerjaar(2, [5, 6, 7, 8], {
                 5: {
                     themas: [
@@ -413,26 +409,6 @@ const academyData = {
                     ]
                 },
                 2: {
-                    titel: "De kunst van het gastcontact",
-                    themas: [
-                        {
-                            id: "hospitality-vaktaal",
-                            naam: "Hospitality vaktaal",
-                            modules: [
-                                {
-                                    id: "hospitality-p2-woordtrainer-80-begrippen",
-                                    titel: "Hospitality Woordtrainer – Periode 2",
-                                    type: "Woordtrainer",
-                                    duur: "45–60 minuten",
-                                    beschrijving: "Leer en oefen 80 hospitalitybegrippen met een woordenlijst, flashcards, praktijkvragen en slimme herhaling.",
-                                    bestand: "modules/hospitality/leerjaar-1/periode-2/hospitality-vaktaal/hospitality-p2-woordtrainer-80-begrippen.html",
-                                    beschikbaar: true
-                                }
-                            ]
-                        }
-                    ]
-                },
-                3: {
                     titel: "Veilig & verantwoord werken",
                     themas: [
                         {
@@ -445,8 +421,28 @@ const academyData = {
                                     type: "Periodetrainer en oefenexamen",
                                     duur: "De hele periode",
                                     beschrijving: "Oefen vijf thema’s over veilig en verantwoord werken, bouw lokaal voort aan je resultaten en sluit af met het oefenexamen 3417.",
-                                    bestand: "modules/hospitality/leerjaar-1/periode-3/het-gastenverblijf/hospitality-p3-het-gastenverblijf.html",
+                                    bestand: "modules/hospitality/leerjaar-1/periode-2/het-gastenverblijf/hospitality-p3-het-gastenverblijf.html",
                                     actieLabel: "Start periodetrainer",
+                                    beschikbaar: true
+                                }
+                            ]
+                        }
+                    ]
+                },
+                3: {
+                    titel: "De kunst van het gastcontact",
+                    themas: [
+                        {
+                            id: "hospitality-vaktaal",
+                            naam: "Hospitality vaktaal",
+                            modules: [
+                                {
+                                    id: "hospitality-p2-woordtrainer-80-begrippen",
+                                    titel: "Hospitality Woordtrainer – Periode 3",
+                                    type: "Woordtrainer",
+                                    duur: "45–60 minuten",
+                                    beschrijving: "Leer en oefen 80 hospitalitybegrippen met een woordenlijst, flashcards, praktijkvragen en slimme herhaling.",
+                                    bestand: "modules/hospitality/leerjaar-1/periode-3/hospitality-vaktaal/hospitality-p2-woordtrainer-80-begrippen.html",
                                     beschikbaar: true
                                 }
                             ]
@@ -904,6 +900,26 @@ function renderModuleOverview(themas) {
     `;
 }
 
+const hoofdOpleidingIds = ["traiteur", "bol-allround-food-expert", "hospitality"];
+const generiekeVakIds = ["entreeopleiding", "burgerschap", "rekenen", "nederlands"];
+
+function getOpleidingenMetIds(ids) {
+    return ids
+        .map(id => findById(academyData.opleidingen, id))
+        .filter(Boolean);
+}
+
+function getStartpaginaKeuzes() {
+    return [
+        ...getOpleidingenMetIds(hoofdOpleidingIds),
+        {
+            id: "generieke-vakken",
+            naam: "Generieke vakken",
+            subtitel: "Entreeopleiding, Burgerschap, Rekenen en Nederlands"
+        }
+    ];
+}
+
 function render() {
     const parts = getRouteParts();
     const [opleidingId, leerjaarIdOfRouteType, routeTypeOfPeriodeId, speciaalOnderdeelId] = parts;
@@ -931,9 +947,19 @@ function render() {
         ) + `
             <section class="module-section" aria-labelledby="opleidingen-heading">
                 <h2 id="opleidingen-heading">Kies je opleiding</h2>
-                ${renderCards(academyData.opleidingen, [])}
+                ${renderCards(getStartpaginaKeuzes(), [])}
             </section>
         ` + renderModuleOverview(academyData.algemeneThemas);
+        return;
+    }
+
+    if (opleidingId === "generieke-vakken" && parts.length === 1) {
+        renderBreadcrumb([{ label: "Generieke vakken", route: ["generieke-vakken"] }]);
+        app.innerHTML = renderHeader(
+            "Generieke vakken",
+            "Kies Entreeopleiding, Burgerschap, Rekenen of Nederlands.",
+            []
+        ) + renderCards(getOpleidingenMetIds(generiekeVakIds), []);
         return;
     }
 
